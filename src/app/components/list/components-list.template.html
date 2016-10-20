@@ -1,0 +1,54 @@
+<div class="main-content-header">
+  <div style="flex: 1">List Of Components</div>
+  <div>
+    <button (click)="startCreateComponent()" md-raised-button color="primary"><i class="fa fa-plus-circle"
+                                                                                   aria-hidden="true"></i> Components
+    </button>
+  </div>
+
+</div>
+<div class="main-content-content">
+  <div style="display: flex;flex-direction: column;height: 100%;">
+    <datatable
+      class="material" style="flex: 1"
+      [rows]="components"
+      [options]="options">
+      <datatable-column name="Id" [width]="300"></datatable-column>
+      <datatable-column name="Title"></datatable-column>
+      <datatable-column name="Status" prop="currentStatus"></datatable-column>
+      <datatable-column name="Creation">
+        <template let-row="row" let-value="value">
+          {{row.creationDate | amTimeAgo}}
+        </template>
+      </datatable-column>
+      <datatable-column name="Update">
+        <template let-row="row" let-value="value">
+          {{row.lastUpdateDate | amTimeAgo}}
+        </template>
+      </datatable-column>
+      <datatable-column name="Content">
+        <template let-row="row" let-value="value">
+          TODO
+        </template>
+      </datatable-column>
+      <datatable-column name="Action">
+        <template let-row="row" let-value="value">
+          <div class="table-actions">
+            <a tooltipPlacement="bottom" tooltip="Delete component" tooltipClass="foobar" tooltipAppendToBody="true" class="table-actions" role="button">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+            <a uiSref=".component-edit" [uiParams]="{ componentId: row.id }" tooltip="Edit component" role="button">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a uiSref=".component-write" [uiParams]="{ componentId: row.id }" tooltip="Open component for write" role="button">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </a>
+            <a (click)="openWorkflow(row)" tooltip="Open workflow history" role="button">
+              <i class="fa fa-history" aria-hidden="true"></i>
+            </a>
+          </div>
+        </template>
+      </datatable-column>
+    </datatable>
+  </div>
+</div>

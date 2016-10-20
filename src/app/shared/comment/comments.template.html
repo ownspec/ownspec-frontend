@@ -1,0 +1,24 @@
+<form>
+
+  <div layout="row">
+
+    <div class="form-group">
+      <textarea class="form-control" [(ngModel)]="comment" name="comment"></textarea>
+    </div>
+
+    <div>
+    </div>
+  </div>
+  <div layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+    <button type="button" class="btn btn-success" (click)="post()">Add</button>
+  </div>
+
+  <div>
+    <div *ngFor="let comment of component.comments">
+      <div>{{comment.value}}</div>
+
+      <span style="color: gray;font-size: 0.9rem">{{comment.createdDate | amTimeAgo}} by {{comment.createdUser.username}}</span>
+    </div>
+  </div>
+
+</form>

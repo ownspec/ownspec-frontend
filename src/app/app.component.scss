@@ -1,0 +1,212 @@
+$background-sidenav: rgb(65, 75, 86);
+$background-header: #476382;
+
+
+
+
+
+html, body {
+  height: 100%;
+  font-family: Roboto-Regular, Helvetica, sans-serif
+}
+
+span.active {
+  background-color: gray;
+}
+
+.main-container {
+  display: flex;
+  height: 100%;
+}
+
+.main-side-nav {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  background: $background-sidenav;
+}
+
+.main-side-nav-title {
+  font-family: Roboto-condensed;
+  font-size: 1.4rem;
+  color:white;
+  height:35px;
+
+}
+
+.main-side-nav div {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.main-side-nav a {
+  font-size: 1.05rem;
+  font-family: Roboto-condensed;
+  color: #A5A5A3;
+}
+
+.main-side-nav a:hover {
+  font-size: 1.05rem;
+  font-family: Roboto-condensed;
+  color: white;
+}
+
+.main-side-nav i {
+  padding-right: 5px;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main-content-header {
+  height: 50px;
+  background: $background-header;
+  color:white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 10px;
+}
+
+.main-content-content {
+  flex: 1;
+  padding: 5px 10px;
+}
+
+components {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+
+requirement-write {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+
+projects {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+
+
+
+.table-actions a {
+  padding-right: 5px;
+  font-size: 1.3rem;
+}
+
+
+
+.tab-history {
+  padding: 10px;
+}
+
+.tab-history h4{
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+
+.tab-history h4 span{
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+
+
+
+
+
+tooltip-container {
+  z-index: 10000000;
+}
+
+
+.foobar {
+  z-index: 10000000;
+}
+
+
+
+
+
+
+
+
+.requirements {
+  border:1px solid #e9e9e9;
+}
+
+
+
+.requirements > .requirements-id {
+  position: absolute;
+  left: -80px;
+  font-family: tahoma;
+  font-size: 12px;
+  padding: 4px;
+  margin-left: 10px;
+  background: #ffa9a9;
+  /*border: 1px solid #d48e8e;*/
+  border-radius: 2px;
+  box-shadow: 0 1px 1px #fff inset, 0 -1px 0px #ccc inset;
+}
+
+.requirements-content {
+  padding-left: 5px;
+}
+
+.simplebox {
+  padding: 4px;
+  margin: 10px;
+  background: #eee;
+  /*
+  border-radius: 8px;
+  border: 0.1rem solid #ececec;
+  */
+  /*box-shadow: 0 1px 1px #fff inset, 0 -1px 0px #ccc inset;*/
+}
+
+.simplebox-title, .simplebox-content {
+  /*
+  box-shadow: 0 1px 1px #ddd inset;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  */
+  background: #fff;
+}
+
+.simplebox-title {
+  margin: 0 0 8px;
+  padding: 5px 8px;
+}
+
+.simplebox-content {
+  padding: 0 8px;
+}
+
+.simplebox-content:focus {
+  padding: 0 8px;
+  /*  border-radius: 8px;
+    border: 0.1rem solid #ececec;*/
+}
+
+
+
+

@@ -1,0 +1,50 @@
+<form name="userForm">
+
+  <div layout="row">
+    <div>
+      <span>From {{component.currentStatus}} To </span>
+      <span dropdown>
+        <a href id="simple-dropdown" dropdownToggle>
+          {{targetStatus}}
+        </a>
+        <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
+          <li><em>None</em></li>
+          <li *ngFor="let status of statuses">
+            <a class="dropdown-item" role="button" (click)="targetStatus=status">{{status}}</a>
+          </li>
+        </ul>
+      </span>
+
+    </div>
+  </div>
+  <div layout="row">
+
+    <div class="form-group">
+      <label>Reason</label>
+      <textarea class="form-control" [(ngModel)]="reason" name="reason"></textarea>
+    </div>
+
+    <div>
+    </div>
+  </div>
+
+  <div layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+    <button type="button" class="btn btn-success" (click)="changeStatus()" [disabled]="!canUpdateWorkflow">Update</button>
+  </div>
+
+
+  <div class="tab-history">
+    <div *ngFor="let status of component.statuses">
+      <h4>
+        {{status.status}} <span>{{status.createdDate | amTimeAgo}} by {{status.createdUser.username}}</span>
+      </h4>
+      <ul *ngFor="let change of status.changes">
+        <li (click)="viewContent(item)" role="button">
+          <div>Updated {{change.date | amTimeAgo}}</div>
+          <div style="color: gray;font-size: 0.9rem">by {{change.user.username}} 4 adds, 3 deletions</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</form>

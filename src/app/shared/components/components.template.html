@@ -1,0 +1,7 @@
+<div>
+  <div *ngFor="let component of components" draggable="true" (dragstart)="dragStart($event, component)">
+    <div style="border: 1px solid #ececec;border-radius: 4px; margin-bottom: 5px">
+      <h4 style="font-size: 1.2rem">{{component.id}} - {{component.title}}</h4>
+    </div>
+  </div>
+</div>

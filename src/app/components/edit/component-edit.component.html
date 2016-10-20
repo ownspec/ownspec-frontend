@@ -1,0 +1,53 @@
+<div class="main-content-header">
+  <div style="flex: 1">Edit {{component.title}}</div>
+  <div>
+    <button (click)="save()" md-raised-button color="primary">
+      <i class="fa fa-save" aria-hidden="true"></i> Save
+    </button>
+    <button uiSref="^" md-raised-button color="warn">
+      <i class="fa fa-ban" aria-hidden="true"></i> Cancel
+    </button>
+  </div>
+</div>
+
+
+<div class="main-content-content">
+  <div style="display: flex;flex-direction: column;height: 100%;">
+    <form name="componentForm" ng-submit="save()">
+      <div class="form-group">
+        <label>Title</label>
+        <input class="form-control" required [(ngModel)]="component.title" name="title" type="text">
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <input class="form-control" required [(ngModel)]="component.description" name="description" type="text">
+      </div>
+    </form>
+
+    <tabset *ngIf="!create">
+      <tab heading="History">
+        <div class="tab-history">
+          <div *ngFor="let status of component.statuses">
+            <h4>
+              {{status.status}} <span>{{status.createdDate|amTimeAgo}} by {{status.createdUser.username}}</span>
+            </h4>
+            <ul *ngFor="let change of status.changes">
+              <li (click)="viewContent(item)" role="button">
+                <div>Updated {{change.date |amTimeAgo}}</div>
+                <div style="color: gray;font-size: 0.9rem">by {{change.user.username}} 4 adds, 3 deletions</div>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+      </tab>
+      <tab heading="Reference">Reference</tab>
+
+    </tabset>
+
+
+  </div>
+
+</div>

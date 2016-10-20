@@ -1,0 +1,48 @@
+<div class="main-content-header">
+  <div style="flex: 1">Write {{component.title}}</div>
+
+
+  <div style="max-width: 280px; font-size: 1rem;padding-right: 5px" *ngIf="saved != null">
+    {{saved ? 'All changes saved' : 'Save pending...'}}
+    <button (click)="autoSave()" md-raised-button color="primary" *ngIf="!saved">
+      <i class="fa fa-save" aria-hidden="true"></i> Save
+    </button>
+  </div>
+  <button uiSref="^" md-raised-button color="warn">
+    <i class="fa fa-ban" aria-hidden="true"></i> Close
+  </button>
+
+</div>
+
+<div class="main-content-content" style="display: flex;flex-direction: row" *ngIf="component != null">
+  <div style="flex: 1">
+
+    <div>
+
+      <ckeditor
+        [(ngModel)]="content"
+        [config]="{uiColor: '#99000', height: '200px', basePath: '/assets/js/ckeditor/'}"
+        (change)="onChange($event)"
+        (ready)="onReady($event)">
+      </ckeditor>
+    </div>
+  </div>
+
+  <div style="width: 400px;height: 100%;overflow: auto;padding-left: 10px">
+    <tabset>
+      <tab heading="Components">
+        <components-selection [component]="component"></components-selection>
+      </tab>
+
+      <tab heading="Workflow">
+       <workflow [component]="component" [canUpdateWorkflow]="saved" (update)="onWorkflowChange($event)"></workflow>
+      </tab>
+
+      <tab heading="Comments">
+       <comments [component]="component" (update)="onWorkflowChange($event)"></comments>
+      </tab>
+    </tabset>
+
+  </div>
+
+</div>

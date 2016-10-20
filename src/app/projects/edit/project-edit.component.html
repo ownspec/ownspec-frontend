@@ -1,0 +1,30 @@
+<div class="main-content-header">
+  <div style="flex: 1">Requirement: {{project.title}}</div>
+  <div>
+    <button (click)="save()" md-raised-button color="primary">
+      <i class="fa fa-save" aria-hidden="true"></i> Save
+    </button>
+    <button uiSref="^" md-raised-button color="warn">
+      <i class="fa fa-ban" aria-hidden="true"></i> Cancel
+    </button>
+  </div>
+</div>
+
+
+<div class="main-content-content">
+  <div style="display: flex;flex-direction: column;height: 100%;">
+    <form name="requirementForm" ng-submit="save()">
+      <div class="form-group">
+        <label>Title</label>
+        <input class="form-control" required [(ngModel)]="project.title" name="title" type="text">
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <input class="form-control" required [(ngModel)]="project.description" name="description" type="text">
+      </div>
+    </form>
+
+  </div>
+
+</div>
