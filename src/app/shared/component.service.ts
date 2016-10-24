@@ -69,9 +69,9 @@ export class ComponentService {
     let component: Component = new Component(item.id, item.projectId, item.title, item.description,
       new Date(<string>item.createdDate), new Date(<string>item.lastUpdateDate), item.content, item.type, item.currentStatus);
 
-    if (item.workflowStatuses) {
-      for (let i of item.workflowStatuses) {
-        component.statuses.push(this.workflowStatusFromMap(i));
+    if (item.workflowInstances) {
+      for (let i of item.workflowInstances) {
+        component.workflowInstances.push(this.workflowInstanceFromMap(i));
       }
     }
 
@@ -83,6 +83,18 @@ export class ComponentService {
 
 
     return component;
+  }
+
+  private workflowInstanceFromMap(item: any): WorkflowInstance {
+    let workflowInstance = new WorkflowInstance(item.id, item.currentStatus, new Date(<string>item.createdDate), item.createdUser);
+
+    if (item.workflowStatuses) {
+      for (let workflowStatuse of item.workflowStatuses) {
+        workflowInstance.workflowStatuses.push(this.workflowStatusFromMap(workflowStatuse));
+      }
+    }
+
+    return workflowInstance;
   }
 
   private workflowStatusFromMap(item: any): WorkflowStatus {
@@ -130,6 +142,15 @@ export class ComponentService {
       });
   }
 
+  public diff(id:string, from:string, to:string) : Observable<string> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.append("from", from);
+    params.append("to", to);
+
+    return this.$http.get("/api/components/" + id + "/diff", {search: params})
+      .map(r => r.text());
+  }
+
   create(toSave: Component) {
     return this.$http.post("/api/components/" + toSave.id + "/create",
       {title: toSave.title, description: toSave.description, type: toSave.type})
@@ -145,7 +166,7 @@ export class Component {
   public constructor(public id: string, public projectId:string, public title: string, public description: string,
                      public creationDate: Date, public lastUpdateDate: Date,
                      public content: string, public type: string = "REQUIREMENT", public currentStatus: string = "OPEN",
-                     public statuses: WorkflowStatus[] = [],
+                     public workflowInstances: WorkflowInstance[] = [],
                      public comments: Comment[] = []) {
   }
 
@@ -154,8 +175,8 @@ export class Component {
     let c = new Component(this.id, this.projectId, this.title, this.description, this.creationDate, this.lastUpdateDate,
       this.content, this.type, this.currentStatus);
 
-    for (let status of this.statuses) {
-      c.statuses.push(status.clone());
+    for (let workflowInstance of this.workflowInstances) {
+      c.workflowInstances.push(workflowInstance.clone());
     }
 
     for (let comment of this.comments) {
@@ -166,6 +187,23 @@ export class Component {
 
   }
 
+}
+
+export class WorkflowInstance {
+
+  public constructor(public id: string, public currentStatus: string, public createdDate: Date,
+                     public createdUser: any, public workflowStatuses: Array<WorkflowStatus> = []) {
+  }
+
+  public clone(): WorkflowInstance {
+
+    let c = new WorkflowInstance(this.id, this.currentStatus, this.createdDate, this.createdUser);
+
+    for (let workflowStatuse of this.workflowStatuses) {
+      c.workflowStatuses.push(workflowStatuse.clone());
+    }
+    return c;
+  }
 }
 
 export class WorkflowStatus {
@@ -201,11 +239,4 @@ export class Comment {
   public clone(): Comment {
     return new Comment(this.id, this.value, this.createdDate, this.createdUser);
   }
-}
-
-export class ComponentHistory {
-
-  constructor(public id: string, public entityId: string, public version: string, public creationDate: Date, public author: string,
-              public comment: string, public details: string) {
-  };
 }

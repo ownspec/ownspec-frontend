@@ -2,7 +2,7 @@
 
   <div layout="row">
     <div>
-      <span>From {{component.currentStatus}} To </span>
+      <span>From {{component.currentStatus.name}} To </span>
       <span dropdown>
         <a href id="simple-dropdown" dropdownToggle>
           {{targetStatus}}
@@ -10,41 +10,38 @@
         <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
           <li><em>None</em></li>
           <li *ngFor="let status of statuses">
-            <a class="dropdown-item" role="button" (click)="targetStatus=status">{{status}}</a>
+            <a class="dropdown-item" role="button" (click)="targetStatus=status.name">{{status.name}}</a>
           </li>
         </ul>
       </span>
-
+      <button type="button" class="btn btn-success btn-sm" (click)="changeStatus()" [disabled]="!canUpdateWorkflow"><i
+        class="fa fa-check-circle" aria-hidden="true"></i></button>
     </div>
   </div>
   <div layout="row">
 
     <div class="form-group">
-      <label>Reason</label>
-      <textarea class="form-control" [(ngModel)]="reason" name="reason"></textarea>
-    </div>
-
-    <div>
+      <textarea class="form-control" [(ngModel)]="reason" name="reason" placeholder="Enter the reason"></textarea>
     </div>
   </div>
+</form>
 
-  <div layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-    <button type="button" class="btn btn-success" (click)="changeStatus()" [disabled]="!canUpdateWorkflow">Update</button>
-  </div>
+<div class="workflow-history">
 
 
-  <div class="tab-history">
-    <div *ngFor="let status of component.statuses">
+  <div *ngFor="let workflowInstance of component.workflowInstances.reverse()">
+    <div *ngFor="let status of workflowInstance.workflowStatuses.reverse()">
       <h4>
         {{status.status}} <span>{{status.createdDate | amTimeAgo}} by {{status.createdUser.username}}</span>
       </h4>
-      <ul *ngFor="let change of status.changes">
-        <li (click)="viewContent(item)" role="button">
+      <ul>
+        <li *ngFor="let change of status.changes.reverse()" (click)="diff(change)" role="button">
           <div>Updated {{change.date | amTimeAgo}}</div>
           <div style="color: gray;font-size: 0.9rem">by {{change.user.username}} 4 adds, 3 deletions</div>
         </li>
       </ul>
     </div>
   </div>
+</div>
 
-</form>
+

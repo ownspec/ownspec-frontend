@@ -13,6 +13,8 @@ import {CommentsComponent} from "./comment/comment.component";
 import {MomentModule} from "angular2-moment";
 import {ComponentsComponent} from "./components/components.component";
 import {ProjectService} from "./project.service";
+import {BootstrapModalModule} from "angular2-modal/plugins/bootstrap";
+import {ModalModule} from "angular2-modal";
 
 
 @NgModule({
@@ -22,6 +24,10 @@ import {ProjectService} from "./project.service";
     HttpModule,
     Ng2BootstrapModule,
     MomentModule,
+
+    ModalModule.forRoot(),
+    BootstrapModalModule
+
 
   ],
 

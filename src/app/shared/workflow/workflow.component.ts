@@ -5,8 +5,9 @@ import {AbstractController} from "app/modules/commons/controllers/abstract.contr
 import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angular/core";
 
 import {Observable} from "rxjs";
-import {Component, ComponentService} from "../../shared/component.service";
+import {Component, ComponentService, Change} from "../../shared/component.service";
 import {ProfilService} from "../users/profil.service";
+import { Modal } from 'angular2-modal/plugins/bootstrap';
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from
@@ -38,7 +39,7 @@ export class WorkflowComponent implements OnInit {
 
   public statuses = [];
 
-  public constructor(private zone:NgZone, private componentService: ComponentService, private profilService: ProfilService) {
+  public constructor(private zone:NgZone, private componentService: ComponentService, private profilService: ProfilService,public modal: Modal) {
   }
 
   ngOnInit(): void {
@@ -56,6 +57,21 @@ export class WorkflowComponent implements OnInit {
         this.update.emit(c);
       });
   }
+
+  public diff(change:Change){
+    this.componentService.diff(this.component.id , null, change.revision).subscribe(d => {
+
+      this.modal.alert()
+        .size("lg")
+        .showClose(true)
+        .title('Diff')
+        .body(d)
+        .open();
+
+    });
+  }
+
+
 
 
 }

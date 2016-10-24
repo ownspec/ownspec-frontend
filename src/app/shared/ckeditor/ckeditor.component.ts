@@ -10,12 +10,14 @@ import {
   NgZone,
   forwardRef,
   Renderer,
-  NgModule,
+  NgModule, OnChanges,
 } from '@angular/core';
 
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
-declare var CKEDITOR:any;
+declare var CKEDITOR: any;
+
+import * as $ from "jquery";
 
 
 /**
@@ -34,10 +36,12 @@ declare var CKEDITOR:any;
   ],
   template: `<textarea #host></textarea>`,
 })
-export class CKEditorComponent {
+export class CKEditorComponent implements ControlValueAccessor {
 
   @Input() config;
   @Input() debounce;
+
+  _readonly: boolean = false;
 
   @Output() change = new EventEmitter();
   @Output() ready = new EventEmitter();
@@ -46,27 +50,59 @@ export class CKEditorComponent {
   _value = '';
   instance;
   debounceTimeout;
-  zone;
+
+  promise: Promise<any>;
+
+  bypassOnChange = false;
+
+  resolve:Function;
+  reject:Function;
+
+  onChange:Function;
+  onTouched:Function;
 
   /**
    * Constructor
    */
-  constructor(zone:NgZone){
-    this.zone = zone;
+  constructor(private zone: NgZone) {
+    this.promise = new Promise(function (resolve, reject) {
+      this.resolve = resolve;
+      this.reject = reject;
+    }.bind(this));
   }
 
-  get value(): any { return this._value; };
+
+
+  get readonly() {
+    return this._readonly;
+  }
+
+  @Input() set readonly(ro) {
+    if (this._readonly != ro) {
+      this._readonly = ro;
+
+      this.promise.then(v => {
+        v.setReadOnly(ro);
+      });
+
+    }
+  }
+
+  get value(): any {
+    console.log("get value");
+    return this._value;
+  };
+
   @Input() set value(v) {
+    console.log("set value");
     if (v !== this._value) {
       this._value = v;
       this.onChange(v);
     }
   }
 
-  /**
-   * On component destroy
-   */
-  ngOnDestroy(){
+
+  ngOnDestroy() {
     if (this.instance) {
       setTimeout(() => {
         this.instance.removeAllListeners();
@@ -76,19 +112,15 @@ export class CKEditorComponent {
     }
   }
 
-  /**
-   * On component view init
-   */
-  ngAfterViewInit(){
+
+  ngAfterViewInit() {
     // Configuration
     var config = this.config || {};
     this.ckeditorInit(config);
   }
 
-  /**
-   * Value update process
-   */
-  updateValue(value){
+
+  updateValue(value) {
     this.zone.run(() => {
       this.value = value;
 
@@ -99,10 +131,8 @@ export class CKEditorComponent {
     });
   }
 
-  /**
-   * CKEditor init
-   */
-  ckeditorInit(config){
+
+  ckeditorInit(config) {
 
 
     if (!CKEDITOR) {
@@ -119,42 +149,61 @@ export class CKEditorComponent {
 
     // listen for instanceReady event
     this.instance.on('instanceReady', (evt) => {
+      this.resolve(this.instance);
       // send the evt to the EventEmitter
       this.ready.emit(evt);
+      evt.editor.resize("100%", $(evt.editor.container.getParent().getParent().$).height() - 50);
     });
+
 
     // CKEditor change event
     this.instance.on('change', () => {
+
+      if (this.bypassOnChange) {
+        return;
+      }
+
       this.onTouched();
       let value = this.instance.getData();
 
       // Debounce update
       if (this.debounce) {
-        if(this.debounceTimeout) clearTimeout(this.debounceTimeout);
+        if (this.debounceTimeout) clearTimeout(this.debounceTimeout);
         this.debounceTimeout = setTimeout(() => {
           this.updateValue(value);
           this.debounceTimeout = null;
         }, parseInt(this.debounce));
 
         // Live update
-      }else{
+      } else {
         this.updateValue(value);
       }
     });
   }
 
-  /**
-   * Implements ControlValueAccessor
-   */
-  writeValue(value){
+  writeValue(value) {
+    console.log("write value " + value);
     this._value = value;
-    if (this.instance)
-      this.instance.setData(value);
+
+    this.promise.then(i => {
+      try {
+        this.bypassOnChange = true;
+        i.setData(value);
+      } finally {
+        this.bypassOnChange = false;
+      }
+    });
   }
-  onChange(_){}
-  onTouched(){}
-  registerOnChange(fn){this.onChange = fn;}
-  registerOnTouched(fn){this.onTouched = fn;}
+
+
+
+  registerOnChange(fn) {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn) {
+    this.onTouched = fn;
+  }
 }
 
 /**
@@ -168,4 +217,5 @@ export class CKEditorComponent {
     CKEditorComponent,
   ]
 })
-export class CKEditorModule{}
+export class CKEditorModule {
+}

@@ -1,9 +1,10 @@
 /*
  * Angular 2 decorators and services
  */
-import { Component, ViewEncapsulation } from '@angular/core';
+import {Component, ViewEncapsulation, ViewContainerRef} from '@angular/core';
 
-import { AppState } from './app.service';
+import {AppState} from './app.service';
+import {Overlay} from "angular2-modal";
 
 /*
  * App Component
@@ -20,9 +21,8 @@ export class AppComponent {
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
 
-  constructor(
-    public appState: AppState) {
-
+  constructor(public appState: AppState, overlay: Overlay, vcRef: ViewContainerRef) {
+    overlay.defaultViewContainer = vcRef;
   }
 
   ngOnInit() {

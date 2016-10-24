@@ -1,6 +1,6 @@
 "use strict";
 import {EntityReference, ReferenceService} from "../../shared/reference.service";
-import {ComponentHistory, Component, ComponentService} from "../../shared/component.service";
+import {Component, ComponentService} from "../../shared/component.service";
 import {StateService, StateParams} from "ui-router-ng2";
 import {Component as C, Input, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
@@ -19,14 +19,13 @@ export class ComponentEditComponent implements OnInit {
 
   public editorOptions: any;
 
-  public histories: Array<ComponentHistory> = [];
   public references: Array<EntityReference> = [];
 
 
   public constructor(private $state: StateService, private componentService: ComponentService, private referenceService: ReferenceService) {
 
 
-    this.component = new Component("", "", "", new Date(), new Date(), "", "REQUIREMENT");
+    this.component = new Component("", "", "", "", new Date(), new Date(), "", "REQUIREMENT");
     this.editorOptions = {
       height: "200px",
       basePath: '/assets/js/ckeditor/'
@@ -40,7 +39,7 @@ export class ComponentEditComponent implements OnInit {
     if (!this.create) {
       this.componentService.findOne(this.id, true).subscribe(r => this.component = r);
     } else {
-      this.component = new Component("", "", "", new Date(), new Date(), "", "REQUIREMENT");
+      this.component = new Component("", "", "","", new Date(), new Date(), "", "REQUIREMENT");
     }
 
     /*        this.entityHistoryService.findAll().subscribe(r => {

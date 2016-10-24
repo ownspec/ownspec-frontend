@@ -40,7 +40,7 @@ CKEDITOR.plugins.add( 'simplebox', {
       editables: {
         content: {
           selector: '.requirements-content',
-          allowedContent: 'div p br ul ol li strong em table tr td tbody[*](*){*}'
+          allowedContent: 'h1 h2 h3 h4 h5 div p br ul ol li strong em table tr td tbody[*](*){*}'
         }
       },
       allowedContent: 'div(!requirements)[!data-requirement-id]; div(!requirements-id);div(!requirements-content)',
@@ -52,9 +52,9 @@ CKEDITOR.plugins.add( 'simplebox', {
       },
 
       edit: function() {
-          
-          
-          
+
+
+
         var startContainer = this.editor.getSelection().getRanges()[0].startContainer;
 
         if (CKEDITOR.NODE_ELEMENT != startContainer.type || startContainer.getName() != "p"){

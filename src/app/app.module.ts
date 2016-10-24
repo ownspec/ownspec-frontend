@@ -35,6 +35,10 @@ import {ComponentEditComponent} from "./components/edit/component-edit.component
 import {ComponentsListComponent} from "./components/list/components-list.component";
 import {ProjectSideNavComponent} from "./sidenav/project/project-sidenav.component";
 
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+
+
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -50,6 +54,7 @@ type StoreType = {
 require("./css/vendor.scss");
 
 require("./app.component.scss");
+require("./shared/ckeditor/ckeditor.component.scss");
 
 window['CKEDITOR_BASEPATH'] = "/assets/js/ckeditor/";
 
@@ -87,6 +92,7 @@ require ("@angular/material/core/theming/prebuilt/deeppurple-amber.scss");
     ProjectsListComponent,
     ProjectEditComponent,
 
+
   ],
   imports: [ // import Angular's modules
     SharedModule,
@@ -106,6 +112,8 @@ require ("@angular/material/core/theming/prebuilt/deeppurple-amber.scss");
     }),
 
 
+    ModalModule.forRoot(),
+    BootstrapModalModule
 
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

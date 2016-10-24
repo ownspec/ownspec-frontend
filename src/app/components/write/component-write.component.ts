@@ -2,7 +2,7 @@
 
 
 import {AbstractController} from "app/modules/commons/controllers/abstract.controller";
-import {Component as C, Input, OnInit, NgZone} from "@angular/core";
+import {Component as C, Input, OnInit, NgZone, EventEmitter} from "@angular/core";
 import {Observable} from "rxjs";
 import {Component, ComponentService} from "../../shared/component.service";
 import * as _ from "lodash";
@@ -14,9 +14,9 @@ import * as _ from "lodash";
 })
 export class ComponentWriteComponent implements OnInit {
 
-  public component: Component = new Component("","","",new Date() , new Date(),"");
+  public component: Component = new Component("","","","",new Date() , new Date(),"");
 
-  public content: string;
+  public content: string = "FOO";
 
 
   @Input("componentId")
