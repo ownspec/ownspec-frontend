@@ -1,13 +1,12 @@
-$background-sidenav: rgb(65, 75, 86);
-$background-header: #476382;
-
-
-
-
+$background-sidenav: #393838;
+$background-header: #a5a59c;
 
 html, body {
   height: 100%;
   font-family: Roboto-Regular, Helvetica, sans-serif
+}
+body{
+  background-color: #f5f5f5;
 }
 
 span.active {
@@ -29,8 +28,8 @@ span.active {
 .main-side-nav-title {
   font-family: Roboto-condensed;
   font-size: 1.4rem;
-  color:white;
-  height:35px;
+  color: white;
+  height: 35px;
 
 }
 
@@ -65,11 +64,12 @@ span.active {
 .main-content-header {
   height: 50px;
   background: $background-header;
-  color:white;
+  color: white;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0px 10px;
+  border-left: 3px solid #ec4363;
 }
 
 .main-content-content {
@@ -84,16 +84,12 @@ components {
   height: 100%;
 }
 
-
-
 component-write {
   display: flex;
   flex: 1;
   flex-direction: column;
   height: 100%;
 }
-
-
 
 projects {
   display: flex;
@@ -102,47 +98,33 @@ projects {
   height: 100%;
 }
 
-
-
-
-
 .table-actions a {
   padding-right: 5px;
   font-size: 1.3rem;
 }
 
-
-
 .workflow-history {
   padding: 10px;
 }
 
-.workflow-history h4{
+.workflow-history h4 {
   font-size: 1.1rem;
   font-weight: 600;
 }
 
-
-.workflow-history h4 span{
+.workflow-history h4 span {
   font-size: 1rem;
   font-weight: 400;
 }
-
 
 .workflow-history ul {
   padding-left: 10px;
 
 }
+
 .workflow-history ul {
   list-style: none;
 }
-
-
-
-
-
-
-
 
 .component-write-tabs {
   flex-direction: column;
@@ -151,9 +133,8 @@ projects {
   height: 100%
 }
 
-
 .component-write-tabs > ul {
-  height:42px;
+  height: 42px;
 }
 
 .component-write-tabs > div {
@@ -163,36 +144,18 @@ projects {
   height: 100%;
 }
 
-
-
-
-
-
-
-
-
 tooltip-container {
   z-index: 10000000;
 }
-
 
 .foobar {
   z-index: 10000000;
 }
 
-
-
-
-
-
-
-
 .requirements {
-  border-left:1px solid #e9e9e9;
+  border-left: 1px solid #e9e9e9;
   padding-bottom: 2px;
 }
-
-
 
 .requirements > .requirements-id {
   position: absolute;
@@ -245,19 +208,6 @@ tooltip-container {
   /*  border-radius: 8px;
     border: 0.1rem solid #ececec;*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
 * DIf
@@ -319,19 +269,19 @@ span.diff-html-selected {
   cursor: pointer;
 }
 
-span.diff-html-selected img{
+span.diff-html-selected img {
   border: 2px solid #FF8800; /* light orange */
 }
 
-span.diff-html-added img{
+span.diff-html-added img {
   border: 2px solid #ccffcc;
 }
 
-span.diff-html-removed img{
+span.diff-html-removed img {
   border: 2px solid #fdc6c6;
 }
 
-span.diff-html-changed img{
+span.diff-html-changed img {
   border: 2px dotted #000099;
 
 }
@@ -340,12 +290,12 @@ div.diff-removed-image, div.diff-added-image, div.diff-conflict-image {
   height: 300px;
   width: 200px;
   position: absolute;
-  opacity : 0.55;
+  opacity: 0.55;
   filter: alpha(opacity=55);
   -moz-opacity: 0.55;
 }
 
-div.diff-removed-image, div.diff-added-image, div.diff-conflict-image  {
+div.diff-removed-image, div.diff-added-image, div.diff-conflict-image {
   margin-top: 2px;
   margin-bottom: 2px;
   margin-right: 2px;
@@ -356,6 +306,7 @@ div.diff-removed-image {
   background-color: #fdc6c6;
   //background-image: url(../images/diffmin.gif);
 }
+
 div.diff-added-image {
   background-color: #ccffcc;
   //background-image: url(../images/diffplus.gif);
@@ -387,6 +338,7 @@ table.diff-tooltip-link-changed {
   margin-top: 3px;
   padding-top: 3px
 }
+
 td.diff-tooltip-prev {
   text-align: left;
 }
@@ -400,7 +352,7 @@ table.diffpage-html-firstlast {
   Vertical-align: middle;
 }
 
-div.diff-topbar{
+div.diff-topbar {
   border-bottom: 2px solid #FF8800;
   border-left: 1px solid #FF8800;
   border-right: 1px solid #FF8800;
@@ -420,9 +372,42 @@ ul.changelist {
   padding-left: 15px;
 }
 
+.top-bar {
+  display: flex;
+  padding: 5px;
+  background-color: white;
+}
 
+.top-bar-tools {
+  margin-left: auto;
+}
 
+.logo-container {
+  margin-left: 13px;
+  margin-right: 13px;
+}
 
+.main-search-container {
+  float: left;
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 5px;
+  position: relative;
+  padding-left: 0;
+}
+
+.main-search-input {
+  background: #fff;
+  border-radius: 0;
+  background-clip: padding-box;
+  border: none;
+  border-bottom: 1px solid #f3f3f3;
+  padding-top: 2px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  width: 260px;
+  vertical-align: middle;
+}
 
 
 
