@@ -16,8 +16,25 @@ export class ComponentService {
     return this.fetchOne(id, workflow, content, comments);
   }
 
-  public findAll(projectId: string, title: string = null, types: Array<string> = []): Observable<Component[]> {
-    return this.fetchAll(projectId, types)
+  public findAll(projectId: string, title: string = null, types: Array<string> = [],workflow = false, content = false, comments = false): Observable<Component[]> {
+    let params: URLSearchParams = new URLSearchParams();
+
+
+    if (types.length > 0) {
+      for (let type of types) {
+        params.append("types", type);
+      }
+    }
+    if (projectId) {
+      params.append("projectId", projectId);
+    }
+    params.append("content", content.toString());
+    params.append("workflow", workflow.toString());
+    params.append("comments", comments.toString());
+
+    return this.$http.get("/api/components", {search: params})
+      .flatMap(r => r.json())
+      .map((item: any) => this.fromMap(item))
       .filter(item => {
         let result = true;
         if (title && item.title.indexOf(title) == -1) {
@@ -30,25 +47,7 @@ export class ComponentService {
       }).toArray();
   }
 
-  private fetchAll(projectId: string, types: Array<string> = []): Observable<Component> {
-    let params: URLSearchParams = new URLSearchParams();
 
-    if (types.length > 0) {
-      for (let type of types) {
-        params.append("types", type);
-      }
-    }
-
-    if (projectId) {
-      params.append("projectId", projectId);
-    }
-
-    return this.$http.get("/api/components", {search: params})
-      .flatMap(r => r.json())
-      .map((item: any) => {
-        return this.fromMap(item);
-      });
-  }
 
   private fetchOne(id: string, workflow = false, content = false, comments = false): Observable<Component> {
 

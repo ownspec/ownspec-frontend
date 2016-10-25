@@ -35,7 +35,8 @@ export class ComponentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.componentService.findAll(null).subscribe(components => {
+    // TODO: temporary fetch content with the list of component but response size will be too large
+    this.componentService.findAll(null, null, [], true, true, false).subscribe(components => {
       this.components = components;
     });
 
@@ -44,6 +45,10 @@ export class ComponentsComponent implements OnInit {
   public dragStart(evt: any, r: Component) {
     var dataTransfer = evt.dataTransfer;
     dataTransfer.setData('componentId', r.id);
+
+    console.log(r.workflowInstances[r.workflowInstances.length - 1].id);
+
+    dataTransfer.setData('workflowInstanceId', r.workflowInstances[r.workflowInstances.length - 1].id);
     dataTransfer.setData('text/html', r.content);
   }
 
