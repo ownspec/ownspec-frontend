@@ -8,6 +8,7 @@ import {ComponentEditComponent} from "./components/edit/component-edit.component
 import {ComponentsListComponent} from "./components/list/components-list.component";
 import {ComponentWriteComponent} from "./components/write/component-write.component";
 import {ProjectSideNavComponent} from "./sidenav/project/project-sidenav.component";
+import {LoginComponent} from "./login/login.component";
 
 /** The top level state(s) */
 export let MAIN_STATES: Ng2StateDeclaration[] = [
@@ -25,6 +26,11 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
    },
    */
 
+  {
+    name: 'login',
+    url:'/login',
+    component: LoginComponent
+  },
 
   {
     name: 'app',
