@@ -1,29 +1,37 @@
 import {Component} from "@angular/core";
-import {Response, Http} from "@angular/http";
+import {Http} from "@angular/http";
+import {StateService} from "ui-router-ng2";
 require('./login.component.css');
 
 @Component({
   selector: "login",
-  templateUrl: "./login.template.html",
-  // styleUrls: ["./login.component.css"]
-
+  templateUrl: "./login.template.html"
 })
-export class LoginComponent{
+export class LoginComponent {
 
-  constructor(public http: Http) {
+  loginFailed = false;
+
+  constructor(private http: Http, private state: StateService) {
+
   }
 
   public token: String;
 
-  processLogin(username: String, password: String) {
+  processLogin(username:String, password:String) {
     this.http.post(
       "/api/users/login",
       {
         "username": username,
         "password": password
       })
-      .map((response: Response) => this.token = response.text())
-      .subscribe();
+      .subscribe(
+        success => {
+          this.state.go("app.home.dashboard");
+        },
+        error => {
+          this.loginFailed = true;
+        }
+      );
   }
 
 }
