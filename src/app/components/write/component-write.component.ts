@@ -2,7 +2,7 @@
 
 
 import {AbstractController} from "app/modules/commons/controllers/abstract.controller";
-import {Component as C, Input, OnInit, NgZone, EventEmitter} from "@angular/core";
+import {Component as C, Input, OnInit, NgZone, EventEmitter, OnDestroy} from "@angular/core";
 import {Observable} from "rxjs";
 import {Component, ComponentService} from "../../shared/component.service";
 import * as _ from "lodash";
@@ -12,7 +12,7 @@ import * as _ from "lodash";
   selector: 'component-write',
   templateUrl: 'component-write.template.html',
 })
-export class ComponentWriteComponent implements OnInit {
+export class ComponentWriteComponent implements OnInit, OnDestroy {
 
   public component: Component = new Component("","","","",new Date() , new Date(),"");
 
@@ -48,6 +48,11 @@ export class ComponentWriteComponent implements OnInit {
       });
     }, 5000, {maxWait: 10000});
 
+  }
+
+
+  ngOnDestroy(): void {
+    // TODO: clear timer to avoid save after a close
   }
 
   public autoSave() {

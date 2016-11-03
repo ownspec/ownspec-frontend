@@ -1,5 +1,5 @@
-import {NgModule, ApplicationRef} from "@angular/core";
-import {BrowserModule} from "@angular/platform-browser";
+import {NgModule, ApplicationRef, Injectable} from "@angular/core";
+import {BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {removeNgStyles, createNewHosts, createInputTransfer} from "@angularclass/hmr";
@@ -37,6 +37,8 @@ import {ProjectSideNavComponent} from "./sidenav/project/project-sidenav.compone
 
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import {MaterialModule} from "@angular/material";
+import {MainHeaderComponent} from "./header/main-header.component";
 
 
 // Application wide providers
@@ -51,6 +53,12 @@ type StoreType = {
   disposeOldHosts: () => void
 };
 
+
+require("angular2-data-table/release/datatable.css");
+require("angular2-data-table/release/material.css");
+
+
+
 require("./css/vendor.scss");
 
 require("./app.component.scss");
@@ -62,13 +70,10 @@ require("../assets/js/ckeditor/ckeditor.js");
 
 require("hammerjs");
 
-/*
-require("angular2-data-table/release/datatable.css");
-require("angular2-data-table/release/material.css");
-*/
 
-require ("@angular/material/core/theming/prebuilt/deeppurple-amber.scss");
-
+// TODO: temporary until https://github.com/angular/material2/issues/1457
+@Injectable()
+export class AppGestureConfig extends HammerGestureConfig { }
 
 
 /**
@@ -83,6 +88,7 @@ require ("@angular/material/core/theming/prebuilt/deeppurple-amber.scss");
     NoContent,
     XLarge,
     MainSideNavComponent,
+    MainHeaderComponent,
     ProjectSideNavComponent,
     ComponentsListComponent,
     ComponentEditComponent,
@@ -100,7 +106,7 @@ require ("@angular/material/core/theming/prebuilt/deeppurple-amber.scss");
     FormsModule,
     HttpModule,
     Ng2BootstrapModule,
-    //MaterialModule,
+    MaterialModule,
     Angular2DataTableModule,
     CKEditorModule,
     MomentModule,
@@ -118,7 +124,8 @@ require ("@angular/material/core/theming/prebuilt/deeppurple-amber.scss");
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    { provide: HAMMER_GESTURE_CONFIG, useClass: AppGestureConfig }
   ]
 })
 export class AppModule {

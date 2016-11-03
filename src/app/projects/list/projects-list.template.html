@@ -1,12 +1,15 @@
-<div class="main-content-header">
-  <div style="flex: 1">List Of Projects</div>
-  <div>
-    <button uiSref=".project-edit" [uiParams]="{ projectId: '_new' }" md-raised-button color="primary"><i class="fa fa-plus-circle"
-                                                                                   aria-hidden="true"></i> Project
-    </button>
+<main-header>
+  <div class="main-header-title">List Of Projects</div>
+  <div class="main-header-content" style="display: flex">
+    <div>
+      <button uiSref=".project-edit" [uiParams]="{ projectId: '_new' }" md-raised-button color="primary">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> Project
+      </button>
+    </div>
   </div>
+</main-header>
 
-</div>
+
 <div class="main-content-content">
   <div style="display: flex;flex-direction: column;height: 100%;">
     <datatable
@@ -30,8 +33,9 @@
             <a uiSref=".project-edit" [uiParams]="{ projectId: row.id }" tooltip="Edit project" role="button">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
-            <a uiSref="app.home.project.dashboard" [uiParams]="{ projectId: row.id }" tooltip="Edit project" role="button">
-              <i class="fa fa-opencart" aria-hidden="true"></i>
+            <a uiSref="app.home.project.dashboard" [uiParams]="{ projectId: row.id }" tooltip="Edit project"
+               role="button">
+              <i class="fa fa-folder-open-o" aria-hidden="true"></i>
             </a>
           </div>
         </template>

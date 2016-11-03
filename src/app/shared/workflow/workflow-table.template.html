@@ -1,0 +1,59 @@
+<form name="userForm">
+
+  <div layout="row">
+    <div>
+      <span>From {{component.currentStatus.name}} To </span>
+      <span dropdown>
+        <a href id="simple-dropdown" dropdownToggle>
+          {{targetStatus}}
+        </a>
+        <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
+          <li><em>None</em></li>
+          <li *ngFor="let status of statuses">
+            <a class="dropdown-item" role="button" (click)="targetStatus=status.name">{{status.name}}</a>
+          </li>
+        </ul>
+      </span>
+      <button type="button" class="btn btn-success btn-sm" (click)="changeStatus()" [disabled]="!canUpdateWorkflow"><i
+        class="fa fa-check-circle" aria-hidden="true"></i></button>
+    </div>
+  </div>
+  <div layout="row">
+
+    <div class="form-group">
+      <textarea class="form-control" [(ngModel)]="reason" name="reason" placeholder="Enter the reason"></textarea>
+    </div>
+  </div>
+</form>
+
+<div class="workflow-history" style="height: 100%">
+
+  <datatable
+    class="material" style="flex: 1;height: 300px"
+    [rows]="combinedStatusView"
+    [options]="options">
+
+    <datatable-column name="Source">
+      <template let-row="row" let-value="value">
+        <div>
+        {{row.instance.currentStatus.name}}
+        </div>
+      </template>
+    </datatable-column>
+
+    <datatable-column name="Source">
+      <template let-row="row" let-value="value">
+        {{row.status.status.name}}
+      </template>
+    </datatable-column>
+
+   <datatable-column name="Source">
+      <template let-row="row" let-value="value">
+        {{row.change.date | amTimeAgo}}
+      </template>
+    </datatable-column>
+
+  </datatable>
+</div>
+
+

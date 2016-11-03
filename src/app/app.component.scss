@@ -1,5 +1,10 @@
 $background-sidenav: #393838;
-$background-header: #a5a59c;
+//$background-header: #a5a59c;
+$background-header: white;
+
+//$background-sidenav: rgb(65, 75, 86);
+//$background-header: #476382;
+
 
 html, body {
   height: 100%;
@@ -23,6 +28,7 @@ span.active {
   flex-direction: column;
   width: 200px;
   background: $background-sidenav;
+  padding-top: 60px;
 }
 
 .main-side-nav-title {
@@ -41,13 +47,14 @@ span.active {
 .main-side-nav a {
   font-size: 1.05rem;
   font-family: Roboto-condensed;
-  color: #A5A5A3;
+  color: #cbcbc9;
 }
 
 .main-side-nav a:hover {
   font-size: 1.05rem;
   font-family: Roboto-condensed;
   color: white;
+  text-decoration: none;
 }
 
 .main-side-nav i {
@@ -68,11 +75,16 @@ span.active {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px 10px;
-  border-left: 3px solid #ec4363;
+  //padding: 0px 10px;
+
+  position: absolute;
+  left:0px;
+  width: 100%;
+  z-index: 1000;
 }
 
 .main-content-content {
+  margin-top: 50px;
   flex: 1;
   padding: 5px 10px;
 }
@@ -104,7 +116,7 @@ projects {
 }
 
 .workflow-history {
-  padding: 10px;
+  //padding: 10px;
 }
 
 .workflow-history h4 {
@@ -380,11 +392,12 @@ ul.changelist {
 
 .top-bar-tools {
   margin-left: auto;
+  color:black;
 }
 
 .logo-container {
   margin-left: 13px;
-  margin-right: 13px;
+  margin-right: 14px;
 }
 
 .main-search-container {
@@ -412,10 +425,22 @@ ul.changelist {
 
 
 
+/**
+Datatable
+
+*/
+.datatable-header {
+  background: #b5b5b5;
+}
 
 
-
-
+.datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color:white;
+  font-weight: 600;
+}
 
 
 

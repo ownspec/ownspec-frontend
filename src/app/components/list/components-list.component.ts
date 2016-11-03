@@ -3,15 +3,27 @@
 
 import {ComponentService, Component} from "../../shared/component.service";
 import {StateService, StateParams} from "ui-router-ng2";
-import {Component as C, ChangeDetectorRef, OnInit, Input} from "@angular/core";
+import {Component as C, ChangeDetectorRef, OnInit, Input, forwardRef, OpaqueToken} from "@angular/core";
 import {ColumnMode, TableOptions} from "angular2-data-table";
 import {Angular2DataTableModule} from 'angular2-data-table';
 import {DomSanitizer} from "@angular/platform-browser";
 
 
+/*
+OpaqueToken
+
+export var parentProvider = {
+  provide: Parent,
+  useExisting: forwardRef(function () { return Parent; })
+};
+
+*/
+
+
 @C({
   selector: 'components',
-  templateUrl: 'components-list.template.html'
+  templateUrl: 'components-list.template.html',
+  //providers:[]
 })
 export class ComponentsListComponent implements OnInit {
 

@@ -1,12 +1,22 @@
-<div class="main-content-header">
-  <div style="flex: 1">List Of Components</div>
-  <div>
-    <button (click)="startCreateComponent()" md-raised-button color="primary"><i class="fa fa-plus-circle"
-                                                                                   aria-hidden="true"></i> Components
-    </button>
+<main-header>
+  <div class="main-header-title">List Of Components</div>
+  <div class="main-header-content" style="display: flex">
+    <div class="main-search-container" style="width:280px">
+      <form class="main-search">
+        <div class="main-search-input-wrapper">
+          <input type="text" class="main-search-input form-control" placeholder="Search components...">
+        </div>
+      </form>
+    </div>
+    <div>
+      <button (click)="startCreateComponent()" md-raised-button color="primary">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> Components
+      </button>
+    </div>
   </div>
+</main-header>
 
-</div>
+
 <div class="main-content-content">
   <div style="display: flex;flex-direction: column;height: 100%;">
     <datatable
@@ -34,13 +44,15 @@
       <datatable-column name="Action">
         <template let-row="row" let-value="value">
           <div class="table-actions">
-            <a tooltipPlacement="bottom" tooltip="Delete component" tooltipClass="foobar" tooltipAppendToBody="true" class="table-actions" role="button">
+            <a tooltipPlacement="bottom" tooltip="Delete component" tooltipClass="foobar" tooltipAppendToBody="true"
+               class="table-actions" role="button">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </a>
             <a uiSref=".component-edit" [uiParams]="{ componentId: row.id }" tooltip="Edit component" role="button">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
-            <a uiSref=".component-write" [uiParams]="{ componentId: row.id }" tooltip="Open component for write" role="button">
+            <a uiSref=".component-write" [uiParams]="{ componentId: row.id }" tooltip="Open component for write"
+               role="button">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
             </a>
             <a (click)="openWorkflow(row)" tooltip="Open workflow history" role="button">

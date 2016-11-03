@@ -4,6 +4,7 @@ import {Component, ComponentService} from "../../shared/component.service";
 import {StateService, StateParams} from "ui-router-ng2";
 import {Component as C, Input, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
+import {ColumnMode, TableOptions} from "angular2-data-table";
 
 @C({
   selector: 'component',
@@ -22,6 +23,16 @@ export class ComponentEditComponent implements OnInit {
   public references: Array<EntityReference> = [];
 
 
+  options = new TableOptions({
+    columnMode: ColumnMode.force,
+    headerHeight: 50,
+    footerHeight: 0,
+    rowHeight: 50,
+    scrollbarV: true,
+    scrollbarH: true
+  });
+
+
   public constructor(private $state: StateService, private componentService: ComponentService, private referenceService: ReferenceService) {
 
 
@@ -37,9 +48,9 @@ export class ComponentEditComponent implements OnInit {
     this.create = this.id == '_new';
 
     if (!this.create) {
-      this.componentService.findOne(this.id, true).subscribe(r => this.component = r);
+      this.componentService.findOne(this.id, true, false, false, true).subscribe(r => this.component = r);
     } else {
-      this.component = new Component("", "", "","", new Date(), new Date(), "", "REQUIREMENT");
+      this.component = new Component("", "", "", "", new Date(), new Date(), "", "REQUIREMENT");
     }
 
     /*        this.entityHistoryService.findAll().subscribe(r => {
@@ -67,5 +78,8 @@ export class ComponentEditComponent implements OnInit {
     });
   }
 
+  public onWorkflowChange(component: Component) {
+    this.component = component.clone();
+  }
 
 }

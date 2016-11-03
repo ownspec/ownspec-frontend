@@ -1,14 +1,16 @@
-<div class="main-content-header">
-  <div style="flex: 1">Edit {{component.title}}</div>
-  <div>
-    <button (click)="save()" md-raised-button color="primary">
-      <i class="fa fa-save" aria-hidden="true"></i> Save
-    </button>
-    <button uiSref="^" md-raised-button color="warn">
-      <i class="fa fa-ban" aria-hidden="true"></i> Cancel
-    </button>
+<main-header>
+  <div class="main-header-title">Edit {{component.title}}</div>
+  <div class="main-header-content" style="display: flex">
+    <div>
+      <button (click)="save()" md-raised-button color="primary">
+        <i class="fa fa-save" aria-hidden="true"></i> Save
+      </button>
+      <button uiSref="^" md-raised-button color="warn">
+        <i class="fa fa-ban" aria-hidden="true"></i> Cancel
+      </button>
+    </div>
   </div>
-</div>
+</main-header>
 
 
 <div class="main-content-content">
@@ -27,23 +29,22 @@
 
     <tabset *ngIf="!create">
       <tab heading="History">
-        <div class="tab-history">
-          <div *ngFor="let status of component.statuses">
-            <h4>
-              {{status.status}} <span>{{status.createdDate|amTimeAgo}} by {{status.createdUser.username}}</span>
-            </h4>
-            <ul *ngFor="let change of status.changes">
-              <li (click)="viewContent(item)" role="button">
-                <div>Updated {{change.date |amTimeAgo}}</div>
-                <div style="color: gray;font-size: 0.9rem">by {{change.user.username}} 4 adds, 3 deletions</div>
-              </li>
-            </ul>
-
-          </div>
-        </div>
+        <workflow [component]="component" [canUpdateWorkflow]="true" (update)="onWorkflowChange($event)"></workflow>
 
       </tab>
-      <tab heading="Reference">Reference</tab>
+      <tab heading="Reference">
+        <datatable
+          class="material" style="flex: 1;min-height:300px"
+          [rows]="component.componentReferences"
+          [options]="options">
+          <datatable-column name="Source" prop="source.title"></datatable-column>
+          <datatable-column name="Status" prop="source.currentStatus.name"></datatable-column>
+
+          <datatable-column name="Target" prop="target.title"></datatable-column>
+          <datatable-column name="Status" prop="target.currentStatus.name"></datatable-column>
+
+        </datatable>
+      </tab>
 
     </tabset>
 

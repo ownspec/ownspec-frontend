@@ -15,6 +15,8 @@ import {ComponentsComponent} from "./components/components.component";
 import {ProjectService} from "./project.service";
 import {BootstrapModalModule} from "angular2-modal/plugins/bootstrap";
 import {ModalModule} from "angular2-modal";
+import {WorkflowTableComponent} from "./workflow/workflow-table.component";
+import {MaterialModule} from "@angular/material";
 
 
 @NgModule({
@@ -24,10 +26,10 @@ import {ModalModule} from "angular2-modal";
     HttpModule,
     Ng2BootstrapModule,
     MomentModule,
-
+    MaterialModule,
     ModalModule.forRoot(),
-    BootstrapModalModule
-
+    BootstrapModalModule,
+    Angular2DataTableModule,
 
   ],
 
@@ -35,11 +37,13 @@ import {ModalModule} from "angular2-modal";
     WorkflowComponent,
     CommentsComponent,
     ComponentsComponent,
+    WorkflowTableComponent,
   ],
   declarations: [
     WorkflowComponent,
     CommentsComponent,
     ComponentsComponent,
+    WorkflowTableComponent,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ComponentService,

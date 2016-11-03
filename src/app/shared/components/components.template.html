@@ -1,7 +1,29 @@
-<div>
+<form name="userForm" style="padding-top: 6px">
+
+  <div>
+    <div style="margin-bottom: 4px">
+      <div class="btn-group" dropdown>
+        <button id="single-button" type="button" class="btn btn-primary btn-sm" dropdownToggle >
+          {{targetStatus? targetStatus : 'Select a type'}}<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
+          <li><em>None</em></li>
+          <li>
+            <a class="dropdown-item" role="button" (click)="targetStatus=status.name">Requirement</a>
+            <a class="dropdown-item" role="button" (click)="targetStatus=status.name">Component</a>
+          </li>
+        </ul>
+      </div>
+      <input type="text" placeholder="Component title">
+
+    </div>
+  </div>
+</form>
+
+<div style="padding-top: 6px">
   <div *ngFor="let component of components" draggable="true" (dragstart)="dragStart($event, component)">
-    <div style="border: 1px solid #ececec;border-radius: 0px; padding: 5px 5px">
-      <h4 style="font-size: 1.2rem">{{component.id}} - {{component.title}}</h4>
+    <div style="border: 1px solid #ececec;border-radius: 3px;padding: 5px 5px;background: white;margin-bottom: 2px;border-left: 4px solid #ffaa66;">
+      <h4 style="font-size: 1.1rem"><label>{{component.id}}</label> - {{component.title}}</h4>
     </div>
   </div>
 </div>

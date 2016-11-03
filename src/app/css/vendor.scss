@@ -26,6 +26,13 @@ $list-item-three-line-height: 13 * $baseline-grid;
 
 $enable-flex: true;
 
+$md-fab-border-radius: 50%;
+$md-fab-size: 36px ;
+$md-fab-padding: 16px ;
+
+$md-mini-fab-size: 10px ;
+$md-mini-fab-padding: 4px ;
+
 
 //@import "~roboto-fontface/css/roboto/sass/roboto-fontface.scss";
 @import "~roboto-fontface/css/roboto/sass/roboto-fontface-regular.scss";
@@ -39,3 +46,8 @@ $enable-flex: true;
 //@import '../../../node_modules/font-awesome/scss/font-awesome.scss'; // the path refers to the file at BUILD time
 
 @import "~font-awesome/scss/font-awesome.scss"; //override boostrap variables
+
+
+@import "~@angular/material/core/theming/prebuilt/deeppurple-amber.scss";
+@import "~@angular/material/button/button.scss";
+

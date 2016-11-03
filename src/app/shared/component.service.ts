@@ -12,11 +12,11 @@ export class ComponentService {
 
   }
 
-  public findOne(id: string, workflow = false, content = false, comments = false): Observable<Component> {
-    return this.fetchOne(id, workflow, content, comments);
+  public findOne(id: string, workflow = false, content = false, comments = false, references = false): Observable<Component> {
+    return this.fetchOne(id, workflow, content, comments, references);
   }
 
-  public findAll(projectId: string, title: string = null, types: Array<string> = [],workflow = false, content = false, comments = false): Observable<Component[]> {
+  public findAll(projectId: string, title: string = null, types: Array<string> = [], workflow = false, content = false, comments = false, references = false): Observable<Component[]> {
     let params: URLSearchParams = new URLSearchParams();
 
 
@@ -31,6 +31,7 @@ export class ComponentService {
     params.append("content", content.toString());
     params.append("workflow", workflow.toString());
     params.append("comments", comments.toString());
+    params.append("references", references.toString());
 
     return this.$http.get("/api/components", {search: params})
       .flatMap(r => r.json())
@@ -48,13 +49,13 @@ export class ComponentService {
   }
 
 
-
-  private fetchOne(id: string, workflow = false, content = false, comments = false): Observable<Component> {
+  private fetchOne(id: string, workflow = false, content = false, comments = false, references = false): Observable<Component> {
 
     let params: URLSearchParams = new URLSearchParams();
     params.append("content", content.toString());
     params.append("workflow", workflow.toString());
     params.append("comments", comments.toString());
+    params.append("references", references.toString());
 
     return this.$http.get("/api/components/" + id, {search: params})
       .map(r => r.json())
@@ -77,6 +78,12 @@ export class ComponentService {
     if (item.comments) {
       for (let i of item.comments) {
         component.comments.push(this.commentFromMap(i));
+      }
+    }
+
+    if (item.componentReferences) {
+      for (let i of item.componentReferences) {
+        component.componentReferences.push(this.componentReferenceFromMap(i));
       }
     }
 
@@ -117,6 +124,13 @@ export class ComponentService {
     return new Comment(item.id, item.value, new Date(item.createdDate), item.createdUser);
   }
 
+  private componentReferenceFromMap(item: any): ComponentReference {
+    return    new ComponentReference(item.id,
+      this.fromMap(item.source), this.workflowInstanceFromMap(item.sourceWorkflowInstance),
+      this.fromMap(item.target), this.workflowInstanceFromMap(item.targetWorkflowInstance),
+      new Date(<string>item.createdDate), item.createdUser);
+  }
+
 
   public updateContent(id: string, content: string): Observable<Component> {
     return this.$http.post("/api/components/" + id + "/update-content", content)
@@ -141,7 +155,7 @@ export class ComponentService {
       });
   }
 
-  public diff(id:string, from:string, to:string) : Observable<string> {
+  public diff(id: string, from: string, to: string): Observable<string> {
     let params: URLSearchParams = new URLSearchParams();
     params.append("from", from);
     params.append("to", to);
@@ -162,11 +176,12 @@ export class ComponentService {
 
 export class Component {
 
-  public constructor(public id: string, public projectId:string, public title: string, public description: string,
+  public constructor(public id: string, public projectId: string, public title: string, public description: string,
                      public creationDate: Date, public lastUpdateDate: Date,
                      public content: string, public type: string = "REQUIREMENT", public currentStatus: string = "OPEN",
                      public workflowInstances: WorkflowInstance[] = [],
-                     public comments: Comment[] = []) {
+                     public comments: Comment[] = [],
+                     public componentReferences: ComponentReference[] = []) {
   }
 
   public clone(): Component {
@@ -180,6 +195,10 @@ export class Component {
 
     for (let comment of this.comments) {
       c.comments.push(comment.clone());
+    }
+
+    for (let componentReference of this.componentReferences) {
+      c.componentReferences.push(componentReference.clone());
     }
 
     return c;
@@ -226,6 +245,7 @@ export class Change {
   public constructor(public revision: string, public date: Date, public user: any) {
 
   }
+
   public clone(): Change {
     return new Change(this.revision, this.date, this.user);
   }
@@ -235,7 +255,24 @@ export class Comment {
   public constructor(public id: string, public value: string, public createdDate: Date, public createdUser: User) {
 
   }
+
   public clone(): Comment {
     return new Comment(this.id, this.value, this.createdDate, this.createdUser);
+  }
+}
+
+export class ComponentReference {
+  public constructor(public id: string,
+                     public source: Component, public sourceWorkflowInstance: WorkflowInstance,
+                     public target: Component, public targetWorkflowInstance: WorkflowInstance,
+                     public createdDate: Date, public createdUser: any) {
+
+  }
+
+  public clone(): ComponentReference {
+    return new ComponentReference(this.id,
+      this.source, this.sourceWorkflowInstance,
+      this.target, this.targetWorkflowInstance,
+      this.createdDate, this.createdUser);
   }
 }
