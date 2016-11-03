@@ -11,7 +11,7 @@ export class ProfilService {
   }
 
   public findCurrentProfile(): Observable<Profil> {
-    return this.$http.get("/api/users/me/profil")
+    return this.$http.get("/api/users/me/profile")
       .map(r => r.json())
       .map((item: any) => {
         let component = new Profil(this.userService.fromJson(item) , item.properties);

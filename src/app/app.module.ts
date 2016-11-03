@@ -20,13 +20,10 @@ import {MyRootUIRouterConfig} from "./router.config";
 import {MAIN_STATES} from "./app.states";
 import {AppComponent} from "./app.component";
 import {MainSideNavComponent} from "./sidenav/main/main-sidenav.component";
-import {RequirementsListComponent} from "./requirements/list/requirements-list.component";
 import {Angular2DataTableModule} from "angular2-data-table";
 import {MomentModule} from "angular2-moment";
 import {DashboardRootComponent} from "./dashboard/dashboard-root.component";
 import {Ng2BootstrapModule} from "ng2-bootstrap";
-import {RequirementEditComponent} from "./requirements/edit/requirement-edit.component";
-import {RequirementWriteComponent} from "./requirements/write/requirement-write.component";
 import {CKEditorModule} from "./shared/ckeditor/ckeditor.component";
 import {ProjectsListComponent} from "./projects/list/projects-list.component";
 import {ProjectEditComponent} from "./projects/edit/project-edit.component";
@@ -37,6 +34,7 @@ import {ProjectSideNavComponent} from "./sidenav/project/project-sidenav.compone
 
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import {LoginComponent} from "./login/login.component";
 import {MaterialModule} from "@angular/material";
 import {MainHeaderComponent} from "./header/main-header.component";
 
@@ -97,6 +95,8 @@ export class AppGestureConfig extends HammerGestureConfig { }
 
     ProjectsListComponent,
     ProjectEditComponent,
+
+    LoginComponent
 
 
   ],
