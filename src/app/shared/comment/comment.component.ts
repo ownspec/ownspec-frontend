@@ -7,6 +7,7 @@ import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angu
 import {Observable} from "rxjs";
 import {Component, ComponentService} from "../../shared/component.service";
 import {ProfilService} from "../users/profil.service";
+import {ComponentUpdate} from "../../components/write/component-write.component";
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from
@@ -26,7 +27,7 @@ export class CommentsComponent implements OnInit {
   public component: Component;
 
   @Output()
-  public update = new EventEmitter<Component>();
+  public update = new EventEmitter<ComponentUpdate>();
 
   public comment: string;
 
@@ -40,7 +41,7 @@ export class CommentsComponent implements OnInit {
   public post() {
     this.componentService.postComment(this.component.id, this.comment)
       .subscribe(c => {
-        this.update.emit(c);
+        this.update.emit(new ComponentUpdate(false, false, false, true));
       });
   }
 }

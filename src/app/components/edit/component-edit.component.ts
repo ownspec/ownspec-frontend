@@ -5,6 +5,7 @@ import {StateService, StateParams} from "ui-router-ng2";
 import {Component as C, Input, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
 import {ColumnMode, TableOptions} from "angular2-data-table";
+import {ComponentUpdate} from "../write/component-write.component";
 
 @C({
   selector: 'component',
@@ -78,8 +79,8 @@ export class ComponentEditComponent implements OnInit {
     });
   }
 
-  public onWorkflowChange(component: Component) {
-    this.component = component.clone();
+  public onUpdate(componentUpdate: ComponentUpdate) {
+    this.componentService.findOne(this.id, true, false, false, true).subscribe(r => this.component = r);
   }
 
 }

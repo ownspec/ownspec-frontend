@@ -26,7 +26,7 @@ span.active {
 .main-side-nav {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  //width: 200px;
   background: $background-sidenav;
   padding-top: 60px;
 }
@@ -40,8 +40,8 @@ span.active {
 }
 
 .main-side-nav div {
-  margin-left: 10px;
-  margin-bottom: 10px;
+  //margin-left: 10px;
+  //margin-bottom: 10px;
 }
 
 .main-side-nav a {
@@ -60,6 +60,14 @@ span.active {
 .main-side-nav i {
   padding-right: 5px;
 }
+
+write-sidenav {
+  height: 100%;
+}
+
+
+
+
 
 .main-content {
   display: flex;

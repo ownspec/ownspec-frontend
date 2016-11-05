@@ -37,6 +37,7 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import {LoginComponent} from "./login/login.component";
 import {MaterialModule} from "@angular/material";
 import {MainHeaderComponent} from "./header/main-header.component";
+import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
 
 
 // Application wide providers
@@ -87,6 +88,7 @@ export class AppGestureConfig extends HammerGestureConfig { }
     XLarge,
     MainSideNavComponent,
     MainHeaderComponent,
+    WriteSideNavComponent,
     ProjectSideNavComponent,
     ComponentsListComponent,
     ComponentEditComponent,

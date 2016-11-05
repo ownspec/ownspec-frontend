@@ -17,6 +17,7 @@ import {BootstrapModalModule} from "angular2-modal/plugins/bootstrap";
 import {ModalModule} from "angular2-modal";
 import {WorkflowTableComponent} from "./workflow/workflow-table.component";
 import {MaterialModule} from "@angular/material";
+import {EmptyContent} from "./empty-content/empty-content";
 
 
 @NgModule({
@@ -38,12 +39,14 @@ import {MaterialModule} from "@angular/material";
     CommentsComponent,
     ComponentsComponent,
     WorkflowTableComponent,
+    EmptyContent,
   ],
   declarations: [
     WorkflowComponent,
     CommentsComponent,
     ComponentsComponent,
     WorkflowTableComponent,
+    EmptyContent,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ComponentService,

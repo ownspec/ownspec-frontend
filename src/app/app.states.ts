@@ -9,6 +9,8 @@ import {ComponentsListComponent} from "./components/list/components-list.compone
 import {ComponentWriteComponent} from "./components/write/component-write.component";
 import {ProjectSideNavComponent} from "./sidenav/project/project-sidenav.component";
 import {LoginComponent} from "./login/login.component";
+import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
+import {EmptyContent} from "./shared/empty-content/empty-content";
 
 /** The top level state(s) */
 export let MAIN_STATES: Ng2StateDeclaration[] = [
@@ -104,6 +106,11 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
    */
   ...componentStates("app.home.templates", "templates", ["TEMPLATE"]),
 
+  /**
+   * Resource
+   */
+  ...componentStates("app.home.resources", "resources", ["RESOURCE"]),
+
 
   /**
    * Project contents
@@ -154,6 +161,11 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
    * Templates
    */
   ...componentStates("app.home.project.templates", "templates", ["TEMPLATE"], true),
+
+  /**
+   * Resources
+   */
+  ...componentStates("app.home.project.resources", "resources", ["RESOURCE"], true),
 
 ];
 
@@ -218,6 +230,7 @@ function componentStates(id: string, url: string, types: string[], project = fal
           component: ComponentWriteComponent,
 
         },
+        "sidenav@app": {component: EmptyContent},
       },
       resolve: [
         {

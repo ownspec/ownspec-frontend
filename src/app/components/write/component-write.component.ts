@@ -6,6 +6,7 @@ import {Component as C, Input, OnInit, NgZone, EventEmitter, OnDestroy} from "@a
 import {Observable} from "rxjs";
 import {Component, ComponentService} from "../../shared/component.service";
 import * as _ from "lodash";
+import {ComponentEvent} from "typedoc/lib/utils/component";
 
 
 @C({
@@ -89,8 +90,17 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
     console.log("onReady");
   }
 
-  public onWorkflowChange(component: Component) {
-    this.component = component.clone();
+  public onUpdate(event: ComponentUpdate) {
+    this.componentService.findOne(this.id, true, true, true).subscribe(r => {
+      this.component = r;
+    });
   }
 
+}
+
+
+export class ComponentUpdate {
+  public constructor(public properties, public content, public workflow, public comments){
+
+  }
 }

@@ -13,33 +13,39 @@
   </div>
 </main-header>
 
+<div id="toolbarId" style="margin-top: 50px">
 
-<div class="main-content-content" style="display: flex;flex-direction: row" *ngIf="component != null">
+</div>
+
+<div style="display: flex;flex-direction: row;height: 100%">
+
+  <div style="width: 350px">
+    <write-sidenav [component]="component" (update)="onUpdate($event)"></write-sidenav>
+
+  </div>
   <div style="flex: 1">
-      <ckeditor
-        [(ngModel)]="content"
-        [config]="{uiColor: '#99000', height: '200px', basePath: '/assets/js/ckeditor/'}"
-        (change)="onChange($event)"
-        [readonly]="!component.currentStatus.isEditable"
-        (ready)="onReady($event)">
-      </ckeditor>
+
+    <div class="main-content-content" style="display: flex;flex-direction: row; margin-top: 0px" *ngIf="component != null">
+      <div style="flex: 1">
+        <ckeditor
+          [(ngModel)]="content"
+          [config]="{uiColor: '#99000', height: '200px', basePath: '/assets/js/ckeditor/' , sharedSpaces:{top:'toolbarId'}}"
+          (change)="onChange($event)"
+          [readonly]="!component.currentStatus.isEditable"
+          (ready)="onReady($event)">
+        </ckeditor>
+      </div>
+
+      <div style="display:flex;flex-direction:row;width: 400px;height: 100%;padding-left: 10px">
+        <tabset class="component-write-tabs">
+          <tab heading="Toc" customClass="foobar">
+            TOC
+          </tab>
+        </tabset>
+
+      </div>
+
+    </div>
+
   </div>
-
-  <div style="display:flex;flex-direction:row;width: 400px;height: 100%;padding-left: 10px">
-    <tabset class="component-write-tabs">
-      <tab heading="Components" customClass="foobar">
-        <components-selection [component]="component"></components-selection>
-      </tab>
-
-      <tab heading="Workflow">
-       <workflow [component]="component" [canUpdateWorkflow]="saved" (update)="onWorkflowChange($event)"></workflow>
-      </tab>
-
-      <tab heading="Comments">
-       <comments [component]="component" (update)="onWorkflowChange($event)"></comments>
-      </tab>
-    </tabset>
-
-  </div>
-
 </div>

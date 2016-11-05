@@ -25,21 +25,25 @@ export class ComponentsComponent implements OnInit {
   @Input()
   public component: Component;
 
+  @Input()
+  public projectId: string;
+
+  @Input()
+  public types: string[] = [];
+
   @Output()
   public update = new EventEmitter<Component>();
 
   public components: Component[];
+
+  public title:string;
 
 
   public constructor(private componentService: ComponentService, private profilService: ProfilService) {
   }
 
   ngOnInit(): void {
-    // TODO: temporary fetch content with the list of component but response size will be too large
-    this.componentService.findAll(null, null, [], true, true, false).subscribe(components => {
-      this.components = components;
-    });
-
+    this.search();
   }
 
   public dragStart(evt: any, r: Component) {
@@ -52,5 +56,11 @@ export class ComponentsComponent implements OnInit {
     dataTransfer.setData('text/html', r.content);
   }
 
+  public search() {
+    // TODO: temporary fetch content with the list of component, to refactor because response size will be too large
+    this.componentService.findAll(this.projectId, this.title, this.types, true, true, false).subscribe(components => {
+      this.components = components;
+    });
+  }
 
 }

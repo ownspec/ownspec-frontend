@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-  selector: 'sidenav',
+  selector: 'main-sidenav',
   templateUrl: 'main-sidenav.component.html'
 })
 export class MainSideNavComponent {
