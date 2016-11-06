@@ -6,6 +6,134 @@
 
 <div class="main-content-content">
   <div style="display: flex;flex-direction: column;height: 100%;">
-    Dashboard
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-xs-6">
+        <div class="panel ">
+          <div class="panel-header">
+            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
+              <h4>Projects</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="pull-right">
+                <h2>5</h2>
+              </div>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="panel-content">
+            <div class="panel-content-list">
+              <h5>Last</h5>
+              <div><a href="#" role="button">Project 1</a></div>
+              <div><a href="#" role="button">Project 2</a></div>
+              <div><a href="#" role="button">Project 3</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-6">
+        <div class="panel ">
+          <div class="panel-header">
+            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
+              <h4>Documents</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="pull-right">
+                <h2>12</h2>
+              </div>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="panel-content">
+            <div class="panel-content-list">
+              <h5>Last</h5>
+              <div><a href="#" role="button">Document 1</a></div>
+              <div><a href="#" role="button">Document 2</a></div>
+              <div><a href="#" role="button">Document 3</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-6">
+        <div class="panel ">
+          <div class="panel-header">
+            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
+              <h4>Requirements</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="pull-right">
+                <h2>3,085</h2>
+              </div>
+            </div>
+          </div>
+          <div class="line"></div>
+
+          <div class="panel-content">
+            <div class="panel-content-list">
+              <h5>Last</h5>
+              <div><a href="#" role="button">Requirement 1</a></div>
+              <div><a href="#" role="button">Requirement 2</a></div>
+              <div><a href="#" role="button">Requirement 3</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
+              <h4>Requirement Evolution</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="tools pull-right">
+                <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="panel-content">
+            <div class="canvas-container">
+              <canvas baseChart
+                      [data]="lineChartData"
+                      [labels]="lineChartLabels"
+                      [options]="lineChartOptions"
+                      chartType="line"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
+              <h4>Requirement Types</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="tools pull-right">
+                <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="panel-content">
+            <div class="canvas-container">
+              <canvas baseChart
+                      [data]="pieChartData"
+                      [labels]="pieChartLabels"
+                      chartType="pie"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

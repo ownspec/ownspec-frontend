@@ -26,7 +26,7 @@ var extractCSS = new ExtractTextPlugin('stylesheets/[name].css');
  */
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = {
-  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
+  title: 'Ownspec',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };

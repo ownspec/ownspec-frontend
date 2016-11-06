@@ -38,6 +38,7 @@ import {LoginComponent} from "./login/login.component";
 import {MaterialModule} from "@angular/material";
 import {MainHeaderComponent} from "./header/main-header.component";
 import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
+import {ChartsModule} from "ng2-charts";
 
 
 // Application wide providers
@@ -121,7 +122,8 @@ export class AppGestureConfig extends HammerGestureConfig { }
 
 
     ModalModule.forRoot(),
-    BootstrapModalModule
+    BootstrapModalModule,
+    ChartsModule
 
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
