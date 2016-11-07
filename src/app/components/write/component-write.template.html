@@ -20,7 +20,7 @@
 <div style="display: flex;flex-direction: row;height: 100%">
 
   <div style="width: 350px">
-    <write-sidenav [component]="component" (update)="onUpdate($event)"></write-sidenav>
+    <write-sidenav [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
 
   </div>
   <div style="flex: 1">

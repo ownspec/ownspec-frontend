@@ -1,21 +1,24 @@
 <div style="flex:1;display: flex;flex-direction: row;height: 100%;">
   <div style="width: 50px;height: 100%; flex-direction: column;font-size: 2rem;color: white;padding-left: 10px;background-color: #393838">
-    <a role="button"><i class="fa fa-archive" aria-hidden="true" (click)="activeTab = 'comments'"></i></a>
 
-    <a role="button"><i class="fa fa-binoculars" aria-hidden="true" (click)="activeTab = 'workflow'"></i></a>
+    <a role="button"><i class="fa fa-file" aria-hidden="true" (click)="activeTab = 'requirements'"></i></a>
+    <a role="button"><i class="fa fa-file-o" aria-hidden="true" (click)="activeTab = 'components'"></i></a>
+    <a role="button"><i class="fa fa-picture-o" aria-hidden="true" (click)="activeTab = 'resources'"></i></a>
 
-    <a role="button"><i class="fa fa-compass" aria-hidden="true" (click)="activeTab = 'requirements'"></i></a>
-    <a role="button"><i class="fa fa-compass" aria-hidden="true" (click)="activeTab = 'components'"></i></a>
-    <a role="button"><i class="fa fa-compass" aria-hidden="true" (click)="activeTab = 'resources'"></i></a>
+    <a role="button"><i class="fa fa-history" aria-hidden="true" (click)="activeTab = 'workflow'"></i></a>
 
+    <a role="button"><i class="fa fa-comments" aria-hidden="true" (click)="activeTab = 'comments'"></i></a>
   </div>
   <div style="flex: 1;height: 100%;padding-left: 10px">
-    <comments *ngIf="activeTab == 'comments'" [component]="component" (update)="onUpdate($event)"></comments>
 
-    <workflow *ngIf="activeTab == 'workflow'" [component]="component" (update)="onUpdate($event)"></workflow>
+
 
     <components-selection *ngIf="activeTab == 'requirements'" [component]="component" [types]="['REQUIREMENT']"></components-selection>
     <components-selection *ngIf="activeTab == 'components'" [component]="component" [types]="['COMPONENT']"></components-selection>
     <components-selection *ngIf="activeTab == 'resources'" [component]="component" [types]="['RESOURCE']"></components-selection>
+
+    <comments *ngIf="activeTab == 'comments'" [component]="component" (update)="onUpdate($event)"></comments>
+
+    <workflow *ngIf="activeTab == 'workflow'" [canUpdateWorkflow]="canUpdateWorkflow" [component]="component" (update)="onUpdate($event)"></workflow>
   </div>
 </div>

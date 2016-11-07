@@ -23,6 +23,9 @@ export class WriteSideNavComponent {
   @Input()
   public component : Component;
 
+  @Input()
+  public canUpdateWorkflow:boolean;
+
   @Output()
   public update = new EventEmitter<ComponentUpdate>();
 
