@@ -5,12 +5,12 @@ $background-header: white;
 //$background-sidenav: rgb(65, 75, 86);
 //$background-header: #476382;
 
-
 html, body {
   height: 100%;
   font-family: Roboto-Regular, Helvetica, sans-serif
 }
-body{
+
+body {
   background-color: #f0f3f4;
 }
 
@@ -26,48 +26,44 @@ span.active {
 .main-side-nav {
   display: flex;
   flex-direction: column;
-  //width: 200px;
-  background: $background-sidenav;
-  padding-top: 60px;
+  width: 190px;
+  height: 100%;
+  //background-color: $background-sidenav;
+
+  //background: #504f4f;
+  background: #2AB7CA;
+  padding-top: 50px;
 }
 
-.main-side-nav-title {
-  font-family: Roboto-condensed;
-  font-size: 1.4rem;
-  color: white;
-  height: 35px;
-
+.main-side-nav li {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
-.main-side-nav div {
-  //margin-left: 10px;
-  //margin-bottom: 10px;
+.main-side-nav li:hover {
+  background-color: #2A899A;
+}
+
+.main-side-nav li.active {
+  border-left: 4px solid #F14264;
 }
 
 .main-side-nav a {
-  font-size: 1.05rem;
-  font-family: Roboto-condensed;
-  color: #cbcbc9;
-}
-
-.main-side-nav a:hover {
-  font-size: 1.05rem;
-  font-family: Roboto-condensed;
+  font-size: 17px;
+  font-family: inherit;
   color: white;
   text-decoration: none;
 }
 
 .main-side-nav i {
-  padding-right: 5px;
+  margin-left: 8px;
+  margin-right: 20px;
 }
 
 write-sidenav {
   height: 100%;
 }
-
-
-
-
 
 .main-content {
   display: flex;
@@ -86,7 +82,7 @@ write-sidenav {
   //padding: 0px 10px;
 
   position: absolute;
-  left:0px;
+  left: 0px;
   width: 100%;
   z-index: 1000;
 }
@@ -400,12 +396,23 @@ ul.changelist {
 
 .top-bar-tools {
   margin-left: auto;
-  color:black;
+  color: black;
 }
 
 .logo-container {
-  margin-left: 13px;
-  margin-right: 14px;
+  width: 190px;
+  height: 100%;
+  border-right: 2px solid #ec4363;
+}
+
+.logo-container img {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  margin-left: 5px;
+  max-width: 140px;
 }
 
 .main-search-container {
@@ -430,8 +437,13 @@ ul.changelist {
   vertical-align: middle;
 }
 
-
-
+.view-title {
+  font-size: 18px;
+  font-family: inherit;
+  flex: 1;
+  margin-left: 10px;
+  color: #58666e;
+}
 
 /**
 Datatable
@@ -441,12 +453,11 @@ Datatable
   background: #b5b5b5;
 }
 
-
 .datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color:white;
+  color: white;
   font-weight: 600;
 }
 

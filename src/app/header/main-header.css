@@ -1,0 +1,8 @@
+.avatar-button-toggle {
+  border:none;
+  background-color: transparent;
+}
+
+.avatar-button-toggle img {
+  max-width: 43px;
+}
