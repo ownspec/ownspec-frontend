@@ -10,15 +10,15 @@
   <ng-content select="div.main-header-content"></ng-content>
 
   <div dropdown>
-    <button dropdownToggle type="button" class="avatar-button-toggle">
+    <button dropdownToggle type="button" class="avatar-toggle-button">
       <img src="/assets/img/avatar_f.png" class="img-circle avatar"/>
       <span class="caret"></span>
     </button>
-    <ul dropdownMenu role="menu" style="right: 0 !important; left: inherit">
+    <ul dropdownMenu role="menu" style="right: 0 !important; left: inherit" class="avatar-toggle-menu">
       <li role="menuitem"><a class="dropdown-item" href="#"><span class="fa fa-user"></span>Profile</a></li>
       <li role="menuitem"><a class="dropdown-item" href="#"><span class="fa fa-cogs"></span>Settings</a></li>
       <li class="divider dropdown-divider"></li>
-      <li role="menuitem"><a class="dropdown-item" href="#"><span class="fa fa-power-off"></span></a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#"><span class="fa fa-power-off" style="display:table; margin:auto;"></span></a></li>
     </ul>
   </div>
 </div>

@@ -1,8 +1,13 @@
-.avatar-button-toggle {
-  border:none;
+.avatar-toggle-button {
+  border: none;
   background-color: transparent;
 }
 
-.avatar-button-toggle img {
+.avatar-toggle-button img {
   max-width: 43px;
+}
+
+.avatar-toggle-menu span {
+  margin-right: 13px;
+  color: #696767;
 }
