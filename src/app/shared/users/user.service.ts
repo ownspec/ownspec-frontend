@@ -7,12 +7,35 @@ import {Http, URLSearchParams} from "@angular/http";
 export class UserService {
 
 
-  public constructor(private $http: Http) {
+  public constructor(private http: Http) {
 
   }
 
   public fromJson(json: any): User {
-    return new User(json.id , json.username , json.email);
+    return new User(json.id, json.username, json.email);
+  }
+
+  public login(username: String, password: String): Observable {
+    return this.http.post(
+      "/api/users/login",
+      {
+        "username": username,
+        "password": password
+      });
+  }
+
+  public logout(): Observable {
+    return this.http.post(
+      "/api/users/logout", ""
+    );
+  }
+
+  public getSettings() {
+
+  }
+
+  public getProfile() {
+
   }
 
 }
