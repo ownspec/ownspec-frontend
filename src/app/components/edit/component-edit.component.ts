@@ -6,6 +6,7 @@ import {Component as C, Input, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
 import {ColumnMode, TableOptions} from "angular2-data-table";
 import {ComponentUpdate} from "../write/component-write.component";
+require("bootstrap/dist/css/bootstrap.min.css");
 
 @C({
   selector: 'component',

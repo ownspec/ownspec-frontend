@@ -17,6 +17,8 @@ import {Overlay} from "angular2-modal";
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+
+  private _sideNavHidden = false;
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
@@ -29,6 +31,9 @@ export class AppComponent {
     console.log('Initial App State', this.appState.state);
   }
 
+  public set sideNavHidden(value: boolean) {
+    this._sideNavHidden = value;
+  }
 }
 
 /*

@@ -18,6 +18,18 @@ span.active {
   background-color: gray;
 }
 
+input, select {
+  border-radius: 0 !important;
+  margin-bottom: 20px;
+  border: 1px solid #d9d9d9;
+  padding: 10px 15px;
+}
+
+input:focus {
+  border: 1px solid #ec4363 !important;
+  color: #333333 !important;
+}
+
 .main-container {
   display: flex;
   height: 100%;
@@ -461,9 +473,27 @@ Datatable
   font-weight: 600;
 }
 
+.panel-heading {
+  background-color: #F9F9F9;
+  padding: 5px;
+  padding-left: 20px;
+  border-bottom: 1px solid #ddd;
+  color: #58666e !important;
+}
 
+.panel-body {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  color: #58666e !important;
+}
 
+.margin-bottom-20 {
+  margin-bottom: 20px !important;
+}
 
+.radio-margin-right input{
+  margin-right: 15px;
+}
 
 
 
