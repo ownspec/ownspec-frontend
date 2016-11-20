@@ -19,7 +19,7 @@ export class LoginComponent {
 
   processLogin(username:String, password:String) {
     this.http.post(
-      "/api/users/login",
+      "/api/auth/login",
       {
         "username": username,
         "password": password

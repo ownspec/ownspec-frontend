@@ -104,7 +104,7 @@ export class ComponentService {
   }
 
   private workflowStatusFromMap(item: any): WorkflowStatus {
-    let status = new WorkflowStatus(item.id, item.status, new Date(<string>item.createdDate), item.createdUser);
+    let status = new WorkflowStatus(item.id, this.statusFromMap(item.status), new Date(<string>item.createdDate), item.createdUser);
 
     if (item.changes) {
       for (let change of item.changes) {
@@ -113,6 +113,10 @@ export class ComponentService {
     }
 
     return status;
+  }
+
+  private statusFromMap(item: any): Status {
+    return new Status(item.name, item.isEditable, item.isFinal, item.transitions);
   }
 
   private changeFromMap(item: any): Change {
@@ -125,7 +129,7 @@ export class ComponentService {
   }
 
   private componentReferenceFromMap(item: any): ComponentReference {
-    return    new ComponentReference(item.id,
+    return new ComponentReference(item.id,
       this.fromMap(item.source), this.workflowInstanceFromMap(item.sourceWorkflowInstance),
       this.fromMap(item.target), this.workflowInstanceFromMap(item.targetWorkflowInstance),
       new Date(<string>item.createdDate), item.createdUser);
@@ -184,6 +188,11 @@ export class Component {
                      public componentReferences: ComponentReference[] = []) {
   }
 
+  public getCurrentWorkflowInstance(): WorkflowInstance {
+    return this.workflowInstances[this.workflowInstances.length - 1];
+  }
+
+
   public clone(): Component {
 
     let c = new Component(this.id, this.projectId, this.title, this.description, this.creationDate, this.lastUpdateDate,
@@ -213,6 +222,11 @@ export class WorkflowInstance {
                      public createdUser: any, public workflowStatuses: Array<WorkflowStatus> = []) {
   }
 
+  public getCurrentWorkflowStatus(): WorkflowStatus {
+    return this.workflowStatuses[this.workflowStatuses.length - 1];
+  }
+
+
   public clone(): WorkflowInstance {
 
     let c = new WorkflowInstance(this.id, this.currentStatus, this.createdDate, this.createdUser);
@@ -226,13 +240,13 @@ export class WorkflowInstance {
 
 export class WorkflowStatus {
 
-  public constructor(public id: string, public status: string, public createdDate: Date,
+  public constructor(public id: string, public status: Status, public createdDate: Date,
                      public createdUser: any, public changes: Array<Change> = []) {
   }
 
   public clone(): WorkflowStatus {
 
-    let c = new WorkflowStatus(this.id, this.status, this.createdDate, this.createdUser);
+    let c = new WorkflowStatus(this.id, this.status.clone(), this.createdDate, this.createdUser);
 
     for (let change of this.changes) {
       c.changes.push(change.clone());
@@ -240,6 +254,18 @@ export class WorkflowStatus {
     return c;
   }
 }
+
+
+export class Status {
+  public constructor(public name: string, public editable: boolean, public final: boolean, public transitions: string[]) {
+
+  }
+
+  public clone(): Status {
+    return new Status(this.name, this.editable, this.final, this.transitions);
+  }
+}
+
 
 export class Change {
   public constructor(public revision: string, public date: Date, public user: any) {

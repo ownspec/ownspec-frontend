@@ -52,7 +52,11 @@ export class ComponentsComponent implements OnInit {
 
     console.log(r.workflowInstances[r.workflowInstances.length - 1].id);
 
-    dataTransfer.setData('workflowInstanceId', r.workflowInstances[r.workflowInstances.length - 1].id);
+    dataTransfer.setData('workflowInstanceId', r.getCurrentWorkflowInstance().id);
+
+    console.log(r.getCurrentWorkflowInstance().getCurrentWorkflowStatus().status);
+
+    dataTransfer.setData('isEditable', r.getCurrentWorkflowInstance().getCurrentWorkflowStatus().status.editable);
     dataTransfer.setData('text/html', r.content);
   }
 

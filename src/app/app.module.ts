@@ -1,7 +1,7 @@
 import {NgModule, ApplicationRef, Injectable} from "@angular/core";
 import {BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
+import {HttpModule, RequestOptions, XHRBackend, Http} from "@angular/http";
 import {removeNgStyles, createNewHosts, createInputTransfer} from "@angularclass/hmr";
 /*
  * Platform and Environment providers/directives/pipes
@@ -15,7 +15,7 @@ import {About} from "./about";
 import {NoContent} from "./no-content";
 import {XLarge} from "./home/x-large";
 import {SharedModule} from "./shared/shared.module";
-import {UIView, UIRouterModule} from "ui-router-ng2";
+import {UIView, UIRouterModule, StateService} from "ui-router-ng2";
 import {MyRootUIRouterConfig} from "./router.config";
 import {MAIN_STATES} from "./app.states";
 import {AppComponent} from "./app.component";
@@ -39,7 +39,8 @@ import {MaterialModule} from "@angular/material";
 import {MainHeaderComponent} from "./header/main-header.component";
 import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
 import {ChartsModule} from "ng2-charts";
-
+import {Router} from "@angular/router";
+import {HttpInterceptor} from "./shared/http/http-interceptor";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -127,6 +128,12 @@ export class AppGestureConfig extends HammerGestureConfig { }
 
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
+    {
+      provide: Http,
+      useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, $state: StateService) => new HttpInterceptor(xhrBackend, requestOptions, $state),
+      deps: [XHRBackend, RequestOptions, StateService]
+    },
+
     ENV_PROVIDERS,
     APP_PROVIDERS,
     { provide: HAMMER_GESTURE_CONFIG, useClass: AppGestureConfig }
