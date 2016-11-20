@@ -9,7 +9,6 @@ import {ComponentsListComponent} from "./components/list/components-list.compone
 import {ComponentWriteComponent} from "./components/write/component-write.component";
 import {ProjectSideNavComponent} from "./sidenav/project/project-sidenav.component";
 import {LoginComponent} from "./login/login.component";
-import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
 import {EmptyContent} from "./shared/empty-content/empty-content";
 
 /** The top level state(s) */

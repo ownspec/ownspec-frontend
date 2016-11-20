@@ -28,7 +28,7 @@
 -->
 
 <div class="main-container">
-  <div class="main-side-nav">
+  <div *ngIf="!_sideNavHidden" class="main-side-nav">
     <ui-view name="sidenav" style="height: 100%"></ui-view>
   </div>
   <div class="main-content">

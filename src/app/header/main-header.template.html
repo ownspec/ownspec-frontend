@@ -1,22 +1,26 @@
 <div class="main-content-header" style="color: #888888">
-  <div class="logo-container" style="text-align: left">
+  <div class="logo-container">
     <img src="/assets/img/os-center-logo-170x43.png" alt="Ownspec center">
   </div>
 
-
-  <div style="border-left: 3px solid #ec4363;height: 100%;width: 20px">
-  </div>
-
-  <div style="font-size: 1.4rem; flex:1">
+  <div class="view-title">
     <ng-content select="div.main-header-title"></ng-content>
   </div>
 
   <ng-content select="div.main-header-content"></ng-content>
 
-
-  <div class="top-bar-tools" style="width: 70px;text-align: center;padding: 0px 10px 0px 30px">
-    <div>
-      <i class="fa fa-bell-o "><span>1</span></i>
-    </div>
+  <div dropdown>
+    <button dropdownToggle type="button" class="avatar-toggle-button">
+      <img src="/assets/img/avatar_f.png" class="img-circle avatar"/>
+      <span class="caret"></span>
+    </button>
+    <ul dropdownMenu role="menu" class="avatar-toggle-menu">
+      <li role="menuitem"><a class="dropdown-item" href="#"><span class="fa fa-user"></span>Profile</a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#"><span class="fa fa-cogs"></span>Settings</a></li>
+      <li class="divider dropdown-divider"></li>
+      <li role="menuitem"><a class="dropdown-item" href="#" (click)="logout()"><span class="fa fa-power-off" style="display:table; margin:auto;"></span></a></li>
+    </ul>
   </div>
 </div>
+
+

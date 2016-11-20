@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {Component, ComponentService} from "../../shared/component.service";
 import * as _ from "lodash";
 import {ComponentEvent} from "typedoc/lib/utils/component";
+import {AppComponent} from "../../app.component";
 
 
 @C({
@@ -15,7 +16,7 @@ import {ComponentEvent} from "typedoc/lib/utils/component";
 })
 export class ComponentWriteComponent implements OnInit, OnDestroy {
 
-  public component: Component = new Component("","","","",new Date() , new Date(),"");
+  public component: Component = new Component("", "", "", "", new Date(), new Date(), "");
 
   public content: string = "FOO";
 
@@ -30,12 +31,13 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
   private debounced: any;
 
-  public constructor(private zone: NgZone, public componentService: ComponentService) {
-
+  public constructor(private zone: NgZone, public componentService: ComponentService, public appComponent: AppComponent) {
   }
 
 
   ngOnInit(): void {
+    this.appComponent.sideNavHidden = true;
+
     this.componentService.findOne(this.id, true, true, true).subscribe(r => {
       this.component = r;
       this.content = r.content;
@@ -100,7 +102,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
 
 export class ComponentUpdate {
-  public constructor(public properties, public content, public workflow, public comments){
+  public constructor(public properties, public content, public workflow, public comments) {
 
   }
 }

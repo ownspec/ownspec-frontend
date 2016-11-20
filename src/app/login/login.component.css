@@ -32,21 +32,10 @@ body {
   line-height: 1;
 }
 .login-form-container input {
-  outline: none;
   display: block;
   width: 100%;
-  border: 1px solid #d9d9d9;
-  margin: 0 0 20px;
-  padding: 10px 15px;
-  box-sizing: border-box;
-  font-wieght: 400;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
 }
-.login-form-container input:focus {
-  border: 1px solid #ec4363;
-  color: #333333;
-}
+
 .login-form-container button {
   cursor: pointer;
   background: #666565;
