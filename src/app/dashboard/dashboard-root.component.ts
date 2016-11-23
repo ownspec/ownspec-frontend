@@ -2,12 +2,12 @@
 import {Component as C} from "@angular/core";
 
 require("chart.js/src/chart.js");
-require("./dashboard.css");
 require("bootstrap/dist/css/bootstrap.min.css");
 
 @C({
   selector: 'dashboard-root',
-  templateUrl: './dashboard-root.template.html'
+  templateUrl: './dashboard-root.template.html',
+  styleUrls: ['./dashboard.scss']
 })
 export class DashboardRootComponent {
   // Requirement Evolution

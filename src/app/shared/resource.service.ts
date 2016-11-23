@@ -1,6 +1,5 @@
 
 import {Observable} from "rxjs";
-import {StateService} from "angular-ui-router";
 import {Http} from "@angular/http";
 import {Injectable} from "@angular/core";
 

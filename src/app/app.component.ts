@@ -3,7 +3,6 @@
  */
 import {Component, ViewEncapsulation, ViewContainerRef} from '@angular/core';
 
-import {AppState} from './app.service';
 import {Overlay} from "angular2-modal";
 
 /*
@@ -23,12 +22,12 @@ export class AppComponent {
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
 
-  constructor(public appState: AppState, overlay: Overlay, vcRef: ViewContainerRef) {
+  constructor(overlay: Overlay, vcRef: ViewContainerRef) {
     overlay.defaultViewContainer = vcRef;
   }
 
   ngOnInit() {
-    console.log('Initial App State', this.appState.state);
+    console.log('Initial App State');
   }
 
   public set sideNavHidden(value: boolean) {

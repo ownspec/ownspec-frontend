@@ -4,12 +4,11 @@ import {Component as C} from "@angular/core";
 import {StateService, StateParams} from "ui-router-ng2";
 import {UserService} from "../shared/users/user.service";
 
-require("./main-header.css");
-
 
 @C({
   selector: 'main-header',
   templateUrl: 'main-header.template.html',
+  styleUrls: ['./main-header.scss']
 })
 export class MainHeaderComponent {
 

@@ -1,5 +1,4 @@
 import {Observable} from "rxjs";
-import {StateService} from "angular-ui-router";
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams} from "@angular/http";
 import {User, UserService} from "./user.service";
