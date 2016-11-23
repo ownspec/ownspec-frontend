@@ -1,12 +1,10 @@
 "use strict";
 
 
-import {AbstractController} from "app/modules/commons/controllers/abstract.controller";
 import {Component as C, Input, OnInit, NgZone, EventEmitter, OnDestroy} from "@angular/core";
 import {Observable} from "rxjs";
 import {Component, ComponentService} from "../../shared/component.service";
 import * as _ from "lodash";
-import {ComponentEvent} from "typedoc/lib/utils/component";
 import {AppComponent} from "../../app.component";
 
 

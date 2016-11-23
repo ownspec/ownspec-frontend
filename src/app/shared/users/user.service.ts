@@ -15,18 +15,18 @@ export class UserService {
     return new User(json.id, json.username, json.email);
   }
 
-  public login(username: String, password: String): Observable {
+  public login(username: String, password: String): Observable<any> {
     return this.http.post(
-      "/api/users/login",
+      "/api/auth/login",
       {
         "username": username,
         "password": password
       });
   }
 
-  public logout(): Observable {
+  public logout(): Observable<any> {
     return this.http.post(
-      "/api/users/logout", ""
+      "/api/auth/logout", ""
     );
   }
 

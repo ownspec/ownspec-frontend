@@ -6,7 +6,8 @@ require('./login.component.css');
 
 @Component({
   selector: "login",
-  templateUrl: "./login.template.html"
+  templateUrl: "./login.template.html",
+  styleUrls: ['']
 })
 export class LoginComponent {
 

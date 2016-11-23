@@ -1,7 +1,6 @@
 "use strict";
 
 
-import {AbstractController} from "app/modules/commons/controllers/abstract.controller";
 import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angular/core";
 
 import {Observable} from "rxjs";
