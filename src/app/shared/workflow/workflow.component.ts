@@ -8,17 +8,11 @@ import {Component, ComponentService, Change} from "../../shared/component.servic
 import {ProfilService} from "../users/profil.service";
 import { Modal } from 'angular2-modal/plugins/bootstrap';
 
-//var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
-//import {_} from
-//import LoDashStatic = _;
-//import * as _ from "lodash";
-//import _ from "lodash";
-
-//const contentTemplateUrl: any = require('./content.template.html');
 
 @C({
   selector: 'workflow',
   templateUrl: './workflow.template.html',
+  styleUrls: ['./workflow.component.scss']
 })
 export class WorkflowComponent implements OnInit {
 
@@ -71,6 +65,9 @@ export class WorkflowComponent implements OnInit {
   }
 
 
+  display($event){
+    console.log($event);
+  }
 
 
 }

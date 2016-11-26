@@ -14,7 +14,7 @@
           </li>
         </ul>
       </div>-->
-      <input name="componentTitle" type="text" placeholder="Component title" [(ngModel)]="title">
+      <md-input name="componentTitle" placeholder="Title..." [(ngModel)]="searchTitle"></md-input>
 
     </div>
   </div>
@@ -23,7 +23,8 @@
 <div style="padding-top: 6px">
   <div *ngFor="let component of components" draggable="true" (dragstart)="dragStart($event, component)">
     <div style="border: 1px solid #ececec;border-radius: 3px;padding: 5px 5px;background: white;margin-bottom: 2px;border-left: 4px solid #ffaa66;">
-      <h4 style="font-size: 1.1rem"><label>{{component.id}}</label> - {{component.title}}</h4>
+      <h4 style="line-height:0.9rem;font-size: 0.9rem;margin-bottom: 4px">{{component.id}} - {{component.title}}</h4>
+      <div style="font-size: 0.9rem">{{component.summary}}</div>
     </div>
   </div>
 </div>

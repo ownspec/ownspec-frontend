@@ -3,10 +3,8 @@
 
 import {ComponentService, Component} from "../../shared/component.service";
 import {StateService, StateParams} from "ui-router-ng2";
-import {Component as C, ChangeDetectorRef, OnInit, Input, forwardRef, OpaqueToken} from "@angular/core";
-import {ColumnMode, TableOptions} from "angular2-data-table";
-import {Angular2DataTableModule} from 'angular2-data-table';
-import {DomSanitizer} from "@angular/platform-browser";
+import {Component as C, ChangeDetectorRef, OnInit, Input, forwardRef, OpaqueToken, ApplicationRef} from "@angular/core";
+import {ColumnMode} from "angular2-data-table";
 
 
 /*
@@ -35,17 +33,8 @@ export class ComponentsListComponent implements OnInit {
   @Input("projectId")
   public projectId: string = null;
 
-  options = new TableOptions({
-    columnMode: ColumnMode.force,
-    headerHeight: 50,
-    footerHeight: 0,
-    rowHeight: 50,
-    scrollbarV: true,
-    scrollbarH: true
-  });
 
-
-  public constructor(private $state: StateService, private $stateParams: StateParams, private componentService: ComponentService) {
+  public constructor(public appRef: ApplicationRef, private $state: StateService, private $stateParams: StateParams, private componentService: ComponentService) {
     this.projectId = null;
   }
 

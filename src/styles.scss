@@ -25,7 +25,7 @@ $list-item-dense-three-line-height: 14 * $dense-baseline-grid;
 $list-item-dense-height: 14 * $dense-baseline-grid;
 $list-item-three-line-height: 13 * $baseline-grid;
 
-$enable-flex: true;
+//$enable-flex: true;
 
 $md-fab-border-radius: 50%;
 $md-fab-size: 36px ;
@@ -41,21 +41,16 @@ $md-mini-fab-padding: 4px ;
 @import "~roboto-fontface/css/roboto/sass/roboto-fontface-medium.scss";
 @import "~roboto-fontface/css/roboto-condensed/sass/roboto-condensed-fontface.scss";
 
-//@import "~angular/angular-csp.css";
-//@import '~angular-material/angular-material.scss'; // the path refers to the file at BUILD time
-@import "~bootstrap/scss/bootstrap.scss";
+
 //@import '../../../node_modules/font-awesome/scss/font-awesome.scss'; // the path refers to the file at BUILD time
 
 @import "~font-awesome/scss/font-awesome.scss"; //override boostrap variables
 
+//@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap/scss/bootstrap.scss";
+//@import "~bootstrap/scss/bootstrap-flex.scss";
 
 @import "~@angular/material/core/theming/prebuilt/deeppurple-amber.scss";
-@import "~@angular/material/button/button.scss";
-
-
-
-
-
 
 
 @import "~angular2-data-table/release/datatable.css";
@@ -73,6 +68,18 @@ $background-header: white;
 //$background-sidenav: rgb(65, 75, 86);
 //$background-header: #476382;
 
+
+// define by bootstrap with the margin bottom
+label {
+  // Allow labels to use `margin` for spacing.
+  display: inline-block;
+  //margin-bottom: .5rem;
+  margin-bottom: 0rem;
+}
+
+
+
+
 html,
 body {
   height: 100%;
@@ -85,18 +92,6 @@ body {
 
 span.active {
   background-color: gray;
-}
-
-input, select {
-  border-radius: 0 !important;
-  margin-bottom: 20px;
-  border: 1px solid #d9d9d9;
-  padding: 10px 15px;
-}
-
-input:focus {
-  border: 1px solid #ec4363 !important;
-  color: #333333 !important;
 }
 
 .main-container {
@@ -198,29 +193,6 @@ projects {
 .table-actions a {
   padding-right: 5px;
   font-size: 1.3rem;
-}
-
-.workflow-history {
-//padding: 10px;
-}
-
-.workflow-history h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.workflow-history h4 span {
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.workflow-history ul {
-  padding-left: 10px;
-
-}
-
-.workflow-history ul {
-  list-style: none;
 }
 
 .component-write-tabs {
@@ -563,8 +535,6 @@ Datatable
 .radio-margin-right input{
   margin-right: 15px;
 }
-
-
 
 
 

@@ -34,6 +34,7 @@ import {WriteSideNavComponent} from "./components/write/write-sidenav.component"
 import {ChartsModule} from "ng2-charts";
 import {Router} from "@angular/router";
 import {HttpInterceptor} from "./shared/http/http-interceptor";
+import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
 
 
 
@@ -88,7 +89,7 @@ export class AppGestureConfig extends HammerGestureConfig { }
     FormsModule,
     HttpModule,
     Ng2BootstrapModule,
-    MaterialModule,
+    MaterialModule.forRoot(),
     Angular2DataTableModule,
     CKEditorModule,
     MomentModule,
@@ -107,6 +108,9 @@ export class AppGestureConfig extends HammerGestureConfig { }
 
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
+
+    BrowserDomAdapter,
+
     {
       provide: Http,
       useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, $state: StateService) => new HttpInterceptor(xhrBackend, requestOptions, $state),
@@ -117,6 +121,6 @@ export class AppGestureConfig extends HammerGestureConfig { }
   ]
 })
 export class AppModule {
-
+  constructor(public appRef: ApplicationRef) {}
 }
 

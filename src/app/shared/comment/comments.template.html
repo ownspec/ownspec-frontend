@@ -1,21 +1,23 @@
-<form style="padding-top: 6px">
-  <div style="display: flex;flex-direction: row">
-    <div class="form-group" style="flex: 1">
-      <textarea class="form-control" [(ngModel)]="comment" name="comment"></textarea>
+<div style="width: 100%">
+  <form style="padding-top: 6px" (submit)="post()">
+    <div class="form-group">
+      <div style="flex: 1">
+        <md-textarea [(ngModel)]="comment" placeholder="Comment..." name="comment" style="width: 100%" required>
+        </md-textarea>
+      </div>
+      <div style="width: 40px;text-align: center;">
+        <button md-raised-button type="submit">Comment</button>
+      </div>
     </div>
-
-    <div style="width: 40px;text-align: center;">
-      <a role="button" style="font-size: 1.4rem" (click)="post()">
-        <i class="fa fa-check-circle" aria-hidden="true"></i>
-      </a>
-    </div>
-  </div>
+  </form>
 
   <div>
-    <div *ngFor="let comment of component.comments" style="border: 1px solid #ececec;border-radius: 3px;padding: 5px 5px;background: white;margin-bottom: 4px;">
-      <div>{{comment.value}}</div>
-      <span style="color: gray;font-size: 0.9rem">{{comment.createdDate | amTimeAgo}} by {{comment.createdUser.username}}</span>
+    <div *ngFor="let comment of component.comments"
+         style="border: 1px solid #ececec;border-radius: 3px;padding: 5px 5px;background: white;margin-bottom: 4px;">
+      <div style="font-size: 0.9rem">{{comment.value}}</div>
+      <span
+        style="color: gray;font-size: 0.7rem">{{comment.createdDate | amTimeAgo}} by {{comment.createdUser.username}}</span>
     </div>
   </div>
 
-</form>
+</div>

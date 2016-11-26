@@ -14,10 +14,11 @@ import {
 } from '@angular/core';
 
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {DomAdapter} from "@angular/platform-browser/src/dom/dom_adapter";
+import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
 
 declare var CKEDITOR: any;
 
-import * as $ from "jquery";
 
 
 /**
@@ -34,12 +35,15 @@ import * as $ from "jquery";
       multi: true
     }
   ],
-  template: `<textarea #host></textarea>`,
+  template: `<textarea #host (window:resize)="onResize($event)"></textarea>`,
 })
 export class CKEditorComponent implements ControlValueAccessor {
 
   @Input() config;
   @Input() debounce;
+
+  @Input()
+  container: Element;
 
   _readonly: boolean = false;
 
@@ -55,22 +59,37 @@ export class CKEditorComponent implements ControlValueAccessor {
 
   bypassOnChange = false;
 
-  resolve:Function;
-  reject:Function;
+  resolve: Function;
+  reject: Function;
 
-  onChange:Function;
-  onTouched:Function;
+  onChange: Function;
+  onTouched: Function;
+
 
   /**
    * Constructor
    */
-  constructor(private zone: NgZone) {
+  constructor(private zone: NgZone, private domAdapter: BrowserDomAdapter) {
     this.promise = new Promise(function (resolve, reject) {
       this.resolve = resolve;
       this.reject = reject;
     }.bind(this));
   }
 
+
+  onResize($event) {
+    this.resize();
+  }
+
+  private resize() {
+    this.promise.then(e => {
+      if (this.container) {
+        let height = this.domAdapter.getBoundingClientRect(this.container).height;
+        return this.instance.resize("100%", height - 30);
+      }
+    });
+
+  }
 
 
   get readonly() {
@@ -152,7 +171,7 @@ export class CKEditorComponent implements ControlValueAccessor {
       this.resolve(this.instance);
       // send the evt to the EventEmitter
       this.ready.emit(evt);
-      evt.editor.resize("100%", $(evt.editor.container.getParent().getParent().$).height() - 50);
+      this.resize();
     });
 
 
@@ -194,7 +213,6 @@ export class CKEditorComponent implements ControlValueAccessor {
       }
     });
   }
-
 
 
   registerOnChange(fn) {

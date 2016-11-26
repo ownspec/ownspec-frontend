@@ -31,7 +31,12 @@
   <datatable
     class="material" style="flex: 1;height: 300px"
     [rows]="combinedStatusView"
-    [options]="options">
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="0"
+    [rowHeight]="50"
+    [scrollbarV]="true"
+    [scrollbarH]="true">
 
     <datatable-column name="Source">
       <template let-row="row" let-value="value">

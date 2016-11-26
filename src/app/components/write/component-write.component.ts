@@ -1,7 +1,7 @@
 "use strict";
 
 
-import {Component as C, Input, OnInit, NgZone, EventEmitter, OnDestroy} from "@angular/core";
+import {Component as C, Input, OnInit, NgZone, EventEmitter, OnDestroy, ViewChild, ElementRef} from "@angular/core";
 import {Observable} from "rxjs";
 import {Component, ComponentService} from "../../shared/component.service";
 import * as _ from "lodash";
@@ -14,10 +14,9 @@ import {AppComponent} from "../../app.component";
 })
 export class ComponentWriteComponent implements OnInit, OnDestroy {
 
-  public component: Component = new Component("", "", "", "", new Date(), new Date(), "");
+  public component: Component = new Component("", "", "", "", new Date(), new Date(), "" , "");
 
   public content: string = "FOO";
-
 
   @Input("componentId")
   public id: string;
@@ -34,6 +33,8 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+
+
     this.appComponent.sideNavHidden = true;
 
     this.componentService.findOne(this.id, true, true, true).subscribe(r => {

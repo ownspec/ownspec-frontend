@@ -1,12 +1,8 @@
 "use strict";
 
 
-import {ComponentService, Component} from "../../shared/component.service";
 import {StateService, StateParams} from "ui-router-ng2";
 import {Component as C, ChangeDetectorRef, OnInit} from "@angular/core";
-import {ColumnMode, TableOptions} from "angular2-data-table";
-import {Angular2DataTableModule} from 'angular2-data-table';
-import {DomSanitizer} from "@angular/platform-browser";
 import {ProjectService, Project} from "../../shared/project.service";
 
 
@@ -17,15 +13,6 @@ import {ProjectService, Project} from "../../shared/project.service";
 export class ProjectsListComponent implements OnInit{
 
   public projects:Project[] = [];
-
-  options = new TableOptions({
-    columnMode: ColumnMode.force,
-    headerHeight: 50,
-    footerHeight: 0,
-    rowHeight: 50,
-    scrollbarV: true,
-    scrollbarH: true
-  });
 
 
   public constructor(private $state: StateService, private $stateParams: StateParams, private projectService: ProjectService) {

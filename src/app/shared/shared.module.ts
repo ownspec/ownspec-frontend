@@ -9,7 +9,7 @@ import {Ng2BootstrapModule} from "ng2-bootstrap";
 import {ProfilService} from "./users/profil.service";
 import {UserService} from "./users/user.service";
 import {BrowserModule} from "@angular/platform-browser";
-import {CommentsComponent} from "./comment/comment.component";
+import {CommentsComponent} from "./comment/comments.component";
 import {MomentModule} from "angular2-moment";
 import {ComponentsComponent} from "./components/components.component";
 import {ProjectService} from "./project.service";

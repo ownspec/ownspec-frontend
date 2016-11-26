@@ -8,17 +8,10 @@ import {Component, ComponentService} from "../../shared/component.service";
 import {ProfilService} from "../users/profil.service";
 import {ComponentUpdate} from "../../components/write/component-write.component";
 
-//var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
-//import {_} from
-//import LoDashStatic = _;
-//import * as _ from "lodash";
-//import _ from "lodash";
-
-//const contentTemplateUrl: any = require('./content.template.html');
-
 @C({
   selector: 'comments',
   templateUrl: 'comments.template.html',
+  styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent implements OnInit {
 
@@ -40,6 +33,7 @@ export class CommentsComponent implements OnInit {
   public post() {
     this.componentService.postComment(this.component.id, this.comment)
       .subscribe(c => {
+        this.comment = "";
         this.update.emit(new ComponentUpdate(false, false, false, true));
       });
   }

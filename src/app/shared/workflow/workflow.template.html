@@ -1,57 +1,61 @@
-<form name="userForm" style="padding-top: 6px">
+  <div style="width: 100%">
 
-  <div>
-    <div style="margin-bottom: 4px">
-      <span>From <b>{{component.currentStatus.name}}</b> To </span>
-<!--      <span dropdown>
-        <a href id="simple-dropdown" dropdownToggle>
-          {{targetStatus? targetStatus : 'Select the next status'}}
-        </a>-->
-      <div class="btn-group" dropdown>
-        <button id="single-button" type="button" class="btn btn-primary btn-sm" dropdownToggle >
-          {{targetStatus? targetStatus : 'Select the next status'}}<span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
-          <li><em>None</em></li>
-          <li *ngFor="let status of statuses">
-            <a class="dropdown-item" role="button" (click)="targetStatus=status.name">{{status.name}}</a>
-          </li>
-        </ul>
+
+      <div style="padding-bottom: 4px">
+        <md-button-toggle-group multiple>
+          <md-button-toggle md-tooltip="Display only the latest version">
+            <i class="fa fa-filter" aria-hidden="true"></i>
+          </md-button-toggle>
+          <md-button-toggle #historyUpdate md-tooltip="Update status">
+            <i class="fa fa-history" aria-hidden="true"></i>
+          </md-button-toggle>
+        </md-button-toggle-group>
       </div>
-      <button type="button" class="btn btn-success btn-sm" (click)="changeStatus()" [disabled]="!canUpdateWorkflow">
-        <i class="fa fa-check-circle" aria-hidden="true"></i>
-      </button>
+    <form name="userForm" style="padding-top: 6px" (submit)="changeStatus()">
+      <div *ngIf="historyUpdate.checked" style="padding-bottom: 4px">
+        <div>
+          <span>From <b>{{component.currentStatus.name}}</b> To </span>
+          <select class="custom-select" [(ngModel)]="targetStatus" name="targetStatus" required>
+            <option *ngFor="let status of statuses" [value]="status.name">{{status.name}}</option>
+          </select>
+        </div>
+        <div>
+          <md-textarea style="width: 100%" [(ngModel)]="reason" name="reason" required
+                       placeholder="Enter the reason"></md-textarea>
+        </div>
+        <div style="width: 40px;text-align: center;">
+          <button md-raised-button type="submit" [disabled]="!canUpdateWorkflow">Update
+          </button>
+        </div>
+      </div>
+    </form>
 
+    <div class="workflow-history">
 
+      <div *ngFor="let workflowInstance of component.workflowInstances.reverse()"
+           style="background:white;border: 1px solid #e2e2e2;border-radius: 3px;">
+        <h3 style="font-size: 1.1rem;font-weight: 600;background: #393838;color: white;padding: 6px;">
+          Version {{workflowInstance.id}}
+          <small>started {{workflowInstance.createdDate| amTimeAgo}}</small>
+        </h3>
+
+        <div *ngFor="let status of workflowInstance.workflowStatuses.reverse()" style="padding: 4px;">
+          <h4>
+            {{status.status.name}} <span>{{status.createdDate | amTimeAgo}} by {{status.createdUser.username}}</span>
+          </h4>
+          <ul *ngIf="status.changes.length > 0" style="margin-bottom: 0px">
+            <li *ngFor="let change of status.changes.reverse()">
+              <div>
+                <a (click)="diff(change)" role="button" style="font-size: 0.8rem">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{change.date | amTimeAgo}} by
+                  {{change.user.username}}
+                </a>
+              </div>
+              <div style="color: gray;font-size: 0.9rem"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-  <div>
-    <div class="form-group">
-      <textarea class="form-control" [(ngModel)]="reason" name="reason" placeholder="Enter the reason"></textarea>
-    </div>
-  </div>
-</form>
-
-<div class="workflow-history">
-
-  <div *ngFor="let workflowInstance of component.workflowInstances.reverse()" style="background:white;border: 1px solid #e2e2e2;border-radius: 3px;">
-    <h3 style="font-size: 1.2rem;font-weight: 600;background: gray;color: white;padding: 6px;">
-      Version {{workflowInstance.id}} <small>started {{workflowInstance.createdDate| amTimeAgo}}</small></h3>
-
-    <div *ngFor="let status of workflowInstance.workflowStatuses.reverse()" style="padding: 4px;">
-      <h4>
-        {{status.status.name}} <span>{{status.createdDate | amTimeAgo}} by {{status.createdUser.username}}</span>
-      </h4>
-      <ul *ngIf="status.changes.length > 0" style="margin-bottom: 0px">
-        <li *ngFor="let change of status.changes.reverse()">
-          <div>
-            <a (click)="diff(change)" role="button">Updated {{change.date | amTimeAgo}}</a>
-          </div>
-          <div style="color: gray;font-size: 0.9rem">by {{change.user.username}} 4 adds, 3 deletions</div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-
 

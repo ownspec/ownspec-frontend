@@ -4,7 +4,7 @@
     <div class="main-search-container" style="width:280px">
       <form class="main-search">
         <div class="main-search-input-wrapper">
-          <input type="text" class="main-search-input form-control" placeholder="Search components...">
+          <md-input  placeholder="Search components..."></md-input>
         </div>
       </form>
     </div>
@@ -22,7 +22,12 @@
     <datatable
       class="material" style="flex: 1"
       [rows]="components"
-      [options]="options">
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="0"
+      [rowHeight]="50"
+      [scrollbarV]="true"
+      [scrollbarH]="true">
       <datatable-column name="Id"></datatable-column>
       <datatable-column name="Title"></datatable-column>
       <datatable-column name="Status" prop="currentStatus.name"></datatable-column>
@@ -38,24 +43,24 @@
       </datatable-column>
       <datatable-column name="Content">
         <template let-row="row" let-value="value">
-          TODO
+          {{row.summary}}
         </template>
       </datatable-column>
       <datatable-column name="Action">
         <template let-row="row" let-value="value">
           <div class="table-actions">
-            <a tooltipPlacement="bottom" tooltip="Delete component" tooltipClass="foobar" tooltipAppendToBody="true"
+            <a tooltipPlacement="bottom" md-tooltip="Delete component" tooltip-position="above" tooltipClass="foobar"
                class="table-actions" role="button">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </a>
-            <a uiSref=".component-edit" [uiParams]="{ componentId: row.id }" tooltip="Edit component" role="button">
+            <a uiSref=".component-edit" [uiParams]="{ componentId: row.id }" md-tooltip="Edit component" role="button">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
-            <a uiSref=".component-write" [uiParams]="{ componentId: row.id }" tooltip="Open component for write"
+            <a uiSref=".component-write" [uiParams]="{ componentId: row.id }" md-tooltip="Open component for write"
                role="button">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
             </a>
-            <a (click)="openWorkflow(row)" tooltip="Open workflow history" role="button">
+            <a (click)="openWorkflow(row)" md-tooltip="Open workflow history" role="button">
               <i class="fa fa-history" aria-hidden="true"></i>
             </a>
           </div>

@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 import {Component, ComponentService, Change} from "../../shared/component.service";
 import {ProfilService} from "../users/profil.service";
 import {Modal} from 'angular2-modal/plugins/bootstrap';
-import {ColumnMode, TableOptions} from "angular2-data-table";
+import {ColumnMode} from "angular2-data-table";
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from
@@ -23,15 +23,6 @@ import {ColumnMode, TableOptions} from "angular2-data-table";
 })
 export class WorkflowTableComponent implements OnInit {
 
-
-  options = new TableOptions({
-    columnMode: ColumnMode.force,
-    headerHeight: 50,
-    footerHeight: 0,
-    rowHeight: 50,
-    scrollbarV: true,
-    scrollbarH: true
-  });
 
   combinedStatusView: Array<any> = [];
 

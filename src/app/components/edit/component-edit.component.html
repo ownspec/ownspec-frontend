@@ -131,7 +131,11 @@
           <datatable
             class="material" style="flex: 1;min-height:300px"
             [rows]="component.componentReferences"
-            [options]="options">
+            [headerHeight]="50"
+            [footerHeight]="0"
+            [rowHeight]="50"
+            [scrollbarV]="true"
+            [scrollbarH]="true">
             <datatable-column name="Source" prop="source.title"></datatable-column>
             <datatable-column name="Status" prop="source.currentStatus.name"></datatable-column>
 

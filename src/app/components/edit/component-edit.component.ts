@@ -4,9 +4,9 @@ import {Component, ComponentService} from "../../shared/component.service";
 import {StateService, StateParams} from "ui-router-ng2";
 import {Component as C, Input, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
-import {ColumnMode, TableOptions} from "angular2-data-table";
+import {ColumnMode} from "angular2-data-table";
 import {ComponentUpdate} from "../write/component-write.component";
-require("bootstrap/dist/css/bootstrap.min.css");
+
 
 @C({
   selector: 'component',
@@ -23,16 +23,6 @@ export class ComponentEditComponent implements OnInit {
   public editorOptions: any;
 
   public references: Array<EntityReference> = [];
-
-
-  options = new TableOptions({
-    columnMode: ColumnMode.force,
-    headerHeight: 50,
-    footerHeight: 0,
-    rowHeight: 50,
-    scrollbarV: true,
-    scrollbarH: true
-  });
 
 
   public constructor(private $state: StateService, private componentService: ComponentService, private referenceService: ReferenceService) {

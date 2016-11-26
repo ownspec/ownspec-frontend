@@ -15,7 +15,12 @@
     <datatable
       class="material" style="flex: 1;height: 100%"
       [rows]="projects"
-      [options]="options">
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="0"
+      [rowHeight]="50"
+      [scrollbarV]="true"
+      [scrollbarH]="true">
       <datatable-column name="Id" [width]="300"></datatable-column>
       <datatable-column name="Title"></datatable-column>
       <datatable-column name="Description"></datatable-column>

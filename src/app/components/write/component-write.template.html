@@ -25,13 +25,14 @@
   </div>
   <div style="flex: 1">
 
-    <div class="main-content-content" style="display: flex;flex-direction: row; margin-top: 0px" *ngIf="component != null">
-      <div style="flex: 1">
+    <div class="main-content-content" style="display: flex;flex-direction: row; margin-top: 0px;height:100%" *ngIf="component != null">
+      <div style="flex: 1" #container>
         <ckeditor
           [(ngModel)]="content"
           [config]="{uiColor: '#99000', height: '200px', basePath: '/assets/js/ckeditor/' , sharedSpaces:{top:'toolbarId'}}"
           (change)="onChange($event)"
           [readonly]="!component.currentStatus.isEditable"
+          [container]="container"
           (ready)="onReady($event)">
         </ckeditor>
       </div>
