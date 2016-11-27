@@ -4,6 +4,7 @@
 import {Component, ViewEncapsulation, ViewContainerRef} from '@angular/core';
 
 import {Overlay} from "angular2-modal";
+import {SharedService} from "./shared/shared.service";
 
 /*
  * App Component
@@ -16,23 +17,28 @@ import {Overlay} from "angular2-modal";
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-
-  private _sideNavHidden = false;
-  angularclassLogo = 'assets/img/angularclass-avatar.png';
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
 
-  constructor(overlay: Overlay, vcRef: ViewContainerRef) {
+  mainContentExpanded;
+
+  constructor(private overlay: Overlay,
+              private vcRef: ViewContainerRef,
+              private sharedService: SharedService) {
     overlay.defaultViewContainer = vcRef;
+
+    // Init sub-components
+    this.mainContentExpanded = false;
+    this.sharedService.expandMainContentAndHideSideNav(this.mainContentExpanded);
   }
 
   ngOnInit() {
     console.log('Initial App State');
+    this.sharedService.expandMainContentEvent.subscribe(expand => {
+      this.mainContentExpanded = expand;
+    })
   }
 
-  public set sideNavHidden(value: boolean) {
-    this._sideNavHidden = value;
-  }
 }
 
 /*

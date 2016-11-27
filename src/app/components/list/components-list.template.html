@@ -1,17 +1,16 @@
 <main-header>
-  <div class="main-header-title">List Of Components</div>
+  <div class="main-header-title">Components</div>
   <div class="main-header-content" style="display: flex">
     <div class="main-search-container" style="width:280px">
       <form class="main-search">
         <div class="main-search-input-wrapper">
-          <md-input  placeholder="Search components..."></md-input>
+          <md-input placeholder="Search components..."></md-input>
         </div>
       </form>
     </div>
-    <div>
-      <button (click)="startCreateComponent()" md-raised-button color="primary">
-        <i class="fa fa-plus-circle" aria-hidden="true"></i> Components
-      </button>
+
+    <div class="rounded-button">
+      <button (click)="startCreateComponent()"><i class="fa fa-plus" aria-hidden="true"></i></button>
     </div>
   </div>
 </main-header>

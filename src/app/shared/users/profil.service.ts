@@ -1,6 +1,6 @@
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams} from "@angular/http";
+import {Http} from "@angular/http";
 import {User, UserService} from "./user.service";
 
 @Injectable()

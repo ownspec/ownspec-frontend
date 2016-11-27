@@ -1,0 +1,35 @@
+<div *ngIf="!hidden" class="sidenav">
+  <!--Logo-->
+  <div class="sidenav-logo">
+    <button (click)="goDefaultView()"><img src="/assets/img/os-center-logo-170x43.png" alt="Ownspec center"></button>
+  </div>
+
+
+  <!--User menu-->
+  <div dropdown class="sidenav-user-menu">
+    <button dropdownToggle type="button">
+      <img src="/assets/img/avatar_f.png" class="img-circle avatar"/>
+      <a style="display: block">Lyrold Careto <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+    </button>
+    <ul dropdownMenu role="menu">
+      <li role="menuitem"><a class="dropdown-item" href="#"><span class="fa fa-user"></span>Profile</a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#"><span class="fa fa-cogs"></span>Settings</a></li>
+      <li class="divider dropdown-divider"></li>
+      <li role="menuitem"><a class="dropdown-item" href="#" (click)="logoutUser()"><span class="fa fa-power-off" style="display:table; margin:auto;"></span></a></li>
+    </ul>
+  </div>
+
+  <!--Navigation-->
+  <div class="sidenav-menu-items">
+    <li *ngFor="let item of menuItems">
+      <a uiSref={{item.state}}>
+        <div><i class="fa {{item.icon}}" aria-hidden="true"></i>{{item.name}}</div>
+      </a>
+    </li>
+  </div>
+
+  <!--Help-->
+  <div class="sidenav-footer">
+    <i class="fa fa-question-circle" aria-hidden="true"></i>
+  </div>
+</div>

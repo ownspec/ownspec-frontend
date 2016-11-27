@@ -1,11 +1,11 @@
 "use strict";
 
 
-import {Component as C, Input, OnInit, NgZone, EventEmitter, OnDestroy, ViewChild, ElementRef} from "@angular/core";
+import {Component as C, Input, OnInit, NgZone, OnDestroy} from "@angular/core";
 import {Observable} from "rxjs";
 import {Component, ComponentService} from "../../shared/component.service";
 import * as _ from "lodash";
-import {AppComponent} from "../../app.component";
+import {SharedService} from "../../shared/shared.service";
 
 
 @C({
@@ -14,7 +14,7 @@ import {AppComponent} from "../../app.component";
 })
 export class ComponentWriteComponent implements OnInit, OnDestroy {
 
-  public component: Component = new Component("", "", "", "", new Date(), new Date(), "" , "");
+  public component: Component = new Component("", "", "", "", new Date(), new Date(), "", "");
 
   public content: string = "FOO";
 
@@ -28,14 +28,15 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
   private debounced: any;
 
-  public constructor(private zone: NgZone, public componentService: ComponentService, public appComponent: AppComponent) {
+  public constructor(private zone: NgZone,
+                     private componentService: ComponentService,
+                     private sharedService: SharedService) {
   }
 
 
   ngOnInit(): void {
 
-
-    this.appComponent.sideNavHidden = true;
+    this.sharedService.expandMainContentAndHideSideNav(true);
 
     this.componentService.findOne(this.id, true, true, true).subscribe(r => {
       this.component = r;
@@ -54,6 +55,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
+    this.sharedService.expandMainContentAndHideSideNav(false);
     // TODO: clear timer to avoid save after a close
   }
 

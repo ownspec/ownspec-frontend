@@ -1,15 +1,14 @@
 import {AppComponent} from "./app.component";
 import {Ng2StateDeclaration, Transition} from "ui-router-ng2";
-import {MainSideNavComponent} from "./sidenav/main/main-sidenav.component";
 import {DashboardRootComponent} from "./dashboard/dashboard-root.component";
 import {ProjectsListComponent} from "./projects/list/projects-list.component";
 import {ProjectEditComponent} from "./projects/edit/project-edit.component";
 import {ComponentEditComponent} from "./components/edit/component-edit.component";
 import {ComponentsListComponent} from "./components/list/components-list.component";
 import {ComponentWriteComponent} from "./components/write/component-write.component";
-import {ProjectSideNavComponent} from "./sidenav/project/project-sidenav.component";
 import {LoginComponent} from "./login/login.component";
 import {EmptyContent} from "./shared/empty-content/empty-content";
+import {SideNavComponent} from "./sidenav/sidenav.component";
 
 /** The top level state(s) */
 export let MAIN_STATES: Ng2StateDeclaration[] = [
@@ -43,7 +42,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
     name: "app.home",
     abstract: true,
     views: {
-      "sidenav": {component: MainSideNavComponent},
+      "sidenav": {component: SideNavComponent},
     }
   },
 
@@ -119,7 +118,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
     url: "/project/:projectId",
     abstract: true,
     views: {
-      "sidenav@app": {component: ProjectSideNavComponent},
+      "sidenav@app": {component: SideNavComponent},
     },
     resolve: [
       {
