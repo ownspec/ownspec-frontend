@@ -87,6 +87,18 @@ button {
   background-color: transparent;
 }
 
+input, select {
+  border-radius: 0 !important;
+  margin-bottom: 20px;
+  border: 1px solid #d9d9d9;
+  padding: 10px 15px;
+}
+
+input:focus {
+  border: 1px solid #ec4363 !important;
+  color: #333333 !important;
+}
+
 .no-margin {
   margin: 0 !important;
 }
@@ -386,6 +398,11 @@ Datatable
   font-weight: 600;
 }
 
+.panel {
+  padding: 0;
+  background-color: white;
+}
+
 .panel-heading {
   background-color: #F9F9F9;
   padding: 5px;
@@ -415,12 +432,12 @@ Datatable
   margin-top: auto;
   margin-left: 5px;
   margin-right: 5px;
-  border-radius: 40px;
+  border-radius: 37px;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
-  width: 40px;
-  height: 40px;
+  width: 37px;
+  height: 37px;
   text-align: center;
-  line-height: 40px;
+  line-height: 37px;
 }
 
 .pink-background {
