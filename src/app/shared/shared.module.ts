@@ -1,5 +1,5 @@
 import {NgModule, ApplicationRef} from "@angular/core";
-import {ComponentService} from "./component.service";
+import {ComponentService} from "./service/component/component.service";
 import {ReferenceService} from "./reference.service";
 import {WorkflowComponent} from "./workflow/workflow.component";
 import {HttpModule} from "@angular/http";

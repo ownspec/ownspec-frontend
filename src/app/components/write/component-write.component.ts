@@ -3,9 +3,10 @@
 
 import {Component as C, Input, OnInit, NgZone, EventEmitter, OnDestroy, ViewChild, ElementRef} from "@angular/core";
 import {Observable} from "rxjs";
-import {Component, ComponentService} from "../../shared/component.service";
+import {ComponentService} from "../../shared/service/component/component.service";
 import * as _ from "lodash";
 import {AppComponent} from "../../app.component";
+import {Component} from "../../shared/service/component/component";
 
 
 @C({

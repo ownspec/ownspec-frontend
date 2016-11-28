@@ -4,9 +4,11 @@
 import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angular/core";
 
 import {Observable} from "rxjs";
-import {Component, ComponentService, Change} from "../../shared/component.service";
+import {ComponentService} from "../service/component/component.service";
 import {ProfilService} from "../users/profil.service";
 import { Modal } from 'angular2-modal/plugins/bootstrap';
+import {Component} from "../service/component/component";
+import {Change} from "../service/component/change";
 
 
 @C({
@@ -36,6 +38,8 @@ export class WorkflowComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    //this.component.currentStatus.transitions;
 
     this.profilService.findCurrentProfile().subscribe(p => {
       this.statuses = p.properties.statuses;

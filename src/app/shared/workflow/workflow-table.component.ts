@@ -4,10 +4,12 @@
 import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angular/core";
 
 import {Observable} from "rxjs";
-import {Component, ComponentService, Change} from "../../shared/component.service";
+import {ComponentService} from "../service/component/component.service";
 import {ProfilService} from "../users/profil.service";
 import {Modal} from 'angular2-modal/plugins/bootstrap';
 import {ColumnMode} from "angular2-data-table";
+import {Component} from "../service/component/component";
+import {Change} from "../service/component/change";
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from

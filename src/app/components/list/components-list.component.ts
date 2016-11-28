@@ -1,7 +1,7 @@
 "use strict";
 
 
-import {ComponentService, Component} from "../../shared/component.service";
+import {ComponentService} from "../../shared/service/component/component.service";
 import {StateService, StateParams} from "ui-router-ng2";
 import {Component as C, ChangeDetectorRef, OnInit, Input, forwardRef, OpaqueToken, ApplicationRef} from "@angular/core";
 import {ColumnMode} from "angular2-data-table";

@@ -1,16 +1,17 @@
 "use strict";
-import {EntityReference, ReferenceService} from "../../shared/reference.service";
-import {Component, ComponentService} from "../../shared/component.service";
-import {StateService, StateParams} from "ui-router-ng2";
+import {StateService} from "ui-router-ng2";
 import {Component as C, Input, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
-import {ColumnMode} from "angular2-data-table";
 import {ComponentUpdate} from "../write/component-write.component";
+import {Component} from "../../shared/service/component/component";
+import {ComponentService} from "../../shared/service/component/component.service";
+import {EntityReference, ReferenceService} from "../../shared/reference.service";
 
 
 @C({
   selector: 'component',
-  templateUrl: 'component-edit.component.html',
+  templateUrl: 'component-edit.template.html',
+  styleUrls: ['./component-edit.component.scss']
 })
 export class ComponentEditComponent implements OnInit {
 

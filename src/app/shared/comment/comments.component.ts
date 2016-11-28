@@ -4,9 +4,10 @@
 import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angular/core";
 
 import {Observable} from "rxjs";
-import {Component, ComponentService} from "../../shared/component.service";
+import {ComponentService} from "../service/component/component.service";
 import {ProfilService} from "../users/profil.service";
 import {ComponentUpdate} from "../../components/write/component-write.component";
+import {Component} from "../service/component/component";
 
 @C({
   selector: 'comments',
