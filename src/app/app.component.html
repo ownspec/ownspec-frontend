@@ -1,37 +1,5 @@
-<!--
-<div class="top-bar">
-  <div class="logo-container">
-    <img src="assets/img/os-center-logo-170x43.png" alt="Ownspec center">
-  </div>
+<sidenav></sidenav>
 
-  &lt;!&ndash;<div class="menu-toggle">&ndash;&gt;
-    &lt;!&ndash;<i class="fa fa-bars" aria-hidden="true"></i>&ndash;&gt;
-  &lt;!&ndash;</div>&ndash;&gt;
-
-  <div class="main-search-container">
-    <form class="main-search">
-      <div class="main-search-input-wrapper">
-        <input type="text" class="main-search-input form-control" placeholder="Search everywhere...">
-      </div>
-    </form>
-  </div>
-
-  <div class="top-bar-tools pull-right">
-    <div>
-      <i class="fa fa-bell-o "><span>1</span></i>
-    </div>
-
-    &lt;!&ndash;<profile></profile>&ndash;&gt;
-  </div>
-
-</div>
--->
-
-<div class="main-container">
-  <div *ngIf="!_sideNavHidden" class="main-side-nav">
-    <ui-view name="sidenav" style="height: 100%"></ui-view>
-  </div>
-  <div class="main-content">
-    <ui-view name="main" style="display: flex;flex: 1;flex-direction: column"></ui-view>
-  </div>
+<div class="main-content" [ngClass]="{'no-margin': mainContentExpanded, 'main-content-margin': !mainContentExpanded}">
+  <ui-view name="main"></ui-view>
 </div>

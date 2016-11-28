@@ -1,37 +1,26 @@
 "use strict";
+import {Component, OnInit} from "@angular/core";
+import {SharedService} from "../shared/shared.service";
 
-import {Component as C} from "@angular/core";
-import {StateService, StateParams} from "ui-router-ng2";
-import {UserService} from "../shared/users/user.service";
-
-
-@C({
+@Component({
   selector: 'main-header',
   templateUrl: 'main-header.template.html',
   styleUrls: ['./main-header.scss']
 })
-export class MainHeaderComponent {
+export class MainHeaderComponent implements OnInit {
+  private sideNavIsHidden;
 
-  public constructor(private state: StateService, private stateParams: StateParams, private userService: UserService) {
+  public constructor(private sharedService: SharedService) {
   }
 
-  logout() {
-    this.userService.logout().subscribe(
-      success => {
-        this.state.go("login");
-      },
-      error => {
-        console.error("logout failed:" + error);
-      }
-    );
+  ngOnInit(): void {
+    this.sharedService.hideSideNavEvent.subscribe(hidden => {
+      this.sideNavIsHidden = hidden;
+    })
   }
 
-  goSettings() {
-
+  toggleSideNav() {
+    this.sideNavIsHidden = !this.sideNavIsHidden;
+    this.sharedService.expandMainContentAndHideSideNav(this.sideNavIsHidden);
   }
-
-  goProfile() {
-
-  }
-
 }

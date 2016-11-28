@@ -18,6 +18,7 @@ import {ModalModule} from "angular2-modal";
 import {WorkflowTableComponent} from "./workflow/workflow-table.component";
 import {MaterialModule} from "@angular/material";
 import {EmptyContent} from "./empty-content/empty-content";
+import {SharedService} from "./shared.service";
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {EmptyContent} from "./empty-content/empty-content";
     UserService,
     ProfilService,
     ProjectService,
+    SharedService,
 
   ]
 })

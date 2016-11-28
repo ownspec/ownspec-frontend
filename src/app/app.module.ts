@@ -2,17 +2,11 @@ import {NgModule, ApplicationRef, Injectable} from "@angular/core";
 import {BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
 import {HttpModule, RequestOptions, XHRBackend, Http} from "@angular/http";
-import {removeNgStyles, createNewHosts, createInputTransfer} from "@angularclass/hmr";
-/*
- * Platform and Environment providers/directives/pipes
- */
-// App is our top level component
 import {SharedModule} from "./shared/shared.module";
 import {UIView, UIRouterModule, StateService} from "ui-router-ng2";
 import {MyRootUIRouterConfig} from "./router.config";
 import {MAIN_STATES} from "./app.states";
 import {AppComponent} from "./app.component";
-import {MainSideNavComponent} from "./sidenav/main/main-sidenav.component";
 import {Angular2DataTableModule} from "angular2-data-table";
 import {MomentModule} from "angular2-moment";
 import {DashboardRootComponent} from "./dashboard/dashboard-root.component";
@@ -23,19 +17,20 @@ import {ProjectEditComponent} from "./projects/edit/project-edit.component";
 import {ComponentWriteComponent} from "./components/write/component-write.component";
 import {ComponentEditComponent} from "./components/edit/component-edit.component";
 import {ComponentsListComponent} from "./components/list/components-list.component";
-import {ProjectSideNavComponent} from "./sidenav/project/project-sidenav.component";
-
-import { ModalModule } from 'angular2-modal';
-import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import {ModalModule} from "angular2-modal";
+import {BootstrapModalModule} from "angular2-modal/plugins/bootstrap";
 import {LoginComponent} from "./login/login.component";
 import {MaterialModule} from "@angular/material";
 import {MainHeaderComponent} from "./header/main-header.component";
 import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
 import {ChartsModule} from "ng2-charts";
-import {Router} from "@angular/router";
 import {HttpInterceptor} from "./shared/http/http-interceptor";
 import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
-
+import {SideNavComponent} from "./sidenav/sidenav.component";
+/*
+ * Platform and Environment providers/directives/pipes
+ */
+// App is our top level component
 
 
 require("angular2-data-table/release/datatable.css");
@@ -67,10 +62,9 @@ export class AppGestureConfig extends HammerGestureConfig { }
   bootstrap: [UIView],
   declarations: [
     AppComponent,
-    MainSideNavComponent,
+    SideNavComponent,
     MainHeaderComponent,
     WriteSideNavComponent,
-    ProjectSideNavComponent,
     ComponentsListComponent,
     ComponentEditComponent,
     ComponentWriteComponent,
