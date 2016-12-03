@@ -1,0 +1,7 @@
+<div>
+  <ul>
+    <li *ngFor="let tocItem of tocItems" class="title{{tocItem.level}}">
+      <a  role="button" (click)="click(tocItem)">{{tocItem.title}}</a>
+    </li>
+  </ul>
+</div>

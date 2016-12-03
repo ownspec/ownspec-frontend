@@ -1,13 +1,15 @@
 "use strict";
 
 
-import {Component as C, Input, OnInit, NgZone, OnDestroy} from "@angular/core";
+import {Component as C, Input, OnInit, NgZone, OnDestroy, ViewChild} from "@angular/core";
 import {Observable} from "rxjs";
 import {ComponentService} from "../../shared/service/component/component.service";
 import * as _ from "lodash";
 import {AppComponent} from "../../app.component";
 import {Component} from "../../shared/service/component/component";
 import {SharedService} from "../../shared/shared.service";
+import {TocGenerator, TocItem} from "../../shared/ckeditor/toc-generator";
+import {CKEditorComponent} from "../../shared/ckeditor/ckeditor.component";
 
 
 @C({
@@ -16,12 +18,17 @@ import {SharedService} from "../../shared/shared.service";
 })
 export class ComponentWriteComponent implements OnInit, OnDestroy {
 
-  public component: Component = new Component("", "", "", "", new Date(), new Date(), "", "");
+  public component: Component = null;
 
   public content: string = "FOO";
+  public toc: string = "FOO";
+  public tocItems: TocItem[] = [];
 
   @Input("componentId")
   public id: string;
+
+  @ViewChild("ckeditor")
+  public ckeditor:CKEditorComponent;
 
   public editorOptions: any;
 
@@ -29,6 +36,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
   public lastSaveDate: Date;
 
   private debounced: any;
+  private debouncedToc: any;
 
   public constructor(private zone: NgZone,
                      private componentService: ComponentService,
@@ -53,6 +61,12 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
       });
     }, 5000, {maxWait: 10000});
 
+    this.debouncedToc = _.debounce(function () {
+      this.zone.run(() => {
+        //that.computeToc();
+      });
+    }, 1000, {maxWait: 2000});
+
   }
 
 
@@ -66,9 +80,17 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
       this.lastSaveDate = new Date();
       this.saved = true;
       this.component = r;
+
+
+
     });
   }
 
+  public computeToc(){
+    let tocGenerator = new TocGenerator();
+    this.toc = tocGenerator.generateFromString(this.content);
+    this.tocItems = tocGenerator.tocItems;
+  }
 
   public saveAndClose() {
     this.updateContent().subscribe(r => {
@@ -88,7 +110,11 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
   public onChange($event) {
     this.saved = false;
-    this.debounced();
+    this.debounced($event);
+  }
+
+  public tocChange($event) {
+    this.tocItems = $event;
   }
 
   public onReady($event) {
@@ -99,6 +125,10 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
     this.componentService.findOne(this.id, true, true, true).subscribe(r => {
       this.component = r;
     });
+  }
+
+  public gotoTocItem(tocItem:TocItem){
+    this.ckeditor.gotoTocItem(tocItem.id);
   }
 
 }

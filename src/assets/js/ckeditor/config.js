@@ -34,6 +34,8 @@ CKEDITOR.editorConfig = function (config) {
      };
      */
 
+    config.extraAllowedContent= '*[id]';
+
 
     config.height = "500px";
 

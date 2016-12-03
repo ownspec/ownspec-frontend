@@ -7,7 +7,7 @@ export class Component {
 
   public constructor(public id: string, public projectId: string, public title: string, public description: string,
                      public creationDate: Date, public lastUpdateDate: Date,
-                     public content: string, public summary: string, public type: string = "REQUIREMENT", public currentStatus: string = "OPEN",
+                     public content: string, public summary: string, public type: string = "REQUIREMENT", public currentWorkflowStatus: WorkflowStatus,
                      public workflowInstances: WorkflowInstance[] = [],
                      public comments: Comment[] = [],
                      public componentReferences: ComponentReference[] = []) {
@@ -21,7 +21,7 @@ export class Component {
   public clone(): Component {
 
     let c = new Component(this.id, this.projectId, this.title, this.description, this.creationDate, this.lastUpdateDate,
-      this.content, this.summary, this.type, this.currentStatus);
+      this.content, this.summary, this.type, this.currentWorkflowStatus.clone());
 
     for (let workflowInstance of this.workflowInstances) {
       c.workflowInstances.push(workflowInstance.clone());
@@ -42,7 +42,8 @@ export class Component {
 
   public static fromMap(item: any): Component {
     let component: Component = new Component(item.id, item.projectId, item.title, item.description,
-      new Date(<string>item.createdDate), new Date(<string>item.lastUpdateDate), item.content, item.summary, item.type, item.currentStatus);
+      new Date(<string>item.createdDate), new Date(<string>item.lastUpdateDate), item.content, item.summary, item.type,
+      WorkflowStatus.fromMap(item.currentWorkflowStatus));
 
     if (item.workflowInstances) {
       for (let i of item.workflowInstances) {

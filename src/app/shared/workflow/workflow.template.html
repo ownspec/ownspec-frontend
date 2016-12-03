@@ -14,7 +14,7 @@
     <form name="userForm" style="padding-top: 6px" (submit)="changeStatus()">
       <div *ngIf="historyUpdate.checked" style="padding-bottom: 4px">
         <div>
-          <span>From <b>{{component.currentStatus.name}}</b> To </span>
+          <span>From <b>{{component.currentWorkflowStatus.status.name}}</b> To </span>
           <select class="custom-select" [(ngModel)]="targetStatus" name="targetStatus">
             <option *ngFor="let status of statuses" [value]="status.name">{{status.name}}</option>
           </select>

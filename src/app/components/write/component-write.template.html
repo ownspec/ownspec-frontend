@@ -1,4 +1,4 @@
-<main-header>
+<main-header *ngIf="component">
   <div class="main-header-title">Write {{component.title}}</div>
   <div class="main-header-content" style="display: flex">
     <div style="max-width: 280px; font-size: 1rem;padding-right: 5px" *ngIf="saved != null">
@@ -17,7 +17,7 @@
 
 </div>
 
-<div style="display: flex;flex-direction: row;height: 100%">
+<div style="display: flex;flex-direction: row;height: 100%" *ngIf="component">
 
   <div style="width: 350px">
     <write-sidenav [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
@@ -27,20 +27,21 @@
 
     <div class="main-content-content" style="display: flex;flex-direction: row; margin-top: 0px;height:100%" *ngIf="component != null">
       <div style="flex: 1" #container>
-        <ckeditor
-          [(ngModel)]="content"
-          [config]="{uiColor: '#99000', height: '200px', basePath: '/assets/js/ckeditor/' , sharedSpaces:{top:'toolbarId'}}"
-          (change)="onChange($event)"
-          [readonly]="!component.currentStatus.isEditable"
-          [container]="container"
-          (ready)="onReady($event)">
+        <ckeditor #ckeditor
+                  [(ngModel)]="content"
+                  [config]="{ extraAllowedContent: '*[id]', uiColor: '#99000', height: '200px', basePath: '/assets/js/ckeditor/' , sharedSpaces:{top:'toolbarId'}}"
+                  (dataChange)="onChange($event)"
+                  (tocChange)="tocChange($event)"
+                  [readonly]="!component.currentWorkflowStatus.status.editable"
+                  [container]="container"
+                  (ready)="onReady($event)">
         </ckeditor>
       </div>
 
       <div style="display:flex;flex-direction:row;width: 400px;height: 100%;padding-left: 10px">
         <tabset class="component-write-tabs">
           <tab heading="Toc" customClass="foobar">
-            TOC
+            <toc [tocItems]="tocItems" (gotoTocItem)="gotoTocItem($event)"></toc>
           </tab>
         </tabset>
 

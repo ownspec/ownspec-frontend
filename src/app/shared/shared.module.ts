@@ -19,6 +19,7 @@ import {WorkflowTableComponent} from "./workflow/workflow-table.component";
 import {MaterialModule} from "@angular/material";
 import {EmptyContent} from "./empty-content/empty-content";
 import {SharedService} from "./shared.service";
+import {TocComponent} from "./toc/toc.component";
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import {SharedService} from "./shared.service";
     ComponentsComponent,
     WorkflowTableComponent,
     EmptyContent,
+    TocComponent
   ],
   declarations: [
     WorkflowComponent,
@@ -48,6 +50,7 @@ import {SharedService} from "./shared.service";
     ComponentsComponent,
     WorkflowTableComponent,
     EmptyContent,
+    TocComponent
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ComponentService,

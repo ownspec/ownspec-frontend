@@ -1,0 +1,28 @@
+
+:host {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow: auto;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+
+.title0 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.title1 {
+  margin-left: 15px;
+  font-size: 1.1rem;
+}
+
+.title2 {
+  margin-left: 30px;
+  font-size: 1.0rem;
+}

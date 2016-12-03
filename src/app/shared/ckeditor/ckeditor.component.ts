@@ -3,22 +3,19 @@ import {
   Component,
   Input,
   Output,
-  ElementRef,
   ViewChild,
-  Optional,
   EventEmitter,
   NgZone,
   forwardRef,
-  Renderer,
-  NgModule, OnChanges,
+  NgModule, AfterViewInit, OnDestroy,
 } from '@angular/core';
 
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import {DomAdapter} from "@angular/platform-browser/src/dom/dom_adapter";
 import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
+import {TocGenerator, TocItem} from "./toc-generator";
+import * as _ from "lodash";
 
 declare var CKEDITOR: any;
-
 
 
 /**
@@ -35,19 +32,32 @@ declare var CKEDITOR: any;
       multi: true
     }
   ],
-  template: `<textarea #host (window:resize)="onResize($event)"></textarea>`,
+  template: `
+
+<div>
+<textarea #host (window:resize)="onResize($event)"></textarea>
+</div>
+`,
+
+  styleUrls: ['./ckeditor.component.scss']
 })
-export class CKEditorComponent implements ControlValueAccessor {
+export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
 
   @Input() config;
-  @Input() debounce;
+  @Input() debounceData: number = 0;
+  @Input() debounceToc: number = 0;
+
+  private debouncedData: any;
+  private debouncedToc: any;
+
 
   @Input()
   container: Element;
 
   _readonly: boolean = false;
 
-  @Output() change = new EventEmitter();
+  @Output() dataChange = new EventEmitter();
+  @Output() tocChange = new EventEmitter();
   @Output() ready = new EventEmitter();
   @ViewChild('host') host;
 
@@ -74,21 +84,6 @@ export class CKEditorComponent implements ControlValueAccessor {
       this.resolve = resolve;
       this.reject = reject;
     }.bind(this));
-  }
-
-
-  onResize($event) {
-    this.resize();
-  }
-
-  private resize() {
-    this.promise.then(e => {
-      if (this.container) {
-        let height = this.domAdapter.getBoundingClientRect(this.container).height;
-        return this.instance.resize("100%", height - 30);
-      }
-    });
-
   }
 
 
@@ -133,20 +128,51 @@ export class CKEditorComponent implements ControlValueAccessor {
 
 
   ngAfterViewInit() {
-    // Configuration
     var config = this.config || {};
+
+
+    if (this.debounceData) {
+      this.debouncedData = _.debounce(function () {
+        this.updateData();
+      }, this.debounceData);
+    }else{
+      this.debouncedData = this.updateData;
+    }
+
+    if (this.debounceToc) {
+      this.debouncedToc = _.debounce(function () {
+        this.updateToc();
+      }, this.debounceToc);
+    }else{
+      this.debouncedToc = this.updateToc;
+    }
+
     this.ckeditorInit(config);
   }
 
 
-  updateValue(value) {
+  onResize($event) {
+    this.resize();
+  }
+
+
+  updateData() {
+    let data = this.instance.getData()
     this.zone.run(() => {
-      this.value = value;
-
-      this.onChange(value);
-
+      this.value = data;
+      this.onChange(data);
       this.onTouched();
-      this.change.emit(value);
+      this.dataChange.emit(data);
+    });
+  }
+
+  updateToc() {
+    let c = this.instance.container.findOne(".cke_editable");
+    let toc = new TocGenerator();
+    toc.generateFromDom(c.$);
+
+    this.zone.run(() => {
+      this.tocChange.emit(toc.tocItems);
     });
   }
 
@@ -183,35 +209,32 @@ export class CKEditorComponent implements ControlValueAccessor {
       }
 
       this.onTouched();
-      let value = this.instance.getData();
 
-      // Debounce update
-      if (this.debounce) {
-        if (this.debounceTimeout) clearTimeout(this.debounceTimeout);
-        this.debounceTimeout = setTimeout(() => {
-          this.updateValue(value);
-          this.debounceTimeout = null;
-        }, parseInt(this.debounce));
-
-        // Live update
-      } else {
-        this.updateValue(value);
-      }
+      this.debouncedToc();
+      this.debouncedData();
     });
   }
 
+
   writeValue(value) {
-    console.log("write value " + value);
     this._value = value;
 
     this.promise.then(i => {
       try {
         this.bypassOnChange = true;
         i.setData(value);
+
+        this.debouncedToc();
+
       } finally {
         this.bypassOnChange = false;
       }
     });
+  }
+
+
+  gotoTocItem(id: string) {
+    document.getElementById(id).scrollIntoView();
   }
 
 
@@ -221,6 +244,17 @@ export class CKEditorComponent implements ControlValueAccessor {
 
   registerOnTouched(fn) {
     this.onTouched = fn;
+  }
+
+
+  private resize() {
+    this.promise.then(e => {
+      if (this.container) {
+        let height = this.domAdapter.getBoundingClientRect(this.container).height;
+        return this.instance.resize("100%", height - 30);
+      }
+    });
+
   }
 }
 
@@ -237,3 +271,4 @@ export class CKEditorComponent implements ControlValueAccessor {
 })
 export class CKEditorModule {
 }
+

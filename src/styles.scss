@@ -451,3 +451,90 @@ Datatable
 
 
 
+// Ckeditor
+
+
+
+
+
+.cke_editable * {
+  font-family: Roboto-Regular;
+}
+
+.cke_editable h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+
+}
+
+.cke_editable h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.cke_editable h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.cke_editable {
+  counter-reset: h1
+}
+
+.cke_editable h1 {
+  counter-reset: h2
+}
+
+.cke_editable h2 {
+  counter-reset: h3
+}
+
+.cke_editable h3 {
+  counter-reset: h4
+}
+
+.cke_editable h4 {
+  counter-reset: h5
+}
+
+.cke_editable h5 {
+  counter-reset: h6
+}
+
+.cke_editable h1:before {
+  counter-increment: h1;
+  content: counter(h1) ". "
+}
+
+.cke_editable h2:before {
+  counter-increment: h2;
+  content: counter(h1) "." counter(h2) ". "
+}
+
+.cke_editable h3:before {
+  counter-increment: h3;
+  content: counter(h1) "." counter(h2) "." counter(h3) ". "
+}
+
+.cke_editable h4:before {
+  counter-increment: h4;
+  content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". "
+}
+
+.cke_editable h5:before {
+  counter-increment: h5;
+  content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". "
+}
+
+.cke_editable h6:before {
+  counter-increment: h6;
+  content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "
+}
+
+.cke_editable h2.nocount:before, h3.nocount:before, h4.nocount:before, h5.nocount:before, h6.nocount:before {
+  content: "";
+  counter-increment: none
+}
