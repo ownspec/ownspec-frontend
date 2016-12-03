@@ -17,7 +17,7 @@ export class ProjectEditComponent implements OnInit {
 
 
   public constructor(private $state: StateService, private projectService: ProjectService) {
-    this.project = new Project("","","");
+    this.project = new Project("","","","");
   }
 
 

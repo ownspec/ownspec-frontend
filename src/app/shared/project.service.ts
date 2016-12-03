@@ -40,25 +40,25 @@ export class ProjectService {
 
   private fetchAll(): Observable<Project> {
     return this.$http.get("/api/projects")
-      .flatMap(r => r.json())
-      .map((item: any) => {
-        return this.fromJson(item);
-      });
+        .flatMap(r => r.json())
+        .map((item: any) => {
+          return this.fromJson(item);
+        });
   }
 
 
   public save(toSave: Project): Observable<boolean> {
     return this.$http.post("/api/projects/" + toSave.id + "/update", toSave)
-      .map(r => r.status == 200);
+        .map(r => r.status == 200);
   }
 
   create(toSave: Project) {
     return this.$http.post("/api/projects/create", toSave)
-      .map(r => r.status == 200);
+        .map(r => r.status == 200);
   }
 
   fromJson(item: any): Project {
-    return new Project(item.id, item.title, item.description);
+    return new Project(item.id, item.title, item.description, item.createdDate);
   }
 
 }
@@ -66,7 +66,11 @@ export class ProjectService {
 
 export class Project {
 
-  public constructor(public id: string, public title: string, public description) {
+  public constructor(public id: string,
+                     public title: string,
+                     public description:string,
+                     public createdDate
+  ) {
   }
 
 }

@@ -8,11 +8,12 @@ import {ProjectService, Project} from "../../shared/project.service";
 
 @C({
   selector: 'projects',
-  templateUrl: 'projects-list.template.html'
+  templateUrl: 'projects-list.template.html',
+  styleUrls: ['../projects.scss']
 })
-export class ProjectsListComponent implements OnInit{
+export class ProjectsListComponent implements OnInit {
 
-  public projects:Project[] = [];
+  public projects: Project[] = [];
 
 
   public constructor(private $state: StateService, private $stateParams: StateParams, private projectService: ProjectService) {
@@ -29,12 +30,12 @@ export class ProjectsListComponent implements OnInit{
     });
   }
 
-  public edit(r: any) {
-    this.$state.go(".requirement-edit", {reqId: r.id}, {reload: false});
+  public show(projectId){
+    this.$state.go("app.home.project.dashboard", {projectId: projectId}, {reload: false})
   }
 
-  public write(r: any) {
-    this.$state.go(".requirement-write", {reqId: r.id}, {reload: false});
+  public edit(r: any) {
+    this.$state.go(".requirement-edit", {reqId: r.id}, {reload: false});
   }
 
   public startCreateRequirement() {
