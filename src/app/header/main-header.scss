@@ -1,4 +1,4 @@
-.main-content-header {
+.main-header {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -6,6 +6,7 @@
   background: white;
   align-items: center;
   top: 0;
+  color: #888888
 }
 
 .main-search-container {
