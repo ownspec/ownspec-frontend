@@ -4,7 +4,7 @@
   </div>
 </main-header>
 
-<div class="main-content-content">
+<div *ngIf="!stateIsInAProject" class="main-content-content">
   <div class="row">
     <div class="col-md-4 col-sm-6 col-xs-12">
       <div class="panel ">
@@ -133,4 +133,8 @@
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="stateIsInAProject" class="main-content-content">
+  Dashboard Project
 </div>

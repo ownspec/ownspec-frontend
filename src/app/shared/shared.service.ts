@@ -9,9 +9,15 @@ export class SharedService {
   @Output()
   public expandMainContentEvent: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  public stateIsInAProjectEvent: EventEmitter<any> = new EventEmitter();
 
   public expandMainContentAndHideSideNav(expandAndHide: boolean) {
     this.hideSideNavEvent.emit(expandAndHide);
     this.expandMainContentEvent.emit(expandAndHide);
+  }
+
+  public stateIsInAProject(val: boolean) {
+    this.stateIsInAProjectEvent.emit(val);
   }
 }

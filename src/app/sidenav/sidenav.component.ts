@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {SharedService} from "../shared/shared.service";
-import {StateService, UIRouter} from "ui-router-ng2";
+import {StateService} from "ui-router-ng2";
 import {UserService} from "../shared/users/user.service";
 /*
  * We're loading this component asynchronously
@@ -40,21 +40,19 @@ export class SideNavComponent implements OnInit {
 
   constructor(private state: StateService,
               private sharedService: SharedService,
-              private userService: UserService,
-              private router: UIRouter) {
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
     // Set menu items regarding current state
-    this.router.globals.success$.subscribe(() => {
-      this.menuItems = this.state.$current.name.startsWith("app.home.project.") ? this.projectMenuItems : this.defaultMenuItems;
+    this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
+      this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
     });
 
     // Subscribe to show/hide sidenav Event
     this.sharedService.hideSideNavEvent.subscribe(hide => {
-          this.hidden = hide;
-        }
-    );
+      this.hidden = hide;
+    });
 
     // Set User
 

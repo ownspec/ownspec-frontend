@@ -1,6 +1,5 @@
 import {AppComponent} from "./app.component";
 import {Ng2StateDeclaration, Transition} from "ui-router-ng2";
-import {DashboardRootComponent} from "./dashboard/dashboard-root.component";
 import {ProjectsListComponent} from "./projects/list/projects-list.component";
 import {ProjectEditComponent} from "./projects/edit/project-edit.component";
 import {ComponentEditComponent} from "./components/edit/component-edit.component";
@@ -9,6 +8,7 @@ import {ComponentWriteComponent} from "./components/write/component-write.compon
 import {LoginComponent} from "./login/login.component";
 import {EmptyContent} from "./shared/empty-content/empty-content";
 import {SideNavComponent} from "./sidenav/sidenav.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 /** The top level state(s) */
 export let MAIN_STATES: Ng2StateDeclaration[] = [
@@ -50,7 +50,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
     name: "app.home.dashboard",
     url: '/dashboard',
     views: {
-      "main@app": {component: DashboardRootComponent},
+      "main@app": {component: DashboardComponent},
     }
   },
 
@@ -133,7 +133,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
     name: "app.home.project.dashboard",
     url: "/dashboard",
     views: {
-      "main@app": {component: DashboardRootComponent,},
+      "main@app": {component: DashboardComponent,},
     },
     resolve: [
       {
@@ -178,6 +178,8 @@ function componentStates(id: string, url: string, types: string[], project = fal
    }*/
   let resolveProject = [];
   if (project) {
+
+
     resolveProject = [{
       token: 'projectId',
       deps: [Transition],

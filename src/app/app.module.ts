@@ -9,7 +9,6 @@ import {MAIN_STATES} from "./app.states";
 import {AppComponent} from "./app.component";
 import {Angular2DataTableModule} from "angular2-data-table";
 import {MomentModule} from "angular2-moment";
-import {DashboardRootComponent} from "./dashboard/dashboard-root.component";
 import {Ng2BootstrapModule, DropdownModule} from "ng2-bootstrap";
 import {CKEditorModule} from "./shared/ckeditor/ckeditor.component";
 import {ProjectsListComponent} from "./projects/list/projects-list.component";
@@ -27,6 +26,7 @@ import {ChartsModule} from "ng2-charts";
 import {HttpInterceptor} from "./shared/http/http-interceptor";
 import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
 import {SideNavComponent} from "./sidenav/sidenav.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -68,7 +68,7 @@ export class AppGestureConfig extends HammerGestureConfig { }
     ComponentsListComponent,
     ComponentEditComponent,
     ComponentWriteComponent,
-    DashboardRootComponent,
+    DashboardComponent,
 
     ProjectsListComponent,
     ProjectEditComponent,
