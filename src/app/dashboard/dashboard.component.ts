@@ -32,6 +32,12 @@ export class DashboardComponent implements OnInit {
   public constructor(private sharedService: SharedService) {
   }
 
+
+  // Requirement coverage
+  public doughnutChartLabels:string[] = ['Uncovered', 'Ok', 'Failed', 'Not run'];
+  public doughnutChartData:number[] = [350, 450, 100, 80];
+  public doughnutChartType:string = 'doughnut';
+
   ngOnInit(): void {
     this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
       this.stateIsInAProject = stateIsInAProject;
