@@ -27,6 +27,7 @@ import {HttpInterceptor} from "./shared/http/http-interceptor";
 import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
 import {SideNavComponent} from "./sidenav/sidenav.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {Ng2CompleterModule} from "ng2-completer";
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -98,7 +99,8 @@ export class AppGestureConfig extends HammerGestureConfig { }
     ModalModule.forRoot(),
     BootstrapModalModule,
     ChartsModule,
-    DropdownModule
+    DropdownModule,
+    Ng2CompleterModule,
 
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

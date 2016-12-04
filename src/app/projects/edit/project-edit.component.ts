@@ -3,6 +3,8 @@ import {StateService} from "ui-router-ng2";
 import {Component as C, Input, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
 import {Project, ProjectService} from "../../shared/project.service";
+import {CompleterData, CompleterService} from "ng2-completer";
+import {UserService} from "../../shared/users/user.service";
 
 @C({
   selector: 'project-edit',
@@ -14,10 +16,16 @@ export class ProjectEditComponent implements OnInit {
 
   public project: Project;
   public create: boolean;
+  private searchedUsername: string;
+  private dataService: CompleterData;
 
+  public constructor(private $state: StateService,
+                     private projectService: ProjectService,
+                     private completerService: CompleterService,
+                     private userService: UserService) {
 
-  public constructor(private $state: StateService, private projectService: ProjectService) {
-    this.project = new Project("","","","");
+    this.project = new Project("", "", "", "");
+    this.dataService = completerService.local(userService.findAll2Json(), 'username', 'username');
   }
 
 

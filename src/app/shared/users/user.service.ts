@@ -1,6 +1,6 @@
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams} from "@angular/http";
+import {Http} from "@angular/http";
 
 @Injectable()
 export class UserService {
@@ -16,16 +16,16 @@ export class UserService {
 
   public login(username: String, password: String): Observable<any> {
     return this.http.post(
-      "/api/auth/login",
-      {
-        "username": username,
-        "password": password
-      });
+        "/api/auth/login",
+        {
+          "username": username,
+          "password": password
+        });
   }
 
   public logout(): Observable<any> {
     return this.http.post(
-      "/api/auth/logout", ""
+        "/api/auth/logout", ""
     );
   }
 
@@ -37,6 +37,14 @@ export class UserService {
 
   }
 
+  public findAll2Json(): Observable<any> {
+    return this.http.get("/api/users")
+        .map(r => r.json())
+  }
+
+  public findAll(): Observable<User> {
+    return this.findAll2Json().map(item => this.fromJson(item));
+  }
 }
 
 

@@ -14,15 +14,101 @@
 
 
 <div class="main-content-content">
-    <form name="requirementForm" ng-submit="save()">
-      <div class="form-group">
-        <label>Title</label>
-        <input class="form-control" required [(ngModel)]="project.title" name="title" type="text">
-      </div>
 
-      <div class="form-group">
-        <label>Description</label>
-        <input class="form-control" required [(ngModel)]="project.description" name="description" type="text">
-      </div>
-    </form>
+
+  <form name="requirementForm" ng-submit="save()">
+    <!--<div class="col-md-12">-->
+      <!--<div class="col-md-4 col-sm-6 col-xs-12">-->
+        <!--<div class="panel ">-->
+          <!--<div class="panel-header">-->
+            <!--<div class="col-md-8 col-sm-8 col-xs-12 text-left">-->
+              <!--<h4>Projects</h4>-->
+            <!--</div>-->
+            <!--<div class="col-md-4 col-sm-4 col-xs-12">-->
+              <!--<div class="pull-right">-->
+                <!--<h2>5</h2>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="line"></div>-->
+          <!--<div class="panel-content">-->
+            <!--<div class="panel-content-list">-->
+              <!--<h5>Last</h5>-->
+              <!--<div><a href="#" role="button">Project 1</a></div>-->
+              <!--<div><a href="#" role="button">Project 2</a></div>-->
+              <!--<div><a href="#" role="button">Project 3</a></div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="col-md-4 col-sm-6 col-xs-12">-->
+        <!--<div class="panel ">-->
+          <!--<div class="panel-header">-->
+            <!--<div class="col-md-8 col-sm-8 col-xs-12 text-left">-->
+              <!--<h4>Documents</h4>-->
+            <!--</div>-->
+            <!--<div class="col-md-4 col-sm-4 col-xs-12">-->
+              <!--<div class="pull-right">-->
+                <!--<h2>12</h2>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="line"></div>-->
+          <!--<div class="panel-content">-->
+            <!--<div class="panel-content-list">-->
+              <!--<h5>Last</h5>-->
+              <!--<div><a href="#" role="button">Document 1</a></div>-->
+              <!--<div><a href="#" role="button">Document 2</a></div>-->
+              <!--<div><a href="#" role="button">Document 3</a></div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="col-md-4 col-sm-6 col-xs-12">-->
+        <!--<div class="panel ">-->
+          <!--<div class="panel-header">-->
+            <!--<div class="col-md-8 col-sm-8 col-xs-12 text-left">-->
+              <!--<h4>Requirements</h4>-->
+            <!--</div>-->
+            <!--<div class="col-md-4 col-sm-4 col-xs-12">-->
+              <!--<div class="pull-right">-->
+                <!--<h2>3,085</h2>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="line"></div>-->
+
+          <!--<div class="panel-content">-->
+            <!--<div class="panel-content-list">-->
+              <!--<h5>Last</h5>-->
+              <!--<div><a href="#" role="button">Requirement 1</a></div>-->
+              <!--<div><a href="#" role="button">Requirement 2</a></div>-->
+              <!--<div><a href="#" role="button">Requirement 3</a></div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+
+    <!--</div>-->
+
+    <ng2-completer
+        [(ngModel)]="searchedUsername"
+        [dataService]="dataService"
+        [minSearchLength]="0"
+        [ngModelOptions]="{standalone: true}"
+    ></ng2-completer>
+  </form>
+
+
+  <form name="requirementForm" ng-submit="save()">
+    <div class="form-group">
+      <label>Title</label>
+      <input class="form-control" required [(ngModel)]="project.title" name="title" type="text">
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <input class="form-control" required [(ngModel)]="project.description" name="description" type="text">
+    </div>
+  </form>
 </div>

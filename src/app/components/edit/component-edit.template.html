@@ -14,8 +14,8 @@
 
   <div class="main-content-content">
 
-    <div class="col-md-12">
-      <div class="col-md-8 panel">
+    <div class="col-md-12 no-padding" style="display: flex">
+      <div class="col-md-8 panel no-padding">
         <div class="panel-heading">
           <h6>General</h6>
         </div>
@@ -57,7 +57,6 @@
           </div>
         </div>
       </div>
-
       <div class="col-md-4 col-sm-12">
         <div class="margin-bottom-20" style="display: flex; text-align: center">
           <div class="col-md-6 panel" style="padding:10px;padding-bottom:0px; border-left: 3px solid #c3e7ec;">
@@ -94,7 +93,7 @@
           </div>
         </div>
 
-        <div class="col-md-12 panel margin-bottom-20" style="border-left: 3px solid #c3e7ec;">
+        <div class="col-md-12 panel margin-bottom-20 no-padding" style="border-left: 3px solid #c3e7ec;">
           <div class="panel-heading">
             <h6>Estimated time</h6>
           </div>
@@ -117,22 +116,22 @@
       </div>
     </div>
 
-    <div class="col-md-12 panel">
+    <div *ngIf="!create" class="col-md-12 panel">
       <div style="display: flex;flex-direction: column;height: 100%;">
-        <tabset *ngIf="!create">
+        <tabset>
           <tab heading="History">
             <workflow [component]="component" [canUpdateWorkflow]="true" (update)="onUpdate($event)"></workflow>
 
           </tab>
           <tab heading="Reference">
             <datatable
-              class="material" style="flex: 1;min-height:300px"
-              [rows]="component.componentReferences"
-              [headerHeight]="50"
-              [footerHeight]="0"
-              [rowHeight]="50"
-              [scrollbarV]="true"
-              [scrollbarH]="true">
+                class="material" style="flex: 1;min-height:300px"
+                [rows]="component.componentReferences"
+                [headerHeight]="50"
+                [footerHeight]="0"
+                [rowHeight]="50"
+                [scrollbarV]="true"
+                [scrollbarH]="true">
               <datatable-column name="Source" prop="source.title"></datatable-column>
               <datatable-column name="Status" prop="source.currentStatus.name"></datatable-column>
 

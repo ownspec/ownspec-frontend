@@ -112,7 +112,6 @@ input:focus {
   flex: 1;
   flex-direction: column;
   height: 100%;
-  overflow-x: auto;
 }
 
 .main-content-content {
@@ -121,7 +120,6 @@ input:focus {
   padding: 5px 10px;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .table-actions a {
@@ -401,7 +399,9 @@ Datatable
   color: white;
   font-weight: 600;
 }
-
+.panel{
+  background-color: white;
+}
 .panel-heading {
   background-color: #F9F9F9;
   padding: 5px;
