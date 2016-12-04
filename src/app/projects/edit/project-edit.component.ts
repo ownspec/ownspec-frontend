@@ -3,8 +3,8 @@ import {StateService} from "ui-router-ng2";
 import {Component as C, Input, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
 import {Project, ProjectService} from "../../shared/project.service";
-import {CompleterData, CompleterService} from "ng2-completer";
-import {UserService} from "../../shared/users/user.service";
+import {CompleterData, CompleterService, CompleterItem} from "ng2-completer";
+import {UserService, User} from "../../shared/users/user.service";
 
 @C({
   selector: 'project-edit',
@@ -16,7 +16,10 @@ export class ProjectEditComponent implements OnInit {
 
   public project: Project;
   public create: boolean;
-  private searchedUsername: string;
+  public projectManagerIsFilled = false;
+
+  private managerUsername: string;
+  private authorizedUserUsername: string;
   private dataService: CompleterData;
 
   public constructor(private $state: StateService,
@@ -25,7 +28,6 @@ export class ProjectEditComponent implements OnInit {
                      private userService: UserService) {
 
     this.project = new Project("", "", "", "");
-    this.dataService = completerService.local(userService.findAll2Json(), 'username', 'username');
   }
 
 
@@ -35,6 +37,7 @@ export class ProjectEditComponent implements OnInit {
     if (!this.create) {
       this.projectService.findOne(this.id).subscribe(r => this.project = r);
     }
+    this.dataService = this.completerService.local(this.userService.findAll2Json(), 'username', 'username');
   }
 
   public save() {
@@ -52,5 +55,14 @@ export class ProjectEditComponent implements OnInit {
     });
   }
 
+
+  public authorizeUser(selected: CompleterItem) {
+    this.project.authorizedUsers.push(this.userService.fromJson(selected.originalObject));
+  }
+
+  public saveManager(selected: CompleterItem) {
+    this.projectManagerIsFilled = true;
+    //save project manager
+  }
 
 }

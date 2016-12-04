@@ -1,6 +1,7 @@
 import {Observable} from "rxjs";
 import {Http} from "@angular/http";
 import {Injectable} from "@angular/core";
+import {User} from "./users/user.service";
 
 
 @Injectable()
@@ -58,7 +59,11 @@ export class ProjectService {
   }
 
   fromJson(item: any): Project {
-    return new Project(item.id, item.title, item.description, item.createdDate);
+    return new Project(
+        item.id,
+        item.title,
+        item.description,
+        item.createdDate);
   }
 
 }
@@ -68,9 +73,9 @@ export class Project {
 
   public constructor(public id: string,
                      public title: string,
-                     public description:string,
-                     public createdDate
-  ) {
+                     public description: string,
+                     public createdDate,
+                     public authorizedUsers: User[] = new Array()) {
   }
 
 }
