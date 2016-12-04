@@ -18,14 +18,14 @@
 
   <div class="row">
     <div *ngFor="let project of projects" class="col-md-4 col-sm-6 col-xs-12 projects-container">
-      <div class="panel col-md-12" style="padding: 10px">
+      <div class="panel col-md-12 project">
         <div class="col-md-3 col-sm-12" style="padding: 0 !important;">
           <a><img src="assets/img/no-picture-icon.png" alt="Add a picture to your project" class="project-logo"></a>
         </div>
         <div class="col-md-9 col-sm-12">
           <a (click)="show(project.id)"><h5>{{project.title}}</h5></a>
           <h6>{{project.description}}</h6>
-          <h6>{{project.createdDate}}</h6>
+          <h6>{{project.createdDate | date }}</h6>
 
           <div class="project-actions">
             <i class="fa fa-pencil" aria-hidden="true"></i>

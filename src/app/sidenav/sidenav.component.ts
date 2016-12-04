@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {SharedService} from "../shared/shared.service";
-import {StateService} from "ui-router-ng2";
+import {StateService, UIRouter} from "ui-router-ng2";
 import {UserService} from "../shared/users/user.service";
 /*
  * We're loading this component asynchronously
@@ -40,17 +40,20 @@ export class SideNavComponent implements OnInit {
 
   constructor(private state: StateService,
               private sharedService: SharedService,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: UIRouter) {
   }
 
   ngOnInit(): void {
     // Set menu items regarding current state
-    this.menuItems = this.state.current.name.startsWith("app.home.project") ? this.projectMenuItems : this.defaultMenuItems;
+    this.router.globals.success$.subscribe(() => {
+      this.menuItems = this.state.$current.name.startsWith("app.home.project.") ? this.projectMenuItems : this.defaultMenuItems;
+    });
 
     // Subscribe to show/hide sidenav Event
     this.sharedService.hideSideNavEvent.subscribe(hide => {
-        this.hidden = hide;
-      }
+          this.hidden = hide;
+        }
     );
 
     // Set User
@@ -71,12 +74,12 @@ export class SideNavComponent implements OnInit {
 
   logoutUser() {
     this.userService.logout().subscribe(
-      success => {
-        this.state.go("login");
-      },
-      error => {
-        console.error("logout failed:" + error);
-      }
+        success => {
+          this.state.go("login");
+        },
+        error => {
+          console.error("logout failed:" + error);
+        }
     );
   }
 
