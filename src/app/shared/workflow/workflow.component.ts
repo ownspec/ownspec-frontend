@@ -55,6 +55,14 @@ export class WorkflowComponent implements OnInit {
       });
   }
 
+  public newStatus() {
+    this.componentService.newStatus(this.component.id)
+      .subscribe(c => {
+        //this.component = c;
+        this.update.emit(c);
+      });
+  }
+
   public diff(change:Change){
     this.componentService.diff(this.component.id , null, change.revision).subscribe(d => {
 

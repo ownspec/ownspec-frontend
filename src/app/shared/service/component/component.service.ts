@@ -72,7 +72,12 @@ export class ComponentService {
   }
 
   public updateStatus(id: string, nextStatus: string, reason: string = ""): Observable<Component> {
-    return this.$http.post("/api/components/" + id + "/workflow-statuses/" + nextStatus, "")
+    return this.$http.post("/api/components/" + id + "/workflow-statuses/update/" + nextStatus, "")
+      .map(r => Component.fromMap(r.json()));
+  }
+
+  public newStatus(id: string,): Observable<Component> {
+    return this.$http.post("/api/components/" + id + "/workflow-statuses/new", "")
       .map(r => Component.fromMap(r.json()));
   }
 
