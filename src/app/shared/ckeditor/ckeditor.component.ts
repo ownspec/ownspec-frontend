@@ -35,7 +35,7 @@ declare var CKEDITOR: any;
   template: `
 
 <div>
-<textarea #host (window:resize)="onResize($event)"></textarea>
+<textarea #textarea (window:resize)="onResize($event)"></textarea>
 </div>
 `,
 
@@ -59,7 +59,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
   @Output() dataChange = new EventEmitter();
   @Output() tocChange = new EventEmitter();
   @Output() ready = new EventEmitter();
-  @ViewChild('host') host;
+  @ViewChild('textarea') textarea;
 
   _value = '';
   instance;
@@ -167,15 +167,11 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
   }
 
   updateToc() {
-    let c = this.instance.container.findOne(".cke_editable");
-    let toc = new TocGenerator();
-    toc.generateFromDom(c.$);
-
+    let toc = this.generateToc();
     this.zone.run(() => {
       this.tocChange.emit(toc.tocItems);
     });
   }
-
 
   ckeditorInit(config) {
 
@@ -186,7 +182,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
     }
 
     // CKEditor replace textarea
-    this.instance = CKEDITOR.replace(this.host.nativeElement, config);
+    this.instance = CKEDITOR.replace(this.textarea.nativeElement, config);
 
 
     // Set initial value
@@ -212,6 +208,26 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
 
       this.debouncedToc();
       this.debouncedData();
+    });
+
+    this.instance.on('refresh-toc', () => {
+      console.log("recompute foo");
+
+      let tocItems = this.generateToc().tocItems;
+
+      let html = "<ul>";
+
+      for (let tocItem of tocItems){
+        html += "<li class='title"+tocItem.level+"'>" + tocItem.title + "</li>";
+      }
+
+
+      html += "</ul>";
+
+      console.log(html);
+
+
+      jQuery(this.instance.container.$).find(".toc div").html(html);
     });
   }
 
@@ -256,6 +272,15 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
     });
 
   }
+
+
+  private generateToc(){
+    let c = this.instance.container.findOne(".cke_editable");
+    let toc = new TocGenerator();
+    toc.generateFromDom(c.$);
+    return toc;
+  }
+
 }
 
 /**

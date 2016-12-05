@@ -15,6 +15,7 @@ import {CKEditorComponent} from "../../shared/ckeditor/ckeditor.component";
 @C({
   selector: 'component-write',
   templateUrl: 'component-write.template.html',
+  styleUrls: ['./component-write.component.scss']
 })
 export class ComponentWriteComponent implements OnInit, OnDestroy {
 

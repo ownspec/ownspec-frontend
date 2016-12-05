@@ -1,121 +1,123 @@
-<div>
-  <main-header>
-    <div class="main-header-title">Edit {{component.title}}</div>
-    <div class="main-header-content" style="display: flex">
-      <div class="rounded-button">
-        <button (click)="save()"><i class="fa fa-check" aria-hidden="true"></i></button>
-      </div>
-      <div class="rounded-button pink-background">
-        <button uiSref="^"><i class="fa fa-times" aria-hidden="true"></i></button>
-      </div>
+<main-header>
+  <div class="main-header-title">Edit {{component.title}}</div>
+  <div class="main-header-content" style="display: flex">
+    <div class="rounded-button">
+      <button (click)="save()"><i class="fa fa-check" aria-hidden="true"></i></button>
     </div>
-  </main-header>
+    <div class="rounded-button pink-background">
+      <button uiSref="^"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</main-header>
 
 
-  <div class="main-content-content">
+<div class="main-content-content">
+  <div style="display: flex;flex-direction:column;overflow: auto">
 
-    <div class="col-md-12 no-padding" style="display: flex">
-      <div class="col-md-8 panel no-padding">
-        <div class="panel-heading">
-          <h6>General</h6>
-        </div>
-        <div class="panel-body col-md-12">
-          <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Title</h6></label>
-            <div class="col-sm-10">
-              <input class="form-control" required [(ngModel)]="component.title" name="title" type="text">
-            </div>
-          </div>
-          <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Type</h6></label>
-            <div class="col-sm-10">
-              <select class="form-control">
-                <option>Business</option>
-                <option>Functional</option>
-                <option>Design</option>
-                <option>Performance</option>
-                <option>Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 text-right"><h6>Status</h6></label>
-            <div class="col-sm-10 margin-bottom-20"><h6 class="form-control-static">Draft</h6></div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 text-right"><h6>Reviewer</h6></label>
-            <div class="col-sm-10 margin-bottom-20"><h6 class="form-control-static">Nicolas Labrot</h6></div>
-          </div>
-          <div class="form-group radio-margin-right">
-            <label class="col-sm-12 control-label text-right"><h6>Distribution Level</h6></label>
-            <div class="col-sm-12">
-              <div class="col-sm-6"><input type="radio" name="option">Public</div>
-              <div class="col-sm-6"><input type="radio" name="option" checked>Internal</div>
-            </div>
-            <div class="col-sm-12">
-              <div class="col-sm-6"><input type="radio" name="option">Restricted</div>
-              <div class="col-sm-6"><input type="radio" name="option">Secret</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-12">
-        <div class="margin-bottom-20" style="display: flex; text-align: center">
-          <div class="col-md-6 panel" style="padding:10px;padding-bottom:0px; border-left: 3px solid #c3e7ec;">
-            <div class="form-group">
-              <input type="checkbox" class="checkbox">
-              <h6>Require Tests</h6>
-            </div>
-          </div>
-          <div class="col-md-6 panel" style="padding:10px;padding-bottom:0px; border-left: 3px solid #fdcfd8;">
-            <div class="form-group">
-              <input type="checkbox" class="checkbox">
-              <h6>Read only</h6>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 panel margin-bottom-20" style="border-left: 3px solid #c3e7ec;">
-          <div class="panel-body">
-            <div class="col-md-12">
-              <div class="col-sm-6 col-xs-12"><h6>Author</h6></div>
-              <div class="col-sm-6 col-xs-12"><h6>Lyrold Careto</h6></div>
-            </div>
-            <div class="col-md-12">
-              <div class="col-sm-6 col-xs-12"><h6>Created on</h6></div>
-              <div class="col-sm-6 col-xs-12"><h6>24 Oct. 16, 14:45:02</h6></div>
-            </div>
-            <div class="col-md-12">
-              <div class="col-sm-6 col-xs-12"><h6>Last Modified on</h6></div>
-              <div class="col-sm-6 col-xs-12"><h6>25 Oct. 16, 12:05:32</h6></div>
-            </div>
-            <div class="col-md-12">
-              <div class="col-sm-6 col-xs-12"><h6>Version</h6></div>
-              <div class="col-sm-6 col-xs-12"><h6>1.1</h6></div>
-            </div>
-          </div>
-        </div>
+    <div>
 
-        <div class="col-md-12 panel margin-bottom-20 no-padding" style="border-left: 3px solid #c3e7ec;">
+      <div class="col-md-12 no-padding" style="display: flex">
+        <div class="col-md-8 panel no-padding">
           <div class="panel-heading">
-            <h6>Estimated time</h6>
+            <h6>General</h6>
           </div>
-          <div class="panel-body">
-            <div class="col-md-12">
-              <div class="col-sm-6 col-xs-12"><h6>Analysis</h6></div>
-              <div class="col-sm-6 col-xs-12"><h6>1 MD</h6></div>
+          <div class="panel-body col-md-12">
+            <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Title</h6></label>
+              <div class="col-sm-10">
+                <input class="form-control" required [(ngModel)]="component.title" name="title" type="text">
+              </div>
             </div>
-            <div class="col-md-12">
-              <div class="col-sm-6 col-xs-12"><h6>Development</h6></div>
-              <div class="col-sm-6 col-xs-12"><h6>48 MD</h6></div>
+            <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Type</h6></label>
+              <div class="col-sm-10">
+                <select class="form-control">
+                  <option>Business</option>
+                  <option>Functional</option>
+                  <option>Design</option>
+                  <option>Performance</option>
+                  <option>Other</option>
+                </select>
+              </div>
             </div>
-            <div class="col-md-12">
-              <div class="col-sm-6 col-xs-12"><h6>Testing</h6></div>
-              <div class="col-sm-6 col-xs-12"><h6>22 MD</h6></div>
+            <div class="form-group">
+              <label class="col-sm-2 text-right"><h6>Status</h6></label>
+              <div class="col-sm-10 margin-bottom-20"><h6 class="form-control-static">Draft</h6></div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 text-right"><h6>Reviewer</h6></label>
+              <div class="col-sm-10 margin-bottom-20"><h6 class="form-control-static">Nicolas Labrot</h6></div>
+            </div>
+            <div class="form-group radio-margin-right">
+              <label class="col-sm-12 control-label text-right"><h6>Distribution Level</h6></label>
+              <div class="col-sm-12">
+                <div class="col-sm-6"><input type="radio" name="option">Public</div>
+                <div class="col-sm-6"><input type="radio" name="option" checked>Internal</div>
+              </div>
+              <div class="col-sm-12">
+                <div class="col-sm-6"><input type="radio" name="option">Restricted</div>
+                <div class="col-sm-6"><input type="radio" name="option">Secret</div>
+              </div>
             </div>
           </div>
         </div>
+        <div class="col-md-4 col-sm-12">
+          <div class="margin-bottom-20" style="display: flex; text-align: center">
+            <div class="col-md-6 panel" style="padding:10px;padding-bottom:0px; border-left: 3px solid #c3e7ec;">
+              <div class="form-group">
+                <input type="checkbox" class="checkbox">
+                <h6>Require Tests</h6>
+              </div>
+            </div>
+            <div class="col-md-6 panel" style="padding:10px;padding-bottom:0px; border-left: 3px solid #fdcfd8;">
+              <div class="form-group">
+                <input type="checkbox" class="checkbox">
+                <h6>Read only</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 panel margin-bottom-20" style="border-left: 3px solid #c3e7ec;">
+            <div class="panel-body">
+              <div class="col-md-12">
+                <div class="col-sm-6 col-xs-12"><h6>Author</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>Lyrold Careto</h6></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-sm-6 col-xs-12"><h6>Created on</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>24 Oct. 16, 14:45:02</h6></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-sm-6 col-xs-12"><h6>Last Modified on</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>25 Oct. 16, 12:05:32</h6></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-sm-6 col-xs-12"><h6>Version</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>1.1</h6></div>
+              </div>
+            </div>
+          </div>
 
+          <div class="col-md-12 panel margin-bottom-20 no-padding" style="border-left: 3px solid #c3e7ec;">
+            <div class="panel-heading">
+              <h6>Estimated time</h6>
+            </div>
+            <div class="panel-body">
+              <div class="col-md-12">
+                <div class="col-sm-6 col-xs-12"><h6>Analysis</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>1 MD</h6></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-sm-6 col-xs-12"><h6>Development</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>48 MD</h6></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-sm-6 col-xs-12"><h6>Testing</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>22 MD</h6></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
-
     <div *ngIf="!create" class="col-md-12 panel">
       <div style="display: flex;flex-direction: column;height: 100%;">
         <tabset>
@@ -125,13 +127,13 @@
           </tab>
           <tab heading="Reference">
             <datatable
-                class="material" style="flex: 1;min-height:300px"
-                [rows]="component.componentReferences"
-                [headerHeight]="50"
-                [footerHeight]="0"
-                [rowHeight]="50"
-                [scrollbarV]="true"
-                [scrollbarH]="true">
+              class="material" style="flex: 1;min-height:300px"
+              [rows]="component.componentReferences"
+              [headerHeight]="50"
+              [footerHeight]="0"
+              [rowHeight]="50"
+              [scrollbarV]="true"
+              [scrollbarH]="true">
               <datatable-column name="Source" prop="source.title"></datatable-column>
               <datatable-column name="Status" prop="source.currentStatus.name"></datatable-column>
 
@@ -145,5 +147,4 @@
       </div>
     </div>
   </div>
-
 </div>

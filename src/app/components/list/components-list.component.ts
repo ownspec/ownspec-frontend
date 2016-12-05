@@ -21,6 +21,7 @@ export var parentProvider = {
 @C({
   selector: 'components',
   templateUrl: 'components-list.template.html',
+  styleUrls: ['./components-list.component.scss']
   //providers:[]
 })
 export class ComponentsListComponent implements OnInit {

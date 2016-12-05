@@ -1,5 +1,5 @@
 <sidenav></sidenav>
 
 <div class="main-content" [ngClass]="{'no-margin': mainContentExpanded, 'main-content-margin': !mainContentExpanded}">
-  <ui-view name="main"></ui-view>
+  <ui-view name="main" style="display: flex;flex: 1;flex-direction: column"></ui-view>
 </div>
