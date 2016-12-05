@@ -4,6 +4,9 @@
     <button (click)="goDefaultView()"><img src="/assets/img/os-center-logo-170x43.png" alt="Ownspec center"></button>
   </div>
 
+  <div *ngIf="stateIsInAProject" style="margin-top: 5px">
+    <button uiSref="^"><i class="fa fa-arrow-left back_button" aria-hidden="true"></i></button>
+  </div>
 
   <!--User menu-->
   <div dropdown class="sidenav-user-menu">

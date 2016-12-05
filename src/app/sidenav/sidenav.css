@@ -98,3 +98,11 @@ button {
   padding: 20px;
   font-size: large;
 }
+
+.back_button {
+  border: 2px solid #cccccc;
+  color: #cccccc;
+  border-radius: 20px;
+  padding: 5px;
+  font-size: small;
+}

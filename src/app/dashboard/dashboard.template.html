@@ -166,15 +166,12 @@
       </div>
     </div>
   </div>
-
-  <div class="row">
-  </div>
 </div>
 
 <div *ngIf="stateIsInAProject" class="main-content-content">
   Dashboard Project
   <div class="row">
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-6 col-sm-6 col-xs-12">
       <div class="panel ">
         <div class="panel-header">
           <div class="col-md-8 col-sm-8 col-xs-12 text-left">
@@ -197,7 +194,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-6 col-sm-6 col-xs-12">
       <div class="panel ">
         <div class="panel-header">
           <div class="col-md-8 col-sm-8 col-xs-12 text-left">
@@ -222,9 +219,8 @@
       </div>
     </div>
   </div>
-
   <div class="row">
-    <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="col-md-5 col-sm-12 ">
       <div class="panel">
         <div class="panel-header">
           <div class="col-md-8 col-sm-8 col-xs-12 text-left">
@@ -251,27 +247,62 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-sm-12 col-xs-12">
-      <div class="panel">
-        <div class="panel-header">
-          <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-            <h4>Requirement Types</h4>
+    <div class="col-md-7 col-sm-12 no-padding">
+      <div class="col-md-6 col-sm-12">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
+              <h4>Requirement Coverage</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="tools pull-right">
+                <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
+              </div>
+            </div>
           </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="tools pull-right">
-              <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
+          <div class="line"></div>
+          <div class="panel-content">
+            <div class="canvas-container">
+              <canvas baseChart
+                      width="250"
+                      height="250"
+                      [data]="doughnutChartData"
+                      [labels]="doughnutChartLabels"
+                      [chartType]="doughnutChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"
+                      [options]="{legend: {position:'bottom'}}"
+              ></canvas>
             </div>
           </div>
         </div>
-        <div class="line"></div>
-        <div class="panel-content">
-          <div class="canvas-container">
-            <canvas baseChart
-                    [data]="pieChartData"
-                    [labels]="pieChartLabels"
-                    chartType="pie"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
+              <h4>Requirement Types</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="tools pull-right">
+                <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="panel-content">
+            <div class="canvas-container">
+              <canvas baseChart
+                      width="250"
+                      height="250"
+                      [data]="pieChartData"
+                      [labels]="pieChartLabels"
+                      chartType="pie"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"
+                      [options]="{legend: {position:'bottom'}}"
+              ></canvas>
+            </div>
           </div>
         </div>
       </div>

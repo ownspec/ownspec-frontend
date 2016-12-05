@@ -17,6 +17,7 @@ import {UserService} from "../shared/users/user.service";
 export class SideNavComponent implements OnInit {
   private menuItems;
   private hidden;
+  private stateIsInAProject = false;
 
   private defaultMenuItems: Array<any> = [
     {name: "Dashboard", icon: "fa-tachometer", state: "app.home.dashboard"},
@@ -46,6 +47,7 @@ export class SideNavComponent implements OnInit {
   ngOnInit(): void {
     // Set menu items regarding current state
     this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
+      this.stateIsInAProject = stateIsInAProject;
       this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
     });
 
