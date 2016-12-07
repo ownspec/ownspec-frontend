@@ -227,7 +227,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
       console.log(html);
 
 
-      jQuery(this.instance.container.$).find(".toc div").html(html);
+      jQuery(this.instance.container.$).find(".toc div:nth-child(2)").html(html);
     });
   }
 

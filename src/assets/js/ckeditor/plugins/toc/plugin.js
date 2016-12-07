@@ -37,7 +37,7 @@ CKEDITOR.plugins.add('toc', {
 
       init: function () {
         var that = this;
-        jQuery(this.element.$).html('<a><i class="fa fa-refresh" aria-hidden="true"></i> TOC</a><div></div>');
+        jQuery(this.element.$).html('<div class="toc-title"><a>Table of Content <i class="fa fa-refresh" aria-hidden="true"></i></a></div><div></div>');
         // Register TOC
         jQuery(this.element.$).find("a").click(function () {
           that.editor.fire("refresh-toc");

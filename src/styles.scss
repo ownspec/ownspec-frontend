@@ -460,24 +460,24 @@ Datatable
 
 
 .cke_editable {
-  font-family: Roboto-Regular;
+  font-family: Arial;
 }
 
 .cke_editable h1 {
-  font-size: 2.8rem;
+  font-size: 1.7rem;
   margin-bottom: 1rem;
   margin-top: 1rem;
 
 }
 
 .cke_editable h2 {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
 
 .cke_editable h3 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
@@ -551,17 +551,22 @@ Datatable
 }
 
 
+.cke_editable .toc-title {
+  font-size: 1.7rem;
+}
+
 .cke_editable .title0 {
   font-size: 1.1rem;
-  font-weight: 600;
+  /* font-weight: 600; */
+  padding-top: 15px;
 }
 
 .cke_editable .title1 {
-  margin-left: 15px;
+  margin-left: 20px;
   font-size: 1.1rem;
 }
 
 .cke_editable .title2 {
-  margin-left: 30px;
+  margin-left: 55px;
   font-size: 1.0rem;
 }
