@@ -58,6 +58,10 @@ export class ComponentsListComponent implements OnInit {
     this.$state.go(".component-write", {componentId: r.id}, {reload: false});
   }
 
+  public print(r: any) {
+    this.componentService.print(r);
+  }
+
   public startCreateComponent() {
     this.$state.go(".component-edit", {componentId: "_new"}, {reload: false});
   }

@@ -17,52 +17,55 @@
 
 
 <div class="main-content-content">
-    <datatable
-      class="material" style="flex: 1"
-      [rows]="components"
-      [columnMode]="'force'"
-      [headerHeight]="50"
-      [footerHeight]="0"
-      [rowHeight]="50"
-      [scrollbarV]="true"
-      [scrollbarH]="true">
-      <datatable-column name="Id"></datatable-column>
-      <datatable-column name="Title"></datatable-column>
-      <datatable-column name="Status" prop="currentStatus.name"></datatable-column>
-      <datatable-column name="Creation">
-        <template let-row="row" let-value="value">
-          {{row.creationDate | amTimeAgo}}
-        </template>
-      </datatable-column>
-      <datatable-column name="Update">
-        <template let-row="row" let-value="value">
-          {{row.lastUpdateDate | amTimeAgo}}
-        </template>
-      </datatable-column>
-      <datatable-column name="Content">
-        <template let-row="row" let-value="value">
-          {{row.summary}}
-        </template>
-      </datatable-column>
-      <datatable-column name="Action">
-        <template let-row="row" let-value="value">
-          <div class="table-actions">
-            <a tooltipPlacement="bottom" md-tooltip="Delete component" tooltip-position="above" tooltipClass="foobar"
-               class="table-actions" role="button">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </a>
-            <a uiSref=".component-edit" [uiParams]="{ componentId: row.id }" md-tooltip="Edit component" role="button">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>
-            <a uiSref=".component-write" [uiParams]="{ componentId: row.id }" md-tooltip="Open component for write"
-               role="button">
-              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-            </a>
-            <a (click)="openWorkflow(row)" md-tooltip="Open workflow history" role="button">
-              <i class="fa fa-history" aria-hidden="true"></i>
-            </a>
-          </div>
-        </template>
-      </datatable-column>
-    </datatable>
+  <datatable
+    class="material" style="flex: 1"
+    [rows]="components"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="0"
+    [rowHeight]="50"
+    [scrollbarV]="true"
+    [scrollbarH]="true">
+    <datatable-column name="Id"></datatable-column>
+    <datatable-column name="Title"></datatable-column>
+    <datatable-column name="Status" prop="currentStatus.name"></datatable-column>
+    <datatable-column name="Creation">
+      <template let-row="row" let-value="value">
+        {{row.creationDate | amTimeAgo}}
+      </template>
+    </datatable-column>
+    <datatable-column name="Update">
+      <template let-row="row" let-value="value">
+        {{row.lastUpdateDate | amTimeAgo}}
+      </template>
+    </datatable-column>
+    <datatable-column name="Content">
+      <template let-row="row" let-value="value">
+        {{row.summary}}
+      </template>
+    </datatable-column>
+    <datatable-column name="Action">
+      <template let-row="row" let-value="value">
+        <div class="table-actions">
+          <a tooltipPlacement="bottom" md-tooltip="Delete component" tooltip-position="above" tooltipClass="foobar"
+             class="table-actions" role="button">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </a>
+          <a uiSref=".component-edit" [uiParams]="{ componentId: row.id }" md-tooltip="Edit component" role="button">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </a>
+          <a uiSref=".component-write" [uiParams]="{ componentId: row.id }" md-tooltip="Open component for write"
+             role="button">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </a>
+          <a (click)="openWorkflow(row)" md-tooltip="Open workflow history" role="button">
+            <i class="fa fa-history" aria-hidden="true"></i>
+          </a>
+          <a (click)="print(row)" md-tooltip="Print" role="button">
+            <i class="fa fa-print" aria-hidden="true"></i>
+        </a>
+        </div>
+      </template>
+    </datatable-column>
+  </datatable>
 </div>

@@ -110,6 +110,10 @@ export class ComponentService {
         return r.status == 200;
       });
   }
+
+  public print(c: Component) {
+    window.location.assign("/api/components/" + c.id + "/print");
+  }
 }
 
 
