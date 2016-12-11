@@ -2,6 +2,8 @@ import {WorkflowInstance} from "./workflow-instance";
 import {ComponentReference} from "./component-reference";
 import {WorkflowStatus} from "./workflow-status";
 import {Comment} from "./comment";
+import {User} from "../../users/user.service";
+import {EstimatedTime} from "./estimated-time";
 
 export class Component {
 
@@ -10,7 +12,15 @@ export class Component {
                      public content: string, public summary: string, public type: string = "REQUIREMENT", public currentWorkflowStatus: WorkflowStatus,
                      public workflowInstances: WorkflowInstance[] = [],
                      public comments: Comment[] = [],
-                     public componentReferences: ComponentReference[] = []) {
+                     public componentReferences: ComponentReference[] = [],
+
+                     public createdUser: User = null,
+                     public requiredTest: boolean = false,
+                     public assignedTo: User = null,
+                     public distributionLevel: string = "INTERNAL",
+                     public requirementType: string = null,
+                     public estimatedTimes: EstimatedTime[] = [],
+                     public coverageStatus: string = "UNCOVERED") {
   }
 
   public getCurrentWorkflowInstance(): WorkflowInstance {
@@ -21,7 +31,7 @@ export class Component {
   public clone(): Component {
 
     let c = new Component(this.id, this.projectId, this.title, this.description, this.creationDate, this.lastUpdateDate,
-      this.content, this.summary, this.type, this.currentWorkflowStatus.clone());
+        this.content, this.summary, this.type, this.currentWorkflowStatus.clone());
 
     for (let workflowInstance of this.workflowInstances) {
       c.workflowInstances.push(workflowInstance.clone());
@@ -42,8 +52,8 @@ export class Component {
 
   public static fromMap(item: any): Component {
     let component: Component = new Component(item.id, item.projectId, item.title, item.description,
-      new Date(<string>item.createdDate), new Date(<string>item.lastUpdateDate), item.content, item.summary, item.type,
-      WorkflowStatus.fromMap(item.currentWorkflowStatus));
+        new Date(<string>item.createdDate), new Date(<string>item.lastUpdateDate), item.content, item.summary, item.type,
+        WorkflowStatus.fromMap(item.currentWorkflowStatus));
 
     if (item.workflowInstances) {
       for (let i of item.workflowInstances) {
@@ -63,6 +73,11 @@ export class Component {
       }
     }
 
+    if (item.estimatedTimes) {
+      for (let i of item.estimatedTimes) {
+        component.estimatedTimes.push(EstimatedTime.fromMap(i));
+      }
+    }
 
     return component;
   }

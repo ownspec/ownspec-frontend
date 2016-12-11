@@ -148,7 +148,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
   /**
    * Components
    */
-  ...componentStates("app.home.project.components", "components", ["COMPONENT"], true),
+  ...componentStates("app.home.project.documents", "documents", ["DOCUMENT"], true),
 
   /**
    * Requirements

@@ -1,5 +1,5 @@
 <main-header>
-  <div class="main-header-title">Dahsboard</div>
+  <div class="main-header-title">Dashboard</div>
   <div class="main-header-content" style="display: flex">
   </div>
 </main-header>
@@ -14,7 +14,7 @@
           </div>
           <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="pull-right">
-              <h2>5</h2>
+              <h2>{{projectsNumber}}</h2>
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
           </div>
           <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="pull-right">
-              <h2>12</h2>
+              <h2>{{documentsNumber}}</h2>
             </div>
           </div>
         </div>
@@ -60,7 +60,7 @@
           </div>
           <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="pull-right">
-              <h2>3,085</h2>
+              <h2>{{requirementsNumber}}</h2>
             </div>
           </div>
         </div>
@@ -94,13 +94,12 @@
         <div class="panel-content">
           <div class="canvas-container">
             <canvas baseChart
-                    [datasets]="lineChartData"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
+                    [chartType]="requirementEvolutionChartType"
+                    [labels]="requirementEvolutionChartLabels"
+                    [datasets]="requirementEvolutionChartData"
+                    [options]="{responsive: true}"
                     [legend]="true"
-                    chartType="line"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
+                    (chartClick)="showStatusFilteredRequirement($event)"></canvas>
           </div>
         </div>
       </div>
@@ -124,11 +123,10 @@
               <canvas baseChart
                       width="250"
                       height="250"
-                      [data]="doughnutChartData"
-                      [labels]="doughnutChartLabels"
-                      [chartType]="doughnutChartType"
-                      (chartHover)="chartHovered($event)"
-                      (chartClick)="chartClicked($event)"
+                      [chartType]="requirementCoverageChartType"
+                      [labels]="requirementCoverageChartLabels"
+                      [data]="requirementCoverageChartData"
+                      (chartClick)="showCoverageFilteredRequirements($event)"
                       [options]="{legend: {position:'bottom'}}"
               ></canvas>
             </div>
@@ -153,11 +151,10 @@
               <canvas baseChart
                       width="250"
                       height="250"
-                      [data]="pieChartData"
-                      [labels]="pieChartLabels"
-                      chartType="pie"
-                      (chartHover)="chartHovered($event)"
-                      (chartClick)="chartClicked($event)"
+                      [chartType]="requirementTypeChartType"
+                      [labels]="requirementTypeChartLabels"
+                      [data]="requirementTypeChartData"
+                      (chartClick)="showTypeFilteredRequirements($event)"
                       [options]="{legend: {position:'bottom'}}"
               ></canvas>
             </div>
@@ -236,9 +233,9 @@
         <div class="panel-content">
           <div class="canvas-container">
             <canvas baseChart
-                    [datasets]="lineChartData"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
+                    [datasets]="requirementEvolutionChartData"
+                    [labels]="requirementEvolutionChartLabels"
+                    [options]="requirementEvolutionChartOptions"
                     [legend]="true"
                     chartType="line"
                     (chartHover)="chartHovered($event)"
@@ -266,9 +263,9 @@
               <canvas baseChart
                       width="250"
                       height="250"
-                      [data]="doughnutChartData"
-                      [labels]="doughnutChartLabels"
-                      [chartType]="doughnutChartType"
+                      [data]="requirementCoverageChartData"
+                      [labels]="requirementCoverageChartLabels"
+                      [chartType]="requirementEvolutionChartType"
                       (chartHover)="chartHovered($event)"
                       (chartClick)="chartClicked($event)"
                       [options]="{legend: {position:'bottom'}}"
@@ -295,8 +292,8 @@
               <canvas baseChart
                       width="250"
                       height="250"
-                      [data]="pieChartData"
-                      [labels]="pieChartLabels"
+                      [data]="requirementTypeChartData"
+                      [labels]="requirementTypeChartLabels"
                       chartType="pie"
                       (chartHover)="chartHovered($event)"
                       (chartClick)="chartClicked($event)"

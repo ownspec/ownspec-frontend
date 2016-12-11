@@ -32,8 +32,8 @@ export class SideNavComponent implements OnInit {
 
   private projectMenuItems: Array<any> = [
     {name: "Dashboard", icon: "fa-tachometer", state: "app.home.project.dashboard"},
+    {name: "Documents", icon: "fa-file-text-o ", state: "app.home.project.documents"},
     {name: "Requirements", icon: "fa-tasks", state: "app.home.project.requirements"},
-    {name: "Components", icon: "fa-plug", state: "app.home.project.components"},
     {name: "Templates", icon: "fa-file-text", state: "app.home.project.templates"},
     {name: "Resources", icon: "fa-picture-o", state: "app.home.project.resources"},
     {name: "Schedule", icon: "fa-calendar", state: "app.home.project.schedule"}
