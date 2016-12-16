@@ -4,6 +4,22 @@ body {
   font-size: 14px;
 }
 
+
+input, select {
+  border-radius: 0 !important;
+  margin-bottom: 20px;
+  border: 1px solid #d9d9d9;
+  padding: 10px 15px;
+}
+
+
+
+input:focus {
+  border: 1px solid #ec4363 !important;
+  color: #333333 !important;
+}
+
+
 .login-logo-container {
   padding: 50px 0;
   text-align: center;

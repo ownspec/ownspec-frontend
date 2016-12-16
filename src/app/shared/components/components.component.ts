@@ -36,7 +36,7 @@ export class ComponentsComponent implements OnInit {
 
   public components: Component[];
 
-  public searchTitle:string;
+  public searchQuery: string;
 
 
   public constructor(private componentService: ComponentService, private profilService: ProfilService) {
@@ -62,7 +62,7 @@ export class ComponentsComponent implements OnInit {
 
   public search() {
     // TODO: temporary fetch content with the list of component, to refactor because response size will be too large
-    this.componentService.findAll(this.projectId, this.searchTitle, this.types, true, true, false).subscribe(components => {
+    this.componentService.findAll(this.projectId, null, this.types, this.searchQuery, true, true, false).subscribe(components => {
       this.components = components;
     });
   }

@@ -15,7 +15,8 @@ export class ComponentService {
     return this.fetchOne(id, workflow, content, comments, references);
   }
 
-  public findAll(projectId: string = null, title: string = null, types: Array<string> = [], workflow = false, content = false, comments = false, references = false): Observable<Component[]> {
+  public findAll(projectId: string = null, title: string = null, types: Array<string> = [], query:string = null,
+                 workflow = false, content = false, comments = false, references = false): Observable<Component[]> {
     let params: URLSearchParams = new URLSearchParams();
 
 
@@ -31,6 +32,10 @@ export class ComponentService {
     params.append("workflow", workflow.toString());
     params.append("comments", comments.toString());
     params.append("references", references.toString());
+
+    if (!!query) {
+      params.append("q", query);
+    }
 
     return this.$http.get("/api/components", {search: params})
         .flatMap(r => r.json())

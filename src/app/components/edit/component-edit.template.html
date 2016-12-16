@@ -135,10 +135,18 @@
               [scrollbarV]="true"
               [scrollbarH]="true">
               <datatable-column name="Source" prop="source.title"></datatable-column>
-              <datatable-column name="Status" prop="source.currentStatus.name"></datatable-column>
+              <datatable-column name="Status">
+                <template let-row="row" let-value="value">
+                  {{row.sourceWorkflowInstance.workflowStatuses}}
+                </template>
+              </datatable-column>
 
               <datatable-column name="Target" prop="target.title"></datatable-column>
-              <datatable-column name="Status" prop="target.currentStatus.name"></datatable-column>
+              <datatable-column name="Status">
+                <template let-row="row" let-value="value">
+                  {{row.targetWorkflowInstance.currentStatus}}
+                </template>
+              </datatable-column>
 
             </datatable>
           </tab>

@@ -2,9 +2,9 @@
   <div class="main-header-title">Components</div>
   <div class="main-header-content" style="display: flex">
     <div class="main-search-container" style="width:280px">
-      <form class="main-search">
+      <form class="main-search" (submit)="search()">
         <div class="main-search-input-wrapper">
-          <md-input placeholder="Search components..."></md-input>
+          <md-input placeholder="Search components..." [(ngModel)]="searchBean.query" name="query"></md-input>
         </div>
       </form>
     </div>
@@ -28,7 +28,7 @@
     [scrollbarH]="true">
     <datatable-column name="Id"></datatable-column>
     <datatable-column name="Title"></datatable-column>
-    <datatable-column name="Status" prop="currentStatus.name"></datatable-column>
+    <datatable-column name="Status" prop="currentWorkflowStatus.status.name"></datatable-column>
     <datatable-column name="Creation">
       <template let-row="row" let-value="value">
         {{row.creationDate | amTimeAgo}}
@@ -36,7 +36,7 @@
     </datatable-column>
     <datatable-column name="Update">
       <template let-row="row" let-value="value">
-        {{row.lastUpdateDate | amTimeAgo}}
+        {{row.currentWorkflowStatus.createdDate | amTimeAgo}}
       </template>
     </datatable-column>
     <datatable-column name="Content">
@@ -57,9 +57,6 @@
           <a uiSref=".component-write" [uiParams]="{ componentId: row.id }" md-tooltip="Open component for write"
              role="button">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          </a>
-          <a (click)="openWorkflow(row)" md-tooltip="Open workflow history" role="button">
-            <i class="fa fa-history" aria-hidden="true"></i>
           </a>
           <a (click)="print(row)" md-tooltip="Print" role="button">
             <i class="fa fa-print" aria-hidden="true"></i>

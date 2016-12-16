@@ -8,14 +8,14 @@ import {ColumnMode} from "angular2-data-table";
 
 
 /*
-OpaqueToken
+ OpaqueToken
 
-export var parentProvider = {
-  provide: Parent,
-  useExisting: forwardRef(function () { return Parent; })
-};
+ export var parentProvider = {
+ provide: Parent,
+ useExisting: forwardRef(function () { return Parent; })
+ };
 
-*/
+ */
 
 
 @C({
@@ -34,6 +34,8 @@ export class ComponentsListComponent implements OnInit {
   @Input("projectId")
   public projectId: string = null;
 
+  public searchBean = {title: null, query:null};
+
 
   public constructor(public appRef: ApplicationRef, private $state: StateService, private $stateParams: StateParams, private componentService: ComponentService) {
     this.projectId = null;
@@ -45,7 +47,7 @@ export class ComponentsListComponent implements OnInit {
   }
 
   private fetchComponents() {
-    this.componentService.findAll(this.projectId, null, this.availableComponentTypes).subscribe(o => {
+    this.componentService.findAll(this.projectId, this.searchBean.title, this.availableComponentTypes , this.searchBean.query).subscribe(o => {
       this.components = o;
     });
   }
@@ -64,6 +66,10 @@ export class ComponentsListComponent implements OnInit {
 
   public startCreateComponent() {
     this.$state.go(".component-edit", {componentId: "_new"}, {reload: false});
+  }
+
+  public search() {
+    this.fetchComponents();
   }
 
 }
