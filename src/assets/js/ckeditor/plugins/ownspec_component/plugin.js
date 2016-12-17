@@ -1,7 +1,7 @@
-CKEDITOR.plugins.add('simplebox', {
+CKEDITOR.plugins.add('ownspec_component', {
   requires: 'widget',
 
-  icons: 'simplebox',
+  icons: 'ownspec_component',
 
   init: function (editor) {
 
@@ -25,10 +25,10 @@ CKEDITOR.plugins.add('simplebox', {
     });
 
 
-    editor.widgets.add('simplebox', {
+    editor.widgets.add('ownspec_component', {
       // Widget code.
-      button: 'Create a simple box',
-      icons: 'placeholder', // %REMOVE_LINE_CORE%
+      //button: 'Create a component',
+      icons: 'ownspec_component', // %REMOVE_LINE_CORE%
       template: '<div class="requirements" data-requirement-id="_NEW" data-workflow-instance-id="_NEW">' +
       '<div class="requirements-id">REQ-001</div>' +
       '<div class="requirements-content"><label>REQ-001</label></div>' +
@@ -68,6 +68,12 @@ CKEDITOR.plugins.add('simplebox', {
       }
 
     });
+
+    editor.ui.addButton( 'ownspec_component', {
+      label: 'Create a component',
+      command: 'ownspec_component',
+      toolbar: 'ownspec'
+    } )
 
 
   }

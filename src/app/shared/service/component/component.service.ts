@@ -123,7 +123,7 @@ export class ComponentService {
   }
 
   public print(c: Component) {
-    window.location.assign("/api/components/" + c.id + "/print");
+    window.location.assign("/api/components/" + c.id + "/compose");
   }
 }
 

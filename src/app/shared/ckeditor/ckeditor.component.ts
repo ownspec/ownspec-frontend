@@ -58,6 +58,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
 
   @Output() dataChange = new EventEmitter();
   @Output() tocChange = new EventEmitter();
+  @Output() composePdf = new EventEmitter();
   @Output() ready = new EventEmitter();
   @ViewChild('textarea') textarea;
 
@@ -208,6 +209,11 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
 
       this.debouncedToc();
       this.debouncedData();
+    });
+
+
+    this.instance.on("compose-pdf" , () => {
+      this.composePdf.emit();
     });
 
     this.instance.on('refresh-toc', () => {

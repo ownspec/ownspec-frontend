@@ -125,6 +125,11 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
     this.tocItems = $event;
   }
 
+
+  public composePdf($event) {
+    this.componentService.print(this.component);
+  }
+
   public onReady($event) {
     console.log("onReady");
   }

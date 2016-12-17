@@ -5,6 +5,7 @@ import {ComponentService} from "../../shared/service/component/component.service
 import {StateService, StateParams} from "ui-router-ng2";
 import {Component as C, ChangeDetectorRef, OnInit, Input, forwardRef, OpaqueToken, ApplicationRef} from "@angular/core";
 import {ColumnMode} from "angular2-data-table";
+import {Component} from "../../shared/service/component/component";
 
 
 /*
@@ -60,8 +61,8 @@ export class ComponentsListComponent implements OnInit {
     this.$state.go(".component-write", {componentId: r.id}, {reload: false});
   }
 
-  public print(r: any) {
-    this.componentService.print(r);
+  public print(c: Component) {
+    this.componentService.print(c);
   }
 
   public startCreateComponent() {
