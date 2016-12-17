@@ -1,6 +1,9 @@
-import {Component as C, Input, EventEmitter, Output, animate, transition, style, state, trigger} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {ComponentUpdate} from "./component-write.component";
+import {
+  Component as C, Input, EventEmitter, Output, animate, transition, style, state, trigger,
+  OnInit
+} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {ComponentUpdate, ComponentWriteComponent} from "./component-write.component";
 import {Component} from "../../shared/service/component/component";
 /*
  * We're loading this component asynchronously
@@ -9,11 +12,10 @@ import {Component} from "../../shared/service/component/component";
  */
 
 
-
 @C({
   selector: 'write-sidenav',
   templateUrl: 'write-sidenav.component.html',
-  styleUrls: ['../../../_variable.scss' , './write-sidenav.component.scss'],
+  styleUrls: ['../../../_variable.scss', './write-sidenav.component.scss'],
   animations: [
     trigger('slideInOut', [
       state('in', style({
@@ -29,32 +31,40 @@ import {Component} from "../../shared/service/component/component";
     ]),
   ]
 })
-export class WriteSideNavComponent {
+export class WriteSideNavComponent implements OnInit {
 
   localState: any;
 
   activeTab = "comments";
 
   @Input()
-  public component : Component;
+  public component: Component;
 
   @Input()
-  public canUpdateWorkflow:boolean;
+  public canUpdateWorkflow: boolean;
 
   @Input()
-  public menuPosition:"left" | "right" = "left";
+  public menuPosition: "left" | "right" = "left";
 
+  @Input()
+  public menus: string[] = ["toc", "requirements", "components", "resources", "workflow", "comments"];
 
   @Output()
   public update = new EventEmitter<ComponentUpdate>();
 
 
-  menuState:string = 'in';
+  menuState: string = 'in';
 
-  constructor(public route: ActivatedRoute) {
+  constructor(public parent: ComponentWriteComponent, public route: ActivatedRoute) {
   }
 
-  public onUpdate(event:ComponentUpdate){
+
+  ngOnInit(): void {
+    this.activeTab = this.menus[0];
+
+  }
+
+  public onUpdate(event: ComponentUpdate) {
     this.update.emit(event);
   }
 
@@ -62,6 +72,14 @@ export class WriteSideNavComponent {
   toggleMenu() {
     // 1-line if statement that toggles the value:
     this.menuState = this.menuState === 'out' ? 'in' : 'out';
+  }
+
+  isVisible(menu): boolean {
+    return this.menus.indexOf(menu) != -1;
+  }
+
+  tooltipPosition() {
+    return this.menuPosition == 'left' ? 'right' : 'left';
   }
 
 }

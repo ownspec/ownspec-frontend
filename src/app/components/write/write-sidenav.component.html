@@ -15,31 +15,42 @@
 
       <workflow *ngIf="activeTab == 'workflow'" [canUpdateWorkflow]="canUpdateWorkflow" [component]="component"
                 (update)="onUpdate($event)"></workflow>
+
+      <toc *ngIf="activeTab == 'toc'" [tocItems]="parent.tocItems" (gotoTocItem)="parent.gotoTocItem($event)"></toc>
+
     </div>
   </template>
   <template #menu>
     <div class="menu-left">
       <div>
-        <a role="button" (click)="toggleMenu()"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        <a role="button" class="toggle" (click)="toggleMenu()"><i class="fa fa-bars" aria-hidden="true"></i></a>
       </div>
-      <div [ngClass]="{'selected':activeTab ==  'requirements'}">
+      <div [ngClass]="{'selected':activeTab ==  'toc'}" *ngIf="isVisible('toc')" md-tooltip="Table of content"
+           [tooltip-position]="tooltipPosition()">
+        <a role="button"><i class="fa fa-th-list" aria-hidden="true" (click)="activeTab = 'toc'"></i></a>
+      </div>
+      <div [ngClass]="{'selected':activeTab ==  'requirements'}" *ngIf="isVisible('requirements')"
+           md-tooltip="Requirements" [tooltip-position]="tooltipPosition()">
         <a role="button"><i class="fa fa-file" aria-hidden="true" (click)="activeTab = 'requirements'"></i></a>
       </div>
-      <div [ngClass]="{'selected':activeTab ==  'components'}">
+      <div [ngClass]="{'selected':activeTab ==  'components'}" *ngIf="isVisible('components')" md-tooltip="Components"
+           [tooltip-position]="tooltipPosition()">
         <a role="button"><i class="fa fa-file-o" aria-hidden="true" (click)="activeTab = 'components'"></i></a>
       </div>
-      <div [ngClass]="{'selected':activeTab ==  'resources'}">
+      <div [ngClass]="{'selected':activeTab ==  'resources'}" *ngIf="isVisible('resources')" md-tooltip="Resources"
+           [tooltip-position]="tooltipPosition()">
         <a role="button"><i class="fa fa-picture-o" aria-hidden="true" (click)="activeTab = 'resources'"></i></a>
       </div>
-      <div [ngClass]="{'selected':activeTab ==  'workflow'}">
+      <div [ngClass]="{'selected':activeTab ==  'workflow'}" *ngIf="isVisible('workflow')" md-tooltip="Workflow"
+           [tooltip-position]="tooltipPosition()">
         <a role="button"><i class="fa fa-history" aria-hidden="true" (click)="activeTab = 'workflow'"></i></a>
       </div>
-      <div [ngClass]="{'selected':activeTab ==  'comments'}">
+      <div [ngClass]="{'selected':activeTab ==  'comments'}" *ngIf="isVisible('comments')" md-tooltip="Comments"
+           [tooltip-position]="tooltipPosition()">
         <a role="button"><i class="fa fa-comments" aria-hidden="true" (click)="activeTab = 'comments'"></i></a>
       </div>
     </div>
   </template>
-
 
 
   <template [ngTemplateOutlet]="menu" *ngIf="menuPosition == 'left'">
@@ -48,8 +59,6 @@
   </template>
   <template [ngTemplateOutlet]="menu" *ngIf="menuPosition == 'right'">
   </template>
-
-
 
 
 </div>

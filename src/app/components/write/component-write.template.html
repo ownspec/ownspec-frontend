@@ -20,7 +20,7 @@
 <div style="display: flex;flex-direction: row;height: 100%" *ngIf="component">
 
   <div>
-    <write-sidenav menuPosition="left" [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
+    <write-sidenav menuPosition="left" [menus]="['requirements', 'components', 'resources', 'workflow', 'comments']" [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
 
   </div>
   <div style="flex: 1">
@@ -41,14 +41,7 @@
   </div>
 
   <div style="display:flex;flex-direction:row;height: 100%">
-    <write-sidenav menuPosition="right" [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
-<!--
-    <tabset class="component-write-tabs">
-      <tab heading="Toc" customClass="foobar">
-        <toc [tocItems]="tocItems" (gotoTocItem)="gotoTocItem($event)"></toc>
-      </tab>
-    </tabset>
--->
+    <write-sidenav menuPosition="right" [menus]="['toc']" [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
   </div>
 
 </div>

@@ -52,14 +52,14 @@
 
   <div class="workflow-history">
 
-    <div *ngFor="let workflowInstance of component.workflowInstances.reverse()"
+    <div *ngFor="let workflowInstance of component.workflowInstances.concat().reverse()"
          style="background:white;border: 1px solid #e2e2e2;border-radius: 3px;">
       <h3 style="font-size: 1.1rem;font-weight: 600;background: #393838;color: white;padding: 6px;">
         Version {{workflowInstance.id}}
         <small>started {{workflowInstance.createdDate| amTimeAgo}}</small>
       </h3>
 
-      <div *ngFor="let status of workflowInstance.workflowStatuses.reverse()" style="padding: 4px;">
+      <div *ngFor="let status of workflowInstance.workflowStatuses.concat().reverse()" style="padding: 4px;">
         <h4>
           {{status.status.name}} <span>{{status.createdDate | amTimeAgo}} by {{status.createdUser.username}}</span>
         </h4>
