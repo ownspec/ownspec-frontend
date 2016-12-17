@@ -19,8 +19,8 @@
 
 <div style="display: flex;flex-direction: row;height: 100%" *ngIf="component">
 
-  <div style="width: 350px">
-    <write-sidenav [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
+  <div>
+    <write-sidenav menuPosition="left" [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
 
   </div>
   <div style="flex: 1">
@@ -37,17 +37,18 @@
                   (ready)="onReady($event)">
         </ckeditor>
       </div>
-
-      <div style="display:flex;flex-direction:row;width: 400px;height: 100%;padding-left: 10px">
-        <tabset class="component-write-tabs">
-          <tab heading="Toc" customClass="foobar">
-            <toc [tocItems]="tocItems" (gotoTocItem)="gotoTocItem($event)"></toc>
-          </tab>
-        </tabset>
-
-      </div>
-
     </div>
-
   </div>
+
+  <div style="display:flex;flex-direction:row;height: 100%">
+    <write-sidenav menuPosition="right" [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
+<!--
+    <tabset class="component-write-tabs">
+      <tab heading="Toc" customClass="foobar">
+        <toc [tocItems]="tocItems" (gotoTocItem)="gotoTocItem($event)"></toc>
+      </tab>
+    </tabset>
+-->
+  </div>
+
 </div>

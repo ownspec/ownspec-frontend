@@ -1,0 +1,30 @@
+@import "../../../_variable.scss";
+
+
+.menu-left {
+  width: 50px;
+  height: 100%;
+  flex-direction: column;
+  background-color: #393838;
+
+  div {
+    text-align: center;
+
+    a {
+      font-size: 2rem;
+      color: white;
+
+      &:hover {
+        color: #53a3ff;
+      }
+    }
+  }
+}
+
+
+
+.selected {
+  background:$background-body;
+}
+
+

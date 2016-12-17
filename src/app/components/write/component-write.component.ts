@@ -1,7 +1,10 @@
 "use strict";
 
 
-import {Component as C, Input, OnInit, NgZone, OnDestroy, ViewChild} from "@angular/core";
+import {
+  Component as C, Input, OnInit, NgZone, OnDestroy, ViewChild, animate, transition, style,
+  state, trigger
+} from "@angular/core";
 import {Observable} from "rxjs";
 import {ComponentService} from "../../shared/service/component/component.service";
 import * as _ from "lodash";
@@ -15,7 +18,9 @@ import {CKEditorComponent} from "../../shared/ckeditor/ckeditor.component";
 @C({
   selector: 'component-write',
   templateUrl: 'component-write.template.html',
-  styleUrls: ['./component-write.component.scss']
+  styleUrls: ['./component-write.component.scss'],
+
+
 })
 export class ComponentWriteComponent implements OnInit, OnDestroy {
 
@@ -38,6 +43,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
   private debounced: any;
   private debouncedToc: any;
+
 
   public constructor(private zone: NgZone,
                      private componentService: ComponentService,
@@ -75,6 +81,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
     this.sharedService.expandMainContentAndHideSideNav(false);
     // TODO: clear timer to avoid save after a close
   }
+
 
   public autoSave() {
     this.updateContent().subscribe(r => {

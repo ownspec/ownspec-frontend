@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+//
+// Includes/imports all third-party stylesheets used throughout the application.
+// Should be loaded before the application stylesheets
+//
+$font-size-base: 1rem;
+$font-size-lg: 1.45rem;
+$font-size-sm: 1rem;
+$font-size-xs: 0.9rem;
+$btn-line-height: 1.5;
+
+$fa-font-path: "~font-awesome/fonts";
+
+$breadcrumb-bg: transparent;
+
+$roboto-font-path: '~roboto-fontface/fonts';
+
+$breadcrumb-active-color: #eceeef;
+
+// angular material
+$baseline-grid: 4px;
+$md-toolbar-height: $baseline-grid * 10;
+$dense-baseline-grid: $baseline-grid / 2;
+$list-item-dense-three-line-height: 14 * $dense-baseline-grid;
+$list-item-dense-height: 14 * $dense-baseline-grid;
+$list-item-three-line-height: 13 * $baseline-grid;
+
+//$enable-flex: true;
+
+$md-fab-border-radius: 50%;
+$md-fab-size: 36px;
+$md-fab-padding: 16px;
+
+$md-mini-fab-size: 10px;
+$md-mini-fab-padding: 4px;
+
+
+$background-sidenav: #393838;
+//$background-header: #a5a59c;
+$background-header: white;
+
+$background-body:#f0f3f4;
