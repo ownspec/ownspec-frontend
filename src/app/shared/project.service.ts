@@ -1,35 +1,16 @@
 import {Observable} from "rxjs";
-import {Http} from "@angular/http";
+import {Http, URLSearchParams} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {User} from "./users/user.service";
+import {StateService} from "ui-router-ng2";
 
 
 @Injectable()
 export class ProjectService {
 
-  public constructor(private $http: Http) {
+  public constructor(private $http: Http,
+                     private stateService: StateService) {
   }
-
-  response = {
-    data: [
-      {
-        "id": "PROJECT-1",
-        "title": "JPMorgan Rose",
-        "description": "description1",
-      },
-      {
-        "id": "PROJECT-2",
-        "title": "NTRS",
-        "description": "description2",
-      },
-      {
-        "id": "PROJECT-3",
-        "title": "Raiffeisen",
-        "description": "description2",
-      },
-    ]
-
-  };
 
   public findOne(id: string): Observable<Project> {
     return this.$http.get("/api/projects/" + id).map(r => this.fromJson(r.json()));
@@ -39,8 +20,11 @@ export class ProjectService {
     return this.fetchAll().toArray();
   }
 
-  private fetchAll(): Observable<Project> {
-    return this.$http.get("/api/projects")
+  private fetchAll(mode: string = null): Observable<Project> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.append("mode", mode);
+
+    return this.$http.get("/api/projects", {search: params})
         .flatMap(r => r.json())
         .map((item: any) => {
           return this.fromJson(item);
@@ -63,9 +47,29 @@ export class ProjectService {
         item.id,
         item.title,
         item.description,
-        item.createdDate);
+        new Date(<string>item.createdDate));
   }
 
+
+  getLastVisited(): Observable<Project[]> {
+    return this.fetchAll("LAST_VISITED_ONLY").toArray();
+  }
+
+  getFavorites(): Observable<Project[]> {
+    return this.fetchAll("FAVORITES_ONLY").toArray();
+  }
+
+  addVisit(projectId: number) {
+    this.$http.post("/api/projects/" + projectId + "/addVisit", {}).subscribe(r => {
+
+    }, e => {
+      //todo handle exception
+    });
+  }
+
+  show(projectId: number) {
+    this.stateService.go("app.home.project.dashboard", {projectId: projectId}, {reload: false})
+  }
 }
 
 
@@ -74,7 +78,7 @@ export class Project {
   public constructor(public id: string,
                      public title: string,
                      public description: string,
-                     public createdDate,
+                     public createdDate: Date,
                      public authorizedUsers: User[] = new Array()) {
   }
 

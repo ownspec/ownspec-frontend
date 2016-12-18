@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {SharedService} from "../shared/shared.service";
 import {StateService} from "ui-router-ng2";
-import {UserService} from "../shared/users/user.service";
+import {UserService, User} from "../shared/users/user.service";
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -41,7 +41,8 @@ export class SideNavComponent implements OnInit {
 
   constructor(private state: StateService,
               private sharedService: SharedService,
-              private userService: UserService) {
+              private userService: UserService,
+              private activeUser: User) { //todo search why it doesn't work when not in the constructor
   }
 
   ngOnInit(): void {
@@ -57,6 +58,9 @@ export class SideNavComponent implements OnInit {
     });
 
     // Set User
+    this.userService.getCurrent().subscribe((user: User) => {
+      this.activeUser = user
+    });
 
   }
 

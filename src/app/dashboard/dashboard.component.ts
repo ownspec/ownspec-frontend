@@ -1,7 +1,7 @@
 "use strict";
 import {Component as C, OnInit} from "@angular/core";
 import {SharedService} from "../shared/shared.service";
-import {ProjectService} from "../shared/project.service";
+import {ProjectService, Project} from "../shared/project.service";
 import {ComponentService} from "../shared/service/component/component.service";
 import {Component} from "../shared/service/component/component";
 
@@ -14,10 +14,15 @@ require("chart.js/src/chart.js");
   styleUrls: ['./dashboard.scss']
 })
 export class DashboardComponent implements OnInit {
+  private project: Project;
   private stateIsInAProject = false;
   private projectsNumber = 0;
   private documentsNumber = 0;
   private requirementsNumber = 0;
+
+  private lastVisitedProjects: Project [] = [];
+  private lastVisitedDocuments: Component  [] = [];
+  private lastVisitedRequirements: Component [] = [];
 
 
   // Requirement Evolution chart
@@ -45,6 +50,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let documents: Component[];
+    let requirements: Component[];
+
     this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
       this.stateIsInAProject = stateIsInAProject;
     });
@@ -53,8 +61,8 @@ export class DashboardComponent implements OnInit {
     });
 
     this.componentService.findAll().subscribe(response => {
-      let documents: Component[] = response.filter((component: Component) => component.type == "DOCUMENT");
-      let requirements: Component[] = response.filter((component: Component) => component.type == "REQUIREMENT");
+      documents = response.filter((component: Component) => component.type == "DOCUMENT");
+      requirements = response.filter((component: Component) => component.type == "REQUIREMENT");
 
       // Total
       this.documentsNumber = documents.length;
@@ -62,9 +70,27 @@ export class DashboardComponent implements OnInit {
 
       // Charts
       // this.requirementEvolutionChartData;
-      // this.requirementTypeChartData = [ requirements.filter(req => req.)];
       // this.requirementCoverageChartData
+      // this.requirementTypeChartData = [ requirements.filter(req => req.type)];
     });
+
+
+    //Last visited project
+    this.projectService.getLastVisited().subscribe((projects: Project[]) => {
+      this.lastVisitedProjects = projects;
+    });
+
+    //Last visited documents
+    this.componentService.getLastVisitedDocuments().subscribe((documents: Component[]) => {
+      this.lastVisitedDocuments = documents;
+    });
+
+    //Last visited requirements
+    this.componentService.getLastVisitedRequirements().subscribe((requirements: Component[]) => {
+      this.lastVisitedRequirements = requirements;
+    });
+
+
   }
 
   showStatusFilteredRequirement() {
@@ -77,6 +103,14 @@ export class DashboardComponent implements OnInit {
 
   showTypeFilteredRequirements() {
 
+  }
+
+  showProject(projectId: number) {
+    this.projectService.show(projectId);
+  }
+
+  showComponent(componentId: number) {
+    // this.componentService.edit()
   }
 
 }

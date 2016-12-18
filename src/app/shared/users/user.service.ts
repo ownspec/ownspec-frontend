@@ -1,6 +1,8 @@
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
+import {Project} from "../project.service";
+import {Component} from "../service/component/component";
 
 @Injectable()
 export class UserService {
@@ -8,10 +10,6 @@ export class UserService {
 
   public constructor(private http: Http) {
 
-  }
-
-  public fromJson(json: any): User {
-    return new User(json.id, json.username, json.email);
   }
 
   public login(username: String, password: String): Observable<any> {
@@ -29,6 +27,16 @@ export class UserService {
     );
   }
 
+  public getCurrent(): Observable<User> {
+    return this.http.get("/api/users/me")
+        .map(r => {
+              return User.fromJson(r.json());
+            }, e => {
+              //todo: handle
+            }
+        )
+  }
+
   public getSettings() {
 
   }
@@ -43,14 +51,32 @@ export class UserService {
   }
 
   public findAll(): Observable<User> {
-    return this.findAll2Json().map(item => this.fromJson(item));
+    return this.findAll2Json().map(item => User.fromJson(item));
   }
 }
 
 
 export class User {
 
-  public constructor(public id: string, public username: string, public email: string) {
+  public constructor(public id: string,
+                     public username: string,
+                     public email: string,
+                     public firstName: string,
+                     public lastName: string,
+                     public role: string,
+                     public lastProjects: Project[] = [],
+                     public lastDocuments: Component [] = [],
+                     public lastRequirements: Component[] = []) {
   }
 
+
+  public static fromJson(json: any): User {
+    return new User(json.id,
+        json.username,
+        json.email,
+        json.firstName,
+        json.lastName,
+        json.role,
+    );
+  }
 }

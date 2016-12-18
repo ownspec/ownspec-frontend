@@ -74,24 +74,24 @@
               </div>
             </div>
           </div>
-          <div class="col-md-12 panel margin-bottom-20" style="border-left: 3px solid #c3e7ec;">
+          <div *ngIf="!create" class="col-md-12 panel margin-bottom-20" style="border-left: 3px solid #c3e7ec;">
             <div class="panel-body">
               <div class="col-md-12">
                 <div class="col-sm-6 col-xs-12"><h6>Author</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>Lyrold Careto</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>{{component.createdUser}}</h6></div>
               </div>
               <div class="col-md-12">
-                <div class="col-sm-6 col-xs-12"><h6>Created on</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>24 Oct. 16, 14:45:02</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>Created</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>{{component.creationDate | amTimeAgo }}</h6></div>
               </div>
               <div class="col-md-12">
-                <div class="col-sm-6 col-xs-12"><h6>Last Modified on</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>25 Oct. 16, 12:05:32</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>Updated</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>{{component.lastModifiedDate | amTimeAgo }}</h6></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-sm-6 col-xs-12"><h6>Version</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>1.1</h6></div>
-              </div>
+              <!--<div class="col-md-12">-->
+              <!--<div class="col-sm-6 col-xs-12"><h6>Version</h6></div>-->
+              <!--<div class="col-sm-6 col-xs-12"><h6>1.1</h6></div>-->
+              <!--</div>-->
             </div>
           </div>
 
@@ -100,17 +100,9 @@
               <h6>Estimated time</h6>
             </div>
             <div class="panel-body">
-              <div class="col-md-12">
-                <div class="col-sm-6 col-xs-12"><h6>Analysis</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>1 MD</h6></div>
-              </div>
-              <div class="col-md-12">
-                <div class="col-sm-6 col-xs-12"><h6>Development</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>48 MD</h6></div>
-              </div>
-              <div class="col-md-12">
-                <div class="col-sm-6 col-xs-12"><h6>Testing</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>22 MD</h6></div>
+              <div *ngFor="let estimatedTime of component.estimatedTimes" class="col-md-12">
+                <div class="col-sm-6 col-xs-12"><h6>{{estimatedTime.userCategory.category}}</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>{{estimatedTime.time}} {{estimatedTime.timeUnit}}</h6></div>
               </div>
             </div>
           </div>
@@ -127,13 +119,13 @@
           </tab>
           <tab heading="Reference">
             <datatable
-              class="material" style="flex: 1;min-height:300px"
-              [rows]="component.componentReferences"
-              [headerHeight]="50"
-              [footerHeight]="0"
-              [rowHeight]="50"
-              [scrollbarV]="true"
-              [scrollbarH]="true">
+                class="material" style="flex: 1;min-height:300px"
+                [rows]="component.componentReferences"
+                [headerHeight]="50"
+                [footerHeight]="0"
+                [rowHeight]="50"
+                [scrollbarV]="true"
+                [scrollbarH]="true">
               <datatable-column name="Source" prop="source.title"></datatable-column>
               <datatable-column name="Status">
                 <template let-row="row" let-value="value">

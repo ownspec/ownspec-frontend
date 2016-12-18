@@ -6,14 +6,14 @@ import {User, UserService} from "./user.service";
 @Injectable()
 export class ProfilService {
 
-  public constructor(private $http: Http, private userService: UserService) {
+  public constructor(private $http: Http) {
   }
 
   public findCurrentProfile(): Observable<Profil> {
     return this.$http.get("/api/users/me/profile")
       .map(r => r.json())
       .map((item: any) => {
-        let component = new Profil(this.userService.fromJson(item) , item.properties);
+        let component = new Profil(User.fromJson(item) , item.properties);
         return component;
       });
   }

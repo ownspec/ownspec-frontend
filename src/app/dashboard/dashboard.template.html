@@ -22,9 +22,9 @@
         <div class="panel-content">
           <div class="panel-content-list">
             <h5>Last</h5>
-            <div><a href="#" role="button">Project 1</a></div>
-            <div><a href="#" role="button">Project 2</a></div>
-            <div><a href="#" role="button">Project 3</a></div>
+            <div *ngFor="let project of lastVisitedProjects">
+              <a (click)="showProject(project.id)" role="button">{{project.title}}</a>
+            </div>
           </div>
         </div>
       </div>
@@ -45,9 +45,9 @@
         <div class="panel-content">
           <div class="panel-content-list">
             <h5>Last</h5>
-            <div><a href="#" role="button">Document 1</a></div>
-            <div><a href="#" role="button">Document 2</a></div>
-            <div><a href="#" role="button">Document 3</a></div>
+            <div *ngFor="let document of lastVisitedDocuments">
+              <a (click)="showComponent(document.id)" role="button">{{document.title}}</a>
+            </div>
           </div>
         </div>
       </div>
@@ -69,9 +69,9 @@
         <div class="panel-content">
           <div class="panel-content-list">
             <h5>Last</h5>
-            <div><a href="#" role="button">Requirement 1</a></div>
-            <div><a href="#" role="button">Requirement 2</a></div>
-            <div><a href="#" role="button">Requirement 3</a></div>
+            <div *ngFor="let requirement of lastVisitedRequirements">
+              <a (click)="showComponent(requirement.id)" role="button">{{requirement.title}}</a>
+            </div>
           </div>
         </div>
       </div>
@@ -166,7 +166,6 @@
 </div>
 
 <div *ngIf="stateIsInAProject" class="main-content-content">
-  Dashboard Project
   <div class="row">
     <div class="col-md-6 col-sm-6 col-xs-12">
       <div class="panel ">

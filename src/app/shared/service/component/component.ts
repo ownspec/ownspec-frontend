@@ -8,13 +8,11 @@ import {EstimatedTime} from "./estimated-time";
 export class Component {
 
   public constructor(public id: string, public projectId: string, public title: string, public description: string,
-                     public creationDate: Date, public lastUpdateDate: Date,
+                     public creationDate: Date, public LastModifiedDate: Date, public createdUser: User,
                      public content: string, public summary: string, public type: string = "REQUIREMENT", public currentWorkflowStatus: WorkflowStatus,
                      public workflowInstances: WorkflowInstance[] = [],
                      public comments: Comment[] = [],
                      public componentReferences: ComponentReference[] = [],
-
-                     public createdUser: User = null,
                      public requiredTest: boolean = false,
                      public assignedTo: User = null,
                      public distributionLevel: string = "INTERNAL",
@@ -30,7 +28,7 @@ export class Component {
 
   public clone(): Component {
 
-    let c = new Component(this.id, this.projectId, this.title, this.description, this.creationDate, this.lastUpdateDate,
+    let c = new Component(this.id, this.projectId, this.title, this.description, this.creationDate, this.LastModifiedDate, this.createdUser,
         this.content, this.summary, this.type, this.currentWorkflowStatus.clone());
 
     for (let workflowInstance of this.workflowInstances) {
@@ -51,8 +49,16 @@ export class Component {
 
 
   public static fromMap(item: any): Component {
-    let component: Component = new Component(item.id, item.projectId, item.title, item.description,
-        new Date(<string>item.createdDate), new Date(<string>item.lastUpdateDate), item.content, item.summary, item.type,
+    let component: Component = new Component(
+        item.id,
+        item.projectId,
+        item.title,
+        item.description,
+        new Date(<string>item.createdDate), new Date(<string>item.LastModifiedDate),
+        User.fromJson(item.createdUser),
+        item.content,
+        item.summary,
+        item.type,
         WorkflowStatus.fromMap(item.currentWorkflowStatus));
 
     if (item.workflowInstances) {

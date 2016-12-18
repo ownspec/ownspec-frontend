@@ -1,12 +1,9 @@
-
-
 :host {
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: auto;
 }
-
 
 .panel {
   background: #ffffff;
@@ -38,7 +35,11 @@
 .panel-content-list {
   padding: 15px;
   color: grey;
+}
 
+.panel-content-list a {
+  color: #0275d8 !important;
+  text-decoration: none;
 }
 
 .panel-content-list h5 {

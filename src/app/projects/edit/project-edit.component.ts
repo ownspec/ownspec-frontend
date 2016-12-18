@@ -27,7 +27,7 @@ export class ProjectEditComponent implements OnInit {
                      private completerService: CompleterService,
                      private userService: UserService) {
 
-    this.project = new Project("", "", "", "");
+    this.project = new Project("", "", "", new Date());
   }
 
 
@@ -57,7 +57,7 @@ export class ProjectEditComponent implements OnInit {
 
 
   public authorizeUser(selected: CompleterItem) {
-    this.project.authorizedUsers.push(this.userService.fromJson(selected.originalObject));
+    this.project.authorizedUsers.push(User.fromJson(selected.originalObject));
   }
 
   public saveManager(selected: CompleterItem) {

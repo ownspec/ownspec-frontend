@@ -18,14 +18,14 @@
 
 <div class="main-content-content">
   <datatable
-    class="material" style="flex: 1"
-    [rows]="components"
-    [columnMode]="'force'"
-    [headerHeight]="50"
-    [footerHeight]="0"
-    [rowHeight]="50"
-    [scrollbarV]="true"
-    [scrollbarH]="true">
+      class="material" style="flex: 1"
+      [rows]="components"
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="0"
+      [rowHeight]="50"
+      [scrollbarV]="true"
+      [scrollbarH]="true">
     <datatable-column name="Id"></datatable-column>
     <datatable-column name="Title"></datatable-column>
     <datatable-column name="Status" prop="currentWorkflowStatus.status.name"></datatable-column>
@@ -51,16 +51,23 @@
              class="table-actions" role="button">
             <i class="fa fa-trash" aria-hidden="true"></i>
           </a>
-          <a uiSref=".component-edit" [uiParams]="{ componentId: row.id }" md-tooltip="Edit component" role="button">
+          <a uiSref=".component-edit"
+             [uiParams]="{ componentId: row.id }"
+             (click)="addVisit(row.id)"
+             md-tooltip="Edit component"
+             role="button">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>
-          <a uiSref=".component-write" [uiParams]="{ componentId: row.id }" md-tooltip="Open component for write"
+          <a uiSref=".component-write"
+             [uiParams]="{ componentId: row.id }"
+             (click)="addVisit(row.id)"
+             md-tooltip="Open component for write"
              role="button">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </a>
           <a (click)="print(row)" md-tooltip="Print" role="button">
             <i class="fa fa-print" aria-hidden="true"></i>
-        </a>
+          </a>
         </div>
       </template>
     </datatable-column>

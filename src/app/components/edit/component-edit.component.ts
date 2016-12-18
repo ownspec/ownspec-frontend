@@ -26,10 +26,12 @@ export class ComponentEditComponent implements OnInit {
   public references: Array<EntityReference> = [];
 
 
-  public constructor(private $state: StateService, private componentService: ComponentService, private referenceService: ReferenceService) {
+  public constructor(private $state: StateService,
+                     private componentService: ComponentService,
+                     private referenceService: ReferenceService) {
 
 
-    this.component = new Component("", "", "", "", new Date(), new Date(), "", "" , "REQUIREMENT", null);
+    this.component = new Component("", "", "", "", new Date(), new Date(), null, "", "", "REQUIREMENT", null);
     this.editorOptions = {
       height: "200px",
       basePath: '/assets/js/ckeditor/'
@@ -43,7 +45,7 @@ export class ComponentEditComponent implements OnInit {
     if (!this.create) {
       this.componentService.findOne(this.id, true, false, false, true).subscribe(r => this.component = r);
     } else {
-      this.component = new Component("", "", "", "", new Date(), new Date(), "", "" , "REQUIREMENT", null);
+      this.component = new Component("", "", "", "", new Date(), new Date(), null, "", "", "REQUIREMENT", null);
     }
 
     /*        this.entityHistoryService.findAll().subscribe(r => {

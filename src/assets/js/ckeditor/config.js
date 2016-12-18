@@ -12,7 +12,7 @@ CKEDITOR.editorConfig = function (config) {
     {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
     {name: 'forms', groups: ['forms']},
     {name: 'insert', groups: ['insert']},
-    //'/',
+    '/',
     {name: 'colors', groups: ['colors']},
     {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
     {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},

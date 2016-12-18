@@ -23,12 +23,14 @@
           <a><img src="assets/img/no-picture-icon.png" alt="Add a picture to your project" class="project-logo"></a>
         </div>
         <div class="col-md-9 col-sm-12">
-          <a (click)="show(project.id)"><h5>{{project.title}}</h5></a>
-          <h6>{{project.description}}</h6>
-          <h6>{{project.createdDate | date }}</h6>
+          <a (click)="show(project.id); addVisit(project.id)"
+             role="button">
+            <h5>{{project.title}}</h5>
+          </a>
+          <h6 style="color:#55595c">{{project.description}}</h6>
+          <h6 style="font-size: 0.9rem;">Created {{project.createdDate | amTimeAgo }}</h6>
 
           <div class="project-actions">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
             <i [ngClass]="{'fa fa-star favorite': project.isFavorite, 'fa fa-star-o': !project.isFavorite}"
                aria-hidden="true"></i>
           </div>
@@ -36,40 +38,4 @@
       </div>
     </div>
   </div>
-
-
-  <!--<datatable-->
-  <!--class="material" style="flex: 1;height: 100%"-->
-  <!--[rows]="projects"-->
-  <!--[columnMode]="'force'"-->
-  <!--[headerHeight]="50"-->
-  <!--[footerHeight]="0"-->
-  <!--[rowHeight]="50"-->
-  <!--[scrollbarV]="true"-->
-  <!--[scrollbarH]="true">-->
-  <!--<datatable-column name="Id" [width]="300"></datatable-column>-->
-  <!--<datatable-column name="Title"></datatable-column>-->
-  <!--<datatable-column name="Description"></datatable-column>-->
-  <!--<datatable-column name="Creation">-->
-  <!--<template let-row="row" let-value="value">-->
-  <!--{{row.creationDate | amTimeAgo}}-->
-  <!--</template>-->
-  <!--</datatable-column>-->
-  <!--<datatable-column name="Action">-->
-  <!--<template let-row="row" let-value="value">-->
-  <!--<div class="table-actions">-->
-  <!--<a tooltip="Delete requirement" class="table-actions" role="button">-->
-  <!--<i class="fa fa-trash" aria-hidden="true"></i>-->
-  <!--</a>-->
-  <!--<a uiSref=".project-edit" [uiParams]="{ projectId: row.id }" tooltip="Edit project" role="button">-->
-  <!--<i class="fa fa-pencil" aria-hidden="true"></i>-->
-  <!--</a>-->
-  <!--<a uiSref="app.home.project.dashboard" [uiParams]="{ projectId: row.id }" tooltip="Edit project"-->
-  <!--role="button">-->
-  <!--<i class="fa fa-folder-open-o" aria-hidden="true"></i>-->
-  <!--</a>-->
-  <!--</div>-->
-  <!--</template>-->
-  <!--</datatable-column>-->
-  <!--</datatable>-->
 </div>

@@ -1,18 +1,18 @@
 <div *ngIf="!hidden" class="sidenav">
   <!--Logo-->
   <div class="sidenav-logo">
-    <button (click)="goDefaultView()"><img src="/assets/img/os-center-logo-170x43.png" alt="Ownspec center"></button>
+    <button (click)="goDefaultView()" role="button"><img src="/assets/img/os-center-logo-170x43.png" alt="Ownspec center"></button>
   </div>
 
   <div *ngIf="stateIsInAProject" style="margin-top: 5px">
-    <button uiSref="^"><i class="fa fa-arrow-left back_button" aria-hidden="true"></i></button>
+    <button uiSref="app.home.projects" type="button"><i class="fa fa-arrow-left back_button" aria-hidden="true"></i></button>
   </div>
 
   <!--User menu-->
   <div dropdown class="sidenav-user-menu">
-    <button dropdownToggle type="button">
+    <button dropdownToggle type="button" role="button">
       <img src="/assets/img/avatar_f.png" class="img-circle avatar"/>
-      <a style="display: block">Lyrold Careto <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+      <a style="display: block">{{activeUser.firstName}} {{activeUser.lastName}}<i class="fa fa-angle-down" aria-hidden="true"></i></a>
     </button>
     <ul dropdownMenu role="menu">
       <li role="menuitem"><a class="dropdown-item" href="#"><span class="fa fa-user"></span>Profile</a></li>

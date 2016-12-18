@@ -15,7 +15,7 @@ export class ComponentService {
     return this.fetchOne(id, workflow, content, comments, references);
   }
 
-  public findAll(projectId: string = null, title: string = null, types: Array<string> = [], query:string = null,
+  public findAll(projectId: string = null, title: string = null, types: Array<string> = [], query: string = null,
                  workflow = false, content = false, comments = false, references = false): Observable<Component[]> {
     let params: URLSearchParams = new URLSearchParams();
 
@@ -124,6 +124,37 @@ export class ComponentService {
 
   public print(c: Component) {
     window.location.assign("/api/components/" + c.id + "/compose");
+  }
+
+  getLastVisitedRequirements(): Observable<Component[]> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.append("mode", "LAST_VISITED_ONLY");
+    params.append("types", "REQUIREMENT");
+
+    return this.$http.get("/api/components", {search: params})
+        .flatMap(r => r.json())
+        .map((item: any) => Component.fromMap(item))
+        .toArray();
+  }
+
+  getLastVisitedDocuments(): Observable<Component[]> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.append("mode", "LAST_VISITED_ONLY");
+    params.append("types", "DOCUMENT");
+
+    return this.$http.get("/api/components", {search: params})
+        .flatMap(r => r.json())
+        .map((item: any) => Component.fromMap(item))
+        .toArray();
+
+  }
+
+  addVisit(componentId: number) {
+    this.$http.post("/api/components/" + componentId + "/addVisit", {}).subscribe(r => {
+
+    }, e => {
+
+    })
   }
 }
 

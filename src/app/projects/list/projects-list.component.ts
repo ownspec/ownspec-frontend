@@ -1,8 +1,8 @@
 "use strict";
 
 
-import {StateService, StateParams} from "ui-router-ng2";
-import {Component as C, ChangeDetectorRef, OnInit} from "@angular/core";
+import {StateService} from "ui-router-ng2";
+import {Component as C, OnInit} from "@angular/core";
 import {ProjectService, Project} from "../../shared/project.service";
 
 
@@ -16,7 +16,8 @@ export class ProjectsListComponent implements OnInit {
   public projects: Project[] = [];
 
 
-  public constructor(private $state: StateService, private $stateParams: StateParams, private projectService: ProjectService) {
+  public constructor(private $state: StateService,
+                     private projectService: ProjectService) {
   }
 
 
@@ -31,7 +32,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   public show(projectId){
-    this.$state.go("app.home.project.dashboard", {projectId: projectId}, {reload: false})
+   this.projectService.show(projectId);
   }
 
   public edit(r: any) {
@@ -40,6 +41,10 @@ export class ProjectsListComponent implements OnInit {
 
   public startCreateRequirement() {
     this.$state.go(".requirement-edit", {reqId: "_new"}, {reload: false});
+  }
+
+  public addVisit(projectId:number){
+    this.projectService.addVisit(projectId);
   }
 
 

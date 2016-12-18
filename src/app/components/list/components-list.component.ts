@@ -35,7 +35,7 @@ export class ComponentsListComponent implements OnInit {
   @Input("projectId")
   public projectId: string = null;
 
-  public searchBean = {title: null, query:null};
+  public searchBean = {title: null, query: null};
 
 
   public constructor(public appRef: ApplicationRef, private $state: StateService, private $stateParams: StateParams, private componentService: ComponentService) {
@@ -48,7 +48,7 @@ export class ComponentsListComponent implements OnInit {
   }
 
   private fetchComponents() {
-    this.componentService.findAll(this.projectId, this.searchBean.title, this.availableComponentTypes , this.searchBean.query).subscribe(o => {
+    this.componentService.findAll(this.projectId, this.searchBean.title, this.availableComponentTypes, this.searchBean.query).subscribe(o => {
       this.components = o;
     });
   }
@@ -71,6 +71,10 @@ export class ComponentsListComponent implements OnInit {
 
   public search() {
     this.fetchComponents();
+  }
+
+  addVisit(componentId: number) {
+    this.componentService.addVisit(componentId);
   }
 
 }

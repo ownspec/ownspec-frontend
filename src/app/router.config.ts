@@ -19,6 +19,6 @@ export class MyRootUIRouterConfig {
   constructor(uiRouter: UIRouter) {
     // Show the ui-router visualizer
     //let vis = window['foobar'];
-    foo.visualizer(uiRouter);
+    // foo.visualizer(uiRouter);
   }
 }
