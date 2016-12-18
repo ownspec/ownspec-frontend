@@ -2,12 +2,13 @@ import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams} from "@angular/http";
 import {Component} from "./component";
+import {StateService} from "ui-router-ng2";
 
 @Injectable()
 export class ComponentService {
 
 
-  public constructor(private $http: Http) {
+  public constructor(private $http: Http, private stateService: StateService) {
 
   }
 
@@ -90,8 +91,7 @@ export class ComponentService {
   }
 
   public save(toSave: Component): Observable<boolean> {
-    return this.$http.post("/api/components/" + toSave.id + "/update",
-        {id: toSave.id, title: toSave.title, description: toSave.description, type: toSave.type})
+    return this.$http.post("/api/components/" + toSave.id + "/update", Component.toJson(toSave))
         .map(r => {
           return r.status == 200;
         });
@@ -107,16 +107,7 @@ export class ComponentService {
   }
 
   create(toSave: Component): Observable<boolean> {
-    return this.$http.post("/api/components/" + toSave.id + "/create",
-        {
-          title: toSave.title,
-          description: toSave.description,
-          type: toSave.type,
-          requiredTest: toSave.requiredTest,
-          estimatedTimes: toSave.estimatedTimes,
-          distributionLevel: toSave.distributionLevel,
-          coverageStatus: toSave.coverageStatus
-        })
+    return this.$http.post("/api/components/" + toSave.id + "/create", Component.toJson(toSave))
         .map(r => {
           return r.status == 200;
         });
@@ -155,6 +146,10 @@ export class ComponentService {
     }, e => {
 
     })
+  }
+
+  edit(id: number) {
+    this.stateService.go(".component-edit", { componentId: id }, {reload: false});
   }
 }
 

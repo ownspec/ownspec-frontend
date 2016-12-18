@@ -13,7 +13,7 @@ export class ProjectService {
   }
 
   public findOne(id: string): Observable<Project> {
-    return this.$http.get("/api/projects/" + id).map(r => this.fromJson(r.json()));
+    return this.$http.get("/api/projects/" + id).map(r => Project.fromJson(r.json()));
   }
 
   public findAll(): Observable<Project[]> {
@@ -27,7 +27,7 @@ export class ProjectService {
     return this.$http.get("/api/projects", {search: params})
         .flatMap(r => r.json())
         .map((item: any) => {
-          return this.fromJson(item);
+          return Project.fromJson(item);
         });
   }
 
@@ -38,18 +38,9 @@ export class ProjectService {
   }
 
   create(toSave: Project) {
-    return this.$http.post("/api/projects/create", toSave)
+    return this.$http.post("/api/projects/create", Project.toJson(toSave))
         .map(r => r.status == 200);
   }
-
-  fromJson(item: any): Project {
-    return new Project(
-        item.id,
-        item.title,
-        item.description,
-        new Date(<string>item.createdDate));
-  }
-
 
   getLastVisited(): Observable<Project[]> {
     return this.fetchAll("LAST_VISITED_ONLY").toArray();
@@ -79,7 +70,25 @@ export class Project {
                      public title: string,
                      public description: string,
                      public createdDate: Date,
+                     public manager: User,
                      public authorizedUsers: User[] = new Array()) {
   }
 
+  public static fromJson(item: any): Project {
+    return new Project(
+        item.id,
+        item.title,
+        item.description,
+        new Date(<string>item.createdDate),
+        User.fromJson(item.manager));
+  }
+
+  public static toJson(project: Project): any {
+    return {
+      title: project.title,
+      description: project.description,
+      manager: User.toJson(project.manager),
+      authorizedUsers: project.authorizedUsers.map(u => User.toJson(u)).toString()
+    };
+  }
 }

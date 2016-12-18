@@ -31,8 +31,12 @@
           <h6 style="font-size: 0.9rem;">Created {{project.createdDate | amTimeAgo }}</h6>
 
           <div class="project-actions">
-            <i [ngClass]="{'fa fa-star favorite': project.isFavorite, 'fa fa-star-o': !project.isFavorite}"
-               aria-hidden="true"></i>
+            <a (click)="edit(project)" role="button">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a (click)="toggleFavorite(project)" role="button">
+              <i [ngClass]="{'fa fa-star favorite': project.isFavorite, 'fa fa-star-o': !project.isFavorite}" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
       </div>

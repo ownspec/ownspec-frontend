@@ -63,7 +63,7 @@
           <div class="margin-bottom-20" style="display: flex; text-align: center">
             <div class="col-md-6 panel" style="padding:10px;padding-bottom:0px; border-left: 3px solid #c3e7ec;">
               <div class="form-group">
-                <input type="checkbox" class="checkbox">
+                <input type="checkbox" [checked]="component.requiredTest" class="checkbox">
                 <h6>Require Tests</h6>
               </div>
             </div>
@@ -78,7 +78,7 @@
             <div class="panel-body">
               <div class="col-md-12">
                 <div class="col-sm-6 col-xs-12"><h6>Author</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>{{component.createdUser}}</h6></div>
+                <div class="col-sm-6 col-xs-12"><h6>{{ component.createdUser }}</h6></div>
               </div>
               <div class="col-md-12">
                 <div class="col-sm-6 col-xs-12"><h6>Created</h6></div>
@@ -100,6 +100,21 @@
               <h6>Estimated time</h6>
             </div>
             <div class="panel-body">
+              <div *ngIf="create">
+                <div *ngFor="let userCategory of userCategories" class="col-md-12" style="margin-bottom: 15px">
+                  <div class="col-md-4 col-xs-12"><h6>{{userCategory}}</h6></div>
+                  <div class="col-md-8 col-xs-12">
+                    <div style="display: flex; flex-direction: row">
+                      <input class="form-control" required name="time" type="number" style="margin-right: 5px">
+                      <select class="form-control">
+                        <option>Hours</option>
+                        <option>Days</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div *ngFor="let estimatedTime of component.estimatedTimes" class="col-md-12">
                 <div class="col-sm-6 col-xs-12"><h6>{{estimatedTime.userCategory.category}}</h6></div>
                 <div class="col-sm-6 col-xs-12"><h6>{{estimatedTime.time}} {{estimatedTime.timeUnit}}</h6></div>

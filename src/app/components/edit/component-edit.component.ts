@@ -18,20 +18,25 @@ export class ComponentEditComponent implements OnInit {
   @Input("componentId")
   public id: string;
 
+  @Input("componentType")
+  public componentType: string;
+
+  @Input("projectId")
+  public projectId: string;
+
+
   public component: Component;
   public create: boolean;
 
   public editorOptions: any;
 
   public references: Array<EntityReference> = [];
-
+  public userCategories: string[] = ['Analyst', 'Developer', 'Tester'];
 
   public constructor(private $state: StateService,
                      private componentService: ComponentService,
                      private referenceService: ReferenceService) {
-
-
-    this.component = new Component("", "", "", "", new Date(), new Date(), null, "", "", "REQUIREMENT", null);
+    this.component = new Component("", "", "", "");
     this.editorOptions = {
       height: "200px",
       basePath: '/assets/js/ckeditor/'
@@ -45,12 +50,8 @@ export class ComponentEditComponent implements OnInit {
     if (!this.create) {
       this.componentService.findOne(this.id, true, false, false, true).subscribe(r => this.component = r);
     } else {
-      this.component = new Component("", "", "", "", new Date(), new Date(), null, "", "", "REQUIREMENT", null);
+      this.component = new Component("", "", this.projectId, this.componentType);
     }
-
-    /*        this.entityHistoryService.findAll().subscribe(r => {
-     this.histories = r
-     });*/
 
     this.referenceService.findAll().subscribe(r => {
       this.references = r;

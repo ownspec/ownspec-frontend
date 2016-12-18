@@ -121,8 +121,8 @@
           <div class="panel-content">
             <div class="canvas-container">
               <canvas baseChart
-                      width="250"
-                      height="250"
+                      width="220"
+                      height="220"
                       [chartType]="requirementCoverageChartType"
                       [labels]="requirementCoverageChartLabels"
                       [data]="requirementCoverageChartData"
@@ -149,8 +149,8 @@
           <div class="panel-content">
             <div class="canvas-container">
               <canvas baseChart
-                      width="250"
-                      height="250"
+                      width="220"
+                      height="220"
                       [chartType]="requirementTypeChartType"
                       [labels]="requirementTypeChartLabels"
                       [data]="requirementTypeChartData"
@@ -264,7 +264,7 @@
                       height="250"
                       [data]="requirementCoverageChartData"
                       [labels]="requirementCoverageChartLabels"
-                      [chartType]="requirementEvolutionChartType"
+                      [chartType]="requirementCoverageChartType"
                       (chartHover)="chartHovered($event)"
                       (chartClick)="chartClicked($event)"
                       [options]="{legend: {position:'bottom'}}"

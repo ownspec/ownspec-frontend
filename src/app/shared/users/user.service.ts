@@ -58,25 +58,25 @@ export class UserService {
 
 export class User {
 
-  public constructor(public id: string,
-                     public username: string,
+  public constructor(public username: string,
                      public email: string,
                      public firstName: string,
                      public lastName: string,
-                     public role: string,
-                     public lastProjects: Project[] = [],
-                     public lastDocuments: Component [] = [],
-                     public lastRequirements: Component[] = []) {
+                     public role: string) {
   }
 
 
   public static fromJson(json: any): User {
-    return new User(json.id,
-        json.username,
-        json.email,
-        json.firstName,
-        json.lastName,
-        json.role,
-    );
+    return new User(json.username, json.email, json.firstName, json.lastName, json.role);
+  }
+
+  public static toJson(user: User): any {
+    return {
+      username: user.username,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role
+    };
   }
 }

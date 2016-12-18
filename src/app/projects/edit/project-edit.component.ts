@@ -27,7 +27,7 @@ export class ProjectEditComponent implements OnInit {
                      private completerService: CompleterService,
                      private userService: UserService) {
 
-    this.project = new Project("", "", "", new Date());
+    this.project = new Project("", "", "", new Date(), new User("", "", "", "", ""));
   }
 
 

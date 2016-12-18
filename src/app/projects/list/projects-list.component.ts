@@ -35,17 +35,16 @@ export class ProjectsListComponent implements OnInit {
    this.projectService.show(projectId);
   }
 
-  public edit(r: any) {
-    this.$state.go(".requirement-edit", {reqId: r.id}, {reload: false});
-  }
-
-  public startCreateRequirement() {
-    this.$state.go(".requirement-edit", {reqId: "_new"}, {reload: false});
+  public edit(project: Project) {
+    this.$state.go(".project-edit", {projectId: project.id}, {reload: false});
   }
 
   public addVisit(projectId:number){
     this.projectService.addVisit(projectId);
   }
 
+  toggleFavorite(project:Project){
+
+  }
 
 }

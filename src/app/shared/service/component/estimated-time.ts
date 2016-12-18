@@ -9,4 +9,12 @@ export class EstimatedTime {
   public static fromMap(item: any): EstimatedTime {
     return new EstimatedTime(new UserCategory(item.userCategory.category), item.time, item.timeUnit);
   }
+
+  public static toJson(estimatedTime: EstimatedTime): any {
+    return {
+      userCategory: estimatedTime.userCategory,
+      time: estimatedTime.time,
+      timeUnit: estimatedTime.timeUnit
+    };
+  }
 }

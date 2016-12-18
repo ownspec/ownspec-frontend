@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
 
   // Requirement Evolution chart
   public requirementEvolutionChartType: string = 'line';
-  public requirementEvolutionChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public requirementEvolutionChartLabels: Array<any> = ['June', 'July', 'August', 'September', 'October', 'November', 'December'];
   public requirementEvolutionChartData: Array<any> = [
     {data: [65, 59, 80, 81, 56, 55, 40], label: 'Created'},
     {data: [28, 48, 40, 19, 86, 27, 90], label: 'Closed'}
@@ -110,7 +110,7 @@ export class DashboardComponent implements OnInit {
   }
 
   showComponent(componentId: number) {
-    // this.componentService.edit()
+    this.componentService.edit(componentId);
   }
 
 }

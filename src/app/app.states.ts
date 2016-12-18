@@ -218,6 +218,10 @@ function componentStates(id: string, url: string, types: string[], project = fal
           token: 'componentId',
           deps: [Transition],
           resolveFn: (trans) => trans.params().componentId
+        },
+        {
+          token: 'componentType',
+          resolveFn: () => types[0],
         }
       ]
     },
