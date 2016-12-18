@@ -10,6 +10,8 @@
                             [types]="['COMPONENT']"></components-selection>
       <components-selection *ngIf="activeTab == 'resources'" [component]="component"
                             [types]="['RESOURCE']"></components-selection>
+      <components-selection *ngIf="activeTab == 'templates'" [component]="component"
+                            [types]="['TEMPLATE']"></components-selection>
 
       <comments *ngIf="activeTab == 'comments'" [component]="component" (update)="onUpdate($event)"></comments>
 
@@ -40,6 +42,10 @@
       <div [ngClass]="{'selected':activeTab ==  'resources'}" *ngIf="isVisible('resources')" md-tooltip="Resources"
            [tooltip-position]="tooltipPosition()">
         <a role="button"><i class="fa fa-picture-o" aria-hidden="true" (click)="activeTab = 'resources'"></i></a>
+      </div>
+      <div [ngClass]="{'selected':activeTab ==  'templates'}" *ngIf="isVisible('templates')" md-tooltip="Templates"
+           [tooltip-position]="tooltipPosition()">
+        <a role="button"><i class="fa fa-file-text-o" aria-hidden="true" (click)="activeTab = 'templates'"></i></a>
       </div>
       <div [ngClass]="{'selected':activeTab ==  'workflow'}" *ngIf="isVisible('workflow')" md-tooltip="Workflow"
            [tooltip-position]="tooltipPosition()">

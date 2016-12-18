@@ -45,13 +45,11 @@ export class UserService {
 
   }
 
-  public findAll2Json(): Observable<any> {
+  public findAll(): Observable<User[]> {
     return this.http.get("/api/users")
-        .map(r => r.json())
-  }
-
-  public findAll(): Observable<User> {
-    return this.findAll2Json().map(item => User.fromJson(item));
+      .flatMap(r => r.json())
+      .map(item => User.fromJson(item))
+      .toArray();
   }
 }
 

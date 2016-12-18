@@ -20,12 +20,15 @@
 <div style="display: flex;flex-direction: row;height: 100%" *ngIf="component">
 
   <div>
-    <write-sidenav menuPosition="left" [menus]="['requirements', 'components', 'resources', 'workflow', 'comments']" [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
+    <write-sidenav menuPosition="left"
+                   [menus]="['requirements', 'components', 'resources', 'templates', 'workflow', 'comments']"
+                   [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
 
   </div>
   <div style="flex: 1">
 
-    <div class="main-content-content" style="display: flex;flex-direction: row; margin-top: 0px;height:100%" *ngIf="component != null">
+    <div class="main-content-content" style="display: flex;flex-direction: row; margin-top: 0px;height:100%"
+         *ngIf="component != null">
       <div style="flex: 1" #container>
         <ckeditor #ckeditor
                   [(ngModel)]="content"
@@ -42,7 +45,8 @@
   </div>
 
   <div style="display:flex;flex-direction:row;height: 100%">
-    <write-sidenav menuPosition="right" [menus]="['toc']" [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
+    <write-sidenav menuPosition="right" [menus]="['toc']" [component]="component" (update)="onUpdate($event)"
+                   [canUpdateWorkflow]="saved"></write-sidenav>
   </div>
 
 </div>

@@ -22,6 +22,8 @@ export class ProjectEditComponent implements OnInit {
   private authorizedUserUsername: string;
   private dataService: CompleterData;
 
+  private availableUsers : User[] = [];
+
   public constructor(private $state: StateService,
                      private projectService: ProjectService,
                      private completerService: CompleterService,
@@ -37,7 +39,10 @@ export class ProjectEditComponent implements OnInit {
     if (!this.create) {
       this.projectService.findOne(this.id).subscribe(r => this.project = r);
     }
-    this.dataService = this.completerService.local(this.userService.findAll2Json(), 'username', 'username');
+    this.dataService = this.completerService.local(this.userService.findAll(), 'username', 'username');
+    this.userService.findAll().subscribe(r => {
+      this.availableUsers = r;
+    })
   }
 
   public save() {
