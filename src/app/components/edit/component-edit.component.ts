@@ -61,7 +61,7 @@ export class ComponentEditComponent implements OnInit {
 
   public save() {
 
-    let obs: Observable<boolean>;
+    let obs: Observable<any>;
 
     if (this.create) {
       obs = this.componentService.create(this.component);

@@ -26,6 +26,9 @@ export class Component {
   public comments: Comment[] = [];
   public componentReferences: ComponentReference[] = [];
 
+  public uploadedFileId: string;
+  public filename: string;
+
   public constructor(public id: string, public title: string, public projectId: string, public type: string) {
   }
 
@@ -120,7 +123,10 @@ export class Component {
       requiredTest: component.requiredTest,
       // estimatedTimes: component.estimatedTimes.map(e => EstimatedTime.toJson(e)).toString(),
       distributionLevel: component.distributionLevel,
-      coverageStatus: component.coverageStatus
+      coverageStatus: component.coverageStatus,
+
+      uploadedFileId: component.uploadedFileId,
+      filename: component.filename
     };
   }
 

@@ -28,6 +28,10 @@ import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_a
 import {SideNavComponent} from "./sidenav/sidenav.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {Ng2CompleterModule} from "ng2-completer";
+import {Ng2UploaderModule} from "ng2-uploader";
+import {ResourceCreateComponent} from "./resources/create/resource-create.component";
+import {ResourcesListComponent} from "./resources/list/resouces-list.component";
+
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -71,6 +75,11 @@ export class AppGestureConfig extends HammerGestureConfig { }
     ComponentWriteComponent,
     DashboardComponent,
 
+
+    ResourceCreateComponent,
+    ResourcesListComponent,
+
+
     ProjectsListComponent,
     ProjectEditComponent,
 
@@ -78,6 +87,11 @@ export class AppGestureConfig extends HammerGestureConfig { }
 
 
   ],
+
+  entryComponents : [
+    ResourceCreateComponent,
+  ],
+
   imports: [ // import Angular's modules
     SharedModule,
     BrowserModule,
@@ -101,7 +115,7 @@ export class AppGestureConfig extends HammerGestureConfig { }
     ChartsModule,
     DropdownModule,
     Ng2CompleterModule,
-
+    Ng2UploaderModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
 

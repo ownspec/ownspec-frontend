@@ -9,6 +9,7 @@ import {LoginComponent} from "./login/login.component";
 import {EmptyContent} from "./shared/empty-content/empty-content";
 import {SideNavComponent} from "./sidenav/sidenav.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {ResourcesListComponent} from "./resources/list/resouces-list.component";
 
 /** The top level state(s) */
 export let MAIN_STATES: Ng2StateDeclaration[] = [
@@ -107,7 +108,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
   /**
    * Resource
    */
-  ...componentStates("app.home.resources", "resources", ["RESOURCE"]),
+  ...resourceStates("app.home.resources", "resources", ["RESOURCE"]),
 
 
   /**
@@ -163,7 +164,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
   /**
    * Resources
    */
-  ...componentStates("app.home.project.resources", "resources", ["RESOURCE"], true),
+  ...resourceStates("app.home.project.resources", "resources", ["RESOURCE"]),
 
 ];
 
@@ -251,5 +252,85 @@ function componentStates(id: string, url: string, types: string[], project = fal
 
 
 
+
+
+
+
+
+
+function resourceStates(id: string, url: string, types: string[], project = false): Array<any> {
+
+  /*[]
+   {
+   token: 'projectId',
+   deps: [Transition],
+   resolveFn: (trans) => trans.params().projectId
+   }*/
+  let resolveProject = [];
+  if (project) {
+
+
+    resolveProject = [{
+      token: 'projectId',
+      deps: [Transition],
+      resolveFn: (trans) => trans.params().projectId
+    }];
+  }
+
+
+  return [
+    {
+      name: `${id}`,
+      url: `/${url}`,
+      views: {
+        "main@app": {component: ResourcesListComponent},
+      },
+      resolve: [
+        {
+          token: 'componentTypes',
+          resolveFn: () => types,
+        },
+        ...resolveProject
+      ]
+    },
+
+    {
+      name: `${id}.component-edit`,
+      url: "/:componentId/edit",
+      views: {
+        "main@app": {
+          component: ComponentEditComponent,
+
+        },
+      },
+      resolve: [
+        {
+          token: 'componentId',
+          deps: [Transition],
+          resolveFn: (trans) => trans.params().componentId
+        }
+      ]
+    },
+
+    {
+      name: `${id}.component-write`,
+      url: "/:componentId/write",
+      views: {
+        "main@app": {
+          component: ComponentWriteComponent,
+
+        },
+        "sidenav@app": {component: EmptyContent},
+      },
+      resolve: [
+        {
+          token: 'componentId',
+          deps: [Transition],
+          resolveFn: (trans) => trans.params().componentId
+        }
+      ]
+    },
+  ];
+}
 
 

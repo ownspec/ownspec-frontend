@@ -1,0 +1,40 @@
+<main-header>
+  <div class="main-header-title">Resources</div>
+  <div class="main-header-content" style="display: flex">
+    <div class="main-search-container" style="width:280px">
+      <form class="main-search" (submit)="search()">
+        <div class="main-search-input-wrapper">
+          <md-input placeholder="Search components..." [(ngModel)]="searchBean.query" name="query"></md-input>
+        </div>
+      </form>
+    </div>
+
+    <div class="rounded-button">
+      <button (click)="startCreateComponent()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</main-header>
+
+<div class="main-content-content">
+
+  <div style="display: inline-flex">
+
+    <md-card *ngFor="let component of components" style="margin: 5px">
+      <md-card-subtitle>{{component.title}}</md-card-subtitle>
+      <md-card-content>
+        <img [src]="getContentUrl(component)" style="max-width: 152px;max-height: 113px"/>
+      </md-card-content>
+      <md-card-actions>
+        <a tooltipPlacement="bottom" md-tooltip="Delete component" tooltip-position="above" tooltipClass="foobar"
+           class="table-actions" role="button">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </a>
+        <a uiSref=".component-edit" [uiParams]="{ componentId: component.id }" md-tooltip="Edit component"
+           role="button">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </a>
+      </md-card-actions>
+    </md-card>
+
+  </div>
+</div>

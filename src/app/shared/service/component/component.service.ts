@@ -39,18 +39,18 @@ export class ComponentService {
     }
 
     return this.$http.get("/api/components", {search: params})
-        .flatMap(r => r.json())
-        .map((item: any) => Component.fromMap(item))
-        .filter(item => {
-          let result = true;
-          if (title && item.title.indexOf(title) == -1) {
-            result = false;
-          }
-          if (types.length > 0 && types.indexOf(item.type) == -1) {
-            result = false;
-          }
-          return result;
-        }).toArray();
+      .flatMap(r => r.json())
+      .map((item: any) => Component.fromMap(item))
+      .filter(item => {
+        let result = true;
+        if (title && item.title.indexOf(title) == -1) {
+          result = false;
+        }
+        if (types.length > 0 && types.indexOf(item.type) == -1) {
+          result = false;
+        }
+        return result;
+      }).toArray();
   }
 
 
@@ -63,38 +63,47 @@ export class ComponentService {
     params.append("references", references.toString());
 
     return this.$http.get("/api/components/" + id, {search: params})
-        .map(r => r.json())
-        .map((item: any) => {
-          return Component.fromMap(item);
-        });
+      .map(r => r.json())
+      .map((item: any) => {
+        return Component.fromMap(item);
+      });
   }
 
 
   public updateContent(id: string, content: string): Observable<Component> {
-    return this.$http.post("/api/components/" + id + "/update-content", content)
-        .map(r => Component.fromMap(r.json()));
+    return this.$http.post("/api/components/" + id + "/content", content)
+      .map(r => Component.fromMap(r.json()));
+  }
+
+  public updateContentWithUploadId(id: string, uploadId: string): Observable<Component> {
+
+    let params: URLSearchParams = new URLSearchParams();
+    params.append("uploadId", uploadId);
+
+    return this.$http.post("/api/components/" + id + "/content", "", params)
+      .map(r => Component.fromMap(r.json()));
   }
 
   public updateStatus(id: string, nextStatus: string, reason: string = ""): Observable<Component> {
     return this.$http.post("/api/components/" + id + "/workflow-statuses/update/" + nextStatus, "")
-        .map(r => Component.fromMap(r.json()));
+      .map(r => Component.fromMap(r.json()));
   }
 
   public newStatus(id: string,): Observable<Component> {
     return this.$http.post("/api/components/" + id + "/workflow-statuses/new", "")
-        .map(r => Component.fromMap(r.json()));
+      .map(r => Component.fromMap(r.json()));
   }
 
   public postComment(id: string, value: string): Observable<Component> {
     return this.$http.post("/api/components/" + id + "/comments/add", value)
-        .map(r => Component.fromMap(r.json()));
+      .map(r => Component.fromMap(r.json()));
   }
 
   public save(toSave: Component): Observable<boolean> {
     return this.$http.post("/api/components/" + toSave.id + "/update", Component.toJson(toSave))
-        .map(r => {
-          return r.status == 200;
-        });
+      .map(r => {
+        return r.status == 200;
+      });
   }
 
   public diff(id: string, from: string, to: string): Observable<string> {
@@ -103,14 +112,14 @@ export class ComponentService {
     params.append("to", to);
 
     return this.$http.get("/api/components/" + id + "/diff", {search: params})
-        .map(r => r.text());
+      .map(r => r.text());
   }
 
-  create(toSave: Component): Observable<boolean> {
-    return this.$http.post("/api/components/" + toSave.id + "/create", Component.toJson(toSave))
-        .map(r => {
-          return r.status == 200;
-        });
+  create(toSave: Component): Observable<Component> {
+    return this.$http.post("/api/components/create", Component.toJson(toSave))
+      .map(r => {
+        return Component.fromMap(r.json());
+      });
   }
 
   public print(c: Component) {
@@ -123,9 +132,9 @@ export class ComponentService {
     params.append("types", "REQUIREMENT");
 
     return this.$http.get("/api/components", {search: params})
-        .flatMap(r => r.json())
-        .map((item: any) => Component.fromMap(item))
-        .toArray();
+      .flatMap(r => r.json())
+      .map((item: any) => Component.fromMap(item))
+      .toArray();
   }
 
   getLastVisitedDocuments(): Observable<Component[]> {
@@ -134,9 +143,9 @@ export class ComponentService {
     params.append("types", "DOCUMENT");
 
     return this.$http.get("/api/components", {search: params})
-        .flatMap(r => r.json())
-        .map((item: any) => Component.fromMap(item))
-        .toArray();
+      .flatMap(r => r.json())
+      .map((item: any) => Component.fromMap(item))
+      .toArray();
 
   }
 
@@ -149,7 +158,12 @@ export class ComponentService {
   }
 
   edit(id: number) {
-    this.stateService.go(".component-edit", { componentId: id }, {reload: false});
+    this.stateService.go(".component-edit", {componentId: id}, {reload: false});
+  }
+
+  // TODO: temporary
+  getContentUrl(c: Component) {
+    return "/api/components/" + c.id + "/content";
   }
 }
 

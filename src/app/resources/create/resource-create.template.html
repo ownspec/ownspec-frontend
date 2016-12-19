@@ -1,0 +1,33 @@
+<div style="width: 400px;height: 300px">
+  <form (submit)="save()">
+
+    <div style="width: 100%">
+      <md-input style="width: 100%" placeholder="title" [(ngModel)]="title" name="title" required></md-input>
+    </div>
+    <div style="width: 100%">
+      <md-input style="width: 100%" placeholder="Filename" *ngIf="uploadFile" [ngModel]="uploadFile.filename" name="filename"></md-input>
+    </div>
+
+    <div class="drag-n-drop-container" [ngClass]="{'file-over': hasBaseDropZoneOver}"
+         ngFileDrop
+         [options]="options"
+         (onUpload)="handleUpload($event)"
+         (onFileOver)="fileOverBase($event)"
+         (beforeUpload)="beforeUpload($event)">
+
+      <label class="upload-button">Browse
+        <input type="file" style="display: none" name="file" #foobar
+               ngFileSelect
+               [options]="options"
+               (onUpload)="handleUpload($event)"
+               (beforeUpload)="beforeUpload($event)">
+      </label>
+    </div>
+
+    <div style="width: 100%;text-align: center;padding-top: 5px">
+      <button md-raised-button (click)="cancel()" color="accent">Cancel</button>
+      <button md-raised-button type="submit" color="primary">Save</button>
+    </div>
+
+  </form>
+</div>
