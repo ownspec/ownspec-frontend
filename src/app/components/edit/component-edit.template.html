@@ -144,14 +144,14 @@
               <datatable-column name="Source" prop="source.title"></datatable-column>
               <datatable-column name="Status">
                 <template let-row="row" let-value="value">
-                  {{row.sourceWorkflowInstance.workflowStatuses}}
+                  {{row.sourceWorkflowInstance.currentWorkflowStatus.status.name}}
                 </template>
               </datatable-column>
 
               <datatable-column name="Target" prop="target.title"></datatable-column>
               <datatable-column name="Status">
                 <template let-row="row" let-value="value">
-                  {{row.targetWorkflowInstance.currentStatus}}
+                  {{row.targetWorkflowInstance.currentWorkflowStatus.status.name}}
                 </template>
               </datatable-column>
 

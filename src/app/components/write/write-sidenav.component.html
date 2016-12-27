@@ -8,8 +8,8 @@
                             [types]="['REQUIREMENT']"></components-selection>
       <components-selection *ngIf="activeTab == 'components'" [component]="component"
                             [types]="['COMPONENT']"></components-selection>
-      <components-selection *ngIf="activeTab == 'resources'" [component]="component"
-                            [types]="['RESOURCE']"></components-selection>
+      <resources-selection *ngIf="activeTab == 'resources'" [component]="component"
+                            [types]="['RESOURCE']"></resources-selection>
       <components-selection *ngIf="activeTab == 'templates'" [component]="component"
                             [types]="['TEMPLATE']"></components-selection>
 

@@ -31,6 +31,7 @@ import {Ng2CompleterModule} from "ng2-completer";
 import {Ng2UploaderModule} from "ng2-uploader";
 import {ResourceCreateComponent} from "./resources/create/resource-create.component";
 import {ResourcesListComponent} from "./resources/list/resouces-list.component";
+import {ResourcesSelectionComponent} from "./resources/selection/resources-selection.component";
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -78,7 +79,7 @@ export class AppGestureConfig extends HammerGestureConfig { }
 
     ResourceCreateComponent,
     ResourcesListComponent,
-
+    ResourcesSelectionComponent,
 
     ProjectsListComponent,
     ProjectEditComponent,

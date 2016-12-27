@@ -27,7 +27,7 @@ CKEDITOR.editorConfig = function (config) {
   config.language = 'en';
   config.uiColor = '#9AB8F3';
   config.contentsCss = 'global.css';
-  config.extraPlugins = 'widget,placeholder,sharedspace,divarea,toc,ownspec_compose,ownspec_component';
+  config.extraPlugins = 'widget,placeholder,sharedspace,divarea,toc,ownspec_compose,ownspec_component,image2';
   /*
    config.sharedSpaces = {
    top: 'someElementId',

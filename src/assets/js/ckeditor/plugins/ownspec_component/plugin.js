@@ -7,20 +7,22 @@ CKEDITOR.plugins.add('ownspec_component', {
 
 
     editor.on('paste', function (evt) {
-      var componentId = evt.data.dataTransfer.getData('componentId');
-      var workflowInstanceId = evt.data.dataTransfer.getData('workflowInstanceId');
-      var isEditable = evt.data.dataTransfer.getData('isEditable');
-      var content = evt.data.dataTransfer.getData('text/html');
-      if (!componentId) {
+
+      if (!evt.data.dataTransfer.getData('component')) {
         return;
       }
 
-      var html = '<div class="requirements" data-requirement-id="' + componentId + '" data-workflow-instance-id="' + workflowInstanceId + '">' +
-        '<div  class="requirements-id">' + componentId + '</div>' +
-        '<div class="requirements-content" contenteditable="' + isEditable + '">' + content + '</div>' +
-        '</div>';
+      var component = JSON.parse(evt.data.dataTransfer.getData('component'));
 
-      evt.data.dataValue = html;
+      if (component.type != 'RESOURCE') {
+        evt.data.dataValue = '<div class="requirements" data-requirement-id="' + component.id + '" data-workflow-instance-id="' + component.workflowInstanceId + '">' +
+          '<div  class="requirements-id">' + component.id + '</div>' +
+          '<div class="requirements-content" contenteditable="' + component.editable + '">' + evt.data.dataTransfer.getData('text/html') + '</div>' +
+          '</div>';
+
+      } else {
+        evt.data.dataValue = '<img src="' + component.url + '" data-requirement-id="' + component.id + '" data-workflow-instance-id="' + component.workflowInstanceId + '">';
+      }
 
     });
 
@@ -37,7 +39,7 @@ CKEDITOR.plugins.add('ownspec_component', {
       editables: {
         content: {
           selector: '.requirements-content[contenteditable=true]',
-          allowedContent: 'h1 h2 h3 h4 h5 div p br ul ol li strong em table tr td tbody[*](*){*}'
+          allowedContent: 'img h1 h2 h3 h4 h5 div p br ul ol li strong em table tr td tbody[*](*){*}'
         }
       },
       allowedContent: 'div(!requirements)[!data-requirement-id,!data-workflow-instance-id,contenteditable]; div(!requirements-id);div(!requirements-content)[contenteditable]',
@@ -69,11 +71,11 @@ CKEDITOR.plugins.add('ownspec_component', {
 
     });
 
-    editor.ui.addButton( 'ownspec_component', {
+    editor.ui.addButton('ownspec_component', {
       label: 'Create a component',
       command: 'ownspec_component',
       toolbar: 'ownspec'
-    } )
+    })
 
 
   }

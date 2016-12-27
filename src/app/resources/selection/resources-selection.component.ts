@@ -4,9 +4,9 @@
 import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angular/core";
 
 import {Observable} from "rxjs";
-import {ComponentService} from "../service/component/component.service";
-import {ProfilService} from "../users/profil.service";
-import {Component} from "../service/component/component";
+import {Component} from "../../shared/service/component/component";
+import {ComponentService} from "../../shared/service/component/component.service";
+import {ProfilService} from "../../shared/users/profil.service";
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from
@@ -17,10 +17,10 @@ import {Component} from "../service/component/component";
 //const contentTemplateUrl: any = require('./content.template.html');
 
 @C({
-  selector: 'components-selection',
-  templateUrl: 'components.template.html',
+  selector: 'resources-selection',
+  templateUrl: 'resources-selection.template.html',
 })
-export class ComponentsComponent implements OnInit {
+export class ResourcesSelectionComponent implements OnInit {
 
   @Input()
   public component: Component;
@@ -47,15 +47,15 @@ export class ComponentsComponent implements OnInit {
   }
 
   public dragStart(evt: any, r: Component) {
-
     var dataTransfer = evt.dataTransfer;
 
     dataTransfer.setData('component', JSON.stringify({
       id: r.id, type: r.type, workflowInstanceId: r.getCurrentWorkflowInstance().id,
-      editable: r.getCurrentWorkflowInstance().getCurrentWorkflowStatus().status.editable
+      editable: r.getCurrentWorkflowInstance().getCurrentWorkflowStatus().status.editable,
+      url:this.getContentUrl(r)
     }));
 
-    dataTransfer.setData('text/html', r.content);
+    dataTransfer.setData('text/html', `foo`);
   }
 
   public search() {
@@ -63,6 +63,10 @@ export class ComponentsComponent implements OnInit {
     this.componentService.findAll(this.projectId, null, this.types, this.searchQuery, true, true, false).subscribe(components => {
       this.components = components;
     });
+  }
+
+  public getContentUrl(c: Component) {
+    return this.componentService.getContentUrl(c);
   }
 
 }
