@@ -29,6 +29,7 @@
     "@types/hammerjs": "^2.0.33",
     "@types/jquery": "^2.0.34",
     "@types/lodash": "^4.14.39",
+    "angular-resizable-element": "^0.5.4",
     "angular2-data-table": "^1.7.0",
     "angular2-modal": "^2.0.1",
     "angular2-moment": "^1.0.0-beta.rc.1",

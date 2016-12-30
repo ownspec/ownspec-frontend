@@ -27,7 +27,7 @@ import {Component} from "../../shared/service/component/component";
 })
 export class ComponentsListComponent implements OnInit {
 
-  public components = [];
+  public components: Component[] = [];
 
   @Input("componentTypes")
   public availableComponentTypes: string[] = [];

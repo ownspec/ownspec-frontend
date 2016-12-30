@@ -13,12 +13,12 @@
   </div>
 
   <div *ngIf="historyUpdate.checked">
-    <div *ngIf="!component.currentWorkflowStatus.status.final" style="padding-bottom: 4px">
+    <div *ngIf="!component.currentWorkflowInstance.currentWorkflowStatus.status.final" style="padding-bottom: 4px">
       <form name="userForm" style="padding-top: 6px" (submit)="changeStatus()">
         <div>
-          <span>From <b>{{component.currentWorkflowStatus.status.name}}</b> To </span>
+          <span>From <b>{{component.currentWorkflowInstance.currentWorkflowStatus.status.name}}</b> To </span>
           <select class="custom-select" [(ngModel)]="targetStatus" name="targetStatus">
-            <option *ngFor="let status of component.currentWorkflowStatus.status.transitions" [value]="status">
+            <option *ngFor="let status of component.currentWorkflowInstance.currentWorkflowStatus.status.transitions" [value]="status">
               {{status}}
             </option>
           </select>
@@ -33,10 +33,10 @@
         </div>
       </form>
     </div>
-    <div *ngIf="component.currentWorkflowStatus.status.final" style="padding-bottom: 4px">
+    <div *ngIf="component.currentWorkflowInstance.currentWorkflowStatus.status.final" style="padding-bottom: 4px">
       <form name="userForm" style="padding-top: 6px" (submit)="newStatus()">
         <div>
-          <span>Current <b>{{component.currentWorkflowStatus.status.name}}</b> </span>
+          <span>Current <b>{{component.currentWorkflowInstance.currentWorkflowStatus.status.name}}</b> </span>
         </div>
         <div>
           <md-textarea style="width: 100%" [(ngModel)]="reason" name="reason" required
@@ -55,7 +55,7 @@
     <div *ngFor="let workflowInstance of component.workflowInstances.concat().reverse()"
          style="background:white;border: 1px solid #e2e2e2;border-radius: 3px;">
       <h3 style="font-size: 1.1rem;font-weight: 600;background: #393838;color: white;padding: 6px;">
-        Version {{workflowInstance.id}}
+        Version {{workflowInstance.version}}
         <small>started {{workflowInstance.createdDate| amTimeAgo}}</small>
       </h3>
 

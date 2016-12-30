@@ -21,7 +21,7 @@ export class Component {
   public requiredTest: boolean;
 
   public estimatedTimes: EstimatedTime[] = [];
-  public currentWorkflowStatus: WorkflowStatus;
+  public currentWorkflowInstance: WorkflowInstance;
   public workflowInstances: WorkflowInstance[] = [];
   public comments: Comment[] = [];
   public componentReferences: ComponentReference[] = [];
@@ -48,7 +48,7 @@ export class Component {
     c.lastModifiedDate = this.lastModifiedDate;
     c.createdUser = this.createdUser;
 
-    c.currentWorkflowStatus = this.currentWorkflowStatus.clone();
+    c.currentWorkflowInstance = this.currentWorkflowInstance.clone();
 
     for (let workflowInstance of this.workflowInstances) {
       c.workflowInstances.push(workflowInstance.clone());
@@ -80,7 +80,7 @@ export class Component {
     component.distributionLevel = item.distributionLevel;
     component.requirementType = item.requirementType;
     component.coverageStatus = item.coverageStatus;
-    component.currentWorkflowStatus = WorkflowStatus.fromMap(item.currentWorkflowStatus);
+    component.currentWorkflowInstance = WorkflowInstance.fromMap(item.currentWorkflowInstance);
 
     if (item.workflowInstances) {
       for (let i of item.workflowInstances) {

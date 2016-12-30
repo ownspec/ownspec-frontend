@@ -27,8 +27,11 @@
       [scrollbarV]="true"
       [scrollbarH]="true">
     <datatable-column name="Id"></datatable-column>
+    <datatable-column name="Version" prop="currentWorkflowInstance.version">
+
+    </datatable-column>
     <datatable-column name="Title"></datatable-column>
-    <datatable-column name="Status" prop="currentWorkflowStatus.status.name"></datatable-column>
+    <datatable-column name="Status" prop="currentWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
     <datatable-column name="Creation">
       <template let-row="row" let-value="value">
         {{row.creationDate | amTimeAgo}}
@@ -36,7 +39,7 @@
     </datatable-column>
     <datatable-column name="Update">
       <template let-row="row" let-value="value">
-        {{row.currentWorkflowStatus.createdDate | amTimeAgo}}
+        {{row.currentWorkflowInstance.currentWorkflowStatus.createdDate | amTimeAgo}}
       </template>
     </datatable-column>
     <datatable-column name="Content">

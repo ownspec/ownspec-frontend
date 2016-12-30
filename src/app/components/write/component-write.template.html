@@ -36,7 +36,7 @@
                   (dataChange)="onChange($event)"
                   (tocChange)="tocChange($event)"
                   (composePdf)="composePdf($event)"
-                  [readonly]="!component.currentWorkflowStatus.status.editable"
+                  [readonly]="!component.currentWorkflowInstance.currentWorkflowStatus.status.editable"
                   [container]="container"
                   (ready)="onReady($event)">
         </ckeditor>

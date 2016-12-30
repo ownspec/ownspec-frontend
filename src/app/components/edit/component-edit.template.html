@@ -142,19 +142,11 @@
                 [scrollbarV]="true"
                 [scrollbarH]="true">
               <datatable-column name="Source" prop="source.title"></datatable-column>
-              <datatable-column name="Status">
-                <template let-row="row" let-value="value">
-                  {{row.sourceWorkflowInstance.currentWorkflowStatus.status.name}}
-                </template>
-              </datatable-column>
-
+              <datatable-column name="Status" prop="sourceWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
+              <datatable-column name="Version" prop="sourceWorkflowInstance.version"></datatable-column>
               <datatable-column name="Target" prop="target.title"></datatable-column>
-              <datatable-column name="Status">
-                <template let-row="row" let-value="value">
-                  {{row.targetWorkflowInstance.currentWorkflowStatus.status.name}}
-                </template>
-              </datatable-column>
-
+              <datatable-column name="Status" prop="targetWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
+              <datatable-column name="Version" prop="targetWorkflowInstance.version"></datatable-column>
             </datatable>
           </tab>
 
