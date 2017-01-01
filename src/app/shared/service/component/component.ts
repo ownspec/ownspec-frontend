@@ -29,6 +29,8 @@ export class Component {
   public uploadedFileId: string;
   public filename: string;
 
+  public tags: string[] = [];
+
   public constructor(public id: string, public title: string, public projectId: string, public type: string) {
   }
 
@@ -49,6 +51,8 @@ export class Component {
     c.createdUser = this.createdUser;
 
     c.currentWorkflowInstance = this.currentWorkflowInstance.clone();
+
+    c.tags = this.tags;
 
     for (let workflowInstance of this.workflowInstances) {
       c.workflowInstances.push(workflowInstance.clone());
@@ -81,6 +85,8 @@ export class Component {
     component.requirementType = item.requirementType;
     component.coverageStatus = item.coverageStatus;
     component.currentWorkflowInstance = WorkflowInstance.fromMap(item.currentWorkflowInstance);
+
+    component.tags = item.tags || [];
 
     if (item.workflowInstances) {
       for (let i of item.workflowInstances) {
@@ -126,7 +132,9 @@ export class Component {
       coverageStatus: component.coverageStatus,
 
       uploadedFileId: component.uploadedFileId,
-      filename: component.filename
+      filename: component.filename,
+
+      tags: component.tags
     };
   }
 

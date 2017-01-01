@@ -24,6 +24,8 @@ export class ComponentEditComponent implements OnInit {
   @Input("projectId")
   public projectId: string;
 
+  public tagToAdd: string;
+
 
   public component: Component;
   public create: boolean;
@@ -33,9 +35,7 @@ export class ComponentEditComponent implements OnInit {
   public references: Array<EntityReference> = [];
   public userCategories: string[] = ['Analyst', 'Developer', 'Tester'];
 
-  public constructor(private $state: StateService,
-                     private componentService: ComponentService,
-                     private referenceService: ReferenceService) {
+  public constructor(private $state: StateService, private componentService: ComponentService, private referenceService: ReferenceService) {
     this.component = new Component("", "", "", "");
     this.editorOptions = {
       height: "200px",
@@ -76,6 +76,16 @@ export class ComponentEditComponent implements OnInit {
 
   public onUpdate(componentUpdate: ComponentUpdate) {
     this.componentService.findOne(this.id, true, false, false, true).subscribe(r => this.component = r);
+  }
+
+  public addNewTag($event) {
+    console.log($event.key + " " + this.tagToAdd);
+    if ($event.keyCode != 13 || !this.tagToAdd || this.tagToAdd.trim().length <= 0) {
+      return;
+    }
+
+    this.component.tags.push(this.tagToAdd);
+    this.tagToAdd = "";
   }
 
 }

@@ -43,6 +43,13 @@
               <div class="col-sm-10 margin-bottom-20"><h6 class="form-control-static">Draft</h6></div>
             </div>
             <div class="form-group">
+              <label class="col-sm-2 text-right"><h6>Tags</h6></label>
+              <md-input [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" (keypress)="addNewTag($event)"></md-input>
+              <ul>
+                <li *ngFor="let tag of component.tags">{{tag}}</li>
+              </ul>
+            </div>
+            <div class="form-group">
               <label class="col-sm-2 text-right"><h6>Reviewer</h6></label>
               <div class="col-sm-10 margin-bottom-20"><h6 class="form-control-static">Nicolas Labrot</h6></div>
             </div>
