@@ -33,6 +33,7 @@ import {ResourceCreateComponent} from "./resources/create/resource-create.compon
 import {ResourcesListComponent} from "./resources/list/resouces-list.component";
 import {ResourcesSelectionComponent} from "./resources/selection/resources-selection.component";
 import {ResizableModule} from "angular-resizable-element";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -101,6 +102,7 @@ export class AppGestureConfig extends HammerGestureConfig { }
     HttpModule,
     Ng2BootstrapModule,
     MaterialModule.forRoot(),
+    FlexLayoutModule.forRoot(),
     Angular2DataTableModule,
     CKEditorModule,
     MomentModule,

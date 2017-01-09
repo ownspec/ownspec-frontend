@@ -11,154 +11,285 @@
 </main-header>
 
 
-<div class="main-content-content">
-  <div style="display: flex;flex-direction:column;overflow: auto">
+<div style="overflow: auto;height: 100%">
 
-    <div>
+  <div fxLayout="column" style="overflow: auto;width: 100%">
 
-      <div class="col-md-12 no-padding" style="display: flex">
-        <div class="col-md-8 panel no-padding">
-          <div class="panel-heading">
-            <h6>General</h6>
+    <div fxLayout="row">
+      <div fxFlex class="panel">
+
+        <div fxLayout="row">
+          <div class="flex-item" fxFlex>
+            <p>
+              <md-input-container style="width: 100%">
+                <input md-input class="form-control" required [(ngModel)]="component.title" placeholder="title"
+                       name="title"
+                       type="text">
+              </md-input-container>
+            </p>
           </div>
-          <div class="panel-body col-md-12">
-            <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Title</h6></label>
-              <div class="col-sm-10">
-                <input class="form-control" required [(ngModel)]="component.title" name="title" type="text">
-              </div>
-            </div>
-            <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Type</h6></label>
-              <div class="col-sm-10">
-                <select class="form-control">
-                  <option>Business</option>
-                  <option>Functional</option>
-                  <option>Design</option>
-                  <option>Performance</option>
-                  <option>Other</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 text-right"><h6>Status</h6></label>
-              <div class="col-sm-10 margin-bottom-20"><h6 class="form-control-static">Draft</h6></div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 text-right"><h6>Tags</h6></label>
-              <md-input [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" (keypress)="addNewTag($event)"></md-input>
-              <ul>
-                <li *ngFor="let tag of component.tags">{{tag}}</li>
-              </ul>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 text-right"><h6>Reviewer</h6></label>
-              <div class="col-sm-10 margin-bottom-20"><h6 class="form-control-static">Nicolas Labrot</h6></div>
-            </div>
-            <div class="form-group radio-margin-right">
-              <label class="col-sm-12 control-label text-right"><h6>Distribution Level</h6></label>
-              <div class="col-sm-12">
-                <div class="col-sm-6"><input type="radio" name="option">Public</div>
-                <div class="col-sm-6"><input type="radio" name="option" checked>Internal</div>
-              </div>
-              <div class="col-sm-12">
-                <div class="col-sm-6"><input type="radio" name="option">Restricted</div>
-                <div class="col-sm-6"><input type="radio" name="option">Secret</div>
-              </div>
-            </div>
+          <div fxFlex>
+            <p>
+              <md-select name="items" [(ngModel)]="componentType" placeholder="Type" style="width: 100%">
+                <md-option ngValue="Business">Business</md-option>
+                <md-option ngValue="Functional">Functional</md-option>
+                <md-option ngValue="Design">Design</md-option>
+                <md-option ngValue="Performance">Performance</md-option>
+                <md-option ngValue="Other">Other</md-option>
+              </md-select>
+            </p>
           </div>
         </div>
-        <div class="col-md-4 col-sm-12">
-          <div class="margin-bottom-20" style="display: flex; text-align: center">
-            <div class="col-md-6 panel" style="padding:10px;padding-bottom:0px; border-left: 3px solid #c3e7ec;">
-              <div class="form-group">
-                <input type="checkbox" [checked]="component.requiredTest" class="checkbox">
-                <h6>Require Tests</h6>
-              </div>
-            </div>
-            <div class="col-md-6 panel" style="padding:10px;padding-bottom:0px; border-left: 3px solid #fdcfd8;">
-              <div class="form-group">
-                <input type="checkbox" class="checkbox">
-                <h6>Read only</h6>
-              </div>
-            </div>
+
+        <div fxLayout="row">
+          <div fxFlex>
+            <p>
+              <md-select name="distributionLevel" [(ngModel)]="distributionLevel" placeholder="Distribution Level"
+                         style="width: 100%">
+                <md-option ngValue="Public">Public</md-option>
+                <md-option ngValue="Internal">Internal</md-option>
+                <md-option ngValue="Restricted">Restricted</md-option>
+                <md-option ngValue="Secret">Secret</md-option>
+              </md-select>
+            </p>
           </div>
-          <div *ngIf="!create" class="col-md-12 panel margin-bottom-20" style="border-left: 3px solid #c3e7ec;">
-            <div class="panel-body">
-              <div class="col-md-12">
-                <div class="col-sm-6 col-xs-12"><h6>Author</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>{{ component.createdUser }}</h6></div>
-              </div>
-              <div class="col-md-12">
-                <div class="col-sm-6 col-xs-12"><h6>Created</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>{{component.creationDate | amTimeAgo }}</h6></div>
-              </div>
-              <div class="col-md-12">
-                <div class="col-sm-6 col-xs-12"><h6>Updated</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>{{component.lastModifiedDate | amTimeAgo }}</h6></div>
-              </div>
-              <!--<div class="col-md-12">-->
-              <!--<div class="col-sm-6 col-xs-12"><h6>Version</h6></div>-->
-              <!--<div class="col-sm-6 col-xs-12"><h6>1.1</h6></div>-->
-              <!--</div>-->
+          <div fxFlex>
+            <p>
+              <md-checkbox [checked]="requireTest" (change)="requireTest = $event">
+                Require Test
+              </md-checkbox>
+              <md-checkbox [checked]="readOnly" (change)="readOnly = $event">
+                Read only
+              </md-checkbox>
+            </p>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <div fxFlex>
+            <md-input [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
+                      (keypress)="addNewTag($event)"></md-input>
+            <span *ngFor="let tag of component.tags">{{tag}}&nbsp;</span>
+          </div>
+        </div>
+
+      </div>
+      <div fxFlex="30%" class="panel">
+        <div *ngIf="!create">
+          <div>
+            <div>
+              <label>Author</label><span>{{component.createdUser}}</span>
+            </div>
+            <div>
+              <label>Created</label>
+              <span>{{component.creationDate | amTimeAgo }}</span>
+            </div>
+            <div>
+              <label>Updated</label>
+              <span>{{component.lastModifiedDate | amTimeAgo }}</span>
+            </div>
+            <div>
+              <label>Version</label><span>1.1</span>
             </div>
           </div>
 
-          <div class="col-md-12 panel margin-bottom-20 no-padding" style="border-left: 3px solid #c3e7ec;">
-            <div class="panel-heading">
-              <h6>Estimated time</h6>
-            </div>
-            <div class="panel-body">
-              <div *ngIf="create">
-                <div *ngFor="let userCategory of userCategories" class="col-md-12" style="margin-bottom: 15px">
-                  <div class="col-md-4 col-xs-12"><h6>{{userCategory}}</h6></div>
-                  <div class="col-md-8 col-xs-12">
-                    <div style="display: flex; flex-direction: row">
-                      <input class="form-control" required name="time" type="number" style="margin-right: 5px">
-                      <select class="form-control">
-                        <option>Hours</option>
-                        <option>Days</option>
-                      </select>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel" fxFlex>
+      <div class="panel-heading">
+        <h6>Estimated time</h6>
+      </div>
+      <div fxLayout="row">
+      <div fxFlex *ngFor="let userCategory of userCategories" class="col-md-12" style="margin-bottom: 15px">
+        <div style="display: flex; flex-direction: row">
+          <md-input placeholder="{{userCategory}}" required name="time" type="number"></md-input>
+
+          <md-select name="unit" [(ngModel)]="unit" placeholder="Unit">
+            <md-option ngValue="Hours">Hours</md-option>
+            <md-option ngValue="Days">Days</md-option>
+          </md-select>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div fxFlex class="panel">
+      <workflow [component]="component" [canUpdateWorkflow]="true" (update)="onUpdate($event)"></workflow>
+
+    </div>
+    <div fxFlex class="panel">
+      <datatable
+        class="material" style="flex: 1;min-height:300px"
+        [rows]="component.componentReferences"
+        [headerHeight]="50"
+        [footerHeight]="0"
+        [rowHeight]="50"
+        [scrollbarV]="true"
+        [scrollbarH]="true">
+        <datatable-column name="Source" prop="source.title"></datatable-column>
+        <datatable-column name="Status"
+                          prop="sourceWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
+        <datatable-column name="Version" prop="sourceWorkflowInstance.version"></datatable-column>
+        <datatable-column name="Target" prop="target.title"></datatable-column>
+        <datatable-column name="Status"
+                          prop="targetWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
+        <datatable-column name="Version" prop="targetWorkflowInstance.version"></datatable-column>
+      </datatable>
+    </div>
+
+    <!--
+            <div>
+
+              <div class="col-md-12 no-padding" style="display: flex">
+                <div class="col-md-8 panel no-padding">
+                  <div class="panel-heading">
+                    <h6>General</h6>
+                  </div>
+                  <div class="panel-body col-md-12">
+                    <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Title</h6></label>
+                      <div class="col-sm-10">
+                        <input class="form-control" required [(ngModel)]="component.title" name="title" type="text">
+                      </div>
+                    </div>
+                    <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Type</h6></label>
+                      <div class="col-sm-10">
+                        <select class="form-control">
+                          <option>Business</option>
+                          <option>Functional</option>
+                          <option>Design</option>
+                          <option>Performance</option>
+                          <option>Other</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 text-right"><h6>Status</h6></label>
+                      <div class="col-sm-10 margin-bottom-20"><h6 class="form-control-static">Draft</h6></div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 text-right"><h6>Tags</h6></label>
+                      <md-input [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd"
+                                (keypress)="addNewTag($event)"></md-input>
+                      <ul>
+                        <li *ngFor="let tag of component.tags">{{tag}}</li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 text-right"><h6>Reviewer</h6></label>
+                      <div class="col-sm-10 margin-bottom-20"><h6 class="form-control-static">Nicolas Labrot</h6></div>
+                    </div>
+                    <div class="form-group radio-margin-right">
+                      <label class="col-sm-12 control-label text-right"><h6>Distribution Level</h6></label>
+                      <div class="col-sm-12">
+                        <div class="col-sm-6"><input type="radio" name="option">Public</div>
+                        <div class="col-sm-6"><input type="radio" name="option" checked>Internal</div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="col-sm-6"><input type="radio" name="option">Restricted</div>
+                        <div class="col-sm-6"><input type="radio" name="option">Secret</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+                <div class="col-md-4 col-sm-12">
+                  <div class="margin-bottom-20" style="display: flex; text-align: center">
+                    <div class="col-md-6 panel" style="padding:10px;padding-bottom:0px; border-left: 3px solid #c3e7ec;">
+                      <div class="form-group">
+                        <input type="checkbox" [checked]="component.requiredTest" class="checkbox">
+                        <h6>Require Tests</h6>
+                      </div>
+                    </div>
+                    <div class="col-md-6 panel" style="padding:10px;padding-bottom:0px; border-left: 3px solid #fdcfd8;">
+                      <div class="form-group">
+                        <input type="checkbox" class="checkbox">
+                        <h6>Read only</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!create" class="col-md-12 panel margin-bottom-20" style="border-left: 3px solid #c3e7ec;">
+                    <div class="panel-body">
+                      <div class="col-md-12">
+                        <div class="col-sm-6 col-xs-12"><h6>Author</h6></div>
+                        <div class="col-sm-6 col-xs-12"><h6>{{ component.createdUser }}</h6></div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="col-sm-6 col-xs-12"><h6>Created</h6></div>
+                        <div class="col-sm-6 col-xs-12"><h6>{{component.creationDate | amTimeAgo }}</h6></div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="col-sm-6 col-xs-12"><h6>Updated</h6></div>
+                        <div class="col-sm-6 col-xs-12"><h6>{{component.lastModifiedDate | amTimeAgo }}</h6></div>
+                      </div>
+                      &lt;!&ndash;<div class="col-md-12">&ndash;&gt;
+                      &lt;!&ndash;<div class="col-sm-6 col-xs-12"><h6>Version</h6></div>&ndash;&gt;
+                      &lt;!&ndash;<div class="col-sm-6 col-xs-12"><h6>1.1</h6></div>&ndash;&gt;
+                      &lt;!&ndash;</div>&ndash;&gt;
+                    </div>
+                  </div>
 
-              <div *ngFor="let estimatedTime of component.estimatedTimes" class="col-md-12">
-                <div class="col-sm-6 col-xs-12"><h6>{{estimatedTime.userCategory.category}}</h6></div>
-                <div class="col-sm-6 col-xs-12"><h6>{{estimatedTime.time}} {{estimatedTime.timeUnit}}</h6></div>
+                  <div class="col-md-12 panel margin-bottom-20 no-padding" style="border-left: 3px solid #c3e7ec;">
+                    <div class="panel-heading">
+                      <h6>Estimated time</h6>
+                    </div>
+                    <div class="panel-body">
+                      <div *ngIf="create">
+                        <div *ngFor="let userCategory of userCategories" class="col-md-12" style="margin-bottom: 15px">
+                          <div class="col-md-4 col-xs-12"><h6>{{userCategory}}</h6></div>
+                          <div class="col-md-8 col-xs-12">
+                            <div style="display: flex; flex-direction: row">
+                              <input class="form-control" required name="time" type="number" style="margin-right: 5px">
+                              <select class="form-control">
+                                <option>Hours</option>
+                                <option>Days</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div *ngFor="let estimatedTime of component.estimatedTimes" class="col-md-12">
+                        <div class="col-sm-6 col-xs-12"><h6>{{estimatedTime.userCategory.category}}</h6></div>
+                        <div class="col-sm-6 col-xs-12"><h6>{{estimatedTime.time}} {{estimatedTime.timeUnit}}</h6></div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
-          </div>
+            <div *ngIf="!create" class="col-md-12 panel">
+              <div style="display: flex;flex-direction: column;height: 100%;">
+                <tabset>
+                  <tab heading="History">
+                    <workflow [component]="component" [canUpdateWorkflow]="true" (update)="onUpdate($event)"></workflow>
 
-        </div>
-      </div>
-    </div>
-    <div *ngIf="!create" class="col-md-12 panel">
-      <div style="display: flex;flex-direction: column;height: 100%;">
-        <tabset>
-          <tab heading="History">
-            <workflow [component]="component" [canUpdateWorkflow]="true" (update)="onUpdate($event)"></workflow>
+                  </tab>
+                  <tab heading="Reference">
+                    <datatable
+                      class="material" style="flex: 1;min-height:300px"
+                      [rows]="component.componentReferences"
+                      [headerHeight]="50"
+                      [footerHeight]="0"
+                      [rowHeight]="50"
+                      [scrollbarV]="true"
+                      [scrollbarH]="true">
+                      <datatable-column name="Source" prop="source.title"></datatable-column>
+                      <datatable-column name="Status"
+                                        prop="sourceWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
+                      <datatable-column name="Version" prop="sourceWorkflowInstance.version"></datatable-column>
+                      <datatable-column name="Target" prop="target.title"></datatable-column>
+                      <datatable-column name="Status"
+                                        prop="targetWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
+                      <datatable-column name="Version" prop="targetWorkflowInstance.version"></datatable-column>
+                    </datatable>
+                  </tab>
 
-          </tab>
-          <tab heading="Reference">
-            <datatable
-                class="material" style="flex: 1;min-height:300px"
-                [rows]="component.componentReferences"
-                [headerHeight]="50"
-                [footerHeight]="0"
-                [rowHeight]="50"
-                [scrollbarV]="true"
-                [scrollbarH]="true">
-              <datatable-column name="Source" prop="source.title"></datatable-column>
-              <datatable-column name="Status" prop="sourceWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
-              <datatable-column name="Version" prop="sourceWorkflowInstance.version"></datatable-column>
-              <datatable-column name="Target" prop="target.title"></datatable-column>
-              <datatable-column name="Status" prop="targetWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
-              <datatable-column name="Version" prop="targetWorkflowInstance.version"></datatable-column>
-            </datatable>
-          </tab>
+                </tabset>
+              </div>
+            </div>
+    -->
 
-        </tabset>
-      </div>
-    </div>
   </div>
 </div>
