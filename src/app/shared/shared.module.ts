@@ -20,6 +20,7 @@ import {MaterialModule} from "@angular/material";
 import {EmptyContent} from "./empty-content/empty-content";
 import {SharedService} from "./shared.service";
 import {TocComponent} from "./toc/toc.component";
+import {HighlightDirective} from "./resizable/resizable.directive";
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import {TocComponent} from "./toc/toc.component";
     ComponentsComponent,
     WorkflowTableComponent,
     EmptyContent,
-    TocComponent
+    TocComponent,
+    HighlightDirective
   ],
   declarations: [
     WorkflowComponent,
@@ -50,7 +52,8 @@ import {TocComponent} from "./toc/toc.component";
     ComponentsComponent,
     WorkflowTableComponent,
     EmptyContent,
-    TocComponent
+    TocComponent,
+    HighlightDirective
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ComponentService,

@@ -20,7 +20,6 @@ import {CKEditorComponent} from "../../shared/ckeditor/ckeditor.component";
   templateUrl: 'component-write.template.html',
   styleUrls: ['./component-write.component.scss'],
 
-
 })
 export class ComponentWriteComponent implements OnInit, OnDestroy {
 
@@ -44,6 +43,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
   private debounced: any;
   private debouncedToc: any;
 
+  menuState: string = 'in';
 
   public constructor(private zone: NgZone,
                      private componentService: ComponentService,

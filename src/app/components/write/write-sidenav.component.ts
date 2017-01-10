@@ -19,17 +19,18 @@ import {Component} from "../../shared/service/component/component";
   animations: [
     trigger('slideInOut', [
       state('in', style({
-        width: '250px'
+        opacity:'100', display:'block'
       })),
       state('out', style({
-        width: '0px'
+        opacity:'0', display:'none'
       })),
-      transition('in => out', animate("400ms ease", style({width: '0px'}))),
+      transition('in => out', animate("400ms ease", style({opacity:'0'}))),
       //transition('in => out', animate('400ms ease-in-out')),
-      transition('out => in', animate("400ms ease", style({width: '250px'})))
+      transition('out => in', animate("400ms ease", style({opacity:'100'})))
       //transition('out => in', animate('400ms ease-in-out'))
     ]),
   ]
+
 })
 export class WriteSideNavComponent implements OnInit {
 
