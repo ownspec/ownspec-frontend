@@ -14,67 +14,75 @@
 <div style="overflow: auto;height: 100%">
 
   <div fxLayout="column" style="overflow: auto;width: 100%">
-
     <div fxLayout="row">
       <div fxFlex class="panel">
-
-        <div fxLayout="row">
-          <div class="flex-item" fxFlex>
-            <p>
-              <md-input-container style="width: 100%">
-                <input md-input class="form-control" required [(ngModel)]="component.title" placeholder="title"
-                       name="title"
-                       type="text">
-              </md-input-container>
-            </p>
+        <div class="panel-heading">
+          <h6>General</h6>
+        </div>
+        <div fxLayout="column" class="panel-content">
+          <div fxLayout="row">
+            <div class="flex-item" fxFlex>
+              <p>
+                <md-input-container style="width: 100%">
+                  <input md-input class="form-control" required [(ngModel)]="component.title" placeholder="title"
+                         name="title"
+                         type="text">
+                </md-input-container>
+              </p>
+            </div>
+            <div fxFlex>
+              <p>
+                <md-select name="items" [(ngModel)]="componentType" placeholder="Type" style="width: 100%">
+                  <md-option ngValue="Business">Business</md-option>
+                  <md-option ngValue="Functional">Functional</md-option>
+                  <md-option ngValue="Design">Design</md-option>
+                  <md-option ngValue="Performance">Performance</md-option>
+                  <md-option ngValue="Other">Other</md-option>
+                </md-select>
+              </p>
+            </div>
           </div>
-          <div fxFlex>
-            <p>
-              <md-select name="items" [(ngModel)]="componentType" placeholder="Type" style="width: 100%">
-                <md-option ngValue="Business">Business</md-option>
-                <md-option ngValue="Functional">Functional</md-option>
-                <md-option ngValue="Design">Design</md-option>
-                <md-option ngValue="Performance">Performance</md-option>
-                <md-option ngValue="Other">Other</md-option>
-              </md-select>
-            </p>
+
+          <div fxLayout="row">
+            <div fxFlex>
+              <p>
+                <md-select name="distributionLevel" [(ngModel)]="distributionLevel" placeholder="Distribution Level"
+                           style="width: 100%">
+                  <md-option ngValue="Public">Public</md-option>
+                  <md-option ngValue="Internal">Internal</md-option>
+                  <md-option ngValue="Restricted">Restricted</md-option>
+                  <md-option ngValue="Secret">Secret</md-option>
+                </md-select>
+              </p>
+            </div>
+            <div fxFlex>
+              <p>
+                <md-checkbox [checked]="requireTest" (change)="requireTest = $event">
+                  Require Test
+                </md-checkbox>
+                <md-checkbox [checked]="readOnly" (change)="readOnly = $event">
+                  Read only
+                </md-checkbox>
+              </p>
+            </div>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex>
+              <p>
+                <md-input [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
+                          (keypress)="addNewTag($event)"></md-input>
+              </p>
+              <div class="badge badge-default" style="display: inline-block;margin-right: 5px"
+                   *ngFor="let tag of component.tags">{{tag}}&nbsp;</div>
+            </div>
           </div>
         </div>
-
-        <div fxLayout="row">
-          <div fxFlex>
-            <p>
-              <md-select name="distributionLevel" [(ngModel)]="distributionLevel" placeholder="Distribution Level"
-                         style="width: 100%">
-                <md-option ngValue="Public">Public</md-option>
-                <md-option ngValue="Internal">Internal</md-option>
-                <md-option ngValue="Restricted">Restricted</md-option>
-                <md-option ngValue="Secret">Secret</md-option>
-              </md-select>
-            </p>
-          </div>
-          <div fxFlex>
-            <p>
-              <md-checkbox [checked]="requireTest" (change)="requireTest = $event">
-                Require Test
-              </md-checkbox>
-              <md-checkbox [checked]="readOnly" (change)="readOnly = $event">
-                Read only
-              </md-checkbox>
-            </p>
-          </div>
-        </div>
-        <div fxLayout="row">
-          <div fxFlex>
-            <md-input [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
-                      (keypress)="addNewTag($event)"></md-input>
-            <span *ngFor="let tag of component.tags">{{tag}}&nbsp;</span>
-          </div>
-        </div>
-
       </div>
       <div fxFlex="30%" class="panel">
-        <div *ngIf="!create">
+        <div class="panel-heading">
+          <h6>Author</h6>
+        </div>
+        <div *ngIf="!create" class="panel-content">
           <div>
             <div>
               <label>Author</label><span>{{component.createdUser}}</span>
@@ -101,42 +109,51 @@
       <div class="panel-heading">
         <h6>Estimated time</h6>
       </div>
-      <div fxLayout="row">
-      <div fxFlex *ngFor="let userCategory of userCategories" class="col-md-12" style="margin-bottom: 15px">
-        <div style="display: flex; flex-direction: row">
-          <md-input placeholder="{{userCategory}}" required name="time" type="number"></md-input>
+      <div fxLayout="row" class="panel-content">
+        <div fxFlex *ngFor="let userCategory of userCategories">
+          <div style="display: flex; flex-direction: row">
+            <md-input placeholder="{{userCategory}}" required name="time" type="number"></md-input>
 
-          <md-select name="unit" [(ngModel)]="unit" placeholder="Unit">
-            <md-option ngValue="Hours">Hours</md-option>
-            <md-option ngValue="Days">Days</md-option>
-          </md-select>
+            <md-select name="unit" [(ngModel)]="unit" placeholder="Unit">
+              <md-option ngValue="Hours">Hours</md-option>
+              <md-option ngValue="Days">Days</md-option>
+            </md-select>
+          </div>
         </div>
       </div>
+    </div>
+
+    <div fxFlex class="panel">
+      <div class="panel-heading">
+        <h6>Workflow</h6>
+      </div>
+      <div class="panel-content">
+        <workflow [component]="component" [canUpdateWorkflow]="true" (update)="onUpdate($event)"></workflow>
       </div>
     </div>
-
     <div fxFlex class="panel">
-      <workflow [component]="component" [canUpdateWorkflow]="true" (update)="onUpdate($event)"></workflow>
-
-    </div>
-    <div fxFlex class="panel">
-      <datatable
-        class="material" style="flex: 1;min-height:300px"
-        [rows]="component.componentReferences"
-        [headerHeight]="50"
-        [footerHeight]="0"
-        [rowHeight]="50"
-        [scrollbarV]="true"
-        [scrollbarH]="true">
-        <datatable-column name="Source" prop="source.title"></datatable-column>
-        <datatable-column name="Status"
-                          prop="sourceWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
-        <datatable-column name="Version" prop="sourceWorkflowInstance.version"></datatable-column>
-        <datatable-column name="Target" prop="target.title"></datatable-column>
-        <datatable-column name="Status"
-                          prop="targetWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
-        <datatable-column name="Version" prop="targetWorkflowInstance.version"></datatable-column>
-      </datatable>
+      <div class="panel-heading">
+        <h6>Reference</h6>
+      </div>
+      <div class="panel-content">
+        <datatable
+          class="material" style="flex: 1;min-height:300px"
+          [rows]="component.componentReferences"
+          [headerHeight]="50"
+          [footerHeight]="0"
+          [rowHeight]="50"
+          [scrollbarV]="true"
+          [scrollbarH]="true">
+          <datatable-column name="Source" prop="source.title"></datatable-column>
+          <datatable-column name="Status"
+                            prop="sourceWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
+          <datatable-column name="Version" prop="sourceWorkflowInstance.version"></datatable-column>
+          <datatable-column name="Target" prop="target.title"></datatable-column>
+          <datatable-column name="Status"
+                            prop="targetWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
+          <datatable-column name="Version" prop="targetWorkflowInstance.version"></datatable-column>
+        </datatable>
+      </div>
     </div>
 
     <!--
