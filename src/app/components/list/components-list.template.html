@@ -17,7 +17,7 @@
 
 
 <div class="main-content-content">
-  <datatable
+  <ngx-datatable
       class="material" style="flex: 1"
       [rows]="components"
       [columnMode]="'force'"
@@ -26,29 +26,29 @@
       [rowHeight]="50"
       [scrollbarV]="true"
       [scrollbarH]="true">
-    <datatable-column name="Id"></datatable-column>
-    <datatable-column name="Version" prop="currentWorkflowInstance.version">
+    <ngx-datatable-column name="Id"></ngx-datatable-column>
+    <ngx-datatable-column name="Version" prop="currentWorkflowInstance.version">
 
-    </datatable-column>
-    <datatable-column name="Title"></datatable-column>
-    <datatable-column name="Status" prop="currentWorkflowInstance.currentWorkflowStatus.status.name"></datatable-column>
-    <datatable-column name="Creation">
-      <template let-row="row" let-value="value">
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Title"></ngx-datatable-column>
+    <ngx-datatable-column name="Status" prop="currentWorkflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
+    <ngx-datatable-column name="Creation">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.creationDate | amTimeAgo}}
       </template>
-    </datatable-column>
-    <datatable-column name="Update">
-      <template let-row="row" let-value="value">
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Update">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.currentWorkflowInstance.currentWorkflowStatus.createdDate | amTimeAgo}}
       </template>
-    </datatable-column>
-    <datatable-column name="Content">
-      <template let-row="row" let-value="value">
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Content">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.summary}}
       </template>
-    </datatable-column>
-    <datatable-column name="Action">
-      <template let-row="row" let-value="value">
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Action">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div class="table-actions">
           <a tooltipPlacement="bottom" md-tooltip="Delete component" tooltip-position="above" tooltipClass="foobar"
              class="table-actions" role="button">
@@ -73,6 +73,6 @@
           </a>
         </div>
       </template>
-    </datatable-column>
-  </datatable>
+    </ngx-datatable-column>
+  </ngx-datatable>
 </div>

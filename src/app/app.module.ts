@@ -7,7 +7,6 @@ import {UIView, UIRouterModule, StateService} from "ui-router-ng2";
 import {MyRootUIRouterConfig} from "./router.config";
 import {MAIN_STATES} from "./app.states";
 import {AppComponent} from "./app.component";
-import {Angular2DataTableModule} from "angular2-data-table";
 import {MomentModule} from "angular2-moment";
 import {Ng2BootstrapModule, DropdownModule} from "ng2-bootstrap";
 import {CKEditorModule} from "./shared/ckeditor/ckeditor.component";
@@ -34,6 +33,7 @@ import {ResourcesListComponent} from "./resources/list/resouces-list.component";
 import {ResourcesSelectionComponent} from "./resources/selection/resources-selection.component";
 import {ResizableModule} from "angular-resizable-element";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -103,7 +103,7 @@ export class AppGestureConfig extends HammerGestureConfig { }
     Ng2BootstrapModule,
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
-    Angular2DataTableModule,
+    NgxDatatableModule,
     CKEditorModule,
     MomentModule,
     UIRouterModule.forRoot({

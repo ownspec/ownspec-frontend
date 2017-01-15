@@ -28,7 +28,7 @@
 
 <div class="workflow-history" style="height: 100%">
 
-  <datatable
+  <ngx-datatable
     class="material" style="flex: 1;height: 300px"
     [rows]="combinedStatusView"
     [columnMode]="'force'"
@@ -38,27 +38,27 @@
     [scrollbarV]="true"
     [scrollbarH]="true">
 
-    <datatable-column name="Source">
-      <template let-row="row" let-value="value">
+    <ngx-datatable-column name="Source">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div>
         {{row.instance.currentStatus.name}}
         </div>
       </template>
-    </datatable-column>
+    </ngx-datatable-column>
 
-    <datatable-column name="Source">
-      <template let-row="row" let-value="value">
+    <ngx-datatable-column name="Source">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.status.status.name}}
       </template>
-    </datatable-column>
+    </ngx-datatable-column>
 
-   <datatable-column name="Source">
-      <template let-row="row" let-value="value">
+   <ngx-datatable-column name="Source">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.change.date | amTimeAgo}}
       </template>
-    </datatable-column>
+    </ngx-datatable-column>
 
-  </datatable>
+  </ngx-datatable>
 </div>
 
 

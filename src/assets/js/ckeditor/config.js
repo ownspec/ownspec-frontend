@@ -12,7 +12,7 @@ CKEDITOR.editorConfig = function (config) {
     {name: 'insert', groups: ['insert']},
     {name: 'ownspec', groups: ['ownspec']},
 
-    //{name: 'document', groups: ['mode', 'document', 'doctools']},
+    {name: 'document', groups: ['mode', 'document', 'doctools']},
     {name: 'clipboard', groups: ['clipboard', 'undo']},
     {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
     //{name: 'forms', groups: ['forms']},
@@ -44,6 +44,8 @@ CKEDITOR.editorConfig = function (config) {
     instanceReady: function () {
     }
   };
-  config.removeButtons = 'Source,Print,Templates,Smiley,Flash,Iframe,ImageButton,Button,Anchor,Maximize,ShowBlocks,About,BidiRtl,BidiLtr,Language,CreateDiv,Blockquote,RemoveFormat,Unlink';
+  //config.removeButtons = 'Source,Print,Templates,Smiley,Flash,Iframe,ImageButton,Button,Anchor,Maximize,ShowBlocks,About,BidiRtl,BidiLtr,Language,CreateDiv,Blockquote,RemoveFormat,Unlink';
+  //For testing
+  config.removeButtons = 'Print,Templates,Smiley,Flash,Iframe,ImageButton,Button,Anchor,Maximize,ShowBlocks,About,BidiRtl,BidiLtr,Language,CreateDiv,Blockquote,RemoveFormat,Unlink';
 };
 

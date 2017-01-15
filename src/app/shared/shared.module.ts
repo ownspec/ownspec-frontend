@@ -4,7 +4,6 @@ import {ReferenceService} from "./reference.service";
 import {WorkflowComponent} from "./workflow/workflow.component";
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
-import {Angular2DataTableModule} from "angular2-data-table";
 import {Ng2BootstrapModule} from "ng2-bootstrap";
 import {ProfilService} from "./users/profil.service";
 import {UserService} from "./users/user.service";
@@ -21,6 +20,7 @@ import {EmptyContent} from "./empty-content/empty-content";
 import {SharedService} from "./shared.service";
 import {TocComponent} from "./toc/toc.component";
 import {HighlightDirective} from "./resizable/resizable.directive";
+import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 
 
 @NgModule({
@@ -33,7 +33,7 @@ import {HighlightDirective} from "./resizable/resizable.directive";
     MaterialModule,
     ModalModule.forRoot(),
     BootstrapModalModule,
-    Angular2DataTableModule,
+    NgxDatatableModule,
 
   ],
 

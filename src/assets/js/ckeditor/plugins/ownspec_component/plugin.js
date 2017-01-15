@@ -39,7 +39,7 @@ CKEDITOR.plugins.add('ownspec_component', {
       editables: {
         content: {
           selector: '.requirements-content[contenteditable=true]',
-          allowedContent: 'img h1 h2 h3 h4 h5 div p br ul ol li strong em table tr td tbody[*](*){*}'
+          allowedContent: 'span img h1 h2 h3 h4 h5 div p br ul ol li strong em table tr td tbody[*](*){*}'
         }
       },
       allowedContent: 'div(!requirements)[!data-requirement-id,!data-workflow-instance-id,contenteditable]; div(!requirements-id);div(!requirements-content)[contenteditable]',
