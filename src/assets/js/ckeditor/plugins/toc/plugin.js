@@ -23,6 +23,8 @@ CKEDITOR.plugins.add('toc', {
        requiredContent: 'div(!requirements)[!data-requirement-id]; div(!requirements-id);div(!requirements-content)',
        */
 
+      allowedContent: 'div(!toc)',
+
       upcast: function (element) {
         return element.name == 'div' && element.hasClass('toc');
       },
@@ -36,6 +38,7 @@ CKEDITOR.plugins.add('toc', {
       },
 
       init: function () {
+        console.log("init toc");
         var that = this;
         jQuery(this.element.$).html('<div class="toc-title"><a>Table of Content <i class="fa fa-refresh" aria-hidden="true"></i></a></div><div></div>');
         // Register TOC

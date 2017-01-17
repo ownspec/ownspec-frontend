@@ -217,8 +217,6 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
     });
 
     this.instance.on('refresh-toc', () => {
-      console.log("recompute foo");
-
       let tocItems = this.generateToc().tocItems;
 
       let html = "<ul>";
