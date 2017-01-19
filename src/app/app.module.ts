@@ -34,6 +34,7 @@ import {ResourcesSelectionComponent} from "./resources/selection/resources-selec
 import {ResizableModule} from "angular-resizable-element";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
+import {TreeModule} from "angular2-tree-component";
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -41,15 +42,6 @@ import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 // App is our top level component
 
 
-require("angular2-data-table/release/datatable.css");
-require("angular2-data-table/release/material.css");
-
-
-
-//require("./css/vendor.scss");
-
-//require("./app.component.scss");
-//require("./shared/ckeditor/ckeditor.component.scss");
 
 window['CKEDITOR_BASEPATH'] = "/assets/js/ckeditor/";
 
@@ -121,6 +113,8 @@ export class AppGestureConfig extends HammerGestureConfig { }
     DropdownModule,
     Ng2CompleterModule,
     Ng2UploaderModule,
+
+    TreeModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
 
