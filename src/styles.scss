@@ -57,6 +57,9 @@ button {
   background-color: transparent;
 }
 
+input{
+  border-radius: 0 !important;
+}
 
 .no-margin {
   margin: 0 !important;
@@ -358,9 +361,14 @@ Datatable
   color: white;
   font-weight: 600;
 }
-.panel{
+
+.panel {
   background-color: white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  margin: 5px;
+  box-sizing: content-box;
 }
+
 .panel-heading {
   background-color: #F9F9F9;
   padding: 5px;
@@ -369,6 +377,10 @@ Datatable
   color: #58666e !important;
 }
 
+.panel-content {
+  padding: 5px;
+  box-sizing: content-box;
+}
 .panel-body {
   padding-top: 25px;
   padding-bottom: 25px;
