@@ -4,40 +4,43 @@
   </div>
 </main-header>
 
-<div *ngIf="!stateIsInAProject" class="main-content-content">
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="panel ">
-        <div class="panel-header">
-          <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-            <h4>Projects</h4>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="pull-right">
-              <h2>{{projectsNumber}}</h2>
+<div *ngIf="!stateIsInAProject" style="overflow: auto;height: 100%">
+  <div fxLayout="column" style="overflow: auto;width: 100%">
+
+    <!-- CARDS -->
+    <div fxLayout="row">
+      <div fxFlex="33%" class="panel">
+        <div class="panel-heading">
+          <div fxLayout="row">
+            <div fxFlex fxLayoutAlign="start center">
+              <h6>Projects</h6>
+            </div>
+            <div fxFlex="25%" fxLayoutAlign="end center">
+              <h5>{{projectsNumber}}</h5>
             </div>
           </div>
         </div>
-        <div class="line"></div>
-        <div class="panel-content">
-          <div class="panel-content-list">
+        <div fxLayout="column" class="panel-content">
+          <div *ngIf="lastVisitedProjects" class="panel-content-list">
             <h5>Last</h5>
             <div *ngFor="let project of lastVisitedProjects">
               <a (click)="showProject(project.id)" role="button">{{project.title}}</a>
             </div>
           </div>
+
+          <div *ngIf="!lastVisitedProjects">
+            <button md-raised-button class="md-cornered" (click)="newProject()">Create new project</button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="panel ">
-        <div class="panel-header">
-          <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-            <h4>Documents</h4>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="pull-right">
-              <h2>{{documentsNumber}}</h2>
+      <div fxFlex="33%" class="panel ">
+        <div class="panel-heading">
+          <div fxLayout="row">
+            <div fxFlex fxLayoutAlign="start center">
+              <h6>Documents</h6>
+            </div>
+            <div fxFlex="25%" fxLayoutAlign="end center">
+              <h5>{{documentsNumber}}</h5>
             </div>
           </div>
         </div>
@@ -51,21 +54,17 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="panel ">
-        <div class="panel-header">
-          <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-            <h4>Requirements</h4>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="pull-right">
-              <h2>{{requirementsNumber}}</h2>
+      <div fxFlex="33%" class="panel ">
+        <div class="panel-heading">
+          <div fxLayout="row">
+            <div fxFlex fxLayoutAlign="start center">
+              <h6>Requirements</h6>
+            </div>
+            <div fxFlex="25%" fxLayoutAlign="end center">
+              <h5>{{requirementsNumber}}</h5>
             </div>
           </div>
         </div>
-        <div class="line"></div>
-
         <div class="panel-content">
           <div class="panel-content-list">
             <h5>Last</h5>
@@ -76,21 +75,22 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-5 col-sm-12 ">
-      <div class="panel">
-        <div class="panel-header">
-          <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-            <h4>Requirement Evolution</h4>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="tools pull-right">
+
+    <!-- CHARTS -->
+    <div fxLayout="row">
+
+      <!-- Line chart-->
+      <div fxFlex="50%" class="panel">
+        <div class="panel-heading">
+          <div fxLayout="row">
+            <div fxFlex fxLayoutAlign="start center">
+              <h6>Requirement Evolution</h6>
+            </div>
+            <div fxFlex="25%" fxLayoutAlign="end center" class="tools">
               <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
             </div>
           </div>
         </div>
-        <div class="line"></div>
         <div class="panel-content">
           <div class="canvas-container">
             <canvas baseChart
@@ -103,21 +103,22 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-7 col-sm-12 no-padding">
-      <div class="col-md-6 col-sm-12">
-        <div class="panel">
-          <div class="panel-header">
-            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-              <h4>Requirement Coverage</h4>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="tools pull-right">
+
+      <!-- Pie and Doughnut chart-->
+      <div fxFlex="50%" fxLayout="row">
+
+        <!-- Requirement Coverage -->
+        <div fxFlex class="panel">
+          <div class="panel-heading">
+            <div fxLayout="row">
+              <div fxFlex fxLayoutAlign="start center">
+                <h6>Requirement Coverage</h6>
+              </div>
+              <div fxFlex="25%" fxLayoutAlign="end center" class="tools">
                 <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
               </div>
             </div>
           </div>
-          <div class="line"></div>
           <div class="panel-content">
             <div class="canvas-container">
               <canvas baseChart
@@ -132,20 +133,19 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-6 col-sm-12">
-        <div class="panel">
-          <div class="panel-header">
-            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-              <h4>Requirement Types</h4>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="tools pull-right">
+
+        <!-- Requirement Type -->
+        <div fxFlex class="panel">
+          <div class="panel-heading">
+            <div fxLayout="row">
+              <div fxFlex fxLayoutAlign="start center">
+                <h6>Requirement Types</h6>
+              </div>
+              <div fxFlex="25%" fxLayoutAlign="end center" class="tools">
                 <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
               </div>
             </div>
           </div>
-          <div class="line"></div>
           <div class="panel-content">
             <div class="canvas-container">
               <canvas baseChart
@@ -155,147 +155,6 @@
                       [labels]="requirementTypeChartLabels"
                       [data]="requirementTypeChartData"
                       (chartClick)="showTypeFilteredRequirements($event)"
-                      [options]="{legend: {position:'bottom'}}"
-              ></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="stateIsInAProject" class="main-content-content">
-  <div class="row">
-    <div class="col-md-6 col-sm-6 col-xs-12">
-      <div class="panel ">
-        <div class="panel-header">
-          <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-            <h4>Documents</h4>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="pull-right">
-              <h2>12</h2>
-            </div>
-          </div>
-        </div>
-        <div class="line"></div>
-        <div class="panel-content">
-          <div class="panel-content-list">
-            <h5>Last</h5>
-            <div><a href="#" role="button">Document 1</a></div>
-            <div><a href="#" role="button">Document 2</a></div>
-            <div><a href="#" role="button">Document 3</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-      <div class="panel ">
-        <div class="panel-header">
-          <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-            <h4>Requirements</h4>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="pull-right">
-              <h2>3,085</h2>
-            </div>
-          </div>
-        </div>
-        <div class="line"></div>
-
-        <div class="panel-content">
-          <div class="panel-content-list">
-            <h5>Last</h5>
-            <div><a href="#" role="button">Requirement 1</a></div>
-            <div><a href="#" role="button">Requirement 2</a></div>
-            <div><a href="#" role="button">Requirement 3</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-5 col-sm-12 ">
-      <div class="panel">
-        <div class="panel-header">
-          <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-            <h4>Requirement Evolution</h4>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="tools pull-right">
-              <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="line"></div>
-        <div class="panel-content">
-          <div class="canvas-container">
-            <canvas baseChart
-                    [datasets]="requirementEvolutionChartData"
-                    [labels]="requirementEvolutionChartLabels"
-                    [options]="requirementEvolutionChartOptions"
-                    [legend]="true"
-                    chartType="line"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-7 col-sm-12 no-padding">
-      <div class="col-md-6 col-sm-12">
-        <div class="panel">
-          <div class="panel-header">
-            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-              <h4>Requirement Coverage</h4>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="tools pull-right">
-                <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="line"></div>
-          <div class="panel-content">
-            <div class="canvas-container">
-              <canvas baseChart
-                      width="250"
-                      height="250"
-                      [data]="requirementCoverageChartData"
-                      [labels]="requirementCoverageChartLabels"
-                      [chartType]="requirementCoverageChartType"
-                      (chartHover)="chartHovered($event)"
-                      (chartClick)="chartClicked($event)"
-                      [options]="{legend: {position:'bottom'}}"
-              ></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-sm-12">
-        <div class="panel">
-          <div class="panel-header">
-            <div class="col-md-8 col-sm-8 col-xs-12 text-left">
-              <h4>Requirement Types</h4>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="tools pull-right">
-                <a role="button"><i class="fa fa-download" aria-hidden="true"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="line"></div>
-          <div class="panel-content">
-            <div class="canvas-container">
-              <canvas baseChart
-                      width="250"
-                      height="250"
-                      [data]="requirementTypeChartData"
-                      [labels]="requirementTypeChartLabels"
-                      chartType="pie"
-                      (chartHover)="chartHovered($event)"
-                      (chartClick)="chartClicked($event)"
                       [options]="{legend: {position:'bottom'}}"
               ></canvas>
             </div>
