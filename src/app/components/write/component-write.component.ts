@@ -10,7 +10,7 @@ import {ComponentService} from "../../shared/service/component/component.service
 import * as _ from "lodash";
 import {AppComponent} from "../../app.component";
 import {Component} from "../../shared/service/component/component";
-import {SharedService} from "../../shared/shared.service";
+import {SharedService} from "../../shared/service/shared.service";
 import {TocGenerator, TocItem} from "../../shared/ckeditor/toc-generator";
 import {CKEditorComponent} from "../../shared/ckeditor/ckeditor.component";
 

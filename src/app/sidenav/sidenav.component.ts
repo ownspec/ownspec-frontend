@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {SharedService} from "../shared/shared.service";
+import {SharedService} from "../shared/service/shared.service";
 import {StateService} from "ui-router-ng2";
 import {UserService, User} from "../shared/users/user.service";
 /*

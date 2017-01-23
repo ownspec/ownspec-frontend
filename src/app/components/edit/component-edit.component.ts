@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {ComponentUpdate} from "../write/component-write.component";
 import {Component} from "../../shared/service/component/component";
 import {ComponentService} from "../../shared/service/component/component.service";
-import {EntityReference, ReferenceService} from "../../shared/reference.service";
+import {EntityReference, ReferenceService} from "../../shared/service/reference.service";
 
 
 @C({

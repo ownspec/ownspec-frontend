@@ -1,5 +1,5 @@
 <main-header>
-  <div class="main-header-title">Project: {{project.title}}</div>
+  <div class="main-header-title">Project {{project.title}}</div>
   <div class="main-header-content" style="display: flex">
     <div>
       <button (click)="save()" md-raised-button color="primary">
@@ -13,66 +13,138 @@
 </main-header>
 
 
-<div class="main-content-content">
+<div style="overflow: auto;height: 100%">
+  <div fxLayout="column" style="overflow: auto;width: 100%">
+    <form name="requirementForm" ng-submit="save()">
 
-
-  <form name="requirementForm" ng-submit="save()">
-
-
-    <div class="col-md-12 no-padding" style="display: flex">
-      <div class="col-md-8 panel no-padding">
-        <div class="panel-heading">
-          <h6>General</h6>
-        </div>
-        <div class="panel-body col-md-12">
-          <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Title</h6></label>
-            <div class="col-sm-10">
-              <input class="form-control" required [(ngModel)]="project.title" name="title" type="text">
-            </div>
-          </div>
-          <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Description</h6></label>
-            <div class="col-sm-10">
-              <input class="form-control" required [(ngModel)]="project.description" name="description" type="text" style="height: 100px">
-            </div>
-          </div>
-
-          <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Manager</h6></label>
-            <div class="col-sm-10">
-              <!--<input class="form-control" required [(ngModel)]="project.manager.username" name="description" type="text">-->
-
-              <select [(ngModel)]="project.manager" name="manager">
-                <option *ngFor="let user of availableUsers" [ngValue]="user">{{user.username}}</option>
-              </select>
-
-              <input class="form-control" name="Manager" type="text">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-12">
-        <div class="col-md-12 panel margin-bottom-20 no-padding" style="border-left: 3px solid #c3e7ec;">
+      <div fxLayout="row">
+        <div fxFlex="60%" class="panel">
           <div class="panel-heading">
-            <h6>Authorized Users</h6>
+            <h6>General</h6>
           </div>
-          <div class="panel-body">
-            <div class="col-md-12" style="margin-bottom: 25px;">
-              <ng2-completer
-                  [(ngModel)]="authorizedUserUsername"
-                  [dataService]="dataService"
-                  [minSearchLength]="0"
-                  [ngModelOptions]="{standalone: true}"
-                  [placeholder]="'Add user...'"
-                  [clearSelected]=true
-                  (selected)="authorizeUser($event)"
-              ></ng2-completer>
+          <div class="panel-body col-md-12">
+            <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Title</h6></label>
+              <div class="col-sm-10">
+                <input class="form-control" required [(ngModel)]="project.title" name="title" type="text">
+              </div>
             </div>
-            <div *ngFor="let user of project.authorizedUsers" class="col-md-12">
-              <h6>{{user.firstName}} {{user.lastName}}</h6>
+            <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Description</h6></label>
+              <div class="col-sm-10">
+                <input class="form-control" required [(ngModel)]="project.description" name="description" type="text" style="height: 100px">
+              </div>
+            </div>
+
+            <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Manager</h6></label>
+              <div class="col-sm-10">
+                <!--<input class="form-control" required [(ngModel)]="project.manager.username" name="description" type="text">-->
+
+                <select [(ngModel)]="project.manager" name="manager">
+                  <option *ngFor="let user of availableUsers" [ngValue]="user">{{user.username}}</option>
+                </select>
+
+                <input class="form-control" name="Manager" type="text">
+              </div>
             </div>
           </div>
         </div>
-
+        <div fxFlex="40%" fxLayout="column">
+          <div class="panel">
+            <div class="panel-heading">
+              <h6>Point of contacts</h6>
+            </div>
+            <div class="panel-content">
+              <p class="md-body-2">John Doe</p>
+              <small class="md-caption">Project Manager</small>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-heading">
+              <h6>Authorized Users</h6>
+            </div>
+            <div class="panel-content">
+              <div class="col-md-12" style="margin-bottom: 25px;">
+                <ng2-completer
+                    [(ngModel)]="authorizedUserUsername"
+                    [dataService]="dataService"
+                    [minSearchLength]="0"
+                    [ngModelOptions]="{standalone: true}"
+                    [placeholder]="'Add user...'"
+                    [clearSelected]=true
+                    (selected)="authorizeUser($event)"
+                ></ng2-completer>
+              </div>
+              <div *ngFor="let user of project.authorizedUsers" class="col-md-12">
+                <h6>{{user.firstName}} {{user.lastName}}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
+
+
+<!--<div class="main-content-content">-->
+
+
+<!--<form name="requirementForm" ng-submit="save()">-->
+
+
+<!--<div class="col-md-12 no-padding" style="display: flex">-->
+<!--<div class="col-md-8 panel no-padding">-->
+<!--<div class="panel-heading">-->
+<!--<h6>General</h6>-->
+<!--</div>-->
+<!--<div class="panel-body col-md-12">-->
+<!--<div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Title</h6></label>-->
+<!--<div class="col-sm-10">-->
+<!--<input class="form-control" required [(ngModel)]="project.title" name="title" type="text">-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Description</h6></label>-->
+<!--<div class="col-sm-10">-->
+<!--<input class="form-control" required [(ngModel)]="project.description" name="description" type="text" style="height: 100px">-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Manager</h6></label>-->
+<!--<div class="col-sm-10">-->
+<!--&lt;!&ndash;<input class="form-control" required [(ngModel)]="project.manager.username" name="description" type="text">&ndash;&gt;-->
+
+<!--<select [(ngModel)]="project.manager" name="manager">-->
+<!--<option *ngFor="let user of availableUsers" [ngValue]="user">{{user.username}}</option>-->
+<!--</select>-->
+
+<!--<input class="form-control" name="Manager" type="text">-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-md-4 col-sm-12">-->
+<!--<div class="col-md-12 panel margin-bottom-20 no-padding" style="border-left: 3px solid #c3e7ec;">-->
+<!--<div class="panel-heading">-->
+<!--<h6>Authorized Users</h6>-->
+<!--</div>-->
+<!--<div class="panel-body">-->
+<!--<div class="col-md-12" style="margin-bottom: 25px;">-->
+<!--<ng2-completer-->
+<!--[(ngModel)]="authorizedUserUsername"-->
+<!--[dataService]="dataService"-->
+<!--[minSearchLength]="0"-->
+<!--[ngModelOptions]="{standalone: true}"-->
+<!--[placeholder]="'Add user...'"-->
+<!--[clearSelected]=true-->
+<!--(selected)="authorizeUser($event)"-->
+<!--&gt;</ng2-completer>-->
+<!--</div>-->
+<!--<div *ngFor="let user of project.authorizedUsers" class="col-md-12">-->
+<!--<h6>{{user.firstName}} {{user.lastName}}</h6>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->

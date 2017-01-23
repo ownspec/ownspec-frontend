@@ -18,7 +18,7 @@ import {ComponentsListComponent} from "./components/list/components-list.compone
 import {ModalModule} from "angular2-modal";
 import {BootstrapModalModule} from "angular2-modal/plugins/bootstrap";
 import {LoginComponent} from "./login/login.component";
-import {MaterialModule} from "@angular/material";
+import {MaterialModule, MdCardModule} from "@angular/material";
 import {MainHeaderComponent} from "./header/main-header.component";
 import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
 import {ChartsModule} from "ng2-charts";
@@ -42,7 +42,6 @@ import {TreeModule} from "angular2-tree-component";
 // App is our top level component
 
 
-
 window['CKEDITOR_BASEPATH'] = "/assets/js/ckeditor/";
 
 require("../assets/js/ckeditor/ckeditor.js");
@@ -52,7 +51,8 @@ require("hammerjs");
 
 // TODO: temporary until https://github.com/angular/material2/issues/1457
 @Injectable()
-export class AppGestureConfig extends HammerGestureConfig { }
+export class AppGestureConfig extends HammerGestureConfig {
+}
 
 
 /**
@@ -83,7 +83,7 @@ export class AppGestureConfig extends HammerGestureConfig { }
 
   ],
 
-  entryComponents : [
+  entryComponents: [
     ResourceCreateComponent,
   ],
 
@@ -100,7 +100,7 @@ export class AppGestureConfig extends HammerGestureConfig { }
     MomentModule,
     UIRouterModule.forRoot({
       states: MAIN_STATES,
-      otherwise: { state: 'app', params: {} },
+      otherwise: {state: 'app', params: {}},
       useHash: true,
       configClass: MyRootUIRouterConfig
     }),
@@ -115,6 +115,7 @@ export class AppGestureConfig extends HammerGestureConfig { }
     Ng2UploaderModule,
 
     TreeModule,
+    MdCardModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
 
@@ -126,10 +127,11 @@ export class AppGestureConfig extends HammerGestureConfig { }
       deps: [XHRBackend, RequestOptions, StateService]
     },
 
-    { provide: HAMMER_GESTURE_CONFIG, useClass: AppGestureConfig }
+    {provide: HAMMER_GESTURE_CONFIG, useClass: AppGestureConfig}
   ]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef) {}
+  constructor(public appRef: ApplicationRef) {
+  }
 }
 

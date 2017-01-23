@@ -3,7 +3,7 @@
 
 import {StateService} from "ui-router-ng2";
 import {Component as C, OnInit} from "@angular/core";
-import {ProjectService, Project} from "../../shared/project.service";
+import {ProjectService, Project} from "../../shared/service/project.service";
 
 
 @C({
