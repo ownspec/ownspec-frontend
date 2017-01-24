@@ -12,18 +12,18 @@
   <div class="sidenav-user-menu">
     <button [mdMenuTriggerFor]="menu">
       <img src="/assets/img/avatar_f.png" class="img-circle avatar"/>
-      <a style="display: block">{{activeUser.firstName}} {{activeUser.lastName}}<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+      <a style="display: block; color: white">{{activeUser.firstName}} {{activeUser.lastName}}</a>
     </button>
     <md-menu #menu="mdMenu">
       <button md-menu-item>
-        <a class="dropdown-item" href="#"><span class="fa fa-user"></span> Profile</a>
+        <a class="dropdown-item"><span class="fa fa-user"></span>  Profile  </a>
       </button>
       <button md-menu-item>
-        <a class="dropdown-item" href="#"><span class="fa fa-cogs"></span> Settings</a>
+        <a class="dropdown-item"><span class="fa fa-cogs"></span>  Settings  </a>
       </button>
-      <li class="divider dropdown-divider"></li>
+      <li class="dropdown-divider"></li>
       <button md-menu-item (click)="logoutUser()">
-        <a class="dropdown-item" href="#" (click)="logoutUser()"><span class="fa fa-power-off" style="display:table; margin:auto;"></span></a>
+        <a class="dropdown-item"><span class="fa fa-power-off" style="display:table; margin:auto;"></span></a>
       </button>
     </md-menu>
   </div>
