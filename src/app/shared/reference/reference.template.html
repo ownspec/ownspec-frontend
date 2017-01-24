@@ -1,0 +1,46 @@
+<div style="width: 850px;height: 400px" *ngIf="componentVersion && refComponentVersions">
+
+  <div>Update reference from <b>{{componentVersion.id}} {{componentVersion.title}}</b> to:</div>
+
+  <ngx-datatable
+    class="material" style="flex: 1"
+    [rows]="refComponentVersions"
+    [columnMode]="'standard'"
+    [headerHeight]="50"
+    [footerHeight]="0"
+    [rowHeight]="50"
+    [scrollbarV]="true"
+    [scrollbarH]="true">
+    <ngx-datatable-column name="V." prop="workflowInstance.version" [width]="55">
+
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Title"></ngx-datatable-column>
+    <ngx-datatable-column name="Status" prop="workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
+    <ngx-datatable-column name="Creation">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row.creationDate | amTimeAgo}}
+      </template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Update">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row.workflowInstance.currentWorkflowStatus.createdDate | amTimeAgo}}
+      </template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Action">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <div class="table-actions">
+          <a (click)="updateReference(row.id, row.workflowInstance.id)" md-tooltip="Update to this version" role="button">
+            <i class="fa fa-print" aria-hidden="true"></i>
+          </a>
+          <a (click)="fetchContent(row.workflowInstance.id)" md-tooltip="Update to this version" role="button">
+            <i class="fa fa-print" aria-hidden="true"></i>
+          </a>
+        </div>
+      </template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+
+  <div>
+    {{content}}
+  </div>
+</div>
