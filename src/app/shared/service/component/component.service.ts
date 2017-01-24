@@ -3,6 +3,8 @@ import {Injectable} from "@angular/core";
 import {Http, URLSearchParams} from "@angular/http";
 import {Component} from "./component";
 import {StateService} from "ui-router-ng2";
+import {WorkflowInstance} from "./workflow-instance";
+import {ComponentVersion} from "./component-version";
 
 @Injectable()
 export class ComponentService {
@@ -165,6 +167,36 @@ export class ComponentService {
   getContentUrl(c: Component) {
     return "/api/components/" + c.id + "/content";
   }
+
+
+  findVersions(componentId): Observable<ComponentVersion[]> {
+    return this.$http.get("/api/components/" + componentId + "/versions")
+      .flatMap(r => r.json())
+      .map(r => {
+        return ComponentVersion.fromMap(r);
+      })
+      .toArray();
+  }
+
+  findVersion(componentId, workflowInstanceId): Observable<ComponentVersion> {
+    return this.$http.get("/api/components/" + componentId + "/versions/" + workflowInstanceId)
+      .map(r => r.json())
+      .map(r => {
+        return ComponentVersion.fromMap(r);
+      });
+  }
+
+  getContent(componentId, workflowInstanceId): Observable<string> {
+    return this.$http.get("/api/components/" + componentId + "/versions/" + workflowInstanceId + "/content")
+      .map(r => r.text());
+  }
+
+
+  updateReference(sourceComponentId, sourceWorkflowInstanceId, refId, targetComponentId, targetWorkflowInstanceId = "LATEST") : Observable<any> {
+    return this.$http.post("/api/components/" + sourceComponentId + "/versions/" + sourceWorkflowInstanceId + "/references/" + refId,
+      {targetComponentId: targetComponentId, targetWorkflowInstanceId: targetWorkflowInstanceId});
+  }
+
 }
 
 

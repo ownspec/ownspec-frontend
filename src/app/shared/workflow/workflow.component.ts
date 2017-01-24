@@ -34,6 +34,8 @@ export class WorkflowComponent implements OnInit {
 
   public statuses = [];
 
+  public visibleStatuses = {};
+
   public constructor(private zone:NgZone, private componentService: ComponentService, private profilService: ProfilService,public modal: Modal) {
   }
 

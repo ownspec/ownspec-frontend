@@ -18,7 +18,8 @@
         <div>
           <span>From <b>{{component.currentWorkflowInstance.currentWorkflowStatus.status.name}}</b> To </span>
           <select class="custom-select" [(ngModel)]="targetStatus" name="targetStatus">
-            <option *ngFor="let status of component.currentWorkflowInstance.currentWorkflowStatus.status.transitions" [value]="status">
+            <option *ngFor="let status of component.currentWorkflowInstance.currentWorkflowStatus.status.transitions"
+                    [value]="status">
               {{status}}
             </option>
           </select>
@@ -60,20 +61,22 @@
       </h3>
 
       <div *ngFor="let status of workflowInstance.workflowStatuses.concat().reverse()" style="padding: 4px;">
-        <h4>
+        <h4 role="button" (click)="visibleStatuses[status.id] = !visibleStatuses[status.id]">
           {{status.status.name}} <span>{{status.createdDate | amTimeAgo}} by {{status.createdUser.username}}</span>
         </h4>
-        <ul *ngIf="status.changes.length > 0" style="margin-bottom: 0px">
-          <li *ngFor="let change of status.changes.reverse()">
-            <div>
-              <a (click)="diff(change)" role="button" style="font-size: 0.8rem">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{change.date | amTimeAgo}} by
-                {{change.user.username}}
-              </a>
-            </div>
-            <div style="color: gray;font-size: 0.9rem"></div>
-          </li>
-        </ul>
+        <div *ngIf="visibleStatuses[status.id]">
+          <ul *ngIf="status.changes.length > 0" style="margin-bottom: 0px">
+            <li *ngFor="let change of status.changes.reverse()">
+              <div>
+                <a (click)="diff(change)" role="button" style="font-size: 0.8rem">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{change.date | amTimeAgo}} by
+                  {{change.user.username}}
+                </a>
+              </div>
+              <div style="color: gray;font-size: 0.9rem"></div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

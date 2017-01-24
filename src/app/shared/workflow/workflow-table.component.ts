@@ -7,7 +7,6 @@ import {Observable} from "rxjs";
 import {ComponentService} from "../service/component/component.service";
 import {ProfilService} from "../users/profil.service";
 import {Modal} from 'angular2-modal/plugins/bootstrap';
-import {ColumnMode} from "angular2-data-table";
 import {Component} from "../service/component/component";
 import {Change} from "../service/component/change";
 

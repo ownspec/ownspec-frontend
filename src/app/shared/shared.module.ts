@@ -21,6 +21,9 @@ import {SharedService} from "./shared.service";
 import {TocComponent} from "./toc/toc.component";
 import {HighlightDirective} from "./resizable/resizable.directive";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
+import {TreeModule} from "angular2-tree-component";
+import {TagService} from "./service/component/tag.service";
+import {ReferenceComponent} from "./reference/reference.component";
 
 
 @NgModule({
@@ -30,18 +33,23 @@ import {NgxDatatableModule} from "@swimlane/ngx-datatable";
     HttpModule,
     Ng2BootstrapModule,
     MomentModule,
-    MaterialModule,
+    MaterialModule.forRoot(),
     ModalModule.forRoot(),
     BootstrapModalModule,
     NgxDatatableModule,
 
+    TreeModule,
   ],
 
+  entryComponents : [
+    ReferenceComponent,
+  ],
   exports: [
     WorkflowComponent,
     CommentsComponent,
     ComponentsComponent,
     WorkflowTableComponent,
+    ReferenceComponent,
     EmptyContent,
     TocComponent,
     HighlightDirective
@@ -51,6 +59,7 @@ import {NgxDatatableModule} from "@swimlane/ngx-datatable";
     CommentsComponent,
     ComponentsComponent,
     WorkflowTableComponent,
+    ReferenceComponent,
     EmptyContent,
     TocComponent,
     HighlightDirective
@@ -62,6 +71,7 @@ import {NgxDatatableModule} from "@swimlane/ngx-datatable";
     ProfilService,
     ProjectService,
     SharedService,
+    TagService,
 
   ]
 })

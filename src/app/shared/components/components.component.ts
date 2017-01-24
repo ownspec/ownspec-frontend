@@ -7,6 +7,10 @@ import {Observable} from "rxjs";
 import {ComponentService} from "../service/component/component.service";
 import {ProfilService} from "../users/profil.service";
 import {Component} from "../service/component/component";
+import {TagService} from "../service/component/tag.service";
+import {Tag} from "../service/component/tag";
+import * as _ from "lodash";
+
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from
@@ -18,6 +22,7 @@ import {Component} from "../service/component/component";
 
 @C({
   selector: 'components-selection',
+  styleUrls: ['components.component.scss'],
   templateUrl: 'components.template.html',
 })
 export class ComponentsComponent implements OnInit {
@@ -37,9 +42,12 @@ export class ComponentsComponent implements OnInit {
   public components: Component[];
 
   public searchQuery: string;
+  private tags: any[];
+
+  public displayMode: "tree"|"list" = "list";
 
 
-  public constructor(private componentService: ComponentService, private profilService: ProfilService) {
+  public constructor(private componentService: ComponentService, private profilService: ProfilService, private tagService: TagService) {
   }
 
   ngOnInit(): void {
@@ -47,6 +55,10 @@ export class ComponentsComponent implements OnInit {
   }
 
   public dragStart(evt: any, r: Component) {
+
+    if (!r && !r.id) {
+      return;
+    }
 
     var dataTransfer = evt.dataTransfer;
 
@@ -62,6 +74,21 @@ export class ComponentsComponent implements OnInit {
     // TODO: temporary fetch content with the list of component, to refactor because response size will be too large
     this.componentService.findAll(this.projectId, null, this.types, this.searchQuery, true, true, false).subscribe(components => {
       this.components = components;
+
+      let tree = [];
+      let tags = {};
+
+      for (let component of this.components) {
+        for (let tag of component.tags) {
+          if (!tags[tag]) {
+            tags[tag] = {id: tag, name: tag, children: []};
+            tree.push(tags[tag]);
+          }
+          tags[tag].children.push({id: component.id + "_" + tag, name: component.title, component: component});
+        }
+      }
+
+      this.tags = tree;
     });
   }
 

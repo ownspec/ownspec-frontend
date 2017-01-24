@@ -1,0 +1,36 @@
+
+:host {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow: auto;
+}
+
+.content {
+  width: 100%;
+  border: 1px solid #ececec;
+  background: white;
+  margin: 2px 2px 1px 1px;
+  padding-left: 4px;
+  font-family: Roboto-Regular;
+  font-size: 0.9rem;
+}
+
+[md-button].tools {
+  min-width: 22px;
+  min-height: 1px;
+  line-height: 30px;
+  padding: 0px 4px
+}
+
+[md-menu-item].tools {
+  min-width: 22px;
+  min-height: 1px;
+  line-height: 30px!important;
+  padding: 0px 4px
+}
+
+/deep/ .md-menu-panel {
+  min-width: 30px!important;
+  max-width: 50px!important;
+}
