@@ -2,7 +2,7 @@
 import {StateService} from "ui-router-ng2";
 import {Component as C, Input, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
-import {Project, ProjectService} from "../../shared/project.service";
+import {Project, ProjectService} from "../../shared/service/project.service";
 import {CompleterData, CompleterService, CompleterItem} from "ng2-completer";
 import {UserService, User} from "../../shared/users/user.service";
 

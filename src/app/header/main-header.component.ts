@@ -1,6 +1,6 @@
 "use strict";
 import {Component, OnInit} from "@angular/core";
-import {SharedService} from "../shared/shared.service";
+import {SharedService} from "../shared/service/shared.service";
 
 @Component({
   selector: 'main-header',

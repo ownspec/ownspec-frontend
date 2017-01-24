@@ -1,7 +1,7 @@
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
-import {Project} from "../project.service";
+import {Project} from "../service/project.service";
 import {Component} from "../service/component/component";
 
 @Injectable()

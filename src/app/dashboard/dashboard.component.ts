@@ -1,7 +1,7 @@
 "use strict";
 import {Component as C, OnInit} from "@angular/core";
-import {SharedService} from "../shared/shared.service";
-import {ProjectService, Project} from "../shared/project.service";
+import {SharedService} from "../shared/service/shared.service";
+import {ProjectService, Project} from "../shared/service/project.service";
 import {ComponentService} from "../shared/service/component/component.service";
 import {Component} from "../shared/service/component/component";
 
@@ -89,8 +89,6 @@ export class DashboardComponent implements OnInit {
     this.componentService.getLastVisitedRequirements().subscribe((requirements: Component[]) => {
       this.lastVisitedRequirements = requirements;
     });
-
-
   }
 
   showStatusFilteredRequirement() {

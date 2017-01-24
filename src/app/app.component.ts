@@ -4,7 +4,7 @@
 import {Component, ViewEncapsulation, ViewContainerRef} from '@angular/core';
 
 import {Overlay} from "angular2-modal";
-import {SharedService} from "./shared/shared.service";
+import {SharedService} from "./shared/service/shared.service";
 import {UIRouter} from "ui-router-ng2";
 
 /*

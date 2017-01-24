@@ -9,37 +9,38 @@
   </div>
 </main-header>
 
-
-<div class="main-content-content">
-
-  <div *ngIf="projects.length == 0" class="panel">
-    <h5>No project found</h5>
+<div style="overflow: auto;height: 100%">
+  <div *ngIf="projects.length == 0"
+       fxLayout="column"
+       fxLayoutAlign="center center">
+    <h5>Sorry... No results found</h5>
+    <img md-card-image src="assets/img/sad-face.png">
   </div>
-
-  <div class="row">
-    <div *ngFor="let project of projects" class="col-md-4 col-sm-6 col-xs-12 projects-container">
-      <div class="panel col-md-12 project">
-        <div class="col-md-3 col-sm-12" style="padding: 0 !important;">
-          <a><img src="assets/img/no-picture-icon.png" alt="Add a picture to your project" class="project-logo"></a>
-        </div>
-        <div class="col-md-9 col-sm-12">
-          <a (click)="show(project.id); addVisit(project.id)"
-             role="button">
+  <div fxLayout="row" fxLayoutWrap style="overflow: auto;width: 100%">
+    <md-card *ngFor="let project of projects" fxFlex="auto" style="margin: 5px;width: 320px;">
+      <md-card-header>
+        <img md-card-avatar src="assets/img/no-picture-icon.png">
+        <md-card-title>
+          <a (click)="show(project.id); addVisit(project.id)" role="button">
             <h5>{{project.title}}</h5>
           </a>
-          <h6 style="color:#55595c">{{project.description}}</h6>
+        </md-card-title>
+        <md-card-subtitle>
           <h6 style="font-size: 0.9rem;">Created {{project.createdDate | amTimeAgo }}</h6>
-
-          <div class="project-actions">
-            <a (click)="edit(project)" role="button">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>
-            <a (click)="toggleFavorite(project)" role="button">
-              <i [ngClass]="{'fa fa-star favorite': project.isFavorite, 'fa fa-star-o': !project.isFavorite}" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+        </md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <p>{{project.description}}</p>
+      </md-card-content>
+      <md-card-actions>
+        <button md-button (click)="edit(project)">
+          <i class="fa fa-pencil" aria-hidden="true"></i> EDIT
+        </button>
+        <button md-button (click)="toggleFavorite(project)">
+          <i [ngClass]="{'fa fa-star favorite': project.isFavorite, 'fa fa-star-o': !project.isFavorite}"
+             aria-hidden="true"></i> FAVORITE
+        </button>
+      </md-card-actions>
+    </md-card>
   </div>
 </div>
