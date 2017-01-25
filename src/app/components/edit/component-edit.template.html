@@ -1,8 +1,10 @@
 <main-header *ngIf="currentComponentVersion">
-  <div class="main-header-title">Edit {{currentComponentVersion.title}}
-    <md-select placeholder="Version" [(ngModel)]="currentComponentVersion">
-      <md-option *ngFor="let cv of componentVersions" [value]="cv">{{cv.workflowInstance.version}}</md-option>
-    </md-select>
+  <div class="main-header-title">
+    <span>Edit {{currentComponentVersion.title}}</span>
+    <span> Version: </span>
+    <select [(ngModel)]="currentComponentVersion">
+      <option *ngFor="let cv of componentVersions" [ngValue]="cv">{{cv.workflowInstance.version}}</option>
+    </select>
   </div>
   <div class="main-header-content" style="display: flex">
 

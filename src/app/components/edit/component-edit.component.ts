@@ -5,13 +5,13 @@ import {Observable} from "rxjs";
 import {ComponentUpdate} from "../write/component-write.component";
 import {Component} from "../../shared/service/component/component";
 import {ComponentService} from "../../shared/service/component/component.service";
-import {EntityReference, ReferenceService} from "../../shared/reference.service";
 import {WorkflowStatus} from "../../shared/service/component/workflow-status";
 import {WorkflowInstance} from "../../shared/service/component/workflow-instance";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {ReferenceComponent} from "../../shared/reference/reference.component";
 import {ComponentReference} from "../../shared/service/component/component-reference";
 import {ComponentVersion} from "../../shared/service/component/component-version";
+import {EntityReference, ReferenceService} from "../../shared/service/reference.service";
 
 
 @C({
