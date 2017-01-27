@@ -14,10 +14,10 @@
        fxLayout="column"
        fxLayoutAlign="center center">
     <h5>Sorry... No results found</h5>
-    <img md-card-image src="assets/img/sad-face.png">
+    <img src="assets/img/sad-face.png">
   </div>
-  <div fxLayout="row" fxLayoutWrap style="overflow: auto;width: 100%">
-    <md-card *ngFor="let project of projects" fxFlex="auto" style="margin: 5px;width: 320px;">
+  <div fxLayout="row" fxLayoutWrap style="overflow: auto;width: 100%;">
+    <md-card *ngFor="let project of projects" fxFlex="auto" style="margin: 5px; width: 300px">
       <md-card-header>
         <img md-card-avatar src="assets/img/no-picture-icon.png">
         <md-card-title>

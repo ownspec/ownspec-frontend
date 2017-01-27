@@ -36,13 +36,13 @@ export class DashboardComponent implements OnInit {
 
   // Requirement type chart
   public requirementTypeChartType: string = 'pie';
-  public requirementTypeChartLabels: string[] = ['Business', 'Functional', 'Design', 'Performance', 'other'];
-  public requirementTypeChartData: number[] = [1000, 550, 300, 84, 0];
+  public requirementTypeChartLabels: string[] = ['Business', 'Functional', 'Design', 'Performance', 'Other'];
+  public requirementTypeChartData: number[] = [0, 0, 0, 0, 0];
 
   // Requirement coverage chart
   public requirementCoverageChartType: string = 'doughnut';
-  public requirementCoverageChartLabels: string[] = ['Uncovered', 'Ok', 'Failed', 'Not run'];
-  public requirementCoverageChartData: number[] = [350, 450, 100, 80];
+  public requirementCoverageChartLabels: string[] = ['Uncovered', 'Ok', 'Failed', 'In-progress'];
+  public requirementCoverageChartData: number[] = [0, 0, 0, 0];
 
   public constructor(private sharedService: SharedService,
                      private projectService: ProjectService,
@@ -69,26 +69,13 @@ export class DashboardComponent implements OnInit {
       this.requirementsNumber = requirements.length;
 
       // Charts
-      // this.requirementEvolutionChartData;
-      // this.requirementCoverageChartData
-      // this.requirementTypeChartData = [ requirements.filter(req => req.type)];
+      this.setRequirementChartsData(requirements);
     });
 
 
-    //Last visited project
-    this.projectService.getLastVisited().subscribe((projects: Project[]) => {
-      this.lastVisitedProjects = projects;
-    });
+    //Last visited
+    this.setLastVisited();
 
-    //Last visited documents
-    this.componentService.getLastVisitedDocuments().subscribe((documents: Component[]) => {
-      this.lastVisitedDocuments = documents;
-    });
-
-    //Last visited requirements
-    this.componentService.getLastVisitedRequirements().subscribe((requirements: Component[]) => {
-      this.lastVisitedRequirements = requirements;
-    });
   }
 
   showStatusFilteredRequirement() {
@@ -109,6 +96,44 @@ export class DashboardComponent implements OnInit {
 
   showComponent(componentId: number) {
     this.componentService.edit(componentId);
+  }
+
+  private setRequirementChartsData(requirements: Component []) {
+    // this.requirementEvolutionChartData;
+    // this.requirementCoverageChartData
+    // this.requirementTypeChartData = [ requirements.filter(req => req.type)];
+
+    this.requirementCoverageChartData = [
+      requirements.filter(req => req.coverageStatus == "UNCOVERED").length,
+      requirements.filter(req => req.coverageStatus == "OK").length,
+      requirements.filter(req => req.coverageStatus == "FAILED").length,
+      requirements.filter(req => req.coverageStatus == "IN_PROGRESS").length
+    ];
+
+    this.requirementTypeChartData = [
+      requirements.filter(req => req.requirementType == "BUSINESS").length,
+      requirements.filter(req => req.requirementType == "FUNCTIONAL").length,
+      requirements.filter(req => req.requirementType == "DESIGN").length,
+      requirements.filter(req => req.requirementType == "PERFORMANCE").length,
+      requirements.filter(req => req.requirementType == "OTHER").length
+    ];
+  }
+
+  private setLastVisited() {
+    // Projects
+    this.projectService.getLastVisited().subscribe((lastVisitedProjects: Project[]) => {
+      this.lastVisitedProjects = lastVisitedProjects;
+    });
+
+    // Documents
+    this.componentService.getLastVisitedDocuments().subscribe((lastVisitedDocuments: Component[]) => {
+      this.lastVisitedDocuments = lastVisitedDocuments;
+    });
+
+    // Requirements
+    this.componentService.getLastVisitedRequirements().subscribe((lastVisitedRequirements: Component[]) => {
+      this.lastVisitedRequirements = lastVisitedRequirements;
+    });
   }
 
 }
