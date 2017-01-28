@@ -17,7 +17,7 @@
     <img src="assets/img/sad-face.png">
   </div>
   <div fxLayout="row" fxLayoutWrap style="overflow: auto;width: 100%;">
-    <md-card *ngFor="let project of projects" fxFlex="auto" style="margin: 5px; width: 300px">
+    <md-card *ngFor="let project of projects" fxLayout="column" fxFlex="auto" style="margin: 5px; width: 300px">
       <md-card-header>
         <img md-card-avatar src="assets/img/no-picture-icon.png">
         <md-card-title>
@@ -29,10 +29,10 @@
           <h6 style="font-size: 0.9rem;">Created {{project.createdDate | amTimeAgo }}</h6>
         </md-card-subtitle>
       </md-card-header>
-      <md-card-content>
+      <md-card-content fxFlex>
         <p>{{project.description}}</p>
       </md-card-content>
-      <md-card-actions>
+      <md-card-actions fxLayout="row" fxLayoutAlign="start end">
         <button md-button (click)="edit(project)">
           <i class="fa fa-pencil" aria-hidden="true"></i> EDIT
         </button>
