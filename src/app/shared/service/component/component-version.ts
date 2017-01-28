@@ -23,6 +23,7 @@ export class ComponentVersion {
   public estimatedTimes: EstimatedTime[] = [];
   public workflowInstance: WorkflowInstance;
   public componentReferences: ComponentReference[] = [];
+  public componentUsePoints: ComponentReference[] = [];
 
   public uploadedFileId: string;
   public filename: string;
@@ -54,6 +55,10 @@ export class ComponentVersion {
       c.componentReferences.push(componentReference.clone());
     }
 
+    for (let componentUsePoint of this.componentUsePoints) {
+      c.componentUsePoints.push(componentUsePoint.clone());
+    }
+
     return c;
 
   }
@@ -80,6 +85,11 @@ export class ComponentVersion {
     if (item.componentReferences) {
       for (let i of item.componentReferences) {
         component.componentReferences.push(ComponentReference.fromMap(i));
+      }
+    }
+    if (item.componentUsePoints) {
+      for (let i of item.componentUsePoints) {
+        component.componentUsePoints.push(ComponentReference.fromMap(i));
       }
     }
 

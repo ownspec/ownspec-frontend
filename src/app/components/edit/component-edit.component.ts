@@ -42,10 +42,13 @@ export class ComponentEditComponent implements OnInit {
   public userCategories: string[] = ['Analyst', 'Developer', 'Tester'];
 
   public workflowInstances: WorkflowInstance[] = [];
-  public componentVersions: ComponentVersion[];
+  public availableComponentVersions: ComponentVersion[];
+  public selectedAvailableComponentVersions: ComponentVersion;
+
+  public usePoints: ComponentReference[] = [];
 
 
-  public currentComponentVersion:ComponentVersion;
+  public selectedComponentVersion: ComponentVersion;
 
   public constructor(public dialog: MdDialog, private $state: StateService, private componentService: ComponentService, private referenceService: ReferenceService) {
     this.editorOptions = {
@@ -62,10 +65,11 @@ export class ComponentEditComponent implements OnInit {
   }
 
 
-  private fetch(){
+  private fetch() {
     if (!this.create) {
       this.componentService.findOne(this.id, true, false, false, true).subscribe(r => {
         this.component = r;
+
 
       });
     } else {
@@ -77,11 +81,24 @@ export class ComponentEditComponent implements OnInit {
     });
 
     this.componentService.findVersions(this.id).subscribe(v => {
-      this.componentVersions = v;
-      this.currentComponentVersion = v[0];
+      this.selectedAvailableComponentVersions = v[v.length-1];
+      this.availableComponentVersions = v;
+      this.fetchComponentVersion(this.selectedAvailableComponentVersions);
     });
-
   }
+
+  public onChangeComponentVersion(cv) {
+    this.fetchComponentVersion(cv);
+  }
+
+  public fetchComponentVersion(cv: ComponentVersion) {
+    this.componentService.findVersion(this.id, cv.workflowInstance.id, true, true, true).subscribe(v => {
+      this.selectedComponentVersion = v;
+    });
+  }
+
+
+
 
   public save() {
 
@@ -113,8 +130,7 @@ export class ComponentEditComponent implements OnInit {
   }
 
 
-
-  public updateLatestVersion(ref: ComponentReference){
+  public updateLatestVersion(ref: ComponentReference) {
     this.componentService.updateReference(this.component.id, this.component.currentWorkflowInstance.id, ref.id, ref.target.id)
       .subscribe(r => {
         this.fetch();

@@ -5,6 +5,7 @@ import {Component} from "./component";
 import {StateService} from "ui-router-ng2";
 import {WorkflowInstance} from "./workflow-instance";
 import {ComponentVersion} from "./component-version";
+import {ComponentReference} from "./component-reference";
 
 @Injectable()
 export class ComponentService {
@@ -169,8 +170,13 @@ export class ComponentService {
   }
 
 
-  findVersions(componentId): Observable<ComponentVersion[]> {
-    return this.$http.get("/api/components/" + componentId + "/versions")
+  findVersions(componentId, statuses = false, references = false): Observable<ComponentVersion[]> {
+
+    let params: URLSearchParams = new URLSearchParams();
+    params.append("statuses", statuses.toString());
+    params.append("references", references.toString());
+
+    return this.$http.get("/api/components/" + componentId + "/versions", {search: params})
       .flatMap(r => r.json())
       .map(r => {
         return ComponentVersion.fromMap(r);
@@ -178,8 +184,13 @@ export class ComponentService {
       .toArray();
   }
 
-  findVersion(componentId, workflowInstanceId): Observable<ComponentVersion> {
-    return this.$http.get("/api/components/" + componentId + "/versions/" + workflowInstanceId)
+  findVersion(componentId, workflowInstanceId, statuses = false, references = false, usePoints = false): Observable<ComponentVersion> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.append("statuses", statuses.toString());
+    params.append("references", references.toString());
+    params.append("usePoints", usePoints.toString());
+
+    return this.$http.get("/api/components/" + componentId + "/versions/" + workflowInstanceId, {search: params})
       .map(r => r.json())
       .map(r => {
         return ComponentVersion.fromMap(r);
@@ -192,10 +203,20 @@ export class ComponentService {
   }
 
 
-  updateReference(sourceComponentId, sourceWorkflowInstanceId, refId, targetComponentId, targetWorkflowInstanceId = "LATEST") : Observable<any> {
+  updateReference(sourceComponentId, sourceWorkflowInstanceId, refId, targetComponentId, targetWorkflowInstanceId = "LATEST"): Observable<any> {
     return this.$http.post("/api/components/" + sourceComponentId + "/versions/" + sourceWorkflowInstanceId + "/references/" + refId,
       {targetComponentId: targetComponentId, targetWorkflowInstanceId: targetWorkflowInstanceId});
   }
+
+  findUsePoints(targetComponentId, targetWorkflowInstanceId): Observable<ComponentReference[]> {
+    return this.$http.get("/api/components/" + targetComponentId + "/versions/" + targetWorkflowInstanceId + "/use-points")
+      .flatMap(r => r.json())
+      .map(r => {
+        return ComponentReference.fromMap(r);
+      }).toArray();
+
+  }
+
 
 }
 

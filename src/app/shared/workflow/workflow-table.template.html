@@ -1,36 +1,9 @@
-<form name="userForm">
-
-  <div layout="row">
-    <div>
-      <span>From {{component.currentStatus.name}} To </span>
-      <span dropdown>
-        <a href id="simple-dropdown" dropdownToggle>
-          {{targetStatus}}
-        </a>
-        <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
-          <li><em>None</em></li>
-          <li *ngFor="let status of statuses">
-            <a class="dropdown-item" role="button" (click)="targetStatus=status.name">{{status.name}}</a>
-          </li>
-        </ul>
-      </span>
-      <button type="button" class="btn btn-success btn-sm" (click)="changeStatus()" [disabled]="!canUpdateWorkflow"><i
-        class="fa fa-check-circle" aria-hidden="true"></i></button>
-    </div>
-  </div>
-  <div layout="row">
-
-    <div class="form-group">
-      <textarea class="form-control" [(ngModel)]="reason" name="reason" placeholder="Enter the reason"></textarea>
-    </div>
-  </div>
-</form>
-
 <div class="workflow-history" style="height: 100%">
 
   <ngx-datatable
-    class="material" style="flex: 1;height: 300px"
-    [rows]="combinedStatusView"
+    #myTable
+    class="material expandable" style="flex: 1;height: 300px"
+    [rows]="componentVersion.workflowInstance.workflowStatuses"
     [columnMode]="'force'"
     [headerHeight]="50"
     [footerHeight]="0"
@@ -38,26 +11,54 @@
     [scrollbarV]="true"
     [scrollbarH]="true">
 
-    <ngx-datatable-column name="Source">
-      <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        <div>
-        {{row.instance.currentStatus.name}}
+    <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow>
+      <template let-row="row" ngx-datatable-row-detail-template>
+        <div style="padding-left:35px;height: 100%;overflow: auto">
+          <ul style="margin-bottom: 0px">
+            <li *ngFor="let change of row.changes.reverse()">
+              <div>
+                <a (click)="diff(change)" role="button" style="font-size: 0.8rem">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{change.date | amTimeAgo}} by
+                  {{change.user.username}}
+                </a>
+              </div>
+              <div style="color: gray;font-size: 0.9rem"></div>
+            </li>
+          </ul>
         </div>
       </template>
-    </ngx-datatable-column>
+    </ngx-datatable-row-detail>
 
-    <ngx-datatable-column name="Source">
-      <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        {{row.status.status.name}}
+
+    <ngx-datatable-column
+      [width]="50"
+      [resizeable]="false"
+      [sortable]="false"
+      [draggable]="false"
+      [canAutoResize]="false">
+
+      <template ngx-datatable-header-template>
+        <i class="fa fa-info" aria-hidden="true"></i>
+      </template>
+
+      <template let-row="row" ngx-datatable-cell-template>
+        <a title="Expand/Collapse Row" (click)="toggleExpandRow(row)" *ngIf="row.changes.length > 0">
+          <i [class.fa-expand]="!row.$$expanded" [class.fa-compress]="row.$$expanded" class="fa " aria-hidden="true"></i>
+        </a>
       </template>
     </ngx-datatable-column>
 
-   <ngx-datatable-column name="Source">
+    <ngx-datatable-column name="Source" prop="status.name"></ngx-datatable-column>
+    <ngx-datatable-column name="Creation">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        {{row.change.date | amTimeAgo}}
+        {{row.createdDate | amTimeAgo}}
       </template>
     </ngx-datatable-column>
-
+    <ngx-datatable-column name="User">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row.createdUser.username}}
+      </template>
+    </ngx-datatable-column>
   </ngx-datatable>
 </div>
 

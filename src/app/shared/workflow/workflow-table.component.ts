@@ -1,7 +1,7 @@
 "use strict";
 
 
-import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angular/core";
+import {Component as C, Input, OnInit, Output, EventEmitter, NgZone, ViewChild} from "@angular/core";
 
 import {Observable} from "rxjs";
 import {ComponentService} from "../service/component/component.service";
@@ -9,6 +9,7 @@ import {ProfilService} from "../users/profil.service";
 import {Modal} from 'angular2-modal/plugins/bootstrap';
 import {Component} from "../service/component/component";
 import {Change} from "../service/component/change";
+import {ComponentVersion} from "../service/component/component-version";
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from
@@ -27,10 +28,11 @@ export class WorkflowTableComponent implements OnInit {
 
   combinedStatusView: Array<any> = [];
 
-  private _component: Component;
+  @Input()
+  private componentVersion: ComponentVersion;
 
   @Input()
-  public canUpdateWorkflow: Boolean;
+  public canUpdateWorkflow:Boolean;
 
   @Output()
   public update = new EventEmitter<Component>();
@@ -42,43 +44,15 @@ export class WorkflowTableComponent implements OnInit {
 
   public statuses = [];
 
-  get component(): Component {
-    return this._component;
-  }
+  public visibleStatuses = {};
 
-  @Input()
-  set component(value: Component) {
-
-    console.log("set component " + value);
-    console.log(value);
-
-    this._component = value;
-
-    if (!!value) {
-      this.combinedStatusView = [];
-      for (let instance of value.workflowInstances) {
-        for (let status of instance.workflowStatuses) {
-          if (status.changes.length > 0) {
-            for (let change of status.changes) {
-              this.combinedStatusView.push({instance: instance, status: status, change: change});
-            }
-          }
-          else {
-            this.combinedStatusView.push({instance: instance, status: status, change: {}});
-          }
-        }
-
-      }
-      this.combinedStatusView = this.combinedStatusView.reverse();
-      console.log(this.combinedStatusView);
-    }
-  }
-
+  @ViewChild('myTable') table: any;
 
   public constructor(private zone: NgZone, private componentService: ComponentService, private profilService: ProfilService, public modal: Modal) {
   }
 
   ngOnInit(): void {
+
 
     this.profilService.findCurrentProfile().subscribe(p => {
       this.statuses = p.properties.statuses;
@@ -86,16 +60,25 @@ export class WorkflowTableComponent implements OnInit {
 
   }
 
+
   public changeStatus() {
-    this.componentService.updateStatus(this._component.id, this.targetStatus, this.reason)
+    this.componentService.updateStatus(this.componentVersion.id, this.targetStatus, this.reason)
       .subscribe(c => {
         //this.component = c;
         this.update.emit(c);
       });
   }
 
-  public diff(change: Change) {
-    this.componentService.diff(this._component.id, null, change.revision).subscribe(d => {
+  public newStatus() {
+    this.componentService.newStatus(this.componentVersion.id)
+      .subscribe(c => {
+        //this.component = c;
+        this.update.emit(c);
+      });
+  }
+
+  public diff(change:Change) {
+    this.componentService.diff(this.componentVersion.id, null, change.revision).subscribe(d => {
 
       this.modal.alert()
         .size("lg")
@@ -107,5 +90,9 @@ export class WorkflowTableComponent implements OnInit {
     });
   }
 
+  toggleExpandRow(row) {
+    console.log('Toggled Expand Row!', row);
+    this.table.rowDetail.toggleExpandRow(row);
+  }
 
 }
