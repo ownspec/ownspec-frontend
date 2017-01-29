@@ -12,65 +12,100 @@
   </div>
 </main-header>
 
-
-<div style="overflow: auto;height: 100%">
-  <div fxLayout="column" style="overflow: auto;width: 100%">
-    <form name="requirementForm" ng-submit="save()">
-
-      <div fxLayout="row">
-        <div fxFlex="60%" class="panel">
-          <div class="panel-heading">
-            <h6>General</h6>
+<div fxLayout="column" style="overflow: auto;width: 100%">
+  <div fxLayout="row">
+    <div fxFlex="70" class="panel">
+      <div class="panel-heading">
+        <h6>General</h6>
+      </div>
+      <div fxLayout="column" class="panel-content">
+        <div fxLayout="row">
+          <div fxFlex>
+            <span mdTooltip="Update your project picture">
+              <button md-button (click)="updatePicture()"><img src="assets/img/no-picture-icon.png"></button>
+            </span>
           </div>
-          <div class="panel-content col-md-12">
-            <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Title</h6></label>
-              <div class="col-sm-10">
-                <input class="form-control" required [(ngModel)]="project.title" name="title" type="text">
-              </div>
-            </div>
-            <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Description</h6></label>
-              <div class="col-sm-10">
-                <input class="form-control" required [(ngModel)]="project.description" name="description" type="text" style="height: 100px">
-              </div>
-            </div>
-
-            <div class="form-group"><label class="col-sm-2 control-label text-right"><h6>Manager</h6></label>
-              <div class="col-sm-10">
-                <!--<input class="form-control" required [(ngModel)]="project.manager.username" name="description" type="text">-->
-
-                <select [(ngModel)]="project.manager" name="manager">
-                  <option *ngFor="let user of availableUsers" [ngValue]="user">{{user.username}}</option>
-                </select>
-
-                <input class="form-control" name="Manager" type="text">
-              </div>
-            </div>
+          <div fxFlex="80" fxLayout="column" style="padding: 20px !important;">
+            <md-input-container fxFlex class="panel-content-input-container" style="margin-bottom: 10px">
+              <input md-input required
+                     [(ngModel)]="project.title"
+                     placeholder="Name" name="title" type="text">
+            </md-input-container>
+            <md-input-container fxFlex class="panel-content-input-container" style="margin-bottom: 10px">
+            <textarea md-input
+                      [(ngModel)]="project.description"
+                      [maxlength]="descriptionMaxLength"
+                      placeholder="Description ({{descriptionMaxLength}} max)" name="Description" type="text"
+                      style="min-height: 60px"
+                      #description></textarea>
+              <md-hint align="end">{{description.value.length}} / {{descriptionMaxLength}}</md-hint>
+            </md-input-container>
           </div>
         </div>
-        <div fxFlex="40%" fxLayout="column">
-          <div class="panel">
-            <div class="panel-heading">
-              <h6>Authorized Users</h6>
-            </div>
-            <div class="panel-content">
-              <div class="col-md-12" style="margin-bottom: 25px;">
-                <ng2-completer
-                    [(ngModel)]="authorizedUserUsername"
-                    [dataService]="dataService"
-                    [minSearchLength]="0"
-                    [ngModelOptions]="{standalone: true}"
-                    [placeholder]="'Add user...'"
-                    [clearSelected]=true
-                    (selected)="authorizeUser($event)"
-                ></ng2-completer>
-              </div>
-              <div *ngFor="let user of project.authorizedUsers" class="col-md-12">
-                <h6>{{user.firstName}} {{user.lastName}}</h6>
-              </div>
-            </div>
+        <div fxLayout="row" style="margin: 20px">
+          <md-select
+              placeholder="Sub-project of"
+              fxFlex="70"
+              name="subProject" type="">
+            <md-option *ngFor="let project of projects" [value]="project">{{project.title}}</md-option>
+          </md-select>
+        </div>
+        <div fxLayout="row" style="margin: 20px">
+          <md-select [(ngModel)]="project.manager"
+                     fxFlex="70"
+                     placeholder="Manager"
+                     name="manager" type="">
+            <md-option *ngFor="let user of availableUsers" [value]="user">{{user.username}}</md-option>
+          </md-select>
+        </div>
+      </div>
+    </div>
+    <div fxFlex fxLayout="column">
+      <div *ngIf="!create" class="panel">
+        <div class="panel-heading">
+          <h6>History</h6>
+        </div>
+        <div class="panel-content">
+          <md-list>
+            <md-list-item>
+              <h4 md-line style="overflow-x: visible ">Created</h4>
+              <p md-line> {{project.createdDate | amTimeAgo }} by {{project.createdUser.fullName}}</p>
+            </md-list-item>
+            <md-list-item>
+              <h4 md-line style="overflow-x: visible">Updated</h4>
+              <p md-line> {{project.lastModifiedDate | amTimeAgo }} by {{ project.lastModifiedUser.fullName}}</p>
+            </md-list-item>
+          </md-list>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-heading">
+          <h6>Authorized Users</h6>
+        </div>
+        <div class="panel-content" style="margin-bottom: 10px;">
+          <div fxLayout="row">
+            <ng2-completer-md
+                [dataService]="dataService"
+                [(inputName)]="searchStr"
+                [minSearchLength]="0"
+                [placeholder]="'Add user...'"
+                [clearSelected]=true
+                (selected)="authorizeUser($event)"
+                style="flex:auto;flex-direction: row; width: 100%">
+            </ng2-completer-md>
+          </div>
+          <div fxLayout="column" style="max-height: 320px; overflow: auto">
+            <md-card *ngFor="let user of project.projectUsers" style="margin-bottom: 5px;">
+              <md-card-header fxFlex fxLayout="row">
+                <img md-card-avatar src="assets/img/avatar_m.png">
+                <md-card-title>{{user.fullName}}</md-card-title>
+                <md-card-subtitle>Project Manager</md-card-subtitle>
+                <button role="button" fxLayoutAlign="end center" (click)="removeUserFromProject(user)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+              </md-card-header>
+            </md-card>
           </div>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </div>

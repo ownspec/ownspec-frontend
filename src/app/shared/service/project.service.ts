@@ -33,7 +33,7 @@ export class ProjectService {
 
 
   public save(toSave: Project): Observable<boolean> {
-    return this.$http.post("/api/projects/" + toSave.id + "/update", toSave)
+    return this.$http.post("/api/projects/" + toSave.id + "/update", Project.toJson(toSave))
         .map(r => r.status == 200);
   }
 
@@ -61,26 +61,41 @@ export class ProjectService {
   show(projectId: number) {
     this.stateService.go("app.home.project.dashboard", {projectId: projectId}, {reload: false})
   }
+
+  removeUserFromProject(project: Project, user: User) {
+    this.$http.delete("/api/projects/" + project.id + "/" + user.username).subscribe(r => {
+    });
+  }
 }
 
 
 export class Project {
+  public id: string;
+  public title: string;
+  public description: string;
+  public createdDate: Date;
+  public lastModifiedDate: Date;
+  public createdUser = new User();
+  public lastModifiedUser = new User();
+  public manager: User;
+  public projectUsers: User[] = [];
 
-  public constructor(public id: string,
-                     public title: string,
-                     public description: string,
-                     public createdDate: Date,
-                     public manager: User,
-                     public authorizedUsers: User[] = new Array()) {
+  public constructor() {
   }
 
-  public static fromJson(item: any): Project {
-    return new Project(
-        item.id,
-        item.title,
-        item.description,
-        new Date(<string>item.createdDate),
-        User.fromJson(item.manager));
+  public static fromJson(json: any): Project {
+
+    let project: Project = new Project();
+    project.id = json.id;
+    project.title = json.title;
+    project.description = json.description;
+    project.createdDate = new Date(<string>json.createdDate);
+    project.lastModifiedDate = new Date(<string>json.lastModifiedDate);
+    project.createdUser = User.fromJson(json.createdUser);
+    project.lastModifiedUser = User.fromJson(json.lastModifiedUser);
+    project.manager = User.fromJson(json.manager);
+    project.projectUsers = this.projectUsersFromJson(json);
+    return project;
   }
 
   public static toJson(project: Project): any {
@@ -88,7 +103,19 @@ export class Project {
       title: project.title,
       description: project.description,
       manager: User.toJson(project.manager),
-      authorizedUsers: project.authorizedUsers.map(u => User.toJson(u)).toString()
-    };
+      projectUsers: project.projectUsers
+          .map((u: User): any => [{
+                user: User.toJson(u),
+                project: this.toJson(project)
+              }]
+          )
+    }
+  }
+
+  public static projectUsersFromJson(json: any): User[] {
+    return json.projectUsers
+        .map((item: any) => {
+          return User.fromJson(item.user);
+        });
   }
 }

@@ -1,8 +1,6 @@
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
-import {Project} from "../service/project.service";
-import {Component} from "../service/component/component";
 
 @Injectable()
 export class UserService {
@@ -47,25 +45,34 @@ export class UserService {
 
   public findAll(): Observable<User[]> {
     return this.http.get("/api/users")
-      .flatMap(r => r.json())
-      .map(item => User.fromJson(item))
-      .toArray();
+        .flatMap(r => r.json())
+        .map(item => User.fromJson(item))
+        .toArray();
   }
 }
 
 
 export class User {
+  public fullName: string;
+  public username: string;
+  public email: string;
+  public firstName: string;
+  public lastName: string;
+  public role: string;
 
-  public constructor(public username: string,
-                     public email: string,
-                     public firstName: string,
-                     public lastName: string,
-                     public role: string) {
+  public constructor() {
   }
 
 
   public static fromJson(json: any): User {
-    return new User(json.username, json.email, json.firstName, json.lastName, json.role);
+    let user: User = new User();
+    user.username = json.username;
+    user.email = json.email;
+    user.firstName = json.firstName;
+    user.lastName = json.lastName;
+    user.fullName = user.firstName + " " + user.lastName;
+    user.role = json.role;
+    return user;
   }
 
   public static toJson(user: User): any {

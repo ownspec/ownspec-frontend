@@ -35,6 +35,7 @@ import {ResizableModule} from "angular-resizable-element";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {TreeModule} from "angular2-tree-component";
+import {CompleterCmpMd} from "./shared/completer-cmp-md/completer-cmp-md";
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -78,7 +79,9 @@ export class AppGestureConfig extends HammerGestureConfig {
     ProjectsListComponent,
     ProjectEditComponent,
 
-    LoginComponent
+    LoginComponent,
+
+    CompleterCmpMd
 
 
   ],
