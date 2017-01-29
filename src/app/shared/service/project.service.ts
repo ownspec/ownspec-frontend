@@ -63,7 +63,7 @@ export class ProjectService {
   }
 
   removeUserFromProject(project: Project, user: User) {
-    this.$http.delete("/api/projects/" + project.id + "/" + user.username).subscribe(r => {
+    this.$http.delete("/api/projects/" + project.id + "/" + user.username, {}).subscribe(r => {
     });
   }
 }
