@@ -63,6 +63,7 @@ export class ProjectService {
   }
 
   removeUserFromProject(project: Project, user: User) {
+    console.log("remove ===> " + user.username);
     this.$http.delete("/api/projects/" + project.id + "/" + user.username, {}).subscribe(r => {
     });
   }
@@ -103,19 +104,11 @@ export class Project {
       title: project.title,
       description: project.description,
       manager: User.toJson(project.manager),
-      projectUsers: project.projectUsers
-          .map((u: User): any => [{
-                user: User.toJson(u),
-                project: this.toJson(project)
-              }]
-          )
+      projectUsers: project.projectUsers.map((u: User) => User.toJson(u))
     }
   }
 
   public static projectUsersFromJson(json: any): User[] {
-    return json.projectUsers
-        .map((item: any) => {
-          return User.fromJson(item.user);
-        });
+    return json.projectUsers.map((item: any) => User.fromJson(item));
   }
 }

@@ -58,8 +58,10 @@ export class ProjectEditComponent implements OnInit {
 
     obs.subscribe(r => {
       this.$state.go("^", null, {reload: true});
+      this.snackBar.open("Project successfully " + this.create ? "created" : "updated", "Close");
+    }, e =>{
+      this.snackBar.open("Error when trying to create/update project", "Close");
     });
-    this.snackBar.open("Project successfully " + this.create ? "created" : "updated", "Close")
   }
 
 
