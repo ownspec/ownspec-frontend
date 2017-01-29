@@ -24,6 +24,7 @@ import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {TreeModule} from "angular2-tree-component";
 import {TagService} from "./service/component/tag.service";
 import {ReferenceComponent} from "./reference/reference.component";
+import {LinkService} from "./service/link.service";
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import {ReferenceComponent} from "./reference/reference.component";
     ProjectService,
     SharedService,
     TagService,
+    LinkService,
 
   ]
 })

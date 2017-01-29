@@ -12,6 +12,7 @@ import {ReferenceComponent} from "../../shared/reference/reference.component";
 import {ComponentReference} from "../../shared/service/component/component-reference";
 import {ComponentVersion} from "../../shared/service/component/component-version";
 import {EntityReference, ReferenceService} from "../../shared/service/reference.service";
+import {LinkService} from "../../shared/service/link.service";
 
 
 @C({
@@ -50,7 +51,8 @@ export class ComponentEditComponent implements OnInit {
 
   public selectedComponentVersion: ComponentVersion;
 
-  public constructor(public dialog: MdDialog, private $state: StateService, private componentService: ComponentService, private referenceService: ReferenceService) {
+  public constructor(public dialog: MdDialog, private $state: StateService, private componentService: ComponentService, private referenceService: ReferenceService,
+  private linkService:LinkService) {
     this.editorOptions = {
       height: "200px",
       basePath: '/assets/js/ckeditor/'
@@ -151,5 +153,10 @@ export class ComponentEditComponent implements OnInit {
       this.fetch();
     });
   }
+
+  public gotoEditComponent(c: Component){
+    this.linkService.gotoEditComponent(c);
+  }
+
 
 }

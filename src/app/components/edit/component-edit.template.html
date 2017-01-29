@@ -187,6 +187,11 @@
                        class="table-actions" role="button">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
+                    <a tooltipPlacement="bottom" md-tooltip="Open {{row.target.title}}" tooltip-position="above"
+                       (click)="gotoEditComponent(row.target)"
+                       class="table-actions" role="button">
+                      <i class="fa fa-link" aria-hidden="true"></i>
+                    </a>
 
 
                   </div>
@@ -229,12 +234,15 @@
                       <i class="fa fa-level-up" aria-hidden="true"></i>
                     </a>
                     <a tooltipPlacement="bottom" md-tooltip="Edit Reference" tooltip-position="above"
-                       (click)="editReference(row)"
+                       (click)="gotoEditComponent(row)"
                        class="table-actions" role="button">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
-
-
+                    <a tooltipPlacement="bottom" md-tooltip="Open {{row.source.title}}" tooltip-position="above"
+                       (click)="gotoEditComponent(row.source)"
+                       class="table-actions" role="button">
+                      <i class="fa fa-link" aria-hidden="true"></i>
+                    </a>
                   </div>
                 </template>
               </ngx-datatable-column>
