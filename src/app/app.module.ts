@@ -4,7 +4,6 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule, RequestOptions, XHRBackend, Http} from "@angular/http";
 import {SharedModule} from "./shared/shared.module";
 import {UIView, UIRouterModule, StateService} from "ui-router-ng2";
-import {MyRootUIRouterConfig} from "./router.config";
 import {MAIN_STATES} from "./app.states";
 import {AppComponent} from "./app.component";
 import {MomentModule} from "angular2-moment";
@@ -104,8 +103,7 @@ export class AppGestureConfig extends HammerGestureConfig {
     UIRouterModule.forRoot({
       states: MAIN_STATES,
       otherwise: {state: 'app', params: {}},
-      useHash: true,
-      configClass: MyRootUIRouterConfig
+      useHash: true
     }),
 
     ResizableModule,

@@ -1,7 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {SharedService} from "../shared/service/shared.service";
-import {StateService} from "ui-router-ng2";
+import {StateService, UIRouterModule} from "ui-router-ng2";
 import {UserService, User} from "../shared/users/user.service";
+import {Router, NavigationStart} from "@angular/router";
+import {StateSelector} from "ui-router-visualizer";
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -18,6 +20,7 @@ export class SideNavComponent implements OnInit {
   private menuItems;
   private hidden;
   private stateIsInAProject = false;
+  private activeUser = new User();
 
   private defaultMenuItems: Array<any> = [
     {name: "Dashboard", icon: "fa-tachometer", state: "app.home.dashboard"},
@@ -42,15 +45,19 @@ export class SideNavComponent implements OnInit {
   constructor(private state: StateService,
               private sharedService: SharedService,
               private userService: UserService,
-              private activeUser: User) { //todo search why it doesn't work when not in the constructor
+              public router: Router) {
   }
 
   ngOnInit(): void {
+
+    //todo: need to be fixed as it doesn't work
+    this.stateIsInAProject = this.state.$current.name.startsWith("app.home.project.");
+    this.menuItems = this.stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
     // Set menu items regarding current state
-    this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
-      this.stateIsInAProject = stateIsInAProject;
-      this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
-    });
+    // this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
+    //   this.stateIsInAProject = stateIsInAProject;
+    //   this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
+    // });
 
     // Subscribe to show/hide sidenav Event
     this.sharedService.hideSideNavEvent.subscribe(hide => {
