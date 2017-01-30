@@ -15,7 +15,7 @@ import {Component} from "../../shared/service/component/component";
 @C({
   selector: 'write-sidenav',
   templateUrl: 'write-sidenav.component.html',
-  styleUrls: ['../../../_variable.scss', './write-sidenav.component.scss'],
+  styleUrls: ['../../../styles/_variable.scss', './write-sidenav.component.scss'],
   animations: [
     trigger('slideInOut', [
       state('in', style({

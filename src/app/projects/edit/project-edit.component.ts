@@ -85,11 +85,11 @@ export class ProjectEditComponent implements OnInit {
 
 @Component({
   selector: 'update-picture-dialog',
-  styles: [
+/*  styles: [
     `img {
       max-width: 100%;
     }`
-  ],
+  ],*/
   template: `
     <h2 md-dialog-title>Project picture</h2>
     <md-dialog-content>

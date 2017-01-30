@@ -31,7 +31,6 @@ import {Ng2UploaderModule} from "ng2-uploader";
 import {ResourceCreateComponent} from "./resources/create/resource-create.component";
 import {ResourcesListComponent} from "./resources/list/resouces-list.component";
 import {ResourcesSelectionComponent} from "./resources/selection/resources-selection.component";
-import {ResizableModule} from "angular-resizable-element";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {TreeModule} from "angular2-tree-component";
@@ -105,10 +104,8 @@ export class AppGestureConfig extends HammerGestureConfig {
       states: MAIN_STATES,
       otherwise: {state: 'app', params: {}},
       useHash: true,
-      configClass: MyRootUIRouterConfig
+      //configClass: MyRootUIRouterConfig
     }),
-
-    ResizableModule,
 
     ModalModule.forRoot(),
     BootstrapModalModule,

@@ -169,6 +169,10 @@ export class ComponentService {
     return "/api/components/" + c.id + "/content";
   }
 
+  getComponentVersionUrl(c: ComponentVersion) {
+    return "/api/components/" + c.id + "/versions/" + c.workflowInstance.id + "/content";
+  }
+
 
   findVersions(componentId, statuses = false, references = false): Observable<ComponentVersion[]> {
 

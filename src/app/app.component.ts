@@ -39,10 +39,10 @@ export class AppComponent {
     this.sharedService.expandMainContentEvent.subscribe(expand => {
       this.mainContentExpanded = expand;
     });
-
+/*
     this.router.globals.success$.subscribe(() => {
       this.sharedService.stateIsInAProject(this.router.stateService.$current.name.startsWith("app.home.project."));
-    });
+    });*/
   }
 
 }

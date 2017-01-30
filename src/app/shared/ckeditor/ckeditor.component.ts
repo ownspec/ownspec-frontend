@@ -14,6 +14,7 @@ import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
 import {TocGenerator, TocItem} from "./toc-generator";
 import * as _ from "lodash";
+import * as jQuery from "jquery";
 
 declare var CKEDITOR: any;
 

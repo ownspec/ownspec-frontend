@@ -3,21 +3,21 @@
 // Includes/imports all third-party stylesheets used throughout the application.
 // Should be loaded before the application stylesheets
 //
-@import "_variable.scss";
+@import "variable";
 //@import "~roboto-fontface/css/roboto/sass/roboto-fontface.scss";
-@import "~roboto-fontface/css/roboto/sass/roboto-fontface-regular.scss";
-@import "~roboto-fontface/css/roboto/sass/roboto-fontface-thin.scss";
-@import "~roboto-fontface/css/roboto/sass/roboto-fontface-medium.scss";
-@import "~roboto-fontface/css/roboto-condensed/sass/roboto-condensed-fontface.scss";
+@import "../../node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-regular";
+@import "../../node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-thin";
+@import "../../node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-medium";
+@import "../../node_modules/roboto-fontface/css/roboto-condensed/sass/roboto-condensed-fontface";
 //@import '../../../node_modules/font-awesome/scss/font-awesome.scss'; // the path refers to the file at BUILD time
-@import "~font-awesome/scss/font-awesome.scss";
+@import "../../node_modules/font-awesome/scss/font-awesome";
 //override boostrap variables
 //@import "~bootstrap/dist/css/bootstrap.min.css";
-@import "~bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/bootstrap/scss/bootstrap";
 //@import "~bootstrap/scss/bootstrap-flex.scss";
-@import "~@angular/material/core/theming/prebuilt/deeppurple-amber.scss";
+@import "../../node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber";
 //@import "~@swimlane/ngx-datatable/release/datatable.component.css";
-@import "~@swimlane/ngx-datatable/release/material.css";
+@import "../../node_modules/@swimlane/ngx-datatable/release/material.css";
 
 //$background-sidenav: rgb(65, 75, 86);
 //$background-header: #476382;
