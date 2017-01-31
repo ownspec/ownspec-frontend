@@ -12,8 +12,6 @@ import {CommentsComponent} from "./comment/comments.component";
 import {MomentModule} from "angular2-moment";
 import {ComponentsComponent} from "./components/components.component";
 import {ProjectService} from "./service/project.service";
-import {BootstrapModalModule} from "angular2-modal/plugins/bootstrap";
-import {ModalModule} from "angular2-modal";
 import {WorkflowTableComponent} from "./workflow/workflow-table.component";
 import {MaterialModule} from "@angular/material";
 import {EmptyContent} from "./empty-content/empty-content";
@@ -35,8 +33,6 @@ import {LinkService} from "./service/link.service";
     Ng2BootstrapModule,
     MomentModule,
     MaterialModule.forRoot(),
-    ModalModule.forRoot(),
-    BootstrapModalModule,
     NgxDatatableModule,
 
     TreeModule,

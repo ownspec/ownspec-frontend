@@ -15,8 +15,6 @@ import {ProjectEditComponent} from "./projects/edit/project-edit.component";
 import {ComponentWriteComponent} from "./components/write/component-write.component";
 import {ComponentEditComponent} from "./components/edit/component-edit.component";
 import {ComponentsListComponent} from "./components/list/components-list.component";
-import {ModalModule} from "angular2-modal";
-import {BootstrapModalModule} from "angular2-modal/plugins/bootstrap";
 import {LoginComponent} from "./login/login.component";
 import {MaterialModule, MdCardModule} from "@angular/material";
 import {MainHeaderComponent} from "./header/main-header.component";
@@ -47,6 +45,8 @@ window['CKEDITOR_BASEPATH'] = "/assets/js/ckeditor/";
 require("../assets/js/ckeditor/ckeditor.js");
 
 require("hammerjs");
+
+import '../styles/styles.scss';
 
 
 // TODO: temporary until https://github.com/angular/material2/issues/1457
@@ -107,8 +107,6 @@ export class AppGestureConfig extends HammerGestureConfig {
       //configClass: MyRootUIRouterConfig
     }),
 
-    ModalModule.forRoot(),
-    BootstrapModalModule,
     ChartsModule,
     DropdownModule,
     Ng2CompleterModule,

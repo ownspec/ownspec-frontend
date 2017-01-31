@@ -3,7 +3,6 @@
  */
 import {Component, ViewEncapsulation, ViewContainerRef} from '@angular/core';
 
-import {Overlay} from "angular2-modal";
 import {SharedService} from "./shared/service/shared.service";
 import {UIRouter} from "ui-router-ng2";
 
@@ -23,11 +22,10 @@ export class AppComponent {
 
   mainContentExpanded;
 
-  constructor(private overlay: Overlay,
+  constructor(
               private vcRef: ViewContainerRef,
               private sharedService: SharedService,
               private router: UIRouter) {
-    overlay.defaultViewContainer = vcRef;
 
     // Init sub-components
     this.mainContentExpanded = false;
@@ -39,7 +37,23 @@ export class AppComponent {
     this.sharedService.expandMainContentEvent.subscribe(expand => {
       this.mainContentExpanded = expand;
     });
+
+
+    this.router.transitionService.onFinish({} , (transition) => {
+      this.sharedService.stateIsInAProject(this.router.stateService.$current.name.startsWith("app.home.project."));
+    });
+
+    console.log(this.router.globals.$current.name.startsWith("app.home.project."));
+    console.log(this.router.globals.$current.name.startsWith("app.home.project."));
+    console.log(this.router.globals.$current.name.startsWith("app.home.project."));
+    console.log(this.router.globals.$current.name.startsWith("app.home.project."));
+    console.log(this.router.globals.$current.name);
+    this.sharedService.stateIsInAProject(this.router.globals.$current.name.startsWith("app.home.project."));
+
+    //this.router.transitionService.onSuccess()
 /*
+
+
     this.router.globals.success$.subscribe(() => {
       this.sharedService.stateIsInAProject(this.router.stateService.$current.name.startsWith("app.home.project."));
     });*/

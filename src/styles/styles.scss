@@ -1,9 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+// styles.scss
 //
 // Includes/imports all third-party stylesheets used throughout the application.
 // Should be loaded before the application stylesheets
 //
-@import "variable";
+@import "../_variable";
 //@import "~roboto-fontface/css/roboto/sass/roboto-fontface.scss";
 @import "../../node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-regular";
 @import "../../node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-thin";

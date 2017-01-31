@@ -43,14 +43,19 @@ export class SideNavComponent implements OnInit {
               private sharedService: SharedService,
               private userService: UserService,
               private activeUser: User) { //todo search why it doesn't work when not in the constructor
-  }
 
-  ngOnInit(): void {
-    // Set menu items regarding current state
     this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
       this.stateIsInAProject = stateIsInAProject;
       this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
     });
+  }
+
+  ngOnInit(): void {
+    // Set menu items regarding current state
+/*    this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
+      this.stateIsInAProject = stateIsInAProject;
+      this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
+    });*/
 
     // Subscribe to show/hide sidenav Event
     this.sharedService.hideSideNavEvent.subscribe(hide => {

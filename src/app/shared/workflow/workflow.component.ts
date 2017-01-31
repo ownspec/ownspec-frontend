@@ -6,7 +6,6 @@ import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angu
 import {Observable} from "rxjs";
 import {ComponentService} from "../service/component/component.service";
 import {ProfilService} from "../users/profil.service";
-import { Modal } from 'angular2-modal/plugins/bootstrap';
 import {Component} from "../service/component/component";
 import {Change} from "../service/component/change";
 
@@ -36,7 +35,7 @@ export class WorkflowComponent implements OnInit {
 
   public visibleStatuses = {};
 
-  public constructor(private zone:NgZone, private componentService: ComponentService, private profilService: ProfilService,public modal: Modal) {
+  public constructor(private zone:NgZone, private componentService: ComponentService, private profilService: ProfilService) {
   }
 
   ngOnInit(): void {
@@ -68,13 +67,13 @@ export class WorkflowComponent implements OnInit {
   public diff(change:Change){
     this.componentService.diff(this.component.id , null, change.revision).subscribe(d => {
 
-      this.modal.alert()
+      /*this.modal.alert()
         .size("lg")
         .showClose(true)
         .title('Diff')
         .body(d)
         .open();
-
+*/
     });
   }
 

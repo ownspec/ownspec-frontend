@@ -6,7 +6,6 @@ import {Component as C, Input, OnInit, Output, EventEmitter, NgZone, ViewChild} 
 import {Observable} from "rxjs";
 import {ComponentService} from "../service/component/component.service";
 import {ProfilService} from "../users/profil.service";
-import {Modal} from 'angular2-modal/plugins/bootstrap';
 import {Component} from "../service/component/component";
 import {Change} from "../service/component/change";
 import {ComponentVersion} from "../service/component/component-version";
@@ -48,7 +47,7 @@ export class WorkflowTableComponent implements OnInit {
 
   @ViewChild('myTable') table: any;
 
-  public constructor(private zone: NgZone, private componentService: ComponentService, private profilService: ProfilService, public modal: Modal) {
+  public constructor(private zone: NgZone, private componentService: ComponentService, private profilService: ProfilService) {
   }
 
   ngOnInit(): void {
@@ -80,6 +79,7 @@ export class WorkflowTableComponent implements OnInit {
   public diff(change:Change) {
     this.componentService.diff(this.componentVersion.id, null, change.revision).subscribe(d => {
 
+/*
       this.modal.alert()
         .size("lg")
         .showClose(true)
@@ -87,6 +87,7 @@ export class WorkflowTableComponent implements OnInit {
         .body(d)
         .open();
 
+*/
     });
   }
 

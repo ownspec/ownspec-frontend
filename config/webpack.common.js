@@ -191,6 +191,9 @@ module.exports = function (options) {
           use: 'file-loader'
         },
 
+        { test: /\.(otf|ttf|woff|woff2)$/, loader: 'url-loader?limit=10000' },
+        { test: /\.(eot|svg)$/, loader: 'file-loader' }
+
       ],
 
     },
