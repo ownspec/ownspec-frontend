@@ -1,11 +1,9 @@
 /*
  * Angular 2 decorators and services
  */
-import {Component, ViewEncapsulation, ViewContainerRef} from '@angular/core';
-
+import {Component, ViewEncapsulation, ViewContainerRef} from "@angular/core";
 import {Overlay} from "angular2-modal";
 import {SharedService} from "./shared/service/shared.service";
-import {UIRouter} from "ui-router-ng2";
 
 /*
  * App Component
@@ -25,8 +23,7 @@ export class AppComponent {
 
   constructor(private overlay: Overlay,
               private vcRef: ViewContainerRef,
-              private sharedService: SharedService,
-              private router: UIRouter) {
+              private sharedService: SharedService) {
     overlay.defaultViewContainer = vcRef;
 
     // Init sub-components
@@ -35,13 +32,8 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    console.log('Initial App State');
     this.sharedService.expandMainContentEvent.subscribe(expand => {
       this.mainContentExpanded = expand;
-    });
-
-    this.router.globals.success$.subscribe(() => {
-      this.sharedService.stateIsInAProject(this.router.stateService.$current.name.startsWith("app.home.project."));
     });
   }
 
