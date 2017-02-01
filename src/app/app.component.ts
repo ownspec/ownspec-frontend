@@ -33,30 +33,14 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    console.log('Initial App State');
     this.sharedService.expandMainContentEvent.subscribe(expand => {
       this.mainContentExpanded = expand;
     });
-
-
     this.router.transitionService.onFinish({} , (transition) => {
       this.sharedService.stateIsInAProject(this.router.stateService.$current.name.startsWith("app.home.project."));
     });
-
-    console.log(this.router.globals.$current.name.startsWith("app.home.project."));
-    console.log(this.router.globals.$current.name.startsWith("app.home.project."));
-    console.log(this.router.globals.$current.name.startsWith("app.home.project."));
-    console.log(this.router.globals.$current.name.startsWith("app.home.project."));
-    console.log(this.router.globals.$current.name);
     this.sharedService.stateIsInAProject(this.router.globals.$current.name.startsWith("app.home.project."));
 
-    //this.router.transitionService.onSuccess()
-/*
-
-
-    this.router.globals.success$.subscribe(() => {
-      this.sharedService.stateIsInAProject(this.router.stateService.$current.name.startsWith("app.home.project."));
-    });*/
   }
 
 }

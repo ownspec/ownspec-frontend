@@ -15,9 +15,9 @@
 //@import "~bootstrap/dist/css/bootstrap.min.css";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 //@import "~bootstrap/scss/bootstrap-flex.scss";
-@import "../../node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber";
-//@import "~@swimlane/ngx-datatable/release/datatable.component.css";
-@import "../../node_modules/@swimlane/ngx-datatable/release/material.css";
+@import "~@angular/material/core/theming/prebuilt/deeppurple-amber.scss";
+@import "~@swimlane/ngx-datatable/release/components/datatable.component.css";
+@import "~@swimlane/ngx-datatable/release/material.css";
 
 //$background-sidenav: rgb(65, 75, 86);
 //$background-header: #476382;
