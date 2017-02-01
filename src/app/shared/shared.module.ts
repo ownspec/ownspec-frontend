@@ -23,6 +23,7 @@ import {TreeModule} from "angular2-tree-component";
 import {TagService} from "./service/component/tag.service";
 import {ReferenceComponent} from "./reference/reference.component";
 import {LinkService} from "./service/link.service";
+import {ComponentContentComponent} from "./components/content/component-content.component";
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import {LinkService} from "./service/link.service";
     ReferenceComponent,
     EmptyContent,
     TocComponent,
+    ComponentContentComponent,
     HighlightDirective
   ],
   declarations: [
@@ -59,6 +61,7 @@ import {LinkService} from "./service/link.service";
     ReferenceComponent,
     EmptyContent,
     TocComponent,
+    ComponentContentComponent,
     HighlightDirective
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

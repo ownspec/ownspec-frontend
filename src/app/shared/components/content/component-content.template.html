@@ -1,0 +1,9 @@
+<div>
+
+  <img *ngIf="isResource" [src]="url">
+
+  <div *ngIf="!isResource">
+    {{content}}
+  </div>
+</div>
+
