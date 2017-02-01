@@ -21,9 +21,13 @@ export class ReferenceComponent implements OnInit {
   public refComponentId;
   public refWorkflowInstanceId;
 
-  public componentVersion: ComponentVersion;
+  public sourceComponentVersion: ComponentVersion;
+
+  public selectedTargetComponentVersion: ComponentVersion;
 
   public refComponentVersions: ComponentVersion[];
+
+
 
   @Output()
   public update = new EventEmitter<ComponentUpdate>();
@@ -36,13 +40,14 @@ export class ReferenceComponent implements OnInit {
   ngOnInit(): void {
     // retrieve all version
 
-    this.componentService.findVersion(this.componentId, this.workflowInstanceId).subscribe(v => this.componentVersion = v);
+    this.componentService.findVersion(this.componentId, this.workflowInstanceId).subscribe(v => this.sourceComponentVersion = v);
     this.componentService.findVersions(this.refComponentId).subscribe(v => this.refComponentVersions = v);
   }
 
 
-  fetchContent(workflowInstanceId) {
-    this.componentService.getContent(this.refComponentId, workflowInstanceId).subscribe(c => this.content = c);
+  fetchContent(selectedTargetComponentVersion) {
+    //this.componentService.getContent(this.refComponentId, workflowInstanceId).subscribe(c => this.content = c);
+    this.selectedTargetComponentVersion = selectedTargetComponentVersion;
   }
 
   updateReference(targetComponentId, targetWorkflowInstanceId){

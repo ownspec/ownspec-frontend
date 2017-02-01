@@ -44,8 +44,7 @@ export class SideNavComponent implements OnInit {
 
   constructor(private state: StateService,
               private sharedService: SharedService,
-              private userService: UserService,
-              private activeUser: User) { //todo search why it doesn't work when not in the constructor
+              private userService: UserService) { //todo search why it doesn't work when not in the constructor
 
     this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
       this.stateIsInAProject = stateIsInAProject;

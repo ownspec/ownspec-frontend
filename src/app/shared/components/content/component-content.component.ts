@@ -26,7 +26,6 @@ export class ComponentContentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     if (!this.isResource) {
       this.componentService.getContent(this.componentVersion.id, this.componentVersion.workflowInstance.id).subscribe(c => this.content = c);
     }else{
@@ -35,7 +34,7 @@ export class ComponentContentComponent implements OnInit {
 
 
   get isResource(): boolean {
-    return this.componentVersion.type == "resource";
+    return this.componentVersion.type == "RESOURCE";
   }
 
   get url(){

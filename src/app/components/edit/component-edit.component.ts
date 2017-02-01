@@ -71,22 +71,22 @@ export class ComponentEditComponent implements OnInit {
     if (!this.create) {
       this.componentService.findOne(this.id, true, false, false, true).subscribe(r => {
         this.component = r;
-
-
       });
+      this.referenceService.findAll().subscribe(r => {
+        this.references = r;
+      });
+      this.componentService.findVersions(this.id).subscribe(v => {
+        this.selectedAvailableComponentVersions = v[v.length-1];
+        this.availableComponentVersions = v;
+        this.fetchComponentVersion(this.selectedAvailableComponentVersions);
+      });
+
     } else {
       this.component = new Component("", "", this.projectId, this.componentType);
     }
 
-    this.referenceService.findAll().subscribe(r => {
-      this.references = r;
-    });
 
-    this.componentService.findVersions(this.id).subscribe(v => {
-      this.selectedAvailableComponentVersions = v[v.length-1];
-      this.availableComponentVersions = v;
-      this.fetchComponentVersion(this.selectedAvailableComponentVersions);
-    });
+
   }
 
   public onChangeComponentVersion(cv) {
