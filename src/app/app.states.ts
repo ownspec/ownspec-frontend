@@ -10,6 +10,7 @@ import {EmptyContent} from "./shared/empty-content/empty-content";
 import {SideNavComponent} from "./sidenav/sidenav.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {ResourcesListComponent} from "./resources/list/resouces-list.component";
+import {AdministrationComponent} from "./administration/administration.component";
 
 /** The top level state(s) */
 export let MAIN_STATES: Ng2StateDeclaration[] = [
@@ -55,6 +56,13 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
     }
   },
 
+  {
+    name: "app.home.administration",
+    url: '/administration',
+    views: {
+      "main@app": {component: AdministrationComponent},
+    }
+  },
 
   /**
    * Projects
