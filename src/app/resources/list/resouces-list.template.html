@@ -20,19 +20,25 @@
   <div style="display: inline-flex">
 
     <md-card *ngFor="let component of components" style="margin: 5px">
-      <md-card-subtitle>{{component.title}}</md-card-subtitle>
+      <md-card-header>
+        <md-card-title>
+          <h6>{{component.title}}</h6>
+        </md-card-title>
+        <md-card-subtitle>
+          <h6 style="font-size: 0.7rem;">Created {{component.createdDate | amTimeAgo }}</h6>
+        </md-card-subtitle>
+      </md-card-header>
       <md-card-content>
-        <img [src]="getContentUrl(component)" style="max-width: 152px;max-height: 113px"/>
+        <img [src]="getContentUrl(component)" style="max-width: 152px;max-height: 183px"/>
       </md-card-content>
       <md-card-actions>
-        <a tooltipPlacement="bottom" md-tooltip="Delete component" tooltip-position="above" tooltipClass="foobar"
-           class="table-actions" role="button">
+        <button type="button" class="btn btn-outline-danger btn-tiny" tooltipPlacement="bottom" md-tooltip="Delete component" tooltip-position="above" tooltipClass="foobar">
           <i class="fa fa-trash" aria-hidden="true"></i>
-        </a>
-        <a uiSref=".component-edit" [uiParams]="{ componentId: component.id }" md-tooltip="Edit component"
-           role="button">
+        </button>
+
+        <button type="button" class="btn btn-outline-primary btn-tiny" uiSref=".component-edit" [uiParams]="{ componentId: component.id }" md-tooltip="Edit component">
           <i class="fa fa-pencil" aria-hidden="true"></i>
-        </a>
+        </button>
       </md-card-actions>
     </md-card>
 

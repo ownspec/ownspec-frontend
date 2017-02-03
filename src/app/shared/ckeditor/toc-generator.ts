@@ -1,3 +1,6 @@
+import * as _ from "lodash";
+import * as jQuery from "jquery";
+
 export class TocGenerator {
 
   private counter: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -43,7 +46,7 @@ export class TocGenerator {
       let number = this.generateNumber(level + 1);
       let id = number.replace(/\./g , "_");
 
-      $(this.root).find("#" + id).removeAttr("id");
+      jQuery(this.root).find("#" + id).removeAttr("id");
 
       current.setAttribute("id" , id);
 

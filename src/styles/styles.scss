@@ -343,7 +343,7 @@ Datatable
 
 */
 .datatable-header {
-  background: #b5b5b5;
+  background: #d4d4d4;
 }
 
 .datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
@@ -594,4 +594,14 @@ Datatable
   left: 0;
   top: 0;
   margin-left: 0px;
+}
+
+
+
+
+
+
+.btn-tiny {
+  // line-height: ensure proper height of button next to small input
+  @include button-size(0.10rem, 0.25rem, 1rem, $btn-border-radius-sm);
 }

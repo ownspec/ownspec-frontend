@@ -1,6 +1,6 @@
 <div>
 
-  <img *ngIf="isResource" [src]="url">
+  <img *ngIf="isResource" [src]="url" style="max-width: 400px">
 
   <div *ngIf="!isResource" [innerHtml]="content">
   </div>
