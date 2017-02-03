@@ -1,6 +1,6 @@
 
-import {Change} from "./change";
-import {Status} from "./status";
+import {Change} from "../change";
+import {Status} from "../status";
 
 export class WorkflowStatus {
 

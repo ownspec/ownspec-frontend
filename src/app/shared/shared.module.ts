@@ -1,12 +1,10 @@
-import {NgModule, ApplicationRef} from "@angular/core";
+import {NgModule} from "@angular/core";
 import {ComponentService} from "./service/component/component.service";
 import {ReferenceService} from "./service/reference.service";
 import {WorkflowComponent} from "./workflow/workflow.component";
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {Ng2BootstrapModule} from "ng2-bootstrap";
-import {ProfilService} from "./users/profil.service";
-import {UserService} from "./users/user.service";
 import {BrowserModule} from "@angular/platform-browser";
 import {CommentsComponent} from "./comment/comments.component";
 import {MomentModule} from "angular2-moment";
@@ -24,6 +22,8 @@ import {TagService} from "./service/component/tag.service";
 import {ReferenceComponent} from "./reference/reference.component";
 import {LinkService} from "./service/link.service";
 import {ComponentContentComponent} from "./components/content/component-content.component";
+import {UserService} from "./service/user/user.service";
+import {ProfileService} from "./service/user/profil.service";
 
 
 @NgModule({
@@ -68,7 +68,7 @@ import {ComponentContentComponent} from "./components/content/component-content.
     ComponentService,
     ReferenceService,
     UserService,
-    ProfilService,
+    ProfileService,
     ProjectService,
     SharedService,
     TagService,

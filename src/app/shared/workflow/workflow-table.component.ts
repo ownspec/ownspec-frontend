@@ -2,13 +2,11 @@
 
 
 import {Component as C, Input, OnInit, Output, EventEmitter, NgZone, ViewChild} from "@angular/core";
-
-import {Observable} from "rxjs";
 import {ComponentService} from "../service/component/component.service";
-import {ProfilService} from "../users/profil.service";
-import {Component} from "../service/component/component";
-import {Change} from "../service/component/change";
+import {Component} from "../model/component/component";
+import {Change} from "../model/component/change";
 import {ComponentVersion} from "../service/component/component-version";
+import {ProfileService} from "../service/user/profil.service";
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from
@@ -47,13 +45,13 @@ export class WorkflowTableComponent implements OnInit {
 
   @ViewChild('myTable') table: any;
 
-  public constructor(private zone: NgZone, private componentService: ComponentService, private profilService: ProfilService) {
+  public constructor(private zone: NgZone, private componentService: ComponentService, private profileService: ProfileService) {
   }
 
   ngOnInit(): void {
 
 
-    this.profilService.findCurrentProfile().subscribe(p => {
+    this.profileService.findCurrentProfile().subscribe(p => {
       this.statuses = p.properties.statuses;
     });
 

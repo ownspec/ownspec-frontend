@@ -1,5 +1,5 @@
 import {Component} from "./component";
-import {WorkflowInstance} from "./workflow-instance";
+import {WorkflowInstance} from "./workflow/workflow-instance";
 export class ComponentReference {
   public constructor(public id: string,
                      public source: Component, public sourceWorkflowInstance: WorkflowInstance,

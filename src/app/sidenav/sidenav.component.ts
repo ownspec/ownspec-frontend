@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {SharedService} from "../shared/service/shared.service";
-import {StateService, UIRouterModule} from "ui-router-ng2";
-import {UserService, User} from "../shared/users/user.service";
-import {Router, NavigationStart} from "@angular/router";
+import {StateService} from "ui-router-ng2";
 import {StateSelector} from "ui-router-visualizer";
+import {User} from "../shared/model/user/user";
+import {UserService} from "../shared/service/user/user.service";
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -22,7 +22,7 @@ export class SideNavComponent implements OnInit {
   private stateIsInAProject = false;
   private activeUser = new User();
 
-  private defaultMenuItems: Array<any> = [
+  public defaultMenuItems: Array<any> = [
     {name: "Dashboard", icon: "fa-tachometer", state: "app.home.dashboard"},
     {name: "Projects", icon: "fa-folder-open-o", state: "app.home.projects"},
     {name: "Requirements", icon: "fa-tasks", state: "app.home.requirements"},
@@ -44,7 +44,7 @@ export class SideNavComponent implements OnInit {
 
   constructor(private state: StateService,
               private sharedService: SharedService,
-              private userService: UserService) { //todo search why it doesn't work when not in the constructor
+              private userService: UserService) {
 
     this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
       this.stateIsInAProject = stateIsInAProject;
@@ -71,7 +71,7 @@ export class SideNavComponent implements OnInit {
 
   }
 
-  goDefaultView() {
+  public goDefaultView() {
     this.state.go(this.defaultMenuItems[0].state);
   }
 

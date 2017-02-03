@@ -1,9 +1,10 @@
 "use strict";
 import {Component as C, OnInit} from "@angular/core";
 import {SharedService} from "../shared/service/shared.service";
-import {ProjectService, Project} from "../shared/service/project.service";
+import {ProjectService} from "../shared/service/project.service";
 import {ComponentService} from "../shared/service/component/component.service";
-import {Component} from "../shared/service/component/component";
+import {Component} from "../shared/model/component/component";
+import {Project} from "../shared/model/project";
 
 require("chart.js/src/chart.js");
 

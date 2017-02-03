@@ -1,9 +1,7 @@
-import {WorkflowInstance} from "./workflow-instance";
-import {ComponentReference} from "./component-reference";
-import {WorkflowStatus} from "./workflow-status";
-import {Comment} from "./comment";
-import {User} from "../../users/user.service";
-import {EstimatedTime} from "./estimated-time";
+import {WorkflowInstance} from "../../model/component/workflow/workflow-instance";
+import {ComponentReference} from "../../model/component/component-reference";
+import {EstimatedTime} from "../../model/component/estimated-time";
+import {User} from "../../model/user/user";
 
 export class ComponentVersion {
   public content: string;

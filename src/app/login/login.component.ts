@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {StateService} from "ui-router-ng2";
-import {UserService} from "../shared/users/user.service";
+import {UserService} from "../shared/service/user/user.service";
+import {SideNavComponent} from "../sidenav/sidenav.component";
 
 @Component({
   selector: "login",

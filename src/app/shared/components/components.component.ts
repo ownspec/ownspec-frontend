@@ -1,15 +1,13 @@
 "use strict";
 
 
-import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angular/core";
-
-import {Observable} from "rxjs";
+import {Component as C, Input, OnInit, Output, EventEmitter} from "@angular/core";
 import {ComponentService} from "../service/component/component.service";
-import {ProfilService} from "../users/profil.service";
-import {Component} from "../service/component/component";
+import {ProfilService} from "../service/users/profil.service";
+import {Component} from "../model/component/component";
 import {TagService} from "../service/component/tag.service";
-import {Tag} from "../service/component/tag";
 import * as _ from "lodash";
+import {ProfileService} from "../service/user/profil.service";
 
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
@@ -47,7 +45,7 @@ export class ComponentsComponent implements OnInit {
   public displayMode: "tree"|"list" = "list";
 
 
-  public constructor(private componentService: ComponentService, private profilService: ProfilService, private tagService: TagService) {
+  public constructor(private componentService: ComponentService, private profileService: ProfileService, private tagService: TagService) {
   }
 
   ngOnInit(): void {

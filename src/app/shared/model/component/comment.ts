@@ -1,5 +1,5 @@
-import {User} from "../../users/user.service";
 
+import {User} from "../user/user";
 export class Comment {
   public constructor(public id: string, public value: string, public createdDate: Date, public createdUser: User) {
 

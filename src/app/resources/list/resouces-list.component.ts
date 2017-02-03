@@ -4,7 +4,7 @@
 import {ComponentService} from "../../shared/service/component/component.service";
 import {StateService, StateParams} from "ui-router-ng2";
 import {Component as C, OnInit, Input, ApplicationRef} from "@angular/core";
-import {Component} from "../../shared/service/component/component";
+import {Component} from "../../shared/model/component/component";
 import {MdDialog} from "@angular/material";
 import {ResourceCreateComponent} from "../create/resource-create.component";
 

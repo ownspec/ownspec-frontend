@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ComponentUpdate, ComponentWriteComponent} from "./component-write.component";
-import {Component} from "../../shared/service/component/component";
+import {Component} from "../../shared/model/component/component";
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise

@@ -3,8 +3,8 @@
 
 import {ComponentService} from "../../shared/service/component/component.service";
 import {StateService, StateParams} from "ui-router-ng2";
-import {Component as C, ChangeDetectorRef, OnInit, Input, forwardRef, OpaqueToken, ApplicationRef} from "@angular/core";
-import {Component} from "../../shared/service/component/component";
+import {Component as C, OnInit, Input, ApplicationRef} from "@angular/core";
+import {Component} from "../../shared/model/component/component";
 
 
 /*

@@ -1,6 +1,8 @@
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
+import {User} from "../../model/user/user";
+import {UserCategory} from "../../model/user/user-category";
 
 @Injectable()
 export class UserService {
@@ -35,53 +37,34 @@ export class UserService {
         )
   }
 
-  public getSettings() {
-
-  }
-
-  public getProfile() {
-
-  }
-
   public findAll(): Observable<User[]> {
     return this.http.get("/api/users")
         .flatMap(r => r.json())
         .map(item => User.fromJson(item))
         .toArray();
   }
-}
 
-
-export class User {
-  public fullName: string;
-  public username: string;
-  public email: string;
-  public firstName: string;
-  public lastName: string;
-  public role: string;
-
-  public constructor() {
+  public save(user: User): Observable<any> {
+    return this.http.post("/api/users/" + user.id, User.toJson(user));
   }
 
-
-  public static fromJson(json: any): User {
-    let user: User = new User();
-    user.username = json.username;
-    user.email = json.email;
-    user.firstName = json.firstName;
-    user.lastName = json.lastName;
-    user.fullName = user.firstName + " " + user.lastName;
-    user.role = json.role;
-    return user;
+  public delete(user: User): Observable<any> {
+    return this.http.delete("/api/users/" + user.id, {});
   }
 
-  public static toJson(user: User): any {
-    return {
-      username: user.username,
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      role: user.role
-    };
+  public findAllUserCategories(): Observable<UserCategory[]> {
+    return this.http.get("/api/users/categories")
+        .flatMap(r => r.json())
+        .map(item => UserCategory.fromJson(item))
+        .toArray();
+  }
+
+  public saveUserCategory(uc: UserCategory): Observable<any> {
+    return this.http.post("/api/users/categories/" + uc.id, UserCategory.toJson(uc));
+  }
+
+  public removeUserCategory(uc: UserCategory): Observable<any> {
+    return this.http.delete("/api/users/categories/" + uc.id);
   }
 }
+

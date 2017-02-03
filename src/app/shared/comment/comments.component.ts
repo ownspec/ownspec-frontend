@@ -1,13 +1,11 @@
 "use strict";
 
 
-import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angular/core";
-
-import {Observable} from "rxjs";
+import {Component as C, Input, OnInit, Output, EventEmitter} from "@angular/core";
 import {ComponentService} from "../service/component/component.service";
-import {ProfilService} from "../users/profil.service";
 import {ComponentUpdate} from "../../components/write/component-write.component";
-import {Component} from "../service/component/component";
+import {Component} from "../model/component/component";
+import {ProfileService} from "../service/user/profil.service";
 
 @C({
   selector: 'comments',
@@ -25,7 +23,7 @@ export class CommentsComponent implements OnInit {
   public comment: string;
 
 
-  public constructor(private componentService: ComponentService, private profilService: ProfilService) {
+  public constructor(private componentService: ComponentService, private profileService: ProfileService) {
   }
 
   ngOnInit(): void {

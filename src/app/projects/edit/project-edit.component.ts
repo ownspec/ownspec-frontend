@@ -2,10 +2,12 @@
 import {StateService} from "ui-router-ng2";
 import {Input, OnInit, Component} from "@angular/core";
 import {Observable} from "rxjs";
-import {Project, ProjectService} from "../../shared/service/project.service";
+import {ProjectService} from "../../shared/service/project.service";
 import {CompleterData, CompleterService, CompleterItem} from "ng2-completer";
-import {UserService, User} from "../../shared/users/user.service";
+import {UserService} from "../../shared/service/user/user.service";
 import {MdDialog, MdSnackBar} from "@angular/material";
+import {Project} from "../../shared/model/project";
+import {User} from "../../shared/model/user/user";
 
 @Component({
   selector: 'project-edit',
@@ -58,8 +60,9 @@ export class ProjectEditComponent implements OnInit {
 
     obs.subscribe(r => {
       this.$state.go("^", null, {reload: true});
-      this.snackBar.open("Project successfully " + this.create ? "created" : "updated", "Close");
-    }, e =>{
+      let status = this.create ? "created" : "updated";
+      this.snackBar.open("Project successfully " + status, "Close");
+    }, e => {
       this.snackBar.open("Error when trying to create/update project", "Close");
     });
   }
@@ -73,7 +76,11 @@ export class ProjectEditComponent implements OnInit {
   }
 
   public removeUserFromProject(user: User) {
-    this.projectService.removeUserFromProject(this.project, user);
+    this.projectService.removeUserFromProject(this.project, user).subscribe(() => {
+      this.snackBar.open("User successfully removed from project");
+    }, () => {
+      this.snackBar.open("Failed to remove user from project");
+    });
     this.project.projectUsers.splice(this.project.projectUsers.indexOf(user));
   }
 
@@ -85,11 +92,11 @@ export class ProjectEditComponent implements OnInit {
 
 @Component({
   selector: 'update-picture-dialog',
-/*  styles: [
-    `img {
-      max-width: 100%;
-    }`
-  ],*/
+  /*  styles: [
+   `img {
+   max-width: 100%;
+   }`
+   ],*/
   template: `
     <h2 md-dialog-title>Project picture</h2>
     <md-dialog-content>

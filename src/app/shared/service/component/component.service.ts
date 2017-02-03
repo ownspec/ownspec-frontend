@@ -1,11 +1,11 @@
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams} from "@angular/http";
-import {Component} from "./component";
+import {Component} from "../../model/component/component";
 import {StateService} from "ui-router-ng2";
-import {WorkflowInstance} from "./workflow-instance";
+import {WorkflowInstance} from "../../model/component/workflow/workflow-instance";
 import {ComponentVersion} from "./component-version";
-import {ComponentReference} from "./component-reference";
+import {ComponentReference} from "../../model/component/component-reference";
 
 @Injectable()
 export class ComponentService {

@@ -1,4 +1,4 @@
-import {UserCategory} from "../../users/user-category";
+import {UserCategory} from "../user/user-category";
 
 export class EstimatedTime {
 
@@ -7,7 +7,9 @@ export class EstimatedTime {
   }
 
   public static fromMap(item: any): EstimatedTime {
-    return new EstimatedTime(new UserCategory(item.userCategory.category), item.time, item.timeUnit);
+    let userCategory = new UserCategory();
+    userCategory.name = item.userCategory.name;
+    return new EstimatedTime(userCategory, item.time, item.timeUnit);
   }
 
   public static toJson(estimatedTime: EstimatedTime): any {

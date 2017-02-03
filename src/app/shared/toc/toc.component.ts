@@ -5,9 +5,9 @@ import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angu
 
 import {Observable} from "rxjs";
 import {ComponentService} from "../service/component/component.service";
-import {ProfilService} from "../users/profil.service";
+import {ProfilService} from "../service/users/profil.service";
 import {ComponentUpdate} from "../../components/write/component-write.component";
-import {Component} from "../service/component/component";
+import {Component} from "../model/component/component";
 import {TocItem} from "../ckeditor/toc-generator";
 
 @C({
