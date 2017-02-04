@@ -46,6 +46,7 @@ require("../assets/js/ckeditor/ckeditor.js");
 require("hammerjs");
 
 import '../styles/styles.scss';
+import {Globals} from "./shared/globals";
 
 
 // TODO: temporary until https://github.com/angular/material2/issues/1457
@@ -79,8 +80,7 @@ export class AppGestureConfig extends HammerGestureConfig {
 
     LoginComponent,
 
-    CompleterCmpMd
-
+    CompleterCmpMd,
 
   ],
 
@@ -116,6 +116,8 @@ export class AppGestureConfig extends HammerGestureConfig {
   providers: [ // expose our Services and Providers into Angular's dependency injection
 
     BrowserDomAdapter,
+    Globals,
+
 
     {
       provide: Http,

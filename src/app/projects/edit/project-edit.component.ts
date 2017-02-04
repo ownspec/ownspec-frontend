@@ -8,6 +8,7 @@ import {UserService} from "../../shared/service/user/user.service";
 import {MdDialog, MdSnackBar} from "@angular/material";
 import {Project} from "../../shared/model/project";
 import {User} from "../../shared/model/user/user";
+import {Globals} from "../../shared/globals";
 
 @Component({
   selector: 'project-edit',
@@ -78,9 +79,9 @@ export class ProjectEditComponent implements OnInit {
   public removeUserFromProject(user: User) {
     if (!this.create) {
       this.projectService.removeUserFromProject(this.project, user).subscribe(() => {
-        this.snackBar.open("User successfully removed from project");
+        this.snackBar.open("User successfully removed from project", "Undo", {duration: Globals.SNACK_BAR_DURATION});
       }, () => {
-        this.snackBar.open("Failed to remove user from project");
+        this.snackBar.open("Failed to remove user from project", "", {duration: Globals.SNACK_BAR_DURATION});
 
       });
     }
