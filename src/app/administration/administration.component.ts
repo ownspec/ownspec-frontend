@@ -5,7 +5,7 @@ import {Company} from "../shared/model/company";
 import {UserCategory} from "../shared/model/user/user-category";
 import {UserService} from "../shared/service/user/user.service";
 import {CompanyService} from "../shared/service/company.service";
-import {MdSnackBar} from "@angular/material";
+import {MdSnackBar, MdDialog} from "@angular/material";
 import {Globals} from "../shared/globals";
 
 @Component({
@@ -19,10 +19,12 @@ export class AdministrationComponent implements OnInit {
   private users: User[] = [];
   private userCategories: UserCategory[] = [];
   private company: Company = new Company();
+  private searchInput = "";
 
   public constructor(private userService: UserService,
                      private companyService: CompanyService,
-                     private snackBar: MdSnackBar) {
+                     private snackBar: MdSnackBar,
+                     private dialog: MdDialog) {
   }
 
   ngOnInit(): void {
@@ -53,19 +55,18 @@ export class AdministrationComponent implements OnInit {
   }
 
 
-  edit(user:User){
+  edit(user: User) {
+  }
+
+  resetPassword(user: User) {
 
   }
 
-  resetPassword(user:User){
+  disable(user: User) {
 
   }
 
-  disable(user:User){
-
-  }
-
-  remove(user:User){
+  remove(user: User) {
 
   }
 }
