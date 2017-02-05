@@ -1,0 +1,80 @@
+<div fxLayout="column" style="width: 100%">
+  <div fxLayout="row" style="height: 100%;">
+    <div fxFlex="15"><a role="button"><img md-card-avatar src="assets/img/avatar_m.png"></a></div>
+    <div fxFlex="85">
+      <div fxLayout="column" style="width: 100%">
+        <md-input-container fxFlex>
+          <input md-input placeholder="Username" [disabled]="!create" type="text" [(ngModel)]="user.username">
+        </md-input-container>
+
+        <md-input-container fxFlex>
+          <input md-input placeholder="First Name" type="text" [(ngModel)]="user.firstName">
+        </md-input-container>
+
+        <md-input-container fxFlex>
+          <input md-input placeholder="Last Name" type="text" [(ngModel)]="user.lastName">
+        </md-input-container>
+
+        <md-input-container fxFlex>
+          <input md-input placeholder="Email" type="email" [(ngModel)]="user.email">
+        </md-input-container>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row">
+    <div fxFlex="50" style="padding: 5px">
+      <md-input-container>
+        <input md-input placeholder="Phone" type="tel" [(ngModel)]="user.phone">
+      </md-input-container>
+    </div>
+    <div fxFlex="50" style="padding: 5px">
+      <md-input-container>
+        <input md-input placeholder="Mobile" type="tel" [(ngModel)]="user.mobile">
+      </md-input-container>
+    </div>
+  </div>
+
+  <div fxLayout="row">
+    <md-select fxFlex="50" style="padding: 5px" placeholder="Role" type="">
+      <md-option>ADMIN</md-option>
+      <md-option>USER</md-option>
+    </md-select>
+    <md-select fxFlex="50" style="padding: 5px" placeholder="Category" type="">
+      <md-option>Category 1</md-option>
+      <md-option>Category 2</md-option>
+    </md-select>
+  </div>
+
+
+  <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 10px">
+    <div fxFlex>
+      <button md-button>SAVE</button>
+    </div>
+    <div fxFlex>
+      <button md-button>CANCEL</button>
+    </div>
+  </div>
+</div>
+
+
+<!--private String company;-->
+<!--private String signature;-->
+
+<!--private Instant lastConnection;-->
+
+<!--@CreatedDate-->
+<!--protected Instant createdDate;-->
+<!--@ManyToOne-->
+<!--@CreatedBy-->
+<!--protected User createdUser;-->
+<!--@LastModifiedDate-->
+<!--protected Instant lastModifiedDate;-->
+<!--@ManyToOne-->
+<!--@LastModifiedBy-->
+<!--protected User lastModifiedUser;-->
+
+<!--@Embedded-->
+<!--private UserPreference preference;-->
+
+<!--@ManyToOne-->
+<!--private UserCategory category;-->

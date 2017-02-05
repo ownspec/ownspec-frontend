@@ -6,8 +6,10 @@ export class User {
   public email: string;
   public firstName: string;
   public lastName: string;
+  public phone: string;
+  public mobile: string;
   public role: string;
-  public category:UserCategory;
+  public category: UserCategory;
 
   public constructor() {
   }
@@ -20,6 +22,8 @@ export class User {
     user.email = json.email;
     user.firstName = json.firstName;
     user.lastName = json.lastName;
+    user.phone= json.phone;
+    user.mobile = json.mobile;
     user.fullName = user.firstName + " " + user.lastName;
     user.role = json.role;
     user.category = UserCategory.fromJson(json.category);

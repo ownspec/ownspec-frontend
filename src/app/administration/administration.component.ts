@@ -5,13 +5,15 @@ import {Company} from "../shared/model/company";
 import {UserCategory} from "../shared/model/user/user-category";
 import {UserService} from "../shared/service/user/user.service";
 import {CompanyService} from "../shared/service/company.service";
-import {MdSnackBar, MdDialog} from "@angular/material";
+import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
 import {Globals} from "../shared/globals";
+import {UserEditDialog} from "./user-edit/user-edit.component";
 
 @Component({
   selector: 'administration',
   templateUrl: './administration.template.html',
-  styleUrls: ['./administration.component.scss']
+  styleUrls: ['./administration.component.scss'],
+  entryComponents: [UserEditDialog]
 })
 export class AdministrationComponent implements OnInit {
 
@@ -56,6 +58,8 @@ export class AdministrationComponent implements OnInit {
 
 
   edit(user: User) {
+    let dialogRef: MdDialogRef<UserEditDialog> = this.dialog.open(UserEditDialog);
+    dialogRef.componentInstance.user = user;
   }
 
   resetPassword(user: User) {

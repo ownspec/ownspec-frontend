@@ -7,9 +7,7 @@ export class EstimatedTime {
   }
 
   public static fromMap(item: any): EstimatedTime {
-    let userCategory = new UserCategory();
-    userCategory.name = item.userCategory.name;
-    return new EstimatedTime(userCategory, item.time, item.timeUnit);
+    return new EstimatedTime(UserCategory.fromJson(item.userCategory), item.time, item.timeUnit);
   }
 
   public static toJson(estimatedTime: EstimatedTime): any {
