@@ -6,19 +6,24 @@
 
 
 <div fxLayout="column" fxFlex>
-  <md-tab-group>
+  <md-tab-group md-stretch-tabs>
+
+    <!-- USERS -->
     <md-tab>
       <template md-tab-label>
-        <i class="fa fa-user-o" aria-hidden="true"></i> Users
+        <div fxLayout="column" fxLayoutAlign="center center" class="admin-tab-label">
+          <i class="fa fa-user-o" aria-hidden="true"></i>
+          <h6>Users</h6>
+        </div>
       </template>
       <div fxLayout="row" fxLayoutWrap style="overflow: auto;width: 100%;">
         <div *ngFor="let user of users" fxFlex="33" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
           <md-card fxLayout="row">
             <md-card-header fxFlex>
               <img md-card-avatar src="assets/img/avatar_m.png">
-              <md-card-title>
+              <md-card-title style="height: 20px;overflow: hidden; word-break: break-all;">
                 <a (click)="edit(user)" role="button">
-                  <h5 style="text-wrap: avoid">{{user.fullName}}</h5>
+                  <h5 style="overflow: hidden; text-overflow: ellipsis;">{{user.fullName}}</h5>
                 </a>
               </md-card-title>
               <md-card-subtitle>
@@ -31,10 +36,10 @@
                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
               </button>
               <md-menu #userCardMenu="mdMenu">
-                <button md-menu-item><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                <button md-menu-item><i class="fa fa-ban" aria-hidden="true"></i> Reset password</button>
-                <button md-menu-item><i class="fa fa-ban" aria-hidden="true"></i> Disable</button>
-                <button md-menu-item><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                <button md-menu-item (click)="edit(user)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                <button md-menu-item (click)="resetPassword(user)"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Reset password</button>
+                <button md-menu-item (click)="disable(user)"><i class="fa fa-ban" aria-hidden="true"></i> Disable</button>
+                <button md-menu-item (click)="remove(user)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
               </md-menu>
             </div>
           </md-card>
@@ -43,16 +48,32 @@
       </div>
     </md-tab>
 
+    <!-- USER CATEGORIES -->
     <md-tab>
-      <template md-tab-label><i class="fa fa-object-group" aria-hidden="true"></i> User Categories</template>
+      <template md-tab-label>
+        <div fxLayout="column" fxLayoutAlign="center center" class="admin-tab-label">
+          <i class="fa fa-object-group" aria-hidden="true"></i>
+          <h6>User Categories</h6>
+        </div>
+      </template>
     </md-tab>
 
     <md-tab>
-      <template md-tab-label><i class="fa fa-users" aria-hidden="true"></i> User Groups</template>
+      <template md-tab-label>
+        <div fxLayout="column" fxLayoutAlign="center center" class="admin-tab-label">
+          <i class="fa fa-users" aria-hidden="true"></i>
+          <h6>User Groups</h6>
+        </div>
+      </template>
     </md-tab>
 
     <md-tab>
-      <template md-tab-label><i class="fa fa-building-o" aria-hidden="true"></i> Company</template>
+      <template md-tab-label>
+        <div fxLayout="column" fxLayoutAlign="center center" class="admin-tab-label">
+          <i class="fa fa-building-o" aria-hidden="true"></i>
+          <h6>Company</h6>
+        </div>
+      </template>
     </md-tab>
   </md-tab-group>
 </div>

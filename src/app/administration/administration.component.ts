@@ -52,4 +52,20 @@ export class AdministrationComponent implements OnInit {
     })
   }
 
+
+  edit(user:User){
+
+  }
+
+  resetPassword(user:User){
+
+  }
+
+  disable(user:User){
+
+  }
+
+  remove(user:User){
+
+  }
 }
