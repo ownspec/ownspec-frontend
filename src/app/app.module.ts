@@ -47,6 +47,7 @@ require("hammerjs");
 
 import '../styles/styles.scss';
 import {Globals} from "./shared/globals";
+import {AdministrationComponent} from "./administration/administration.component";
 
 
 // TODO: temporary until https://github.com/angular/material2/issues/1457
@@ -69,6 +70,7 @@ export class AppGestureConfig extends HammerGestureConfig {
     ComponentEditComponent,
     ComponentWriteComponent,
     DashboardComponent,
+    AdministrationComponent,
 
 
     ResourceCreateComponent,
@@ -80,7 +82,7 @@ export class AppGestureConfig extends HammerGestureConfig {
 
     LoginComponent,
 
-    CompleterCmpMd,
+    CompleterCmpMd
 
   ],
 

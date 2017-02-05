@@ -6,6 +6,7 @@ import {UserCategory} from "../shared/model/user/user-category";
 import {UserService} from "../shared/service/user/user.service";
 import {CompanyService} from "../shared/service/company.service";
 import {MdSnackBar} from "@angular/material";
+import {Globals} from "../shared/globals";
 
 @Component({
   selector: 'administration',
@@ -47,7 +48,7 @@ export class AdministrationComponent implements OnInit {
     this.companyService.getCurrent().subscribe(r => {
       this.company = r;
     }, e => {
-      this.snackBar.open("Failed to get current company settings");
+      this.snackBar.open("Failed to get current company settings", "Signal", {duration: Globals.SNACK_BAR_DURATION});
     })
   }
 

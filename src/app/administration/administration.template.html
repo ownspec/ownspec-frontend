@@ -1,10 +1,58 @@
-<div fxLayout="column" fxFlex fxLayoutAlign="start center">
-<md-tab-group>
-  <md-tab label="User">
-  </md-tab>
-  <md-tab label="User Category">
-  </md-tab>
-  <md-tab label="Company">
-  </md-tab>
-</md-tab-group>
+<main-header>
+  <div class="main-header-title">Administration</div>
+  <div class="main-header-content" style="display: flex">
+  </div>
+</main-header>
+
+
+<div fxLayout="column" fxFlex>
+  <md-tab-group>
+    <md-tab>
+      <template md-tab-label>
+        <i class="fa fa-user-o" aria-hidden="true"></i> Users
+      </template>
+      <div fxLayout="row" fxLayoutWrap style="overflow: auto;width: 100%;">
+        <div *ngFor="let user of users" fxFlex="33" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
+          <md-card fxLayout="row">
+            <md-card-header fxFlex>
+              <img md-card-avatar src="assets/img/avatar_m.png">
+              <md-card-title>
+                <a (click)="edit(user)" role="button">
+                  <h5 style="text-wrap: avoid">{{user.fullName}}</h5>
+                </a>
+              </md-card-title>
+              <md-card-subtitle>
+                <h6 style="font-size: 0.9rem;">{{user.email}}</h6>
+                <h6 style="font-size: 0.8rem;">{{user.category.name}} ({{user.role}})</h6>
+              </md-card-subtitle>
+            </md-card-header>
+            <div fxFlex="10%">
+              <button md-icon-button [mdMenuTriggerFor]="userCardMenu">
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+              </button>
+              <md-menu #userCardMenu="mdMenu">
+                <button md-menu-item><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                <button md-menu-item><i class="fa fa-ban" aria-hidden="true"></i> Reset password</button>
+                <button md-menu-item><i class="fa fa-ban" aria-hidden="true"></i> Disable</button>
+                <button md-menu-item><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+              </md-menu>
+            </div>
+          </md-card>
+        </div>
+
+      </div>
+    </md-tab>
+
+    <md-tab>
+      <template md-tab-label><i class="fa fa-object-group" aria-hidden="true"></i> User Categories</template>
+    </md-tab>
+
+    <md-tab>
+      <template md-tab-label><i class="fa fa-users" aria-hidden="true"></i> User Groups</template>
+    </md-tab>
+
+    <md-tab>
+      <template md-tab-label><i class="fa fa-building-o" aria-hidden="true"></i> Company</template>
+    </md-tab>
+  </md-tab-group>
 </div>

@@ -24,7 +24,6 @@ import {LinkService} from "./service/link.service";
 import {ComponentContentComponent} from "./components/content/component-content.component";
 import {UserService} from "./service/user/user.service";
 import {ProfileService} from "./service/user/profil.service";
-import {AdministrationComponent} from "../administration/administration.component";
 import {CompanyService} from "./service/company.service";
 
 
@@ -64,8 +63,7 @@ import {CompanyService} from "./service/company.service";
     EmptyContent,
     TocComponent,
     ComponentContentComponent,
-    HighlightDirective,
-    AdministrationComponent
+    HighlightDirective
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ComponentService,

@@ -1,3 +1,4 @@
+import {UserCategory} from "./user-category";
 export class User {
   public id: string;
   public fullName: string;
@@ -6,6 +7,7 @@ export class User {
   public firstName: string;
   public lastName: string;
   public role: string;
+  public category:UserCategory;
 
   public constructor() {
   }
@@ -20,6 +22,7 @@ export class User {
     user.lastName = json.lastName;
     user.fullName = user.firstName + " " + user.lastName;
     user.role = json.role;
+    user.category = UserCategory.fromJson(json.category);
     return user;
   }
 
