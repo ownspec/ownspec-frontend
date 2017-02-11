@@ -7,6 +7,8 @@ export class ComponentVersion {
   public content: string;
   public summary: string;
 
+  public version:string;
+
   public creationDate: Date;
   public lastModifiedDate: Date;
   public createdUser: User;
@@ -37,6 +39,7 @@ export class ComponentVersion {
 
     let c = new ComponentVersion(this.id, this.title, this.projectId, this.type);
 
+    c.version = this.version;
     c.content = this.content;
     c.summary = this.summary;
 
@@ -65,9 +68,11 @@ export class ComponentVersion {
   public static fromMap(item: any): ComponentVersion {
     let component: ComponentVersion = new ComponentVersion(item.id, item.title, item.projectId, item.type);
 
+    component.version = item.version;
+
     component.creationDate = new Date(<string>item.createdDate);
     component.lastModifiedDate = new Date(<string>item.LastModifiedDate);
-    component.createdUser = User.fromJson(item.createdUser);
+    component.createdUser = User.fromMap(item.createdUser);
 
     component.content = item.content;
     component.summary = item.summary;
@@ -92,7 +97,7 @@ export class ComponentVersion {
     }
 
     if (item.assignedTo) {
-      component.assignedTo = User.fromJson(item.assignedTo);
+      component.assignedTo = User.fromMap(item.assignedTo);
     }
 
     if (item.estimatedTimes) {

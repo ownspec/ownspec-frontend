@@ -9,8 +9,7 @@ import {User} from "../model/user/user";
 @Injectable()
 export class ProjectService {
 
-  public constructor(private $http: Http,
-                     private stateService: StateService) {
+  public constructor(private $http: Http) {
   }
 
   public findOne(id: string): Observable<Project> {
@@ -60,7 +59,7 @@ export class ProjectService {
   }
 
   show(projectId: number) {
-    this.stateService.go("app.home.project.dashboard", {projectId: projectId}, {reload: false})
+    //this.stateService.go("app.home.project.dashboard", {projectId: projectId}, {reload: false})
   }
 
   removeUserFromProject(project: Project, user: User): Observable<any> {

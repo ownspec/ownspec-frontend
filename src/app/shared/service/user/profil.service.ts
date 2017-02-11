@@ -13,7 +13,7 @@ export class ProfileService {
     return this.$http.get("/api/users/me/profile")
       .map(r => r.json())
       .map((item: any) => {
-        return new Profile(User.fromJson(item) , item.properties);
+        return new Profile(User.fromMap(item) , item.properties);
       });
   }
 

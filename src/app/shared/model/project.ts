@@ -22,9 +22,9 @@ export class Project {
     project.description = json.description;
     project.createdDate = new Date(<string>json.createdDate);
     project.lastModifiedDate = new Date(<string>json.lastModifiedDate);
-    project.createdUser = User.fromJson(json.createdUser);
-    project.lastModifiedUser = User.fromJson(json.lastModifiedUser);
-    project.manager = User.fromJson(json.manager);
+    project.createdUser = User.fromMap(json.createdUser);
+    project.lastModifiedUser = User.fromMap(json.lastModifiedUser);
+    project.manager = User.fromMap(json.manager);
     project.projectUsers = this.projectUsersFromJson(json);
     return project;
   }
@@ -39,6 +39,6 @@ export class Project {
   }
 
   public static projectUsersFromJson(json: any): User[] {
-    return json.projectUsers.map((item: any) => User.fromJson(item));
+    return json.projectUsers.map((item: any) => User.fromMap(item));
   }
 }

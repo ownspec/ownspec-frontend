@@ -28,7 +28,7 @@ export class ResourcesListComponent implements OnInit {
   public searchBean = {title: null, query:null};
 
 
-  public constructor(public dialog: MdDialog, public appRef: ApplicationRef, private $state: StateService, private $stateParams: StateParams, private componentService: ComponentService) {
+  public constructor(public dialog: MdDialog, public appRef: ApplicationRef, private componentService: ComponentService) {
     this.projectId = null;
   }
 
@@ -44,7 +44,7 @@ export class ResourcesListComponent implements OnInit {
   }
 
   public edit(r: any) {
-    this.$state.go(".resource-edit", {componentId: r.id}, {reload: false});
+    //this.$state.go(".resource-edit", {componentId: r.id}, {reload: false});
   }
 
   public startCreateComponent() {

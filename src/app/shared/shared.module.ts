@@ -25,6 +25,7 @@ import {ComponentContentComponent} from "./components/content/component-content.
 import {UserService} from "./service/user/user.service";
 import {ProfileService} from "./service/user/profil.service";
 import {CompanyService} from "./service/company.service";
+import {ComponentVersionService} from "./service/component/component-versions.service";
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import {CompanyService} from "./service/company.service";
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ComponentService,
+    ComponentVersionService,
     ReferenceService,
     UserService,
     ProfileService,

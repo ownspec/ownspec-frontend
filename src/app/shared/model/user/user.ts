@@ -15,7 +15,7 @@ export class User {
   }
 
 
-  public static fromJson(json: any): User {
+  public static fromMap(json: any): User {
     let user: User = new User();
     user.id = json.id;
     user.username = json.username;
@@ -26,7 +26,10 @@ export class User {
     user.mobile = json.mobile;
     user.fullName = user.firstName + " " + user.lastName;
     user.role = json.role;
-    user.category = UserCategory.fromJson(json.category);
+
+    if (json.category) {
+      user.category = UserCategory.fromJson(json.category);
+    }
     return user;
   }
 

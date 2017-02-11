@@ -23,14 +23,14 @@ export class SideNavComponent implements OnInit {
   private activeUser = new User();
 
   public defaultMenuItems: Array<any> = [
-    {name: "Dashboard", icon: "fa-tachometer", state: "app.home.dashboard"},
-    {name: "Projects", icon: "fa-folder-open-o", state: "app.home.projects"},
-    {name: "Requirements", icon: "fa-tasks", state: "app.home.requirements"},
-    {name: "Components", icon: "fa-plug", state: "app.home.components"},
-    {name: "Templates", icon: "fa-file-text", state: "app.home.templates"},
-    {name: "Resources", icon: "fa-picture-o", state: "app.home.resources"},
-    {name: "Schedule", icon: "fa-calendar", state: "app.home.schedule"},
-    {name: "Administration", icon: "fa-shield", state: "app.home.administration"},
+    {name: "Dashboard", icon: "fa-tachometer", state: "/app/dashboard"},
+    {name: "Projects", icon: "fa-folder-open-o", state: "/app/projects"},
+    {name: "Requirements", icon: "fa-tasks", state: "/app/requirements"},
+    {name: "Components", icon: "fa-plug", state: "/app/components"},
+    {name: "Templates", icon: "fa-file-text", state: "/app/templates"},
+    {name: "Resources", icon: "fa-picture-o", state: "/app/resources"},
+    {name: "Schedule", icon: "fa-calendar", state: "/app/schedule"},
+    {name: "Administration", icon: "fa-shield", state: "/app/administration"},
   ];
 
   private projectMenuItems: Array<any> = [
@@ -42,14 +42,16 @@ export class SideNavComponent implements OnInit {
     {name: "Schedule", icon: "fa-calendar", state: "app.home.project.schedule"}
   ];
 
-  constructor(private state: StateService,
+  constructor(
               private sharedService: SharedService,
               private userService: UserService) {
 
-    this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
+    this.menuItems =  this.defaultMenuItems;
+
+    /*this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
       this.stateIsInAProject = stateIsInAProject;
       this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
-    });
+    });*/
   }
 
   ngOnInit(): void {
@@ -72,7 +74,7 @@ export class SideNavComponent implements OnInit {
   }
 
   public goDefaultView() {
-    this.state.go(this.defaultMenuItems[0].state);
+    //this.state.go(this.defaultMenuItems[0].state);
   }
 
   goSettings() {
@@ -86,7 +88,7 @@ export class SideNavComponent implements OnInit {
   logoutUser() {
     this.userService.logout().subscribe(
         success => {
-          this.state.go("login");
+          //this.state.go("login");
         },
         error => {
           console.error("logout failed:" + error);

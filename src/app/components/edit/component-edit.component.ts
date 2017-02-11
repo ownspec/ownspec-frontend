@@ -12,6 +12,8 @@ import {ComponentReference} from "../../shared/model/component/component-referen
 import {ComponentVersion} from "../../shared/service/component/component-version";
 import {EntityReference, ReferenceService} from "../../shared/service/reference.service";
 import {LinkService} from "../../shared/service/link.service";
+import {ActivatedRoute} from "@angular/router";
+import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
 
 
 @C({
@@ -33,25 +35,16 @@ export class ComponentEditComponent implements OnInit {
   public tagToAdd: string;
 
 
-  public component: Component;
+  public componentVersion: ComponentVersion;
   public create: boolean;
 
   public editorOptions: any;
 
-  public references: Array<EntityReference> = [];
   public userCategories: string[] = ['Analyst', 'Developer', 'Tester'];
 
-  public workflowInstances: WorkflowInstance[] = [];
-  public availableComponentVersions: ComponentVersion[];
-  public selectedAvailableComponentVersions: ComponentVersion;
 
-  public usePoints: ComponentReference[] = [];
-
-
-  public selectedComponentVersion: ComponentVersion;
-
-  public constructor(public dialog: MdDialog, private $state: StateService, private componentService: ComponentService, private referenceService: ReferenceService,
-  private linkService:LinkService) {
+  public constructor(public dialog: MdDialog, private componentService: ComponentService, private referenceService: ReferenceService,
+                     private route: ActivatedRoute, private linkService: LinkService, private componentVersionService:ComponentVersionService) {
     this.editorOptions = {
       height: "200px",
       basePath: '/assets/js/ckeditor/'
@@ -60,6 +53,14 @@ export class ComponentEditComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    console.log(this.route.snapshot);
+
+    if (this.route.snapshot.data) {
+      this.id = this.route.snapshot.params['id'];
+      this.projectId = this.route.snapshot.data['projectId'];
+    }
+
     this.create = this.id == '_new';
 
     this.fetch();
@@ -68,37 +69,16 @@ export class ComponentEditComponent implements OnInit {
 
   private fetch() {
     if (!this.create) {
-      this.componentService.findOne(this.id, true, false, false, true).subscribe(r => {
-        this.component = r;
-      });
-      this.referenceService.findAll().subscribe(r => {
-        this.references = r;
-      });
-      this.componentService.findVersions(this.id).subscribe(v => {
-        this.selectedAvailableComponentVersions = v[v.length-1];
-        this.availableComponentVersions = v;
-        this.fetchComponentVersion(this.selectedAvailableComponentVersions);
+      this.componentVersionService.findOne(this.id, true, false, false, true).subscribe(r => {
+        this.componentVersion = r;
       });
 
     } else {
-      this.component = new Component("", "", this.projectId, this.componentType);
+      //this.componentVersion = new Component("", "", this.projectId, this.componentType);
     }
 
 
-
   }
-
-  public onChangeComponentVersion(cv) {
-    this.fetchComponentVersion(cv);
-  }
-
-  public fetchComponentVersion(cv: ComponentVersion) {
-    this.componentService.findVersion(this.id, cv.workflowInstance.id, true, true, true).subscribe(v => {
-      this.selectedComponentVersion = v;
-    });
-  }
-
-
 
 
   public save() {
@@ -106,18 +86,18 @@ export class ComponentEditComponent implements OnInit {
     let obs: Observable<any>;
 
     if (this.create) {
-      obs = this.componentService.create(this.component);
+      //obs = this.componentService.create(this.component);
     } else {
-      obs = this.componentService.save(this.component);
+      //obs = this.componentService.save(this.component);
     }
 
     obs.subscribe(r => {
-      this.$state.go("^", null, {reload: true});
+      //this.$state.go("^", null, {reload: true});
     });
   }
 
   public onUpdate(componentUpdate: ComponentUpdate) {
-    this.componentService.findOne(this.id, true, false, false, true).subscribe(r => this.component = r);
+    //this.componentService.findOne(this.id, true, false, false, true).subscribe(r => this.component = r);
   }
 
   public addNewTag($event) {
@@ -126,20 +106,20 @@ export class ComponentEditComponent implements OnInit {
       return;
     }
 
-    this.component.tags.push(this.tagToAdd);
+    //this.selectedComponentVersion.tags.push(this.tagToAdd);
     this.tagToAdd = "";
   }
 
 
   public updateLatestVersion(ref: ComponentReference) {
-    this.componentService.updateReference(this.component.id, this.component.currentWorkflowInstance.id, ref.id, ref.target.id)
+/*    this.componentService.updateReference(this.component.id, this.component.currentWorkflowInstance.id, ref.id, ref.target.id)
       .subscribe(r => {
         this.fetch();
-      });
+      });*/
   }
 
   public editReference(ref: ComponentReference) {
-    let a: MdDialogRef<ReferenceComponent> = this.dialog.open(ReferenceComponent);
+   /* let a: MdDialogRef<ReferenceComponent> = this.dialog.open(ReferenceComponent);
 
     a.componentInstance.componentId = this.component.id;
     a.componentInstance.workflowInstanceId = this.component.currentWorkflowInstance.id;
@@ -150,10 +130,10 @@ export class ComponentEditComponent implements OnInit {
 
     a.afterClosed().subscribe(r => {
       this.fetch();
-    });
+    });*/
   }
 
-  public gotoEditComponent(c: Component){
+  public gotoEditComponent(c: ComponentVersion) {
     this.linkService.gotoEditComponent(c);
   }
 

@@ -17,7 +17,7 @@ export class ProjectsListComponent implements OnInit {
   public projects: Project[] = [];
 
 
-  public constructor(private $state: StateService,
+  public constructor(
                      private projectService: ProjectService) {
   }
 
@@ -37,7 +37,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   public edit(project: Project) {
-    this.$state.go(".project-edit", {projectId: project.id}, {reload: false});
+    //this.$state.go(".project-edit", {projectId: project.id}, {reload: false});
   }
 
   public addVisit(projectId:number){

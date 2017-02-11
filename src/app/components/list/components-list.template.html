@@ -27,11 +27,9 @@
       [scrollbarV]="true"
       [scrollbarH]="true">
     <ngx-datatable-column [flexGrow]="1" name="Id"></ngx-datatable-column>
-    <ngx-datatable-column [flexGrow]="1" name="Version" prop="currentWorkflowInstance.version">
-
-    </ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="1" name="Version"></ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="4" name="Title"></ngx-datatable-column>
-    <ngx-datatable-column [flexGrow]="2" name="Status" prop="currentWorkflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="2" name="Status" prop="workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="2" name="Creation">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.creationDate | amTimeAgo}}
@@ -39,7 +37,7 @@
     </ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="2" name="Update">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        {{row.currentWorkflowInstance.currentWorkflowStatus.createdDate | amTimeAgo}}
+        {{row.workflowInstance.currentWorkflowStatus.createdDate | amTimeAgo}}
       </template>
     </ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="2" name="Action">
@@ -47,18 +45,16 @@
         <div class="table-actions">
 
 
-          <button type="button" class="btn btn-outline-primary btn-tiny" uiSref=".component-edit"
-             [uiParams]="{ componentId: row.id }"
-             (click)="addVisit(row.id)"
+          <button type="button" class="btn btn-outline-primary btn-tiny" (click)="linkService.gotoEditComponent(row)"
              md-tooltip="Edit component">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
-          <button type="button" class="btn btn-outline-primary btn-tiny"  uiSref=".component-write"
-             [uiParams]="{ componentId: row.id }"
-             (click)="addVisit(row.id)"
+
+          <button type="button" class="btn btn-outline-primary btn-tiny" (click)="linkService.gotoWriteComponent(row)"
              md-tooltip="Open component for write">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </button>
+
           <button type="button" class="btn btn-secondary btn-tiny"  (click)="print(row)" md-tooltip="Print">
             <i class="fa fa-print" aria-hidden="true"></i>
           </button>

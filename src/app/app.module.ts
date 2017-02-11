@@ -49,7 +49,9 @@ import '../styles/styles.scss';
 import {Globals} from "./shared/globals";
 import {AdministrationComponent} from "./administration/administration.component";
 import {UserEditDialog} from "./administration/user-edit/user-edit.component";
-
+import {ComponentEditGeneralComponent} from "./components/edit/general/component-edit-general.component";
+import {RouterModule, RouterOutlet, Routes} from "@angular/router";
+import {FooComponent} from "./foo.component";
 
 // TODO: temporary until https://github.com/angular/material2/issues/1457
 @Injectable()
@@ -57,11 +59,65 @@ export class AppGestureConfig extends HammerGestureConfig {
 }
 
 
+const appRoutes: Routes = [
+  {path: 'login', component: LoginComponent},
+  {
+    path: 'app', component: AppComponent,
+    children: [
+      {
+        path: 'projects',
+        component: ProjectsListComponent,
+        //outlet: "main"
+      },
+      {
+        path: 'requirements',
+        component: ComponentsListComponent,
+        data: {componentTypes: ["REQUIREMENT"]}
+      },
+      {
+        path: 'requirements/:id/edit',
+        component: ComponentEditComponent
+      },
+      {
+        path: 'requirements/:id/write',
+        component: ComponentWriteComponent
+      },
+      {
+        path: 'components',
+        component: ComponentsListComponent,
+        data: {componentTypes: ["COMPONENT"]}
+      },
+      {
+        path: 'templates',
+        component: ComponentsListComponent,
+        data: {componentTypes: ["TEMPLATE"]}
+      },
+      {
+        path: 'resources',
+        component: ResourcesListComponent,
+        data: {componentTypes: ["RESOURCE"]}
+      },
+      {
+        path: 'administration',
+        component: AdministrationComponent
+      }
+    ]
+
+  },
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {path: '**', component: LoginComponent}
+];
+
+
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [UIView],
+  bootstrap: [FooComponent],
   declarations: [
     AppComponent,
     SideNavComponent,
@@ -69,6 +125,7 @@ export class AppGestureConfig extends HammerGestureConfig {
     WriteSideNavComponent,
     ComponentsListComponent,
     ComponentEditComponent,
+    ComponentEditGeneralComponent,
     ComponentWriteComponent,
     DashboardComponent,
     AdministrationComponent,
@@ -83,9 +140,9 @@ export class AppGestureConfig extends HammerGestureConfig {
     LoginComponent,
 
     CompleterCmpMd,
-    UserEditDialog
+    UserEditDialog,
 
-
+    FooComponent,
   ],
 
   entryComponents: [
@@ -104,11 +161,15 @@ export class AppGestureConfig extends HammerGestureConfig {
     NgxDatatableModule,
     CKEditorModule,
     MomentModule,
-    UIRouterModule.forRoot({
-      states: MAIN_STATES,
-      otherwise: {state: 'app', params: {}},
-      useHash: true
-    }),
+    /*
+     UIRouterModule.forRoot({
+     states: MAIN_STATES,
+     otherwise: {state: 'app', params: {}},
+     useHash: true
+     }),
+     */
+
+    RouterModule.forRoot(appRoutes),
 
     ChartsModule,
     DropdownModule,
@@ -124,11 +185,11 @@ export class AppGestureConfig extends HammerGestureConfig {
     Globals,
 
 
-    {
-      provide: Http,
-      useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, $state: StateService) => new HttpInterceptor(xhrBackend, requestOptions, $state),
-      deps: [XHRBackend, RequestOptions, StateService]
-    },
+    /*    {
+     provide: Http,
+     useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions) => new HttpInterceptor(xhrBackend, requestOptions),
+     deps: [XHRBackend, RequestOptions]
+     },*/
 
     {provide: HAMMER_GESTURE_CONFIG, useClass: AppGestureConfig}
   ]

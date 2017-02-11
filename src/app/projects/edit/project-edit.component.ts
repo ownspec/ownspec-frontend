@@ -26,7 +26,7 @@ export class ProjectEditComponent implements OnInit {
   private dataService: CompleterData;
   private availableUsers: User[] = [];
 
-  public constructor(private $state: StateService,
+  public constructor(
                      private projectService: ProjectService,
                      private completerService: CompleterService,
                      private userService: UserService,
@@ -60,7 +60,7 @@ export class ProjectEditComponent implements OnInit {
     }
 
     obs.subscribe(r => {
-      this.$state.go("^", null, {reload: true});
+      //this.$state.go("^", null, {reload: true});
       let status = this.create ? "created" : "updated";
       this.snackBar.open("Project successfully " + status, "Close");
     }, e => {
@@ -71,7 +71,7 @@ export class ProjectEditComponent implements OnInit {
 
   public authorizeUser(selected: CompleterItem) {
     if (selected) {
-      this.project.projectUsers.push(User.fromJson(selected.originalObject));
+      this.project.projectUsers.push(User.fromMap(selected.originalObject));
       this.searchStr = "";
     }
   }

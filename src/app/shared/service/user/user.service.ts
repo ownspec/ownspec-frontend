@@ -30,7 +30,7 @@ export class UserService {
   public getCurrent(): Observable<User> {
     return this.http.get("/api/users/me")
         .map(r => {
-              return User.fromJson(r.json());
+              return User.fromMap(r.json());
             }, e => {
               //todo: handle
             }
@@ -40,7 +40,7 @@ export class UserService {
   public findAll(): Observable<User[]> {
     return this.http.get("/api/users")
         .flatMap(r => r.json())
-        .map(item => User.fromJson(item))
+        .map(item => User.fromMap(item))
         .toArray();
   }
 

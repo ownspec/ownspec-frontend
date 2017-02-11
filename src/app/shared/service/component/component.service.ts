@@ -11,7 +11,7 @@ import {ComponentReference} from "../../model/component/component-reference";
 export class ComponentService {
 
 
-  public constructor(private $http: Http, private stateService: StateService) {
+  public constructor(private $http: Http) {
 
   }
 
@@ -102,8 +102,8 @@ export class ComponentService {
       .map(r => Component.fromMap(r.json()));
   }
 
-  public save(toSave: Component): Observable<boolean> {
-    return this.$http.post("/api/components/" + toSave.id + "/update", Component.toJson(toSave))
+  public save(toSave: ComponentVersion): Observable<boolean> {
+    return this.$http.post("/api/components/" + toSave.id + "/update", ComponentVersion.toJson(toSave))
       .map(r => {
         return r.status == 200;
       });
@@ -161,7 +161,7 @@ export class ComponentService {
   }
 
   edit(id: number) {
-    this.stateService.go(".component-edit", {componentId: id}, {reload: false});
+    //this.stateService.go(".component-edit", {componentId: id}, {reload: false});
   }
 
   // TODO: temporary

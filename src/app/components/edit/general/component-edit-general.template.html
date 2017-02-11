@@ -1,0 +1,100 @@
+<div fxLayout="column">
+
+  <div fxLayout="row">
+    <div fxFlex class="panel">
+      <div class="panel-heading">
+        <h6>General</h6>
+      </div>
+      <div fxLayout="column" class="panel-content">
+        <div fxLayout="row">
+          <div class="flex-item" fxFlex>
+            <p>
+              <md-input-container style="width: 100%">
+                <input md-input class="form-control" required [(ngModel)]="componentVersion.title"
+                       placeholder="title"
+                       name="title"
+                       type="text">
+              </md-input-container>
+            </p>
+          </div>
+          <div fxFlex>
+            <p>
+              <md-select name="items" [(ngModel)]="componentType" placeholder="Type" style="width: 100%">
+                <md-option ngValue="Business">Business</md-option>
+                <md-option ngValue="Functional">Functional</md-option>
+                <md-option ngValue="Design">Design</md-option>
+                <md-option ngValue="Performance">Performance</md-option>
+                <md-option ngValue="Other">Other</md-option>
+              </md-select>
+            </p>
+          </div>
+        </div>
+
+        <div fxLayout="row">
+          <div fxFlex>
+            <p>
+              <md-select name="distributionLevel" [(ngModel)]="distributionLevel" placeholder="Distribution Level"
+                         style="width: 100%">
+                <md-option ngValue="Public">Public</md-option>
+                <md-option ngValue="Internal">Internal</md-option>
+                <md-option ngValue="Restricted">Restricted</md-option>
+                <md-option ngValue="Secret">Secret</md-option>
+              </md-select>
+            </p>
+          </div>
+          <div fxFlex>
+            <p>
+              <md-checkbox [checked]="componentVersion.requireTest">
+                Require Test
+              </md-checkbox>
+              <md-checkbox [checked]="readOnly" (change)="readOnly = $event">
+                Read only
+              </md-checkbox>
+            </p>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <div fxFlex>
+            <p>
+              <md-input [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
+                        (keypress)="addNewTag($event)"></md-input>
+            </p>
+            <div class="badge badge-default" style="display: inline-block;margin-right: 5px"
+                 *ngFor="let tag of componentVersion.tags">{{tag}}&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="30%" class="panel">
+      <div class="panel-heading">
+        <h6>Author</h6>
+      </div>
+      <div *ngIf="!create" class="panel-content">
+        <div>
+          <div fxLayout="row">
+            <label class="os-label"
+                   fxFlex="33%">Author</label><span>{{componentVersion.createdUser.fullName}}</span>
+          </div>
+          <div fxLayout="row">
+            <label class="os-label" fxFlex="33%">Created</label>
+            <span>{{componentVersion.creationDate | amTimeAgo }}</span>
+          </div>
+          <div fxLayout="row">
+            <label class="os-label" fxFlex="33%">Updated</label>
+            <span>{{componentVersion.lastModifiedDate | amTimeAgo }}</span>
+          </div>
+          <div fxLayout="row">
+            <label class="os-label"
+                   fxFlex="33%">Version</label><span>{{componentVersion.workflowInstance.version}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <div  fxLayout="row" fxLayoutAlign="center center" style="height: 50px">
+      <button md-raised-button color="primary" (click)="save()"><i class="fa fa-check" aria-hidden="true"></i> Save</button>
+  </div>
+
+</div>

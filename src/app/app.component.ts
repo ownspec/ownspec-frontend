@@ -24,8 +24,7 @@ export class AppComponent {
 
   constructor(
               private vcRef: ViewContainerRef,
-              private sharedService: SharedService,
-              private router: UIRouter) {
+              private sharedService: SharedService) {
 
     // Init sub-components
     this.mainContentExpanded = false;
@@ -36,10 +35,12 @@ export class AppComponent {
     this.sharedService.expandMainContentEvent.subscribe(expand => {
       this.mainContentExpanded = expand;
     });
+/*
     this.router.transitionService.onFinish({} , (transition) => {
       this.sharedService.stateIsInAProject(this.router.stateService.$current.name.startsWith("app.home.project."));
     });
     this.sharedService.stateIsInAProject(this.router.globals.$current.name.startsWith("app.home.project."));
+*/
 
   }
 

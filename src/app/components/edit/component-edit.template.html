@@ -1,25 +1,18 @@
-<main-header *ngIf="selectedComponentVersion">
+<main-header *ngIf="componentVersion">
   <div class="main-header-title">
-    <span>Edit {{selectedComponentVersion.title}}</span>
-    <span> Version: </span>
-    <select [(ngModel)]="selectedAvailableComponentVersions" (ngModelChange)="onChangeComponentVersion($event)">>
-      <option *ngFor="let cv of availableComponentVersions" [ngValue]="cv">{{cv.workflowInstance.version}}</option>
-    </select>
+    <span>Edit {{componentVersion.title}}</span>
+    <span> - Version: {{componentVersion.version}}</span>
   </div>
   <div class="main-header-content" style="display: flex">
 
-
-    <div class="rounded-button">
-      <button (click)="save()"><i class="fa fa-check" aria-hidden="true"></i></button>
-    </div>
-    <div class="rounded-button pink-background">
-      <button uiSref="^"><i class="fa fa-times" aria-hidden="true"></i></button>
+    <div>
+      <button color="warn" md-icon-button routerLink="../../"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
   </div>
 </main-header>
 
 
-<div style="overflow: auto;height: 100%" *ngIf="selectedComponentVersion">
+<div style="overflow: auto;height: 100%" *ngIf="componentVersion">
 
 
 
@@ -28,97 +21,9 @@
     <md-tab-group>
       <md-tab label="General">
 
-        <div fxLayout="row">
-          <div fxFlex class="panel">
-            <div class="panel-heading">
-              <h6>General</h6>
-            </div>
-            <div fxLayout="column" class="panel-content">
-              <div fxLayout="row">
-                <div class="flex-item" fxFlex>
-                  <p>
-                    <md-input-container style="width: 100%">
-                      <input md-input class="form-control" required [(ngModel)]="selectedComponentVersion.title"
-                             placeholder="title"
-                             name="title"
-                             type="text">
-                    </md-input-container>
-                  </p>
-                </div>
-                <div fxFlex>
-                  <p>
-                    <md-select name="items" [(ngModel)]="componentType" placeholder="Type" style="width: 100%">
-                      <md-option ngValue="Business">Business</md-option>
-                      <md-option ngValue="Functional">Functional</md-option>
-                      <md-option ngValue="Design">Design</md-option>
-                      <md-option ngValue="Performance">Performance</md-option>
-                      <md-option ngValue="Other">Other</md-option>
-                    </md-select>
-                  </p>
-                </div>
-              </div>
+        <component-edit-general [componentVersion]="componentVersion"></component-edit-general>
 
-              <div fxLayout="row">
-                <div fxFlex>
-                  <p>
-                    <md-select name="distributionLevel" [(ngModel)]="distributionLevel" placeholder="Distribution Level"
-                               style="width: 100%">
-                      <md-option ngValue="Public">Public</md-option>
-                      <md-option ngValue="Internal">Internal</md-option>
-                      <md-option ngValue="Restricted">Restricted</md-option>
-                      <md-option ngValue="Secret">Secret</md-option>
-                    </md-select>
-                  </p>
-                </div>
-                <div fxFlex>
-                  <p>
-                    <md-checkbox [checked]="requireTest" (change)="requireTest = $event">
-                      Require Test
-                    </md-checkbox>
-                    <md-checkbox [checked]="readOnly" (change)="readOnly = $event">
-                      Read only
-                    </md-checkbox>
-                  </p>
-                </div>
-              </div>
-              <div fxLayout="row">
-                <div fxFlex>
-                  <p>
-                    <md-input [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
-                              (keypress)="addNewTag($event)"></md-input>
-                  </p>
-                  <div class="badge badge-default" style="display: inline-block;margin-right: 5px"
-                       *ngFor="let tag of selectedComponentVersion.tags">{{tag}}&nbsp;</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div fxFlex="30%" class="panel">
-            <div class="panel-heading">
-              <h6>Author</h6>
-            </div>
-            <div *ngIf="!create" class="panel-content">
-              <div>
-                <div>
-                  <label>Author</label><span>{{selectedComponentVersion.createdUser}}</span>
-                </div>
-                <div>
-                  <label>Created</label>
-                  <span>{{selectedComponentVersion.creationDate | amTimeAgo }}</span>
-                </div>
-                <div>
-                  <label>Updated</label>
-                  <span>{{selectedComponentVersion.lastModifiedDate | amTimeAgo }}</span>
-                </div>
-                <div>
-                  <label>Version</label><span>1.1</span>
-                </div>
-              </div>
 
-            </div>
-
-          </div>
-        </div>
       </md-tab>
       <md-tab label="Estimated time">
         <div class="panel" fxFlex>
@@ -145,7 +50,7 @@
             <h6>Workflow</h6>
           </div>
           <div class="panel-content">
-            <workflow-table [componentVersion]="selectedComponentVersion">
+            <workflow-table [componentVersion]="componentVersion">
             </workflow-table>
             <!--<workflow [component]="component" [canUpdateWorkflow]="true" (update)="onUpdate($event)"></workflow>-->
           </div>
@@ -159,7 +64,7 @@
           <div class="panel-content">
             <ngx-datatable
               class="material" style="flex: 1;min-height:300px"
-              [rows]="selectedComponentVersion.componentReferences"
+              [rows]="componentVersion.componentReferences"
               [headerHeight]="50"
               [footerHeight]="0"
               [rowHeight]="50"
@@ -210,7 +115,7 @@
           <div class="panel-content">
             <ngx-datatable
               class="material" style="flex: 1;min-height:300px"
-              [rows]="selectedComponentVersion.componentUsePoints"
+              [rows]="componentVersion.componentUsePoints"
               [headerHeight]="50"
               [footerHeight]="0"
               [rowHeight]="50"

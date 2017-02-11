@@ -75,7 +75,7 @@ export class Component {
 
     component.creationDate = new Date(<string>item.createdDate);
     component.lastModifiedDate = new Date(<string>item.LastModifiedDate);
-    component.createdUser = User.fromJson(item.createdUser);
+    component.createdUser = User.fromMap(item.createdUser);
 
     component.content = item.content;
     component.summary = item.summary;
@@ -106,7 +106,7 @@ export class Component {
     }
 
     if (item.assignedTo) {
-      component.assignedTo = User.fromJson(item.assignedTo);
+      component.assignedTo = User.fromMap(item.assignedTo);
     }
 
     if (item.estimatedTimes) {

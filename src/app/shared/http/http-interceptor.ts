@@ -5,7 +5,7 @@ import {StateService} from "ui-router-ng2";
 
 export class HttpInterceptor extends Http {
 
-  constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private $state: StateService) {
+  constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
     super(backend, defaultOptions);
   }
 
@@ -32,7 +32,7 @@ export class HttpInterceptor extends Http {
   intercept(observable: Observable<Response>): Observable<Response> {
     return observable.catch((err, source) => {
       if (err.status  == 401) {
-        this.$state.go("login", null, {reload: true});
+        //this.$state.go("login", null, {reload: true});
         return Observable.empty();
       } else {
         return Observable.throw(err);
