@@ -9,10 +9,11 @@
 
   div {
     text-align: center;
+    color: white;
 
     a {
       font-size: 2rem;
-      color: white;
+
 
       &:hover {
         color: #53a3ff;
@@ -29,7 +30,12 @@
 
 
 .selected {
-  background:$background-body;
+  background:white;
+  color:black;
+}
+
+.selected a {
+  color:#393838;
 }
 
 

@@ -22,6 +22,7 @@
 <div style="display: flex;flex-direction: row;height: 100%" *ngIf="component">
 
   <div>
+
     <write-sidenav menuPosition="left"
                    [menus]="['requirements', 'components', 'resources', 'templates', 'workflow', 'comments']"
                    [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
@@ -38,7 +39,7 @@
                   (dataChange)="onChange($event)"
                   (tocChange)="tocChange($event)"
                   (composePdf)="composePdf($event)"
-                  [readonly]="!component.currentWorkflowInstance.currentWorkflowStatus.status.editable"
+                  [readonly]="!component.workflowInstance.currentWorkflowStatus.status.editable"
                   [container]="container"
                   (ready)="onReady($event)">
         </ckeditor>
@@ -47,8 +48,8 @@
   </div>
 
   <div style="display:flex;flex-direction:row;height: 100%">
-    <write-sidenav menuPosition="right" [menus]="['toc']" [component]="component" (update)="onUpdate($event)"
-                   [canUpdateWorkflow]="saved"></write-sidenav>
+<!--    <write-sidenav menuPosition="right" [menus]="['toc']" [component]="component" (update)="onUpdate($event)"
+                   [canUpdateWorkflow]="saved"></write-sidenav>-->
   </div>
 
 </div>

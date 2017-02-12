@@ -8,6 +8,8 @@ import {Component} from "../model/component/component";
 import {TagService} from "../service/component/tag.service";
 import * as _ from "lodash";
 import {ProfileService} from "../service/user/profil.service";
+import {ComponentVersion} from "../service/component/component-version";
+import {ComponentVersionService} from "../service/component/component-versions.service";
 
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
@@ -37,7 +39,7 @@ export class ComponentsComponent implements OnInit {
   @Output()
   public update = new EventEmitter<Component>();
 
-  public components: Component[];
+  public components: ComponentVersion[];
 
   public searchQuery: string;
   private tags: any[];
@@ -45,7 +47,7 @@ export class ComponentsComponent implements OnInit {
   public displayMode: "tree"|"list" = "list";
 
 
-  public constructor(private componentService: ComponentService, private profileService: ProfileService, private tagService: TagService) {
+  public constructor(private componentService: ComponentService, private componentVersionService: ComponentVersionService, private profileService: ProfileService, private tagService: TagService) {
   }
 
   ngOnInit(): void {
@@ -70,7 +72,7 @@ export class ComponentsComponent implements OnInit {
 
   public search() {
     // TODO: temporary fetch content with the list of component, to refactor because response size will be too large
-    this.componentService.findAll(this.projectId, null, this.types, this.searchQuery, true, true, false).subscribe(components => {
+    this.componentVersionService.findAll(this.projectId, null, this.types, this.searchQuery, false, false, false).subscribe(components => {
       this.components = components;
 
       let tree = [];

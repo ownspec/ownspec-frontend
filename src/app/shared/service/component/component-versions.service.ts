@@ -6,6 +6,7 @@ import {StateService} from "ui-router-ng2";
 import {WorkflowInstance} from "../../model/component/workflow/workflow-instance";
 import {ComponentVersion} from "./component-version";
 import {ComponentReference} from "../../model/component/component-reference";
+import {WorkflowStatus} from "../../model/component/workflow/workflow-status";
 
 @Injectable()
 export class ComponentVersionService {
@@ -15,11 +16,11 @@ export class ComponentVersionService {
 
   }
 
-  public findOne(id: string, workflow = false, content = false, comments = false, references = false): Observable<ComponentVersion> {
+  public findOne(id: string, statuses = false, content = false, comments = false, references = false): Observable<ComponentVersion> {
 
     let params: URLSearchParams = new URLSearchParams();
     params.append("content", content.toString());
-    params.append("workflow", workflow.toString());
+    params.append("statuses", statuses.toString());
     params.append("comments", comments.toString());
     params.append("references", references.toString());
 
@@ -67,7 +68,22 @@ export class ComponentVersionService {
   }
 
 
+  public updateContent(id: string, content: string): Observable<ComponentVersion> {
+    return this.$http.post("/api/component-versions/" + id + "/content", content)
+      .map(r => ComponentVersion.fromMap(r.json()));
+  }
 
+
+  public getContent(id: string): Observable<string> {
+    return this.$http.get("/api/component-versions/" + id + "/content")
+      .map(r => r.text());
+  }
+
+
+  public updateWorkflowStatus(id: string, nextStatus:string, reason:string): Observable<WorkflowStatus> {
+    return this.$http.post("/api/component-versions/" + id + "/workflow-statuses", {nextStatus:nextStatus, reason:reason})
+      .map(r => WorkflowStatus.fromMap(r.json()));
+  }
 
 }
 

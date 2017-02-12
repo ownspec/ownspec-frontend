@@ -7,6 +7,9 @@ import {ProfilService} from "../service/users/profil.service";
 import {Component} from "../model/component/component";
 import {Change} from "../model/component/change";
 import {ProfileService} from "../service/user/profil.service";
+import {ComponentVersion} from "../service/component/component-version";
+import {ComponentVersionService} from "../service/component/component-versions.service";
+import {ComponentUpdate} from "../../components/write/component-write.component";
 
 
 @C({
@@ -17,13 +20,13 @@ import {ProfileService} from "../service/user/profil.service";
 export class WorkflowComponent implements OnInit {
 
   @Input()
-  public component: Component;
+  public component: ComponentVersion;
 
   @Input()
   public canUpdateWorkflow:Boolean;
 
   @Output()
-  public update = new EventEmitter<Component>();
+  public update = new EventEmitter<ComponentUpdate>();
 
   public targetStatus: string;
 
@@ -34,7 +37,7 @@ export class WorkflowComponent implements OnInit {
 
   public visibleStatuses = {};
 
-  public constructor(private zone:NgZone, private componentService: ComponentService, private profileService: ProfileService) {
+  public constructor(private zone:NgZone, private componentService: ComponentService, private componentVersionService: ComponentVersionService, private profileService: ProfileService) {
   }
 
   ngOnInit(): void {
@@ -48,10 +51,10 @@ export class WorkflowComponent implements OnInit {
   }
 
   public changeStatus() {
-    this.componentService.updateStatus(this.component.id, this.targetStatus, this.reason)
+    this.componentVersionService.updateWorkflowStatus(this.component.id, this.targetStatus, this.reason)
       .subscribe(c => {
         //this.component = c;
-        this.update.emit(c);
+        this.update.emit(ComponentUpdate.newComponentUpdate());
       });
   }
 
@@ -59,7 +62,7 @@ export class WorkflowComponent implements OnInit {
     this.componentService.newStatus(this.component.id)
       .subscribe(c => {
         //this.component = c;
-        this.update.emit(c);
+        this.update.emit(ComponentUpdate.newComponentUpdate());
       });
   }
 

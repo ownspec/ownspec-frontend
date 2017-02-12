@@ -1,8 +1,9 @@
 
-<div style="flex:1;display: flex;flex-direction: row;height: 100%;">
+<div style="flex:1;display: flex;flex-direction: row;height: 100%;background: white">
 
   <template #content>
-    <div myHighlight [rDirections]="menuPosition == 'left' ? ['right'] : ['left']" [@slideInOut]="menuState" style="width:200px;flex: 1;height: 100%;padding-left: 10px;overflow-x: hidden">
+    <div myHighlight [rDirections]="menuPosition == 'left' ? ['right'] : ['left']" [@slideInOut]="menuState"
+         style="width:200px;flex: 1;height: 100%;padding-left: 4px;overflow-x: hidden">
 
 
       <components-selection *ngIf="activeTab == 'requirements'" [component]="component"

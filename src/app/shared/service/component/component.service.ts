@@ -6,6 +6,7 @@ import {StateService} from "ui-router-ng2";
 import {WorkflowInstance} from "../../model/component/workflow/workflow-instance";
 import {ComponentVersion} from "./component-version";
 import {ComponentReference} from "../../model/component/component-reference";
+import {Comment} from "../../model/component/comment";
 
 @Injectable()
 export class ComponentService {
@@ -97,9 +98,18 @@ export class ComponentService {
       .map(r => Component.fromMap(r.json()));
   }
 
-  public postComment(id: string, value: string): Observable<Component> {
-    return this.$http.post("/api/components/" + id + "/comments/add", value)
-      .map(r => Component.fromMap(r.json()));
+  public findComments(id: string): Observable<Comment[]> {
+    return this.$http.get("/api/components/" + id + "/comments")
+      .flatMap(r => r.json())
+      .map(r => Comment.fromMap(r))
+      .toArray();
+  }
+
+  public postComment(id: string, value: string): Observable<Comment[]> {
+    return this.$http.post("/api/components/" + id + "/comments", value)
+      .flatMap(r => r.json())
+      .map(r => Comment.fromMap(r))
+      .toArray();
   }
 
   public save(toSave: ComponentVersion): Observable<boolean> {

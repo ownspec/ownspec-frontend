@@ -13,6 +13,10 @@ import {Component} from "../../shared/model/component/component";
 import {SharedService} from "../../shared/service/shared.service";
 import {TocGenerator, TocItem} from "../../shared/ckeditor/toc-generator";
 import {CKEditorComponent} from "../../shared/ckeditor/ckeditor.component";
+import {ComponentVersion} from "../../shared/service/component/component-version";
+import {LinkService} from "../../shared/service/link.service";
+import {ActivatedRoute} from "@angular/router";
+import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
 
 
 @C({
@@ -23,7 +27,7 @@ import {CKEditorComponent} from "../../shared/ckeditor/ckeditor.component";
 })
 export class ComponentWriteComponent implements OnInit, OnDestroy {
 
-  public component: Component = null;
+  public component: ComponentVersion = null;
 
   public content: string = "FOO";
   public toc: string = "FOO";
@@ -45,20 +49,29 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
   menuState: string = 'in';
 
-  public constructor(private zone: NgZone,
-                     private componentService: ComponentService,
+  public constructor(private zone: NgZone, private route: ActivatedRoute, public linkService:LinkService,
+                     private componentVersionService: ComponentVersionService,
                      private sharedService: SharedService) {
   }
 
 
   ngOnInit(): void {
+    if (this.route.snapshot.data) {
+      this.id = this.route.snapshot.params['id'];
+    }
 
     this.sharedService.expandMainContentAndHideSideNav(true);
 
-    this.componentService.findOne(this.id, true, true, true).subscribe(r => {
+    this.componentVersionService.findOne(this.id, true, true, true).subscribe(r => {
       this.component = r;
-      this.content = r.content;
     });
+
+    this.componentVersionService.getContent(this.id).subscribe(r => {
+      this.content = r;
+    });
+
+
+
 
 
     var that = this;
@@ -87,7 +100,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
     this.updateContent().subscribe(r => {
       this.lastSaveDate = new Date();
       this.saved = true;
-      this.component = r;
+      //this.component = r;
 
 
 
@@ -107,8 +120,8 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
   }
 
 
-  private updateContent(): Observable<Component> {
-    return this.componentService.updateContent(this.component.id, this.content);
+  private updateContent(): Observable<ComponentVersion> {
+    return this.componentVersionService.updateContent(this.component.id, this.content);
   }
 
 
@@ -127,7 +140,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
 
   public composePdf($event) {
-    this.componentService.print(this.component);
+    //this.componentVersionService.print(this.component);
   }
 
   public onReady($event) {
@@ -135,7 +148,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
   }
 
   public onUpdate(event: ComponentUpdate) {
-    this.componentService.findOne(this.id, true, true, true).subscribe(r => {
+    this.componentVersionService.findOne(this.id, true, true, true).subscribe(r => {
       this.component = r;
     });
   }
@@ -151,4 +164,9 @@ export class ComponentUpdate {
   public constructor(public properties, public content, public workflow, public comments) {
 
   }
+
+  public static newComponentUpdate():ComponentUpdate{
+    return new ComponentUpdate(false, false, false,false);
+  }
+
 }
