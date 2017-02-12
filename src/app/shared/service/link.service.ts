@@ -74,10 +74,12 @@ export class LinkService {
 
   }
 
-  editProject(project: Project) {
-    this.router.navigate(["app" , "projects" , project.id , "edit"]);
-
+  editProject(projectId) {
+    this.router.navigate(["app" , "projects" , projectId , "edit"]);
   }
+
+
+
 }
 
 

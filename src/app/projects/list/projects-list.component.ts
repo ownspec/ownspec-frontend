@@ -38,8 +38,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   public edit(project: Project) {
-    this.linkService.editProject(project);
-    //this.$state.go(".project-edit", {projectId: project.id}, {reload: false});
+    this.linkService.editProject(project.id);
   }
 
   public addVisit(projectId:number){
