@@ -4,7 +4,7 @@ import {Component as C, EventEmitter, Input, OnInit, Output} from "@angular/core
 import {Component} from "../../../shared/model/component/component";
 import {ComponentService} from "../../../shared/service/component/component.service";
 import {WorkflowInstance} from "../../../shared/model/component/workflow/workflow-instance";
-import {MdDialog} from "@angular/material";
+import {MdDialog, MdSnackBar} from "@angular/material";
 import {ComponentReference} from "../../../shared/model/component/component-reference";
 import {ComponentVersion} from "../../../shared/service/component/component-version";
 import {EntityReference, ReferenceService} from "../../../shared/service/reference.service";
@@ -39,7 +39,7 @@ export class ComponentEditGeneralComponent implements OnInit {
   @Output()
   public update = new EventEmitter<ComponentUpdate>();
 
-  public constructor(public dialog: MdDialog, private componentVersionService: ComponentVersionService, private componentService: ComponentService, private referenceService: ReferenceService,
+  public constructor(public snackBar: MdSnackBar, public dialog: MdDialog, private componentVersionService: ComponentVersionService, private componentService: ComponentService, private referenceService: ReferenceService,
                      private linkService: LinkService) {
   }
 
@@ -64,7 +64,8 @@ export class ComponentEditGeneralComponent implements OnInit {
     }
 
     obs.subscribe(r => {
-      //this.$state.go("^", null, {reload: true});
+      let status = this.create ? "created" : "updated";
+      this.snackBar.open("Component successfully " + status, "Close", {duration:2000});
       this.update.emit(ComponentUpdate.newComponentUpdate());
     });
   }

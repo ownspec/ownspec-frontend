@@ -65,6 +65,11 @@ const appRoutes: Routes = [
     path: 'app', component: AppComponent,
     children: [
       {
+        path: 'dashboard',
+        component: DashboardComponent,
+        //outlet: "main"
+      },
+      {
         path: 'projects',
         component: ProjectsListComponent,
         //outlet: "main"

@@ -6,7 +6,7 @@ import {ComponentUpdate} from "../write/component-write.component";
 import {Component} from "../../shared/model/component/component";
 import {ComponentService} from "../../shared/service/component/component.service";
 import {WorkflowInstance} from "../../shared/model/component/workflow/workflow-instance";
-import {MdDialog, MdDialogRef} from "@angular/material";
+import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {ReferenceComponent} from "../../shared/reference/reference.component";
 import {ComponentReference} from "../../shared/model/component/component-reference";
 import {ComponentVersion} from "../../shared/service/component/component-version";
@@ -42,7 +42,7 @@ export class ComponentEditComponent implements OnInit {
   public userCategories: string[] = ['Analyst', 'Developer', 'Tester'];
 
 
-  public constructor(public dialog: MdDialog, private componentService: ComponentService, private referenceService: ReferenceService,
+  public constructor(public snackBar: MdSnackBar, public dialog: MdDialog, private componentService: ComponentService, private referenceService: ReferenceService,
                      private route: ActivatedRoute, private linkService: LinkService, private componentVersionService:ComponentVersionService) {
 
 
