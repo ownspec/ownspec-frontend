@@ -70,7 +70,7 @@ export class ComponentVersion {
     component.version = item.version;
 
     component.creationDate = new Date(<string>item.createdDate);
-    component.lastModifiedDate = new Date(<string>item.LastModifiedDate);
+    component.lastModifiedDate = new Date(<string>item.lastModifiedDate);
     component.createdUser = User.fromMap(item.createdUser);
 
     component.content = item.content;
@@ -108,7 +108,7 @@ export class ComponentVersion {
     return component;
   }
 
-  public static toJson(component: ComponentVersion): any {
+  public static toMap(component: ComponentVersion): any {
     return {
       title: component.title,
       type: component.type,

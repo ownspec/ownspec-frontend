@@ -85,6 +85,12 @@ export class ComponentVersionService {
       .map(r => WorkflowStatus.fromMap(r.json()));
   }
 
+  public save(toSave: ComponentVersion): Observable<boolean> {
+    return this.$http.patch("/api/component-versions/" + toSave.id, ComponentVersion.toMap(toSave))
+      .map(r => {
+        return r.status == 200;
+      });
+  }
 }
 
 

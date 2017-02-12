@@ -44,10 +44,10 @@
           </div>
           <div fxFlex>
             <p>
-              <md-checkbox [checked]="componentVersion.requireTest">
+              <md-checkbox [(ngModel)]="componentVersion.requiredTest">
                 Require Test
               </md-checkbox>
-              <md-checkbox [checked]="readOnly" (change)="readOnly = $event">
+              <md-checkbox [(ngModel)]="readOnly" (change)="readOnly = $event">
                 Read only
               </md-checkbox>
             </p>
@@ -85,7 +85,7 @@
           </div>
           <div fxLayout="row">
             <label class="os-label"
-                   fxFlex="33%">Version</label><span>{{componentVersion.workflowInstance.version}}</span>
+                   fxFlex="33%">Version</label><span>{{componentVersion.version}}</span>
           </div>
         </div>
 

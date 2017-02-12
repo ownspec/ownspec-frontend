@@ -14,15 +14,12 @@
 
 <div style="overflow: auto;height: 100%" *ngIf="componentVersion">
 
-
-
   <div fxLayout="column" style="overflow: auto;width: 100%">
 
     <md-tab-group>
       <md-tab label="General">
 
-        <component-edit-general [componentVersion]="componentVersion"></component-edit-general>
-
+        <component-edit-general [componentVersion]="componentVersion" (update)="onUpdate($event)"></component-edit-general>
 
       </md-tab>
       <md-tab label="Estimated time">

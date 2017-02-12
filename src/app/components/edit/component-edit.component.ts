@@ -32,7 +32,6 @@ export class ComponentEditComponent implements OnInit {
   @Input("projectId")
   public projectId: string;
 
-  public tagToAdd: string;
 
 
   public componentVersion: ComponentVersion;
@@ -97,17 +96,8 @@ export class ComponentEditComponent implements OnInit {
   }
 
   public onUpdate(componentUpdate: ComponentUpdate) {
-    //this.componentService.findOne(this.id, true, false, false, true).subscribe(r => this.component = r);
-  }
-
-  public addNewTag($event) {
-    console.log($event.key + " " + this.tagToAdd);
-    if ($event.keyCode != 13 || !this.tagToAdd || this.tagToAdd.trim().length <= 0) {
-      return;
-    }
-
-    //this.selectedComponentVersion.tags.push(this.tagToAdd);
-    this.tagToAdd = "";
+    console.log("ooooookkk");
+    this.fetch();
   }
 
 

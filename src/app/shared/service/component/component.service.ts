@@ -113,7 +113,7 @@ export class ComponentService {
   }
 
   public save(toSave: ComponentVersion): Observable<boolean> {
-    return this.$http.post("/api/components/" + toSave.id + "/update", ComponentVersion.toJson(toSave))
+    return this.$http.post("/api/components/" + toSave.id + "/update", ComponentVersion.toMap(toSave))
       .map(r => {
         return r.status == 200;
       });

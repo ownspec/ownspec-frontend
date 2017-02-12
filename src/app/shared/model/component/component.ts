@@ -74,7 +74,7 @@ export class Component {
     let component: Component = new Component(item.id, item.title, item.projectId, item.type);
 
     component.creationDate = new Date(<string>item.createdDate);
-    component.lastModifiedDate = new Date(<string>item.LastModifiedDate);
+    component.lastModifiedDate = new Date(<string>item.lastModifiedDate);
     component.createdUser = User.fromMap(item.createdUser);
 
     component.content = item.content;
