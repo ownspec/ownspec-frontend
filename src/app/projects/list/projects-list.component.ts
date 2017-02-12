@@ -5,6 +5,7 @@ import {StateService} from "ui-router-ng2";
 import {Component as C, OnInit} from "@angular/core";
 import {ProjectService} from "../../shared/service/project.service";
 import {Project} from "../../shared/model/project";
+import {LinkService} from "../../shared/service/link.service";
 
 
 @C({
@@ -17,7 +18,7 @@ export class ProjectsListComponent implements OnInit {
   public projects: Project[] = [];
 
 
-  public constructor(
+  public constructor(private linkService: LinkService,
                      private projectService: ProjectService) {
   }
 
@@ -37,6 +38,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   public edit(project: Project) {
+    this.linkService.editProject(project);
     //this.$state.go(".project-edit", {projectId: project.id}, {reload: false});
   }
 

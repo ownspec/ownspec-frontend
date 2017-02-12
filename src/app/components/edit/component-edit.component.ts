@@ -44,6 +44,9 @@ export class ComponentEditComponent implements OnInit {
 
   public constructor(public dialog: MdDialog, private componentService: ComponentService, private referenceService: ReferenceService,
                      private route: ActivatedRoute, private linkService: LinkService, private componentVersionService:ComponentVersionService) {
+
+
+
     this.editorOptions = {
       height: "200px",
       basePath: '/assets/js/ckeditor/'

@@ -9,6 +9,7 @@ import {MdDialog, MdSnackBar} from "@angular/material";
 import {Project} from "../../shared/model/project";
 import {User} from "../../shared/model/user/user";
 import {Globals} from "../../shared/globals";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'project-edit',
@@ -26,23 +27,30 @@ export class ProjectEditComponent implements OnInit {
   private dataService: CompleterData;
   private availableUsers: User[] = [];
 
-  public constructor(
+  public constructor(private route: ActivatedRoute,
                      private projectService: ProjectService,
                      private completerService: CompleterService,
                      private userService: UserService,
                      private dialog: MdDialog,
                      public snackBar: MdSnackBar) {
 
+
+
+  }
+
+  ngOnInit(): void {
+    if (this.route.snapshot.data) {
+      this.id = this.route.snapshot.params['id'];
+    }
+
     this.project = new Project();
+
     this.projectService.findAll().subscribe(r => this.projects = r);
 
     let foundUsers: Observable<User[]> = this.userService.findAll();
     foundUsers.subscribe(r => this.availableUsers = r);
     this.dataService = this.completerService.local(foundUsers, 'username,fullName', 'fullName').descriptionField('username');
 
-  }
-
-  ngOnInit(): void {
     this.create = this.id == '_new';
     if (!this.create) {
       this.projectService.findOne(this.id).subscribe(r => this.project = r);

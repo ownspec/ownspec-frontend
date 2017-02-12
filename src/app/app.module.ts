@@ -70,6 +70,11 @@ const appRoutes: Routes = [
         //outlet: "main"
       },
       {
+        path: 'projects/:id/edit',
+        component: ProjectEditComponent,
+        //outlet: "main"
+      },
+      {
         path: 'requirements',
         component: ComponentsListComponent,
         data: {componentTypes: ["REQUIREMENT"]}

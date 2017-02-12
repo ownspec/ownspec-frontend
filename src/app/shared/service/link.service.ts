@@ -5,6 +5,7 @@ import {StateService} from "ui-router-ng2";
 import {Component} from "../model/component/component";
 import {Router} from "@angular/router";
 import {ComponentVersion} from "./component/component-version";
+import {Project} from "../model/project";
 
 @Injectable()
 export class LinkService {
@@ -73,6 +74,10 @@ export class LinkService {
 
   }
 
+  editProject(project: Project) {
+    this.router.navigate(["app" , "projects" , project.id , "edit"]);
+
+  }
 }
 
 
