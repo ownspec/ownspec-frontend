@@ -11,6 +11,7 @@ import {SideNavComponent} from "./sidenav/sidenav.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {ResourcesListComponent} from "./resources/list/resouces-list.component";
 import {AdministrationComponent} from "./administration/administration.component";
+import {ConfirmRegistrationComponent} from "./confirm-registration/confirm-registration.component";
 
 /** The top level state(s) */
 export let MAIN_STATES: Ng2StateDeclaration[] = [
@@ -62,6 +63,20 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
     views: {
       "main@app": {component: AdministrationComponent},
     }
+  },
+
+  {
+    name: "confirm.registration",
+    url: "/registrationConfirmation/:confirmationToken",
+    abstract: true,
+    component: ConfirmRegistrationComponent,
+    resolve: [
+      {
+        token: 'confirmationToken',
+        deps: [Transition],
+        resolveFn: (trans) => trans.params().confirmationToken
+      }
+    ]
   },
 
   /**

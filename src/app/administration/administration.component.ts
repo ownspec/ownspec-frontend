@@ -5,8 +5,7 @@ import {Company} from "../shared/model/company";
 import {UserCategory} from "../shared/model/user/user-category";
 import {UserService} from "../shared/service/user/user.service";
 import {CompanyService} from "../shared/service/company.service";
-import {MdSnackBar, MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
-import {Globals} from "../shared/globals";
+import {MdSnackBar, MdDialog, MdDialogRef} from "@angular/material";
 import {UserEditDialog} from "./user-edit/user-edit.component";
 
 @Component({
@@ -17,7 +16,6 @@ import {UserEditDialog} from "./user-edit/user-edit.component";
 })
 export class AdministrationComponent implements OnInit {
 
-  private admin = new User();
   private users: User[] = [];
   private userCategories: UserCategory[] = [];
   private company: Company = new Company();
@@ -30,36 +28,36 @@ export class AdministrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getCurrent().subscribe((r: User) => {
-      this.admin = r;
-    }, e => {
-      this.snackBar.open("An unexpected error has occurred");
-    });
+    this.fetchUsers();
 
+    // this.userService.findAllUserCategories().subscribe(r => {
+    //   this.userCategories = r;
+    // }, e => {
+    //   this.snackBar.open("Failed to retrieve all user categories");
+    // });
+
+    // this.companyService.getCurrent().subscribe(r => {
+    //   this.company = r;
+    // }, e => {
+    //   this.snackBar.open("Failed to get current company settings", "Signal", {duration: Globals.SNACK_BAR_DURATION});
+    // })
+  }
+
+  fetchUsers() {
     this.userService.findAll().subscribe((r: User []) => {
       this.users = r
     }, e => {
       this.snackBar.open("Failed to retrieve all users");
 
     });
-
-    this.userService.findAllUserCategories().subscribe(r => {
-      this.userCategories = r;
-    }, e => {
-      this.snackBar.open("Failed to retrieve all user categories");
-    });
-
-    this.companyService.getCurrent().subscribe(r => {
-      this.company = r;
-    }, e => {
-      this.snackBar.open("Failed to get current company settings", "Signal", {duration: Globals.SNACK_BAR_DURATION});
-    })
   }
-
 
   edit(user: User) {
     let dialogRef: MdDialogRef<UserEditDialog> = this.dialog.open(UserEditDialog);
     dialogRef.componentInstance.user = user;
+    dialogRef.afterClosed().subscribe(() => {
+      this.fetchUsers();
+    })
   }
 
   resetPassword(user: User) {

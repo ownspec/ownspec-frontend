@@ -48,33 +48,10 @@
 
   <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 10px">
     <div fxFlex>
-      <button md-button>SAVE</button>
+      <button md-button (click)="save(user)" >SAVE</button>
     </div>
     <div fxFlex>
-      <button md-button>CANCEL</button>
+      <button md-button (click)="cancel()">CANCEL</button>
     </div>
   </div>
 </div>
-
-
-<!--private String company;-->
-<!--private String signature;-->
-
-<!--private Instant lastConnection;-->
-
-<!--@CreatedDate-->
-<!--protected Instant createdDate;-->
-<!--@ManyToOne-->
-<!--@CreatedBy-->
-<!--protected User createdUser;-->
-<!--@LastModifiedDate-->
-<!--protected Instant lastModifiedDate;-->
-<!--@ManyToOne-->
-<!--@LastModifiedBy-->
-<!--protected User lastModifiedUser;-->
-
-<!--@Embedded-->
-<!--private UserPreference preference;-->
-
-<!--@ManyToOne-->
-<!--private UserCategory category;-->

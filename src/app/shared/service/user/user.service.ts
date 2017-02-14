@@ -22,9 +22,15 @@ export class UserService {
   }
 
   public logout(): Observable<any> {
-    return this.http.post(
-        "/api/auth/logout", ""
-    );
+    return this.http.post("/api/auth/logout", "");
+  }
+
+  public create(user: User): Observable<any> {
+    return this.http.post("/api/users/new", User.toJson(user));
+  }
+
+  public confirmRegistration(confirmationToken: string): Observable<any> {
+    return this.http.post("api/auth/registrationConfirmation/" + confirmationToken, "");
   }
 
   public getCurrent(): Observable<User> {

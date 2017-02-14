@@ -11,8 +11,8 @@ export class CompanyService {
 
   }
 
-  public getCurrent(): Observable<Company> {
-    return this.http.get("/api/companies/this")
+  public getHost(): Observable<Company> {
+    return this.http.get("/api/companies/host")
         .flatMap(r => r.json())
         .map(item => Company.fromJson(item));
   }

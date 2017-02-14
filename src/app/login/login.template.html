@@ -4,9 +4,8 @@
 
 <div class="login-form-container">
   <div class="form">
-    <div *ngIf="loginFailed" class="alert alert-danger">Login failed</div>
     <h2>Login to your account</h2>
-    <form #loginForm="ngForm" (ngSubmit)="processLogin(username.value,password.value)">
+    <form #loginForm="ngForm" (ngSubmit)="login(username.value,password.value)">
       <input #username type="text" class="form-control" placeholder="Username" required/>
       <input #password type="password" class="form-control" placeholder="Password" required/>
       <button [disabled]="!loginForm.valid" type="submit">Login</button>

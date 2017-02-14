@@ -1,10 +1,8 @@
 import {NgModule, ApplicationRef, Injectable} from "@angular/core";
 import {BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
-import {HttpModule, RequestOptions, XHRBackend, Http} from "@angular/http";
+import {HttpModule} from "@angular/http";
 import {SharedModule} from "./shared/shared.module";
-import {UIView, UIRouterModule, StateService} from "ui-router-ng2";
-import {MAIN_STATES} from "./app.states";
 import {AppComponent} from "./app.component";
 import {MomentModule} from "angular2-moment";
 import {Ng2BootstrapModule, DropdownModule} from "ng2-bootstrap";
@@ -19,7 +17,6 @@ import {MaterialModule, MdCardModule} from "@angular/material";
 import {MainHeaderComponent} from "./header/main-header.component";
 import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
 import {ChartsModule} from "ng2-charts";
-import {HttpInterceptor} from "./shared/http/http-interceptor";
 import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
 import {SideNavComponent} from "./sidenav/sidenav.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
@@ -32,6 +29,14 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {TreeModule} from "angular2-tree-component";
 import {CompleterCmpMd} from "./shared/completer-cmp-md/completer-cmp-md";
+import "../styles/styles.scss";
+import {Globals} from "./shared/globals";
+import {AdministrationComponent} from "./administration/administration.component";
+import {UserEditDialog} from "./administration/user-edit/user-edit.component";
+import {ComponentEditGeneralComponent} from "./components/edit/general/component-edit-general.component";
+import {RouterModule, Routes} from "@angular/router";
+import {FooComponent} from "./foo.component";
+import {ConfirmRegistrationComponent} from "./confirm-registration/confirm-registration.component";
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -45,14 +50,6 @@ require("../assets/js/ckeditor/ckeditor.js");
 
 require("hammerjs");
 
-import '../styles/styles.scss';
-import {Globals} from "./shared/globals";
-import {AdministrationComponent} from "./administration/administration.component";
-import {UserEditDialog} from "./administration/user-edit/user-edit.component";
-import {ComponentEditGeneralComponent} from "./components/edit/general/component-edit-general.component";
-import {RouterModule, RouterOutlet, Routes} from "@angular/router";
-import {FooComponent} from "./foo.component";
-
 // TODO: temporary until https://github.com/angular/material2/issues/1457
 @Injectable()
 export class AppGestureConfig extends HammerGestureConfig {
@@ -61,6 +58,10 @@ export class AppGestureConfig extends HammerGestureConfig {
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
+  {
+    path: 'registrationConfirmation/:confirmationToken',
+    component: ConfirmRegistrationComponent
+  },
   {
     path: 'app', component: AppComponent,
     children: [
@@ -148,6 +149,7 @@ const appRoutes: Routes = [
     ProjectEditComponent,
 
     LoginComponent,
+    ConfirmRegistrationComponent,
 
     CompleterCmpMd,
     UserEditDialog,

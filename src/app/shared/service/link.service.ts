@@ -1,11 +1,7 @@
-import {Observable} from "rxjs";
 import {Http} from "@angular/http";
 import {Injectable} from "@angular/core";
-import {StateService} from "ui-router-ng2";
-import {Component} from "../model/component/component";
 import {Router} from "@angular/router";
 import {ComponentVersion} from "./component/component-version";
-import {Project} from "../model/project";
 
 @Injectable()
 export class LinkService {
@@ -19,6 +15,9 @@ export class LinkService {
     this.router.navigateByUrl("/app/dashboard");
   }
 
+  goToLoginPage(){
+    this.router.navigateByUrl("/login");
+  }
 
   gotoEditComponent(component: ComponentVersion) {
 
