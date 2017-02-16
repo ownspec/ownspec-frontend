@@ -169,7 +169,7 @@ const appRoutes: Routes = [
     HttpModule,
     Ng2BootstrapModule,
     MaterialModule.forRoot(),
-    FlexLayoutModule.forRoot(),
+    FlexLayoutModule,
     NgxDatatableModule,
     CKEditorModule,
     MomentModule,
