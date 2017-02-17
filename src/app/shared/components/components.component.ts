@@ -54,17 +54,21 @@ export class ComponentsComponent implements OnInit {
     this.search();
   }
 
-  public dragStart(evt: any, r: Component) {
+  public dragStart(evt: any, r: ComponentVersion) {
+
+    console.log(r);
 
     if (!r && !r.id) {
       return;
     }
 
+
+
     var dataTransfer = evt.dataTransfer;
 
     dataTransfer.setData('component', JSON.stringify({
-      id: r.id, type: r.type, workflowInstanceId: r.getCurrentWorkflowInstance().id,
-      editable: r.getCurrentWorkflowInstance().getCurrentWorkflowStatus().status.editable
+      id: r.id, type: r.type,
+      editable: r.workflowInstance.getCurrentWorkflowStatus().status.editable
     }));
 
     dataTransfer.setData('text/html', r.content);
@@ -72,7 +76,7 @@ export class ComponentsComponent implements OnInit {
 
   public search() {
     // TODO: temporary fetch content with the list of component, to refactor because response size will be too large
-    this.componentVersionService.findAll(this.projectId, null, this.types, this.searchQuery, false, false, false).subscribe(components => {
+    this.componentVersionService.findAll(this.projectId, null, this.types, this.searchQuery, true, false, false).subscribe(components => {
       this.components = components;
 
       let tree = [];

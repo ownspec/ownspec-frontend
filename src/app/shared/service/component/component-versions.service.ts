@@ -44,7 +44,7 @@ export class ComponentVersionService {
     if (projectId) {
       params.append("projectId", projectId);
     }
-    params.append("workflow", workflow.toString());
+    params.append("statuses", workflow.toString());
     params.append("comments", comments.toString());
     params.append("references", references.toString());
 
@@ -79,18 +79,41 @@ export class ComponentVersionService {
       .map(r => r.text());
   }
 
+  public getResolvedContent(id: string): Observable<string> {
+    return this.$http.get("/api/component-versions/" + id + "/resolved-content")
+      .map(r => r.text());
+  }
+
 
   public updateWorkflowStatus(id: string, nextStatus:string, reason:string): Observable<WorkflowStatus> {
     return this.$http.post("/api/component-versions/" + id + "/workflow-statuses", {nextStatus:nextStatus, reason:reason})
       .map(r => WorkflowStatus.fromMap(r.json()));
   }
 
-  public save(toSave: ComponentVersion): Observable<boolean> {
+  public update(toSave: ComponentVersion): Observable<boolean> {
     return this.$http.patch("/api/component-versions/" + toSave.id, ComponentVersion.toMap(toSave))
       .map(r => {
         return r.status == 200;
       });
   }
+
+  public create(toSave: ComponentVersion): Observable<boolean> {
+    return this.$http.post("/api/components", ComponentVersion.toMap(toSave))
+      .map(r => {
+        return r.status == 200;
+      });
+  }
+
+
+  // TODO: temporary
+  getContentUrl(c: Component) {
+    return "/api/component-versions/" + c.id + "/content";
+  }
+
+  getComponentVersionUrl(c: ComponentVersion) {
+    return "/api/components/" + c.id + "/versions/" + c.workflowInstance.id + "/content";
+  }
+
 }
 
 

@@ -15,14 +15,21 @@ CKEDITOR.plugins.add('ownspec_component', {
       var component = JSON.parse(evt.data.dataTransfer.getData('component'));
 
       if (component.type != 'RESOURCE') {
-        evt.data.dataValue = '<div class="requirements" data-requirement-id="' + component.id + '" data-workflow-instance-id="' + component.workflowInstanceId + '">' +
+
+        evt.data.dataValue = '<div class="requirements" data-os-cv-id="' + component.id + '">' +
           '<div  class="requirements-id">' + component.id + '</div>' +
-          '<div class="requirements-content" contenteditable="' + component.editable + '">' + evt.data.dataTransfer.getData('text/html') + '</div>' +
+          '<div class="requirements-content" contenteditable="' + component.editable + '"></div>' +
           '</div>';
 
+        var r = editor.fire("fetch-ownspec-cv-content" , {id:component.id});
+        r.observable.subscribe(function(r){
+          jQuery(editor.container.$).find(".requirements[data-os-cv-id='" + component.id + "'] .requirements-content").html(r);
+        });
+
       } else {
-        evt.data.dataValue = '<img src="' + component.url + '" data-requirement-id="' + component.id + '" data-workflow-instance-id="' + component.workflowInstanceId + '">';
+        evt.data.dataValue = '<img src="' + component.url + '" data-os-cv-id="' + component.id + '">';
       }
+
 
     });
 
@@ -31,7 +38,7 @@ CKEDITOR.plugins.add('ownspec_component', {
       // Widget code.
       //button: 'Create a component',
       icons: 'ownspec_component', // %REMOVE_LINE_CORE%
-      template: '<div class="requirements" data-requirement-id="_NEW" data-workflow-instance-id="_NEW">' +
+      template: '<div class="requirements" data-os-cv-id="_NEW">' +
       '<div class="requirements-id">REQ-001</div>' +
       '<div class="requirements-content"><label>REQ-001</label></div>' +
       '</div>',
@@ -42,7 +49,7 @@ CKEDITOR.plugins.add('ownspec_component', {
           allowedContent: 'span img h1 h2 h3 h4 h5 div p br ul ol li strong em table tr td tbody[*](*){*}'
         }
       },
-      allowedContent: 'div(!requirements)[!data-requirement-id,!data-workflow-instance-id,contenteditable]; div(!requirements-id);div(!requirements-content)[contenteditable]',
+      allowedContent: 'div(!requirements)[!data-os-cv-id,contenteditable]; div(!requirements-id);div(!requirements-content)[contenteditable]',
 
       //requiredContent: 'div(!requirements)[!data-requirement-id,!data-workflow-instance-id]; div(!requirements-id);div(!requirements-content)',
 

@@ -10,6 +10,8 @@ import {ProfileService} from "../service/user/profil.service";
 import {ComponentVersion} from "../service/component/component-version";
 import {ComponentVersionService} from "../service/component/component-versions.service";
 import {ComponentUpdate} from "../../components/write/component-write.component";
+import {MdDialog, MdDialogRef} from "@angular/material";
+import {UpdateWorkflowComponent} from "./update/workflow-update.component";
 
 
 @C({
@@ -20,7 +22,7 @@ import {ComponentUpdate} from "../../components/write/component-write.component"
 export class WorkflowComponent implements OnInit {
 
   @Input()
-  public component: ComponentVersion;
+  public componentVersion: ComponentVersion;
 
   @Input()
   public canUpdateWorkflow:Boolean;
@@ -37,7 +39,7 @@ export class WorkflowComponent implements OnInit {
 
   public visibleStatuses = {};
 
-  public constructor(private zone:NgZone, private componentService: ComponentService, private componentVersionService: ComponentVersionService, private profileService: ProfileService) {
+  public constructor(public dialog: MdDialog,  private componentService: ComponentService, private componentVersionService: ComponentVersionService, private profileService: ProfileService) {
   }
 
   ngOnInit(): void {
@@ -50,24 +52,9 @@ export class WorkflowComponent implements OnInit {
 
   }
 
-  public changeStatus() {
-    this.componentVersionService.updateWorkflowStatus(this.component.id, this.targetStatus, this.reason)
-      .subscribe(c => {
-        //this.component = c;
-        this.update.emit(ComponentUpdate.newComponentUpdate());
-      });
-  }
-
-  public newStatus() {
-    this.componentService.newStatus(this.component.id)
-      .subscribe(c => {
-        //this.component = c;
-        this.update.emit(ComponentUpdate.newComponentUpdate());
-      });
-  }
 
   public diff(change:Change){
-    this.componentService.diff(this.component.id , null, change.revision).subscribe(d => {
+    this.componentService.diff(this.componentVersion.id , null, change.revision).subscribe(d => {
 
       /*this.modal.alert()
         .size("lg")
@@ -80,9 +67,13 @@ export class WorkflowComponent implements OnInit {
   }
 
 
-  display($event){
-    console.log($event);
+  public updateStatus(){
+    let updateStatusDlg : MdDialogRef<UpdateWorkflowComponent> = this.dialog.open(UpdateWorkflowComponent);
+    updateStatusDlg.componentInstance.componentVersion = this.componentVersion;
+    updateStatusDlg.componentInstance.update.subscribe(c => {
+      this.update.emit(c);
+      updateStatusDlg.close();
+    });
   }
-
 
 }

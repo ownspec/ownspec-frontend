@@ -2,10 +2,11 @@
 import {Request, RequestOptions, ConnectionBackend, Http, RequestOptionsArgs, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {StateService} from "ui-router-ng2";
+import {LinkService} from "../service/link.service";
 
 export class HttpInterceptor extends Http {
 
-  constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
+  constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private linkService:LinkService) {
     super(backend, defaultOptions);
   }
 
@@ -32,7 +33,7 @@ export class HttpInterceptor extends Http {
   intercept(observable: Observable<Response>): Observable<Response> {
     return observable.catch((err, source) => {
       if (err.status  == 401) {
-        //this.$state.go("login", null, {reload: true});
+        this.linkService.goToLoginPage();
         return Observable.empty();
       } else {
         return Observable.throw(err);

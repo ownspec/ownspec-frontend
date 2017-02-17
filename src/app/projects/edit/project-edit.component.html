@@ -29,12 +29,12 @@
           </div>
           <div fxFlex="80" fxLayout="column" style="padding: 20px !important;">
             <md-input-container fxFlex class="panel-content-input-container" style="margin-bottom: 10px">
-              <input md-input required
+              <input mdInput required
                      [(ngModel)]="project.title"
                      placeholder="Name" name="title" type="text">
             </md-input-container>
             <md-input-container fxFlex class="panel-content-input-container" style="margin-bottom: 10px">
-            <textarea md-input
+            <textarea mdInput
                       [(ngModel)]="project.description"
                       [maxlength]="descriptionMaxLength"
                       placeholder="Description ({{descriptionMaxLength}} max)" name="Description" type="text"

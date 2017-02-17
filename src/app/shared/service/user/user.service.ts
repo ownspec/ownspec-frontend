@@ -26,7 +26,7 @@ export class UserService {
   }
 
   public create(user: User): Observable<any> {
-    return this.http.post("/api/users/new", User.toJson(user));
+    return this.http.post("/api/users/new", User.toMap(user));
   }
 
   public confirmRegistration(confirmationToken: string): Observable<any> {
@@ -51,7 +51,7 @@ export class UserService {
   }
 
   public save(user: User): Observable<any> {
-    return this.http.post("/api/users/" + user.id, User.toJson(user));
+    return this.http.post("/api/users/" + user.id, User.toMap(user));
   }
 
   public delete(user: User): Observable<any> {

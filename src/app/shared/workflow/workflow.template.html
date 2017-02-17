@@ -1,54 +1,9 @@
 <div>
 
-
   <div style="padding-bottom: 4px">
-    <md-button-toggle-group multiple>
-      <md-button-toggle md-tooltip="Display only the latest version">
-        <i class="fa fa-filter" aria-hidden="true"></i>
-      </md-button-toggle>
-      <md-button-toggle #historyUpdate md-tooltip="Update status">
-        <i class="fa fa-history" aria-hidden="true"></i>
-      </md-button-toggle>
-    </md-button-toggle-group>
-  </div>
-
-  <div *ngIf="historyUpdate.checked">
-    <div *ngIf="!component.workflowInstance.currentWorkflowStatus.status.final" style="padding-bottom: 4px">
-      <form name="userForm" style="padding-top: 6px" (submit)="changeStatus()">
-        <div>
-          <span>From <b>{{component.workflowInstance.currentWorkflowStatus.status.name}}</b> To </span>
-          <select class="custom-select" [(ngModel)]="targetStatus" name="targetStatus">
-            <option *ngFor="let status of component.workflowInstance.currentWorkflowStatus.status.transitions"
-                    [value]="status">
-              {{status}}
-            </option>
-          </select>
-        </div>
-        <div>
-          <md-textarea style="width: 100%" [(ngModel)]="reason" name="reason" required
-                       placeholder="Enter the reason"></md-textarea>
-        </div>
-        <div style="width: 40px;text-align: center;">
-          <button md-raised-button type="submit" [disabled]="!canUpdateWorkflow">Update
-          </button>
-        </div>
-      </form>
-    </div>
-    <div *ngIf="component.workflowInstance.currentWorkflowStatus.status.final" style="padding-bottom: 4px">
-      <form name="userForm" style="padding-top: 6px" (submit)="newStatus()">
-        <div>
-          <span>Current <b>{{component.workflowInstance.currentWorkflowStatus.status.name}}</b> </span>
-        </div>
-        <div>
-          <md-textarea style="width: 100%" [(ngModel)]="reason" name="reason" required
-                       placeholder="Enter the reason"></md-textarea>
-        </div>
-        <div style="width: 40px;text-align: center;">
-          <button md-raised-button type="submit" [disabled]="!canUpdateWorkflow">New
-          </button>
-        </div>
-      </form>
-    </div>
+    <button md-raised-button (click)="updateStatus()">Update
+      {{componentVersion.workflowInstance.currentWorkflowStatus.status.name}}
+    </button>
   </div>
 
   <div class="workflow-history">
@@ -56,11 +11,11 @@
     <div
          style="background:white;border: 1px solid #e2e2e2;border-radius: 3px;">
       <h3 style="font-size: 1.1rem;font-weight: 600;background: #393838;color: white;padding: 6px;">
-        Version {{component.workflowInstance.version}}
-        <small>started {{component.workflowInstance.createdDate| amTimeAgo}}</small>
+        Version {{componentVersion.workflowInstance.version}}
+        <small>started {{componentVersion.workflowInstance.createdDate| amTimeAgo}}</small>
       </h3>
 
-      <div *ngFor="let status of component.workflowInstance.workflowStatuses.concat().reverse()" style="padding: 4px;">
+      <div *ngFor="let status of componentVersion.workflowInstance.workflowStatuses.concat().reverse()" style="padding: 4px;">
         <h4 role="button" (click)="visibleStatuses[status.id] = !visibleStatuses[status.id]">
           {{status.status.name}} {{status.reason}}
 

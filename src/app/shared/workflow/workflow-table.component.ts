@@ -7,6 +7,8 @@ import {Component} from "../model/component/component";
 import {Change} from "../model/component/change";
 import {ComponentVersion} from "../service/component/component-version";
 import {ProfileService} from "../service/user/profil.service";
+import {MdDialog, MdDialogRef} from "@angular/material";
+import {UpdateWorkflowComponent} from "./update/workflow-update.component";
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from
@@ -21,9 +23,6 @@ import {ProfileService} from "../service/user/profil.service";
   templateUrl: './workflow-table.template.html',
 })
 export class WorkflowTableComponent implements OnInit {
-
-
-  combinedStatusView: Array<any> = [];
 
   @Input()
   private componentVersion: ComponentVersion;
@@ -45,7 +44,7 @@ export class WorkflowTableComponent implements OnInit {
 
   @ViewChild('myTable') table: any;
 
-  public constructor(private zone: NgZone, private componentService: ComponentService, private profileService: ProfileService) {
+  public constructor(public dialog: MdDialog, private zone: NgZone, private componentService: ComponentService, private profileService: ProfileService) {
   }
 
   ngOnInit(): void {
@@ -55,23 +54,6 @@ export class WorkflowTableComponent implements OnInit {
       this.statuses = p.properties.statuses;
     });
 
-  }
-
-
-  public changeStatus() {
-    this.componentService.updateStatus(this.componentVersion.id, this.targetStatus, this.reason)
-      .subscribe(c => {
-        //this.component = c;
-        this.update.emit(c);
-      });
-  }
-
-  public newStatus() {
-    this.componentService.newStatus(this.componentVersion.id)
-      .subscribe(c => {
-        //this.component = c;
-        this.update.emit(c);
-      });
   }
 
   public diff(change:Change) {
@@ -89,8 +71,20 @@ export class WorkflowTableComponent implements OnInit {
     });
   }
 
+
+  public updateStatus(){
+    let updateStatusDlg : MdDialogRef<UpdateWorkflowComponent> = this.dialog.open(UpdateWorkflowComponent);
+    updateStatusDlg.componentInstance.componentVersion = this.componentVersion;
+    updateStatusDlg.componentInstance.update.subscribe(c => {
+      this.update.emit(c);
+      updateStatusDlg.close();
+    });
+  }
+
+
+
+
   toggleExpandRow(row) {
-    console.log('Toggled Expand Row!', row);
     this.table.rowDetail.toggleExpandRow(row);
   }
 

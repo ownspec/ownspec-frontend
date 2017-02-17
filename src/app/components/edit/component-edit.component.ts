@@ -32,102 +32,70 @@ export class ComponentEditComponent implements OnInit {
   @Input("projectId")
   public projectId: string;
 
-
-
   public componentVersion: ComponentVersion;
-  public create: boolean;
-
-  public editorOptions: any;
 
   public userCategories: string[] = ['Analyst', 'Developer', 'Tester'];
 
 
   public constructor(public snackBar: MdSnackBar, public dialog: MdDialog, private componentService: ComponentService, private referenceService: ReferenceService,
-                     private route: ActivatedRoute, private linkService: LinkService, private componentVersionService:ComponentVersionService) {
-
-
-
-    this.editorOptions = {
-      height: "200px",
-      basePath: '/assets/js/ckeditor/'
-    };
+                     private route: ActivatedRoute, private linkService: LinkService, private componentVersionService: ComponentVersionService) {
   }
 
 
   ngOnInit(): void {
-
-    console.log(this.route.snapshot);
-
     if (this.route.snapshot.data) {
+      console.log(this.route);
       this.id = this.route.snapshot.params['id'];
       this.projectId = this.route.snapshot.data['projectId'];
+      this.componentType = this.route.snapshot.data['componentType'];
     }
-
-    this.create = this.id == '_new';
 
     this.fetch();
   }
 
 
   private fetch() {
-    if (!this.create) {
-      this.componentVersionService.findOne(this.id, true, false, false, true).subscribe(r => {
-        this.componentVersion = r;
-      });
-
-    } else {
-      //this.componentVersion = new Component("", "", this.projectId, this.componentType);
-    }
-
-
+    this.componentVersionService.findOne(this.id, true, false, false, true).subscribe(r => {
+      this.componentVersion = r;
+    });
   }
 
 
   public save() {
-
-    let obs: Observable<any>;
-
-    if (this.create) {
-      //obs = this.componentService.create(this.component);
-    } else {
-      //obs = this.componentService.save(this.component);
-    }
-
-    obs.subscribe(r => {
+    this.componentService.save(this.componentVersion).subscribe(r => {
       //this.$state.go("^", null, {reload: true});
     });
   }
 
   public onUpdate(componentUpdate: ComponentUpdate) {
-    console.log("ooooookkk");
     this.fetch();
   }
 
 
   public updateLatestVersion(ref: ComponentReference) {
-/*    this.componentService.updateReference(this.component.id, this.component.currentWorkflowInstance.id, ref.id, ref.target.id)
-      .subscribe(r => {
-        this.fetch();
-      });*/
+    /*    this.componentService.updateReference(this.component.id, this.component.currentWorkflowInstance.id, ref.id, ref.target.id)
+     .subscribe(r => {
+     this.fetch();
+     });*/
   }
 
   public editReference(ref: ComponentReference) {
-   /* let a: MdDialogRef<ReferenceComponent> = this.dialog.open(ReferenceComponent);
+    /* let a: MdDialogRef<ReferenceComponent> = this.dialog.open(ReferenceComponent);
 
-    a.componentInstance.componentId = this.component.id;
-    a.componentInstance.workflowInstanceId = this.component.currentWorkflowInstance.id;
+     a.componentInstance.componentId = this.component.id;
+     a.componentInstance.workflowInstanceId = this.component.currentWorkflowInstance.id;
 
-    a.componentInstance.refId = ref.id;
-    a.componentInstance.refComponentId = ref.target.id;
-    a.componentInstance.refWorkflowInstanceId = ref.targetWorkflowInstance.id;
+     a.componentInstance.refId = ref.id;
+     a.componentInstance.refComponentId = ref.target.id;
+     a.componentInstance.refWorkflowInstanceId = ref.targetWorkflowInstance.id;
 
-    a.afterClosed().subscribe(r => {
-      this.fetch();
-    });*/
+     a.afterClosed().subscribe(r => {
+     this.fetch();
+     });*/
   }
 
   public gotoEditComponent(c: ComponentVersion) {
-    this.linkService.gotoEditComponent(c);
+    this.linkService.gotoEditComponent(c.projectId, c.id, c.type);
   }
 
 

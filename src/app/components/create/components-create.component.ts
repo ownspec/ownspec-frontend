@@ -27,8 +27,8 @@ import {ComponentEditGeneralComponent} from "../edit/general/component-edit-gene
 
 @C({
   selector: 'components',
-  templateUrl: 'components-list.template.html',
-  styleUrls: ['./components-list.component.scss']
+  templateUrl: 'components-create.template.html',
+  styleUrls: ['component-create.component.scss']
   //providers:[]
 })
 export class ComponentsListComponent implements OnInit {

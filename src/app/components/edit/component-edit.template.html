@@ -19,7 +19,8 @@
     <md-tab-group>
       <md-tab label="General">
 
-        <component-edit-general [componentVersion]="componentVersion" (update)="onUpdate($event)"></component-edit-general>
+        <component-edit-general [componentVersion]="componentVersion"
+                                (update)="onUpdate($event)"></component-edit-general>
 
       </md-tab>
       <md-tab label="Estimated time">
@@ -29,79 +30,69 @@
           </div>
           <div fxLayout="row" class="panel-content">
             <div fxFlex *ngFor="let userCategory of userCategories">
-              <div style="display: flex; flex-direction: row">
-                <md-input placeholder="{{userCategory}}" required name="time" type="number"></md-input>
-
-                <md-select name="unit" [(ngModel)]="unit" placeholder="Unit">
-                  <md-option ngValue="Hours">Hours</md-option>
-                  <md-option ngValue="Days">Days</md-option>
-                </md-select>
-              </div>
+              <md-input-container>
+                <input mdInput placeholder="{{userCategory}}" required name="time" type="number">
+              </md-input-container>
+              <md-select name="unit" [(ngModel)]="unit" placeholder="Unit">
+                <md-option ngValue="Hours">Hours</md-option>
+                <md-option ngValue="Days">Days</md-option>
+              </md-select>
             </div>
           </div>
         </div>
       </md-tab>
       <md-tab label="Workflow">
-        <div fxFlex class="panel">
-          <div class="panel-heading">
-            <h6>Workflow</h6>
-          </div>
-          <div class="panel-content">
-            <workflow-table [componentVersion]="componentVersion">
-            </workflow-table>
-            <!--<workflow [component]="component" [canUpdateWorkflow]="true" (update)="onUpdate($event)"></workflow>-->
-          </div>
+        <div class="panel">
+          <workflow-table [componentVersion]="componentVersion" (update)="onUpdate($event)">
+          </workflow-table>
+          <!--<workflow [component]="component" [canUpdateWorkflow]="true" (update)="onUpdate($event)"></workflow>-->
         </div>
       </md-tab>
       <md-tab label="References">
-        <div fxFlex class="panel">
-          <div class="panel-heading">
-            <h6>Reference</h6>
-          </div>
-          <div class="panel-content">
-            <ngx-datatable
-              class="material" style="flex: 1;min-height:300px"
-              [rows]="componentVersion.componentReferences"
-              [headerHeight]="50"
-              [footerHeight]="0"
-              [rowHeight]="50"
-              [scrollbarV]="true"
-              [scrollbarH]="true">
-              <ngx-datatable-column name="Source" prop="source.title"></ngx-datatable-column>
-              <ngx-datatable-column name="Status"
-                                    prop="sourceWorkflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
-              <ngx-datatable-column name="Version" prop="sourceWorkflowInstance.version"></ngx-datatable-column>
-              <ngx-datatable-column name="Target" prop="target.title"></ngx-datatable-column>
-              <ngx-datatable-column name="Status"
-                                    prop="targetWorkflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
-              <ngx-datatable-column name="Version" prop="targetWorkflowInstance.version"></ngx-datatable-column>
 
-              <ngx-datatable-column name="Action">
-                <template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  <div class="table-actions">
-                    <a tooltipPlacement="bottom" md-tooltip="Update to latest version" tooltip-position="above"
-                       (click)="updateLatestVersion(row)"
-                       class="table-actions" role="button">
-                      <i class="fa fa-level-up" aria-hidden="true"></i>
-                    </a>
-                    <a tooltipPlacement="bottom" md-tooltip="Edit Reference" tooltip-position="above"
-                       (click)="editReference(row)"
-                       class="table-actions" role="button">
-                      <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </a>
-                    <a tooltipPlacement="bottom" md-tooltip="Open {{row.target.title}}" tooltip-position="above"
-                       (click)="gotoEditComponent(row.target)"
-                       class="table-actions" role="button">
-                      <i class="fa fa-link" aria-hidden="true"></i>
-                    </a>
+        <div class="panel-content">
+          <ngx-datatable
+            class="material" style="flex: 1;min-height:300px"
+            [rows]="componentVersion.componentReferences"
+            [headerHeight]="50"
+            [footerHeight]="0"
+            [rowHeight]="50"
+            [scrollbarV]="true"
+            [scrollbarH]="true">
+            <ngx-datatable-column name="Source" prop="source.title"></ngx-datatable-column>
+            <ngx-datatable-column name="Status"
+                                  prop="sourceWorkflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
+            <ngx-datatable-column name="Version" prop="sourceWorkflowInstance.version"></ngx-datatable-column>
+            <ngx-datatable-column name="Target" prop="target.title"></ngx-datatable-column>
+            <ngx-datatable-column name="Status"
+                                  prop="targetWorkflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
+            <ngx-datatable-column name="Version" prop="targetWorkflowInstance.version"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Action">
+              <template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div class="table-actions">
+                  <a tooltipPlacement="bottom" md-tooltip="Update to latest version" tooltip-position="above"
+                     (click)="updateLatestVersion(row)"
+                     class="table-actions" role="button">
+                    <i class="fa fa-level-up" aria-hidden="true"></i>
+                  </a>
+                  <a tooltipPlacement="bottom" md-tooltip="Edit Reference" tooltip-position="above"
+                     (click)="editReference(row)"
+                     class="table-actions" role="button">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </a>
+                  <a tooltipPlacement="bottom" md-tooltip="Open {{row.target.title}}" tooltip-position="above"
+                     (click)="gotoEditComponent(row.target)"
+                     class="table-actions" role="button">
+                    <i class="fa fa-link" aria-hidden="true"></i>
+                  </a>
 
 
-                  </div>
-                </template>
-              </ngx-datatable-column>
+                </div>
+              </template>
+            </ngx-datatable-column>
 
-            </ngx-datatable>
-          </div>
+          </ngx-datatable>
         </div>
       </md-tab>
       <md-tab label="Use Points">

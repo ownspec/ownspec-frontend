@@ -66,7 +66,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
       this.component = r;
     });
 
-    this.componentVersionService.getContent(this.id).subscribe(r => {
+    this.componentVersionService.getResolvedContent(this.id).subscribe(r => {
       this.content = r;
     });
 

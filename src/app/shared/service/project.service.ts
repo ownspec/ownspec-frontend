@@ -13,7 +13,7 @@ export class ProjectService {
   }
 
   public findOne(id: string): Observable<Project> {
-    return this.$http.get("/api/projects/" + id).map(r => Project.fromJson(r.json()));
+    return this.$http.get("/api/projects/" + id).map(r => Project.fromMap(r.json()));
   }
 
   public findAll(): Observable<Project[]> {
@@ -27,18 +27,18 @@ export class ProjectService {
     return this.$http.get("/api/projects", {search: params})
         .flatMap(r => r.json())
         .map((item: any) => {
-          return Project.fromJson(item);
+          return Project.fromMap(item);
         });
   }
 
 
   public save(toSave: Project): Observable<boolean> {
-    return this.$http.post("/api/projects/" + toSave.id + "/update", Project.toJson(toSave))
+    return this.$http.patch("/api/projects/" + toSave.id + "/update", Project.toMap(toSave))
         .map(r => r.status == 200);
   }
 
   create(toSave: Project) {
-    return this.$http.post("/api/projects/create", Project.toJson(toSave))
+    return this.$http.post("/api/projects", Project.toMap(toSave))
         .map(r => r.status == 200);
   }
 

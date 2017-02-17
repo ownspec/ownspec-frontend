@@ -7,10 +7,10 @@
       </div>
       <div fxLayout="column" class="panel-content">
         <div fxLayout="row">
-          <div class="flex-item" fxFlex>
+          <div fxFlex style="padding-right: 1rem">
             <p>
               <md-input-container style="width: 100%">
-                <input md-input class="form-control" required [(ngModel)]="componentVersion.title"
+                <input mdInput class="form-control" required [(ngModel)]="componentVersion.title"
                        placeholder="title"
                        name="title"
                        type="text">
@@ -31,7 +31,7 @@
         </div>
 
         <div fxLayout="row">
-          <div fxFlex>
+          <div fxFlex  style="padding-right: 1rem">
             <p>
               <md-select name="distributionLevel" [(ngModel)]="distributionLevel" placeholder="Distribution Level"
                          style="width: 100%">
@@ -56,8 +56,8 @@
         <div fxLayout="row">
           <div fxFlex>
             <p>
-              <md-input [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
-                        (keypress)="addNewTag($event)"></md-input>
+              <input mdInput [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
+                        (keypress)="addNewTag($event)">
             </p>
             <div class="badge badge-default" style="display: inline-block;margin-right: 5px"
                  *ngFor="let tag of componentVersion.tags">{{tag}}&nbsp;</div>
@@ -65,11 +65,11 @@
         </div>
       </div>
     </div>
-    <div fxFlex="30%" class="panel">
+    <div fxFlex="30%" class="panel" *ngIf="!create">
       <div class="panel-heading">
         <h6>Author</h6>
       </div>
-      <div *ngIf="!create" class="panel-content">
+      <div class="panel-content">
         <div>
           <div fxLayout="row">
             <label class="os-label"

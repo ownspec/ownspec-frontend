@@ -32,7 +32,7 @@ export class Company {
       contactEmail: company.contactEmail,
       addresses: company.addresses,
       registrationNumber: company.registrationNumber,
-      legalRepresentativeUsers: company.legalRepresentativeUsers.map((u: User) => User.toJson(u)),
+      legalRepresentativeUsers: company.legalRepresentativeUsers.map((u: User) => User.toMap(u)),
     };
   }
 }

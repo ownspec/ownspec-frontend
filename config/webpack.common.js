@@ -192,7 +192,8 @@ module.exports = function (options) {
         },
 
         { test: /\.(otf|ttf|woff|woff2)$/, loader: 'url-loader?limit=10000' },
-        { test: /\.(eot|svg)$/, loader: 'file-loader' }
+        { test: /\.(eot|svg)$/, loader: 'file-loader' },
+
 
       ],
 
@@ -356,7 +357,7 @@ module.exports = function (options) {
         disabled: !AOT,
         tsConfig: helpers.root('tsconfig.webpack.json'),
         resourceOverride: helpers.root('config/resource-override.js')
-      })
+      }),
 
     ],
 

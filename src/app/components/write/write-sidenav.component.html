@@ -17,7 +17,7 @@
 
       <comments *ngIf="activeTab == 'comments'" [component]="component" (update)="onUpdate($event)"></comments>
 
-      <workflow *ngIf="activeTab == 'workflow'" [canUpdateWorkflow]="canUpdateWorkflow" [component]="component"
+      <workflow *ngIf="activeTab == 'workflow'" [canUpdateWorkflow]="canUpdateWorkflow" [componentVersion]="component"
                 (update)="onUpdate($event)"></workflow>
 
       <toc *ngIf="activeTab == 'toc'" [tocItems]="parent.tocItems" (gotoTocItem)="parent.gotoTocItem($event)"></toc>

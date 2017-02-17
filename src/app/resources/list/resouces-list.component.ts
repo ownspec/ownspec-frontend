@@ -8,6 +8,7 @@ import {Component} from "../../shared/model/component/component";
 import {MdDialog} from "@angular/material";
 import {ResourceCreateComponent} from "../create/resource-create.component";
 import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
+import {ActivatedRoute} from "@angular/router";
 
 
 @C({
@@ -29,12 +30,18 @@ export class ResourcesListComponent implements OnInit {
   public searchBean = {title: null, query:null};
 
 
-  public constructor(public dialog: MdDialog, public appRef: ApplicationRef, private componentVersionService: ComponentVersionService) {
+  public constructor(private route: ActivatedRoute, public dialog: MdDialog, public appRef: ApplicationRef, private componentVersionService: ComponentVersionService) {
     this.projectId = null;
   }
 
 
   ngOnInit(): void {
+    if (this.route.snapshot.data) {
+      this.availableComponentTypes = this.route.snapshot.data['componentTypes'];
+      this.projectId = this.route.snapshot.data['projectId'];
+    }
+
+
     this.fetchComponents();
   }
 
@@ -59,7 +66,7 @@ export class ResourcesListComponent implements OnInit {
   }
 
   public getContentUrl(c:Component){
-    //return this.componentVersionService.getContentUrl(c);
+    return this.componentVersionService.getContentUrl(c);
   }
 
 }

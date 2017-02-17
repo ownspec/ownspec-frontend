@@ -2,10 +2,10 @@
   <form (submit)="save()">
 
     <div style="width: 100%">
-      <md-input style="width: 100%" placeholder="title" [(ngModel)]="title" name="title" required></md-input>
+      <input mdInput style="width: 100%" placeholder="title" [(ngModel)]="title" name="title" required>
     </div>
     <div style="width: 100%">
-      <md-input style="width: 100%" placeholder="Filename" *ngIf="uploadFile" [ngModel]="uploadFile.filename" name="filename"></md-input>
+      <input mdInput style="width: 100%" placeholder="Filename" *ngIf="uploadFile" [ngModel]="uploadFile.filename" name="filename">
     </div>
 
     <div class="drag-n-drop-container" [ngClass]="{'file-over': hasBaseDropZoneOver}"

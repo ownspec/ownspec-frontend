@@ -27,25 +27,26 @@ export class ComponentEditGeneralComponent implements OnInit {
   @Input("componentType")
   public componentType: string;
 
+  @Input("create")
+  public create: boolean;
+
   @Input("projectId")
   public projectId: string;
 
   public tagToAdd: string;
 
-  public create: boolean;
 
   public userCategories: string[] = ['Analyst', 'Developer', 'Tester'];
 
   @Output()
   public update = new EventEmitter<ComponentUpdate>();
 
-  public constructor(public snackBar: MdSnackBar, public dialog: MdDialog, private componentVersionService: ComponentVersionService, private componentService: ComponentService, private referenceService: ReferenceService,
+  public constructor(public snackBar: MdSnackBar, private componentVersionService: ComponentVersionService, private componentService: ComponentService, private referenceService: ReferenceService,
                      private linkService: LinkService) {
   }
 
 
   ngOnInit(): void {
-    this.create = false;
 
     this.fetch();
   }
@@ -58,9 +59,9 @@ export class ComponentEditGeneralComponent implements OnInit {
     let obs: Observable<any>;
 
     if (this.create) {
-      //obs = this.componentService.create(this.componentVersion);
+      obs = this.componentVersionService.create(this.componentVersion);
     } else {
-      obs = this.componentVersionService.save(this.componentVersion);
+      obs = this.componentVersionService.update(this.componentVersion);
     }
 
     obs.subscribe(r => {

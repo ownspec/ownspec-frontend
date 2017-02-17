@@ -14,27 +14,27 @@ export class Project {
   public constructor() {
   }
 
-  public static fromJson(json: any): Project {
+  public static fromMap(item: any): Project {
 
     let project: Project = new Project();
-    project.id = json.id;
-    project.title = json.title;
-    project.description = json.description;
-    project.createdDate = new Date(<string>json.createdDate);
-    project.lastModifiedDate = new Date(<string>json.lastModifiedDate);
-    project.createdUser = User.fromMap(json.createdUser);
-    project.lastModifiedUser = User.fromMap(json.lastModifiedUser);
-    project.manager = User.fromMap(json.manager);
-    project.projectUsers = this.projectUsersFromJson(json);
+    project.id = item.id;
+    project.title = item.title;
+    project.description = item.description;
+    project.createdDate = new Date(<string>item.createdDate);
+    project.lastModifiedDate = new Date(<string>item.lastModifiedDate);
+    project.createdUser = User.fromMap(item.createdUser);
+    project.lastModifiedUser = User.fromMap(item.lastModifiedUser);
+    project.manager = User.fromMap(item.manager);
+    project.projectUsers = this.projectUsersFromJson(item);
     return project;
   }
 
-  public static toJson(project: Project): any {
+  public static toMap(project: Project): any {
     return {
       title: project.title,
       description: project.description,
-      manager: User.toJson(project.manager),
-      projectUsers: project.projectUsers.map((u: User) => User.toJson(u))
+      manager: User.toMap(project.manager),
+      projectUsers: project.projectUsers.map((u: User) => User.toMap(u))
     }
   }
 

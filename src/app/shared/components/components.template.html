@@ -17,7 +17,7 @@
                                                                             aria-hidden="true"></i></button>
           </md-menu>
         </div>
-        <md-input name="componentTitle" placeholder="Search..." [(ngModel)]="searchQuery" name="search"></md-input>
+        <input mdInput name="componentTitle" placeholder="Search..." [(ngModel)]="searchQuery" name="search">
 
 
         <!--      <div class="btn-group" dropdown>
@@ -48,12 +48,10 @@
     </Tree>
 
     <div *ngIf="displayMode=='list'">
-      <div *ngFor="let component of components" draggable="true" (dragstart)="dragStart($event, component)">
-        <div
-          style="border: 1px solid #ececec;border-radius: 3px;padding: 5px 5px;background: white;margin-bottom: 2px;border-left: 4px solid #ffaa66;">
-          <h4 style="line-height:0.9rem;font-size: 0.9rem;margin-bottom: 4px">{{component.id}} -
+      <div class="foo1" *ngFor="let component of components" draggable="true" (dragstart)="dragStart($event, component)">
+        <div class="foo2">
+          <h4 class="foo3" style="line-height:0.9rem;font-size: 0.9rem;margin-bottom: 4px">{{component.id}} -
             {{component.title}}</h4>
-          <div style="font-size: 0.9rem">{{component.summary}}</div>
         </div>
       </div>
     </div>

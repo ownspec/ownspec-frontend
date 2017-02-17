@@ -1,6 +1,6 @@
 import {Http} from "@angular/http";
 import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ComponentVersion} from "./component/component-version";
 
 @Injectable()
@@ -15,33 +15,38 @@ export class LinkService {
     this.router.navigateByUrl("/app/dashboard");
   }
 
-  goToLoginPage(){
+  goToLoginPage() {
     this.router.navigateByUrl("/login");
   }
 
-  gotoEditComponent(component: ComponentVersion) {
+  gotoCreateComponent(projectId: string, componentType: string) {
 
-    let prefix = "/app";
-    let params = {componentId: component.id};
+  }
 
-    if (component.projectId) {
-      prefix = prefix + "/project";
-      params["projectId"] = component.projectId;
+
+  gotoEditComponent(projectId: string, componentId: string, componentType: string) {
+
+
+    let params = ["app"];
+
+
+    if (projectId) {
+      params.push("project");
+      params.push(projectId);
+    }
+
+    if (componentType == "REQUIREMENT") {
+      params.push("requirements");
+
     }
 
 
-    if (component.type == "REQUIREMENT") {
-      //this.$state.go(`${prefix}.requirements.component-edit`, {componentId: component.id}, {reload: false});
-      prefix = prefix + "/requirements"
-    }
+    params.push(componentId);
+    params.push("edit");
 
-    if (component.type == "RESOURCE") {
-      //this.$state.go(`${prefix}.resources.component-edit`, {componentId: component.id}, {reload: false});
-    }
-    prefix = prefix + "/" + component.id;
+    console.log(params);
 
-    this.router.navigate(["app" , "requirements" , component.id , "edit"]);
-
+    this.router.navigate(params);
 
 
   }
@@ -67,18 +72,19 @@ export class LinkService {
     }
     prefix = prefix + "/" + component.id;
 
-    this.router.navigate(["app" , "requirements" , component.id , "write"]);
-
+    this.router.navigate(["app", "requirements", component.id, "write"]);
 
 
   }
 
   editProject(projectId) {
-    this.router.navigate(["app" , "projects" , projectId , "edit"]);
+    this.router.navigate(["app", "projects", projectId, "edit"]);
   }
 
 
-
+  gotoParent(route: ActivatedRoute) {
+    this.router.navigate(["../../"], {relativeTo: route});
+  }
 }
 
 

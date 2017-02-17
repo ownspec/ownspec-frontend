@@ -1,0 +1,39 @@
+<div>
+  <div *ngIf="!componentVersion.workflowInstance.currentWorkflowStatus.status.final" style="padding-bottom: 4px">
+    <form name="userForm" style="padding-top: 6px" (submit)="changeStatus()">
+      <div>
+        <span>From <b>{{componentVersion.workflowInstance.currentWorkflowStatus.status.name}}</b> To </span>
+
+        <md-select name="items" [(ngModel)]="targetStatus" placeholder="Next status">
+          <md-option *ngFor="let status of componentVersion.workflowInstance.currentWorkflowStatus.status.transitions"
+                     [value]="status">{{status}}
+          </md-option>
+        </md-select>
+      </div>
+      <div>
+        <md-input-container>
+          <textarea mdInput style="width: 100%" [(ngModel)]="reason" name="reason" required
+                    placeholder="Enter the reason"></textarea>
+        </md-input-container>
+      </div>
+      <div style="width: 40px;text-align: center;">
+        <button md-raised-button type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="componentVersion.workflowInstance.currentWorkflowStatus.status.final" style="padding-bottom: 4px">
+    <form name="userForm" style="padding-top: 6px" (submit)="newStatus()">
+      <div>
+        <span>Current <b>{{componentVersion.workflowInstance.currentWorkflowStatus.status.name}}</b> </span>
+      </div>
+      <div>
+          <textarea mdInput style="width: 100%" [(ngModel)]="reason" name="reason" required
+                    placeholder="Enter the reason"></textarea>
+      </div>
+      <div style="width: 40px;text-align: center;">
+        <button md-raised-button type="submit">New
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

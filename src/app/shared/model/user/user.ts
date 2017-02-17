@@ -33,7 +33,7 @@ export class User {
     return user;
   }
 
-  public static toJson(user: User): any {
+  public static toMap(user: User): any {
     return {
       username: user.username,
       email: user.email,

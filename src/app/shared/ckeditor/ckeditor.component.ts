@@ -15,6 +15,7 @@ import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_a
 import {TocGenerator, TocItem} from "./toc-generator";
 import * as _ from "lodash";
 import * as jQuery from "jquery";
+import {ComponentVersionService} from "../service/component/component-versions.service";
 
 declare var CKEDITOR: any;
 
@@ -81,7 +82,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
   /**
    * Constructor
    */
-  constructor(private zone: NgZone, private domAdapter: BrowserDomAdapter) {
+  constructor(private zone: NgZone, private domAdapter: BrowserDomAdapter, private componentVersionService: ComponentVersionService) {
     this.promise = new Promise(function (resolve, reject) {
       this.resolve = resolve;
       this.reject = reject;
@@ -233,6 +234,12 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
 
 
       jQuery(this.instance.container.$).find(".toc div:nth-child(2)").html(html);
+    });
+
+    this.instance.on('fetch-ownspec-cv-content', (event:any) => {
+      console.log("fetch-ownspec-cv-content");
+      console.log(event);
+      event.data.observable = this.componentVersionService.getContent(event.data.id);
     });
   }
 

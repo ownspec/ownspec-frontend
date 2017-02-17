@@ -1,7 +1,7 @@
 import {NgModule, ApplicationRef, Injectable} from "@angular/core";
 import {BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
+import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {SharedModule} from "./shared/shared.module";
 import {AppComponent} from "./app.component";
 import {MomentModule} from "angular2-moment";
@@ -21,7 +21,6 @@ import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_a
 import {SideNavComponent} from "./sidenav/sidenav.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {Ng2CompleterModule} from "ng2-completer";
-import {Ng2UploaderModule} from "ng2-uploader";
 import {ResourceCreateComponent} from "./resources/create/resource-create.component";
 import {ResourcesListComponent} from "./resources/list/resouces-list.component";
 import {ResourcesSelectionComponent} from "./resources/selection/resources-selection.component";
@@ -37,6 +36,11 @@ import {ComponentEditGeneralComponent} from "./components/edit/general/component
 import {RouterModule, Routes} from "@angular/router";
 import {FooComponent} from "./foo.component";
 import {ConfirmRegistrationComponent} from "./confirm-registration/confirm-registration.component";
+import {UpdateWorkflowComponent} from "./shared/workflow/update/workflow-update.component";
+import {HttpInterceptor} from "./shared/http/http-interceptor";
+import {LinkService} from "./shared/service/link.service";
+import { NgUploaderModule } from 'ngx-uploader';
+
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -49,6 +53,11 @@ window['CKEDITOR_BASEPATH'] = "/assets/js/ckeditor/";
 require("../assets/js/ckeditor/ckeditor.js");
 
 require("hammerjs");
+
+require("expose-loader?$!jquery");
+require("expose-loader?jQuery!jquery");
+
+
 
 // TODO: temporary until https://github.com/angular/material2/issues/1457
 @Injectable()
@@ -87,7 +96,8 @@ const appRoutes: Routes = [
       },
       {
         path: 'requirements/:id/edit',
-        component: ComponentEditComponent
+        component: ComponentEditComponent,
+        data: {componentType: "REQUIREMENT"}
       },
       {
         path: 'requirements/:id/write',
@@ -154,12 +164,17 @@ const appRoutes: Routes = [
     CompleterCmpMd,
     UserEditDialog,
 
+    // TODO: rename
     FooComponent,
+
+    UpdateWorkflowComponent,
   ],
 
   entryComponents: [
     ResourceCreateComponent,
-    UserEditDialog
+    UserEditDialog,
+    ComponentEditGeneralComponent,
+    UpdateWorkflowComponent
   ],
 
   imports: [ // import Angular's modules
@@ -168,7 +183,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     Ng2BootstrapModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     FlexLayoutModule,
     NgxDatatableModule,
     CKEditorModule,
@@ -186,7 +201,7 @@ const appRoutes: Routes = [
     ChartsModule,
     DropdownModule,
     Ng2CompleterModule,
-    Ng2UploaderModule,
+    NgUploaderModule,
 
     TreeModule,
     MdCardModule
@@ -196,12 +211,11 @@ const appRoutes: Routes = [
     BrowserDomAdapter,
     Globals,
 
-
-    /*    {
-     provide: Http,
-     useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions) => new HttpInterceptor(xhrBackend, requestOptions),
-     deps: [XHRBackend, RequestOptions]
-     },*/
+    {
+      provide: Http,
+      useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, linkService: LinkService) => new HttpInterceptor(xhrBackend, requestOptions, linkService),
+      deps: [XHRBackend, RequestOptions]
+    },
 
     {provide: HAMMER_GESTURE_CONFIG, useClass: AppGestureConfig}
   ]
