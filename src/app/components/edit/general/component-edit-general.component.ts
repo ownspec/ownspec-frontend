@@ -12,6 +12,7 @@ import {LinkService} from "../../../shared/service/link.service";
 import {Observable} from "rxjs";
 import {ComponentVersionService} from "../../../shared/service/component/component-versions.service";
 import {ComponentUpdate} from "../../write/component-write.component";
+import {UserCategoryService} from "../../../shared/service/user/user-category.service";
 
 
 @C({
@@ -41,7 +42,8 @@ export class ComponentEditGeneralComponent implements OnInit {
   @Output()
   public update = new EventEmitter<ComponentUpdate>();
 
-  public constructor(public snackBar: MdSnackBar, private componentVersionService: ComponentVersionService, private componentService: ComponentService, private referenceService: ReferenceService,
+  public constructor(public snackBar: MdSnackBar,
+                     private componentVersionService: ComponentVersionService, private componentService: ComponentService, private referenceService: ReferenceService,
                      private linkService: LinkService) {
   }
 
@@ -66,11 +68,10 @@ export class ComponentEditGeneralComponent implements OnInit {
 
     obs.subscribe(r => {
       let status = this.create ? "created" : "updated";
-      this.snackBar.open("Component successfully " + status, "Close", {duration:2000});
+      this.snackBar.open("Component successfully " + status, "Close", {duration: 2000});
       this.update.emit(ComponentUpdate.newComponentUpdate());
     });
   }
-
 
 
   private fetch() {

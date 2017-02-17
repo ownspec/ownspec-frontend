@@ -26,6 +26,7 @@ import {UserService} from "./service/user/user.service";
 import {ProfileService} from "./service/user/profil.service";
 import {CompanyService} from "./service/company.service";
 import {ComponentVersionService} from "./service/component/component-versions.service";
+import {UserCategoryService} from "./service/user/user-category.service";
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import {ComponentVersionService} from "./service/component/component-versions.se
     SharedService,
     TagService,
     LinkService,
-    CompanyService
+    CompanyService,
+    UserCategoryService
 
   ]
 })

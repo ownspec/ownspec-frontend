@@ -6,15 +6,17 @@ export class UserCategory {
   public constructor() {
   }
 
-  public static fromJson(json: any): UserCategory {
+  public static fromMap(json: any): UserCategory {
     let userCategory: UserCategory = new UserCategory();
     userCategory.id = json.id;
     userCategory.name = json.name;
     userCategory.hourlyPrice = json.hourlyPrice;
     return userCategory;
+
+
   }
 
-  public static toJson(userCategory: UserCategory): any {
+  public static toMap(userCategory: UserCategory): any {
     return {
       category: userCategory.name,
       hourlyPrice: userCategory.hourlyPrice,

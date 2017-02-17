@@ -106,7 +106,7 @@ export class ComponentVersionService {
 
 
   // TODO: temporary
-  getContentUrl(c: Component) {
+  getContentUrl(c: ComponentVersion) {
     return "/api/component-versions/" + c.id + "/content";
   }
 

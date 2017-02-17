@@ -15,20 +15,20 @@ export class User {
   }
 
 
-  public static fromMap(json: any): User {
+  public static fromMap(item: any): User {
     let user: User = new User();
-    user.id = json.id;
-    user.username = json.username;
-    user.email = json.email;
-    user.firstName = json.firstName;
-    user.lastName = json.lastName;
-    user.phone= json.phone;
-    user.mobile = json.mobile;
+    user.id = item.id;
+    user.username = item.username;
+    user.email = item.email;
+    user.firstName = item.firstName;
+    user.lastName = item.lastName;
+    user.phone= item.phone;
+    user.mobile = item.mobile;
     user.fullName = user.firstName + " " + user.lastName;
-    user.role = json.role;
+    user.role = item.role;
 
-    if (json.category) {
-      user.category = UserCategory.fromJson(json.category);
+    if (item.category) {
+      user.category = UserCategory.fromMap(item.category);
     }
     return user;
   }

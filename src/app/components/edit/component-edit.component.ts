@@ -14,6 +14,8 @@ import {EntityReference, ReferenceService} from "../../shared/service/reference.
 import {LinkService} from "../../shared/service/link.service";
 import {ActivatedRoute} from "@angular/router";
 import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
+import {UserCategoryService} from "../../shared/service/user/user-category.service";
+import {UserCategory} from "../../shared/model/user/user-category";
 
 
 @C({
@@ -34,10 +36,12 @@ export class ComponentEditComponent implements OnInit {
 
   public componentVersion: ComponentVersion;
 
-  public userCategories: string[] = ['Analyst', 'Developer', 'Tester'];
+  public userCategories: UserCategory[] = [];
 
 
-  public constructor(public snackBar: MdSnackBar, public dialog: MdDialog, private componentService: ComponentService, private referenceService: ReferenceService,
+  public constructor(public snackBar: MdSnackBar,
+                     private userCategoryService: UserCategoryService,
+                     public dialog: MdDialog, private componentService: ComponentService, private referenceService: ReferenceService,
                      private route: ActivatedRoute, private linkService: LinkService, private componentVersionService: ComponentVersionService) {
   }
 
@@ -57,6 +61,10 @@ export class ComponentEditComponent implements OnInit {
   private fetch() {
     this.componentVersionService.findOne(this.id, true, false, false, true).subscribe(r => {
       this.componentVersion = r;
+    });
+
+    this.userCategoryService.findAll().subscribe(r => {
+      this.userCategories = r;
     });
   }
 

@@ -31,7 +31,7 @@
         </div>
 
         <div fxLayout="row">
-          <div fxFlex  style="padding-right: 1rem">
+          <div fxFlex style="padding-right: 1rem">
             <p>
               <md-select name="distributionLevel" [(ngModel)]="distributionLevel" placeholder="Distribution Level"
                          style="width: 100%">
@@ -56,8 +56,10 @@
         <div fxLayout="row">
           <div fxFlex>
             <p>
-              <input mdInput [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
-                        (keypress)="addNewTag($event)">
+              <md-input-container>
+                <input mdInput [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
+                       (keypress)="addNewTag($event)">
+              </md-input-container>
             </p>
             <div class="badge badge-default" style="display: inline-block;margin-right: 5px"
                  *ngFor="let tag of componentVersion.tags">{{tag}}&nbsp;</div>
@@ -93,8 +95,9 @@
 
     </div>
   </div>
-  <div  fxLayout="row" fxLayoutAlign="center center" style="height: 50px">
-      <button md-raised-button color="primary" (click)="save()"><i class="fa fa-check" aria-hidden="true"></i> Save</button>
+  <div fxLayout="row" fxLayoutAlign="center center" style="height: 50px">
+    <button md-raised-button color="primary" (click)="save()"><i class="fa fa-check" aria-hidden="true"></i> Save
+    </button>
   </div>
 
 </div>

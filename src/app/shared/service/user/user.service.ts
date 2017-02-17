@@ -61,12 +61,12 @@ export class UserService {
   public findAllUserCategories(): Observable<UserCategory[]> {
     return this.http.get("/api/users/categories")
         .flatMap(r => r.json())
-        .map(item => UserCategory.fromJson(item))
+        .map(item => UserCategory.fromMap(item))
         .toArray();
   }
 
   public saveUserCategory(uc: UserCategory): Observable<any> {
-    return this.http.post("/api/users/categories/" + uc.id, UserCategory.toJson(uc));
+    return this.http.post("/api/users/categories/" + uc.id, UserCategory.toMap(uc));
   }
 
   public removeUserCategory(uc: UserCategory): Observable<any> {

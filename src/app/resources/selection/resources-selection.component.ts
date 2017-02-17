@@ -46,12 +46,11 @@ export class ResourcesSelectionComponent implements OnInit {
     this.search();
   }
 
-  public dragStart(evt: any, r: Component) {
+  public dragStart(evt: any, r: ComponentVersion) {
     var dataTransfer = evt.dataTransfer;
 
     dataTransfer.setData('component', JSON.stringify({
-      id: r.id, type: r.type, workflowInstanceId: r.getCurrentWorkflowInstance().id,
-      editable: r.getCurrentWorkflowInstance().getCurrentWorkflowStatus().status.editable,
+      id: r.id, type: r.type, editable: r.workflowInstance.getCurrentWorkflowStatus().status.editable,
       url:this.getContentUrl(r)
     }));
 
@@ -65,7 +64,7 @@ export class ResourcesSelectionComponent implements OnInit {
     });
   }
 
-  public getContentUrl(c: Component) {
+  public getContentUrl(c: ComponentVersion) {
     return this.componentService.getContentUrl(c);
   }
 
