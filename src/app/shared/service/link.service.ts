@@ -6,7 +6,7 @@ import {ComponentVersion} from "./component/component-version";
 @Injectable()
 export class LinkService {
 
-  public constructor(public $http: Http, private router: Router) {
+  public constructor(private router: Router) {
 
   }
 

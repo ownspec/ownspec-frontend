@@ -214,7 +214,7 @@ const appRoutes: Routes = [
     {
       provide: Http,
       useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, linkService: LinkService) => new HttpInterceptor(xhrBackend, requestOptions, linkService),
-      deps: [XHRBackend, RequestOptions]
+      deps: [XHRBackend, RequestOptions, LinkService]
     },
 
     {provide: HAMMER_GESTURE_CONFIG, useClass: AppGestureConfig}
