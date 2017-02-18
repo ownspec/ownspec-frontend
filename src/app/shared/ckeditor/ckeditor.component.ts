@@ -214,7 +214,8 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
     });
 
 
-    this.instance.on("compose-pdf" , () => {
+    this.instance.on("os-compose-pdf" , () => {
+      console.log("compose");
       this.composePdf.emit();
     });
 

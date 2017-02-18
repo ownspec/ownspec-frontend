@@ -4,7 +4,8 @@ CKEDITOR.plugins.add('ownspec_compose', {
 
     editor.addCommand('ownspec_compose', {
       exec: function (editor) {
-        editor.fire('compose-pdf');
+        console.log("compose fire");
+        editor.fire('os-compose-pdf');
       }
     });
 

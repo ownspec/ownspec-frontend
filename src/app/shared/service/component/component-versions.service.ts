@@ -114,6 +114,11 @@ export class ComponentVersionService {
     return "/api/components/" + c.id + "/versions/" + c.workflowInstance.id + "/content";
   }
 
+  public print(c: ComponentVersion) {
+    window.location.assign("/api/component-versions/" + c.id + "/compose");
+  }
+
+
 }
 
 

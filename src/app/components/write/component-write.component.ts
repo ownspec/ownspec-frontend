@@ -140,7 +140,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
 
   public composePdf($event) {
-    //this.componentVersionService.print(this.component);
+    this.componentVersionService.print(this.component);
   }
 
   public onReady($event) {
