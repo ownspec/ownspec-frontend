@@ -14,7 +14,7 @@ import {UserService} from "../shared/service/user/user.service";
 @Component({
   selector: 'sidenav',
   templateUrl: 'sidenav.component.html',
-  styleUrls: ['sidenav.css']
+  styleUrls: ['sidenav.scss']
 })
 export class SideNavComponent implements OnInit {
   private menuItems;
@@ -29,7 +29,6 @@ export class SideNavComponent implements OnInit {
     {name: "Components", icon: "fa-plug", state: "/app/components"},
     {name: "Templates", icon: "fa-file-text", state: "/app/templates"},
     {name: "Resources", icon: "fa-picture-o", state: "/app/resources"},
-    {name: "Schedule", icon: "fa-calendar", state: "/app/schedule"},
     {name: "Administration", icon: "fa-shield", state: "/app/administration"},
   ];
 

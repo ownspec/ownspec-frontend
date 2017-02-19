@@ -38,7 +38,8 @@ label {
 html,
 body {
   height: 100%;
-  font-family: Roboto-Regular, Helvetica, sans-serif
+  font-family: "Roboto", Roboto-Regular, Helvetica, sans-serif;
+  font-size: 15px;
 }
 
 body {
@@ -63,7 +64,7 @@ input {
 }
 
 .main-content-margin {
-  margin-left: 175px;
+  margin-left: $sidenav-width;
 }
 
 .main-content {

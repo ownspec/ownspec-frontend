@@ -38,12 +38,12 @@ export class DashboardComponent implements OnInit {
   // Requirement type chart
   public requirementTypeChartType: string = 'pie';
   public requirementTypeChartLabels: string[] = ['Business', 'Functional', 'Design', 'Performance', 'Other'];
-  public requirementTypeChartData: number[] = [0, 0, 0, 0, 0];
+  public requirementTypeChartData: number[] = [1, 1, 1, 1, 1];
 
   // Requirement coverage chart
   public requirementCoverageChartType: string = 'doughnut';
   public requirementCoverageChartLabels: string[] = ['Uncovered', 'Ok', 'Failed', 'In-progress'];
-  public requirementCoverageChartData: number[] = [0, 0, 0, 0];
+  public requirementCoverageChartData: number[] = [1, 1, 1, 1];
 
   public constructor(private sharedService: SharedService,
                      private projectService: ProjectService,
