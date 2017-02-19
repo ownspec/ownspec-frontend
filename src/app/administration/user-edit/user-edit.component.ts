@@ -17,16 +17,30 @@ export class UserEditDialog {
                      public snackBar: MdSnackBar) {
   }
 
-  save(user: User) {
-    this.userService.save(user).subscribe(
-        success => {
-          this.snackBar.open("User successfully updated");
-          this.userEditDialogRef.close();
-        },
-        error => {
-          this.snackBar.open("Failed to updated user");
-        }
-    );
+  save() {
+    if (this.create) {
+      console.log("User role: " + this.user.role);
+      this.userService.create(this.user).subscribe(
+          sucess => {
+            this.snackBar.open("User successfully created");
+            this.userEditDialogRef.close();
+          },
+          error => {
+            this.snackBar.open("Failed to create user");
+          }
+      );
+    } else {
+      this.userService.save(this.user).subscribe(
+          success => {
+            this.snackBar.open("User successfully updated");
+            this.userEditDialogRef.close();
+          },
+          error => {
+            this.snackBar.open("Failed to updated user");
+          }
+      );
+    }
+
   }
 
   cancel() {

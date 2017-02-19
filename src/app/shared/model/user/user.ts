@@ -39,6 +39,8 @@ export class User {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
+      phone: user.phone,
+      mobile: user.mobile,
       role: user.role
     };
   }

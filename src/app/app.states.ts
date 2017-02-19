@@ -67,14 +67,13 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
 
   {
     name: "confirm.registration",
-    url: "/registrationConfirmation/:confirmationToken",
-    abstract: true,
+    url: "/registrationConfirmation/:verificationToken",
     component: ConfirmRegistrationComponent,
     resolve: [
       {
-        token: 'confirmationToken',
+        token: 'verificationToken',
         deps: [Transition],
-        resolveFn: (trans) => trans.params().confirmationToken
+        resolveFn: (trans) => trans.params().verificationToken
       }
     ]
   },

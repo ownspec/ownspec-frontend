@@ -68,7 +68,7 @@ export class AppGestureConfig extends HammerGestureConfig {
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {
-    path: 'registrationConfirmation/:confirmationToken',
+    path: 'registrationConfirmation/:verificationToken',
     component: ConfirmRegistrationComponent
   },
   {

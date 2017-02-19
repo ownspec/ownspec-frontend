@@ -35,10 +35,11 @@
   </div>
 
   <div fxLayout="row">
-    <md-select fxFlex="50" style="padding: 5px" placeholder="Role" type="">
-      <md-option>ADMIN</md-option>
-      <md-option>USER</md-option>
+    <md-select fxFlex="50" style="padding: 5px" placeholder="Role" type="" [(ngModel)]="user.role">
+      <md-option value="ADMIN">ADMIN</md-option>
+      <md-option value="USER">USER</md-option>
     </md-select>
+
     <md-select fxFlex="50" style="padding: 5px" placeholder="Category" type="">
       <md-option>Category 1</md-option>
       <md-option>Category 2</md-option>
@@ -48,7 +49,7 @@
 
   <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 10px">
     <div fxFlex>
-      <button md-button (click)="save(user)" >SAVE</button>
+      <button md-button (click)="save()">SAVE</button>
     </div>
     <div fxFlex>
       <button md-button (click)="cancel()">CANCEL</button>

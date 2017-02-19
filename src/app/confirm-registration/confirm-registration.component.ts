@@ -11,7 +11,9 @@ import {Globals} from "../shared/globals";
 })
 export class ConfirmRegistrationComponent implements OnInit {
 
-  @Input() confirmationToken: string;
+  @Input() verificationToken: string;
+  private password: string;
+  private confirmPassword: string;
 
   constructor(private userService: UserService,
               private linkService: LinkService,
@@ -20,16 +22,20 @@ export class ConfirmRegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.confirmRegistration(this.confirmationToken)
+
+  }
+
+  confirmRegistration() {
+    this.userService.confirmRegistration(this.verificationToken, this.password)
         .subscribe(
             success => {
+              console.log("Request registration confirmation");
               this.linkService.goToLoginPage();
-              this.snackBar.open("Registration successfully completed")
+              this.snackBar.open("Registration successfully completed", "", {duration: Globals.SNACK_BAR_DURATION});
             },
             error => {
-              this.snackBar.open("LOGIN FAILED", "", {duration: Globals.SNACK_BAR_DURATION});
+              this.snackBar.open("Registration confirmation FAILED", "", {duration: Globals.SNACK_BAR_DURATION});
             }
         );
   }
-
 }

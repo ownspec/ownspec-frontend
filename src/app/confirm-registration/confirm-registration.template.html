@@ -1,0 +1,15 @@
+<div class="login-logo-container">
+  <img src="assets/img/os-center-logo-170x43.png" alt="Ownspec center">
+</div>
+
+<div class="login-form-container">
+  <div class="form">
+    <h2>Confirm registration</h2>
+    <form #confirmRegistrationForm="ngForm" (ngSubmit)="confirmRegistration()">
+      <input placeholder="{{verificationToken}}" disabled type="text">
+      <input placeholder="Create password" required type="password" [(ngModel)]="password">
+      <input placeholder="Confirm password" required type="password" [(ngModel)]="confirmPassword">
+      <button [disabled]="!confirmRegistrationForm.valid" type="submit" (click)="confirmRegistration()">Confirm registration</button>
+    </form>
+  </div>
+</div>

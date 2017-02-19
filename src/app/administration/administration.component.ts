@@ -52,9 +52,14 @@ export class AdministrationComponent implements OnInit {
     });
   }
 
-  edit(user: User) {
+  create() {
+    this.edit(new User(), true);
+  }
+
+  edit(user: User, create = false) {
     let dialogRef: MdDialogRef<UserEditDialog> = this.dialog.open(UserEditDialog);
     dialogRef.componentInstance.user = user;
+    dialogRef.componentInstance.create = create;
     dialogRef.afterClosed().subscribe(() => {
       this.fetchUsers();
     })
