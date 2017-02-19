@@ -8,7 +8,7 @@
   <div *ngIf="!stateIsInAProject" fxLayout="column">
 
     <!-- CARDS -->
-    <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between stretch">
       <div fxFlex="25" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
         <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #189DE1">
           <div fxLayout="row" fxLayoutAlign="center">
@@ -26,12 +26,12 @@
             </md-card-header>
           </div>
 
-          <md-card-content fxFlex *ngIf="lastVisitedProjects.length != 0">
-            <p>Last</p>
-            <div *ngFor="let project of lastVisitedProjects">
-              <a (click)="showProject(project.id)" role="button">{{project.title}}</a>
-            </div>
-          </md-card-content>
+          <!--<md-card-content fxFlex *ngIf="lastVisitedProjects.length != 0">-->
+            <!--<p>Last</p>-->
+            <!--<div *ngFor="let project of lastVisitedProjects">-->
+              <!--<a (click)="showProject(project.id)" role="button">{{project.title}}</a>-->
+            <!--</div>-->
+          <!--</md-card-content>-->
         </md-card>
       </div>
       <div fxFlex="25" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
@@ -76,12 +76,12 @@
             </md-card-header>
           </div>
 
-          <md-card-content fxFlex *ngIf="lastVisitedRequirements.length != 0">
-            <p>Last</p>
-            <div *ngFor="let requirement of lastVisitedRequirements">
-              <a (click)="showProject(requirement.id)" role="button">{{requirement.title}}</a>
-            </div>
-          </md-card-content>
+          <!--<md-card-content fxFlex *ngIf="lastVisitedRequirements.length != 0">-->
+            <!--<p>Last</p>-->
+            <!--<div *ngFor="let requirement of lastVisitedRequirements">-->
+              <!--<a (click)="showProject(requirement.id)" role="button">{{requirement.title}}</a>-->
+            <!--</div>-->
+          <!--</md-card-content>-->
         </md-card>
       </div>
       <div fxFlex="25" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
@@ -101,12 +101,12 @@
             </md-card-header>
           </div>
 
-          <md-card-content fxFlex *ngIf="lastVisitedRequirements.length != 0">
-            <p>Last</p>
-            <div *ngFor="let requirement of lastVisitedRequirements">
-              <a (click)="showProject(requirement.id)" role="button">{{requirement.title}}</a>
-            </div>
-          </md-card-content>
+          <!--<md-card-content fxFlex *ngIf="lastVisitedRequirements.length != 0">-->
+            <!--<p>Last</p>-->
+            <!--<div *ngFor="let requirement of lastVisitedRequirements">-->
+              <!--<a (click)="showProject(requirement.id)" role="button">{{requirement.title}}</a>-->
+            <!--</div>-->
+          <!--</md-card-content>-->
         </md-card>
       </div>
     </div>
