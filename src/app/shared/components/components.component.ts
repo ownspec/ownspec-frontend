@@ -93,6 +93,7 @@ export class ComponentsComponent implements OnInit {
       }
 
       this.tags = tree;
+      console.log(tree);
     });
   }
 

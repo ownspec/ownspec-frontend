@@ -56,7 +56,6 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   public save() {
 
-    console.log(this.componentVersion.requiredTest);
 
     let obs: Observable<any>;
 
