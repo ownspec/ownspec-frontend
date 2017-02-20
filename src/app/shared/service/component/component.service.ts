@@ -211,15 +211,14 @@ export class ComponentService {
       });
   }
 
-  getContent(componentId, workflowInstanceId): Observable<string> {
-    return this.$http.get("/api/components/" + componentId + "/versions/" + workflowInstanceId + "/content")
+  getContent(componentVersionId): Observable<string> {
+    return this.$http.get("/api/component-versions/" + componentVersionId + "/resolved-content")
       .map(r => r.text());
   }
 
 
-  updateReference(sourceComponentId, sourceWorkflowInstanceId, refId, targetComponentId, targetWorkflowInstanceId = "LATEST"): Observable<any> {
-    return this.$http.post("/api/components/" + sourceComponentId + "/versions/" + sourceWorkflowInstanceId + "/references/" + refId,
-      {targetComponentId: targetComponentId, targetWorkflowInstanceId: targetWorkflowInstanceId});
+  updateReference(sourceComponentVersionId, refId, targetComponentVersionId): Observable<any> {
+    return this.$http.post("/api/component-versions/" + sourceComponentVersionId + "/references/" + refId + "/" + targetComponentVersionId, {});
   }
 
   findUsePoints(targetComponentId, targetWorkflowInstanceId): Observable<ComponentReference[]> {

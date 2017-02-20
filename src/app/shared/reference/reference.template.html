@@ -1,17 +1,17 @@
-<div style="width: 850px;height: 400px" *ngIf="sourceComponentVersion && refComponentVersions">
+<div style="width: 850px;height: 400px">
 
-  <div>Update reference from <b>{{sourceComponentVersion.id}} {{sourceComponentVersion.title}}</b> to:</div>
+  <div>Update reference from <b>{{componentReference.source.id}} - {{componentReference.source.title}}</b> to:</div>
 
   <ngx-datatable
     class="material" style="flex: 1"
-    [rows]="refComponentVersions"
+    [rows]="targetComponentVersions"
     [columnMode]="'standard'"
     [headerHeight]="50"
     [footerHeight]="0"
     [rowHeight]="50"
     [scrollbarV]="true"
     [scrollbarH]="true">
-    <ngx-datatable-column name="V." prop="workflowInstance.version" [width]="55">
+    <ngx-datatable-column name="V." prop="version" [width]="55">
 
     </ngx-datatable-column>
     <ngx-datatable-column name="Title"></ngx-datatable-column>
@@ -29,7 +29,7 @@
     <ngx-datatable-column name="Action">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div class="table-actions">
-          <a (click)="updateReference(row.id, row.workflowInstance.id)" md-tooltip="Update to this version" role="button">
+          <a (click)="updateReference(row.id)" md-tooltip="Update to this version" role="button">
             <i class="fa fa-hand-pointer-o" aria-hidden="true"></i>
           </a>
           <a (click)="fetchContent(row)" md-tooltip="Update to this version" role="button">

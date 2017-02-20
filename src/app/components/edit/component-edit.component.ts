@@ -88,18 +88,13 @@ export class ComponentEditComponent implements OnInit {
   }
 
   public editReference(ref: ComponentReference) {
-    /* let a: MdDialogRef<ReferenceComponent> = this.dialog.open(ReferenceComponent);
+    let a: MdDialogRef<ReferenceComponent> = this.dialog.open(ReferenceComponent);
 
-     a.componentInstance.componentId = this.component.id;
-     a.componentInstance.workflowInstanceId = this.component.currentWorkflowInstance.id;
+    a.componentInstance.componentReference = ref;
 
-     a.componentInstance.refId = ref.id;
-     a.componentInstance.refComponentId = ref.target.id;
-     a.componentInstance.refWorkflowInstanceId = ref.targetWorkflowInstance.id;
-
-     a.afterClosed().subscribe(r => {
-     this.fetch();
-     });*/
+    a.afterClosed().subscribe(r => {
+      this.fetch();
+    });
   }
 
   public gotoEditComponent(c: ComponentVersion) {
