@@ -47,7 +47,7 @@ export class AdministrationComponent implements OnInit {
     this.userService.findAll().subscribe((r: User []) => {
       this.users = r
     }, e => {
-      this.snackBar.open("Failed to retrieve all users");
+      this.snackBar.open("Failed to retrieve all users", "x");
 
     });
   }
@@ -74,6 +74,13 @@ export class AdministrationComponent implements OnInit {
   }
 
   remove(user: User) {
-
+    this.userService.delete(user).subscribe(
+        s => {
+          this.snackBar.open(user.fullName + " successfully deleted");
+        },
+        e => {
+          this.snackBar.open("Failed to delete " + user.fullName, "x");
+        }
+    )
   }
 }

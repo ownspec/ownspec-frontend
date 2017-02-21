@@ -1,8 +1,9 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {UserService} from "../shared/service/user/user.service";
 import {LinkService} from "../shared/service/link.service";
 import {MdSnackBar} from "@angular/material";
 import {Globals} from "../shared/globals";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: "confirm-registration",
@@ -11,22 +12,25 @@ import {Globals} from "../shared/globals";
 })
 export class ConfirmRegistrationComponent implements OnInit {
 
-  @Input() verificationToken: string;
+  private verificationToken: string;
   private password: string;
   private confirmPassword: string;
 
   constructor(private userService: UserService,
               private linkService: LinkService,
-              private snackBar: MdSnackBar) {
+              private snackBar: MdSnackBar,
+              private route: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
+    this.verificationToken = this.route.snapshot.params['verificationToken'];
+    console.log("Input Verification Token : " + this.verificationToken);
 
   }
 
-  confirmRegistration() {
-    this.userService.confirmRegistration(this.verificationToken, this.password)
+  confirmRegistration(password:string, confirmPassword:string) {
+    this.userService.confirmRegistration(this.verificationToken, password)
         .subscribe(
             success => {
               console.log("Request registration confirmation");

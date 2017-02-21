@@ -5,11 +5,10 @@
 <div class="login-form-container">
   <div class="form">
     <h2>Confirm registration</h2>
-    <form #confirmRegistrationForm="ngForm" (ngSubmit)="confirmRegistration()">
-      <input placeholder="{{verificationToken}}" disabled type="text">
-      <input placeholder="Create password" required type="password" [(ngModel)]="password">
-      <input placeholder="Confirm password" required type="password" [(ngModel)]="confirmPassword">
-      <button [disabled]="!confirmRegistrationForm.valid" type="submit" (click)="confirmRegistration()">Confirm registration</button>
+    <form #confirmRegistrationForm="ngForm" (ngSubmit)="confirmRegistration(password.value,confirmPassword.value)">
+      <input #password placeholder="Create password" required type="password">
+      <input #confirmPassword placeholder="Confirm password" required type="password">
+      <button [disabled]="!confirmRegistrationForm.valid" type="submit" (click)="confirmRegistration()">Confirm</button>
     </form>
   </div>
 </div>
