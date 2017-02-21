@@ -61,10 +61,12 @@
             [scrollbarV]="true"
             [scrollbarH]="true">
             <ngx-datatable-column [flexGrow]="3" name="Source" prop="source.title"></ngx-datatable-column>
+            <ngx-datatable-column [flexGrow]="2" name="Type" prop="source.type"></ngx-datatable-column>
             <ngx-datatable-column [flexGrow]="2" name="Status"
                                   prop="source.workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
             <ngx-datatable-column [flexGrow]="1" name="Version" prop="source.version"></ngx-datatable-column>
             <ngx-datatable-column [flexGrow]="3" name="Target" prop="target.title"></ngx-datatable-column>
+            <ngx-datatable-column [flexGrow]="2" name="Type" prop="target.type"></ngx-datatable-column>
             <ngx-datatable-column [flexGrow]="2" name="Status"
                                   prop="target.workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
             <ngx-datatable-column [flexGrow]="1" name="Version" prop="target.version"></ngx-datatable-column>
@@ -105,21 +107,24 @@
             <ngx-datatable
               class="material" style="flex: 1;min-height:300px"
               [rows]="componentVersion.componentUsePoints"
+              [columnMode]="'flex'"
               [headerHeight]="50"
               [footerHeight]="0"
               [rowHeight]="50"
               [scrollbarV]="true"
               [scrollbarH]="true">
-              <ngx-datatable-column name="Source" prop="source.title"></ngx-datatable-column>
-              <ngx-datatable-column name="Status"
-                                    prop="sourceWorkflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
-              <ngx-datatable-column name="Version" prop="sourceWorkflowInstance.version"></ngx-datatable-column>
-              <ngx-datatable-column name="Target" prop="target.title"></ngx-datatable-column>
-              <ngx-datatable-column name="Status"
-                                    prop="targetWorkflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
-              <ngx-datatable-column name="Version" prop="targetWorkflowInstance.version"></ngx-datatable-column>
+              <ngx-datatable-column [flexGrow]="3" name="Source" prop="source.title"></ngx-datatable-column>
+              <ngx-datatable-column [flexGrow]="2" name="Type" prop="source.type"></ngx-datatable-column>
+              <ngx-datatable-column [flexGrow]="2" name="Status"
+                                    prop="source.workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
+              <ngx-datatable-column [flexGrow]="1" name="Version" prop="source.version"></ngx-datatable-column>
+              <ngx-datatable-column [flexGrow]="3" name="Target" prop="target.title"></ngx-datatable-column>
+              <ngx-datatable-column [flexGrow]="2" name="Type" prop="target.type"></ngx-datatable-column>
+              <ngx-datatable-column [flexGrow]="2" name="Status"
+                                    prop="target.workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
+              <ngx-datatable-column [flexGrow]="1" name="Version" prop="target.version"></ngx-datatable-column>
 
-              <ngx-datatable-column name="Action">
+              <ngx-datatable-column [flexGrow]="1" name="Action">
                 <template let-row="row" let-value="value" ngx-datatable-cell-template>
                   <div class="table-actions">
                     <a tooltipPlacement="bottom" md-tooltip="Update to latest version" tooltip-position="above"
@@ -128,7 +133,7 @@
                       <i class="fa fa-level-up" aria-hidden="true"></i>
                     </a>
                     <a tooltipPlacement="bottom" md-tooltip="Edit Reference" tooltip-position="above"
-                       (click)="gotoEditComponent(row)"
+                       (click)="editReference(row)"
                        class="table-actions" role="button">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>

@@ -47,14 +47,12 @@ export class ComponentEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (this.route.snapshot.data) {
-      console.log(this.route);
+    this.route.data.subscribe(d => {
       this.id = this.route.snapshot.params['id'];
       this.projectId = this.route.snapshot.data['projectId'];
       this.componentType = this.route.snapshot.data['componentType'];
-    }
-
-    this.fetch();
+      this.fetch();
+    });
   }
 
 
@@ -81,10 +79,10 @@ export class ComponentEditComponent implements OnInit {
 
 
   public updateLatestVersion(ref: ComponentReference) {
-    /*    this.componentService.updateReference(this.component.id, this.component.currentWorkflowInstance.id, ref.id, ref.target.id)
-     .subscribe(r => {
-     this.fetch();
-     });*/
+    this.componentService.updateReference(ref.source.id, ref.id, "latest")
+      .subscribe(r => {
+        this.fetch();
+      });
   }
 
   public editReference(ref: ComponentReference) {

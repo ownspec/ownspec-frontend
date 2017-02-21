@@ -2,11 +2,15 @@
   <form style="padding-top: 6px" (submit)="post()">
     <div class="form-group">
       <div style="flex: 1">
-         <textarea mdInput [(ngModel)]="comment" placeholder="Comment..." name="comment" style="width: 100%" required>
-        </textarea>
+        <md-input-container>
+          <textarea mdInput [(ngModel)]="comment" placeholder="Comment..." name="comment" style="width: 100%" required>
+          </textarea>
+        </md-input-container>
       </div>
       <div style="width: 40px;text-align: center;">
-        <button md-raised-button type="submit">Comment</button>
+        <button md-icon-button type="submit">
+          <i class="fa fa-comments" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
   </form>

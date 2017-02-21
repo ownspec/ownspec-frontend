@@ -8,18 +8,16 @@
 
   <div class="workflow-history">
 
-    <div
-         style="background:white;border: 1px solid #e2e2e2;border-radius: 3px;">
-      <h3 style="font-size: 1.1rem;font-weight: 600;background: #393838;color: white;padding: 6px;">
-        Version {{componentVersion.workflowInstance.version}}
-        <small>started {{componentVersion.workflowInstance.createdDate| amTimeAgo}}</small>
-      </h3>
+    <div>
 
-      <div *ngFor="let status of componentVersion.workflowInstance.workflowStatuses.concat().reverse()" style="padding: 4px;">
+      <div *ngFor="let status of componentVersion.workflowInstance.workflowStatuses.concat().reverse()"
+           style="padding: 4px;">
         <h4 role="button" (click)="visibleStatuses[status.id] = !visibleStatuses[status.id]">
-          {{status.status.name}} {{status.reason}}
 
-          <span>{{status.createdDate | amTimeAgo}} by {{status.createdUser.username}}</span>
+          <i class="fa fa-sticky-note-o" aria-hidden="true" md-tooltip="{{status.reason}}"></i>
+          {{status.status.name}}
+
+          <span style="font-size: 0.8rem">{{status.createdDate | amTimeAgo}} by {{status.createdUser.username}}</span>
         </h4>
         <div>
           <ul *ngIf="status.changes.length > 0" style="margin-bottom: 0px">
