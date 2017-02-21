@@ -87,7 +87,7 @@
     "@types/hammerjs": "^2.0.33",
     "@types/jquery": "^2.0.34",
     "angular2-moment": "^1.1.0",
-    "angular2-tree-component": "2.8.1-performance",
+    "angular2-tree-component": "2.8.2",
     "bootstrap": "^4.0.0-alpha.6",
     "chart.js": "^2.4.0",
     "core-js": "^2.4.1",
