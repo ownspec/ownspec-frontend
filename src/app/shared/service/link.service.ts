@@ -1,4 +1,3 @@
-import {Http} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ComponentVersion} from "./component/component-version";
@@ -12,7 +11,7 @@ export class LinkService {
 
 
   goToHomePage() {
-    this.router.navigateByUrl("/app/dashboard");
+    this.router.navigateByUrl("/dashboard");
   }
 
   goToLoginPage() {
@@ -23,67 +22,59 @@ export class LinkService {
 
   }
 
-
-  gotoEditComponent(projectId: string, componentId: string, componentType: string) {
-
-
-    let params = ["app"];
-
-
-    if (projectId) {
-      params.push("project");
-      params.push(projectId);
-    }
-
-    if (componentType == "REQUIREMENT") {
-      params.push("requirements");
-
-    }
-
-
-    params.push(componentId);
-    params.push("edit");
-
-    console.log(params);
-
-    this.router.navigate(params);
-
-
+  gotoEditComponent(component:ComponentVersion) {
+    this.router.navigate(this.solveComponentUrlStrategy(component, "edit"));
   }
 
   gotoWriteComponent(component: ComponentVersion) {
-
-    let prefix = "/app";
-    let params = {componentId: component.id};
-
-    if (component.projectId) {
-      prefix = prefix + "/project";
-      params["projectId"] = component.projectId;
-    }
-
-
-    if (component.type == "REQUIREMENT") {
-      //this.$state.go(`${prefix}.requirements.component-edit`, {componentId: component.id}, {reload: false});
-      prefix = prefix + "/requirements"
-    }
-
-    if (component.type == "RESOURCE") {
-      //this.$state.go(`${prefix}.resources.component-edit`, {componentId: component.id}, {reload: false});
-    }
-    prefix = prefix + "/" + component.id;
-
-    this.router.navigate(["app", "requirements", component.id, "write"]);
-
-
+    this.router.navigate(this.solveComponentUrlStrategy(component, "write"));
   }
 
   editProject(projectId) {
-    this.router.navigate(["app", "projects", projectId, "edit"]);
+    this.router.navigate(["projects", projectId, "edit"]);
   }
 
 
   gotoParent(route: ActivatedRoute) {
     this.router.navigate(["../../"], {relativeTo: route});
+  }
+
+  solveComponentUrlStrategy(component: ComponentVersion, action: string): string[] {
+    let params = [];
+    let componentType: string = component.type;
+
+    if (component.projectId) {
+      params.push("project");
+      params.push(component.projectId);
+    }
+
+    switch (componentType) {
+      case "REQUIREMENT": {
+        params.push("requirements");
+        break;
+      }
+      case "COMPONENT": {
+        params.push("components");
+        break;
+      }
+      case "TEMPLATE": {
+        params.push("templates");
+        break;
+      }
+      case "RESOURCE": {
+        params.push("resources");
+        break;
+      }
+      default: {
+        return null;
+      }
+    }
+
+    params.push(component.id);
+    params.push(action);
+
+    console.log(params);
+    return params;
   }
 }
 

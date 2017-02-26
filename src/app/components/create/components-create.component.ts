@@ -66,8 +66,7 @@ export class ComponentsListComponent implements OnInit {
   }
 
   public edit(r: ComponentVersion) {
-
-    this.linkService.gotoEditComponent(r.projectId, r.id, r.type);
+    this.linkService.gotoEditComponent(r);
   }
 
   public write(r: any) {

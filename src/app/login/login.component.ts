@@ -15,6 +15,10 @@ export class LoginComponent {
               private linkService: LinkService,
               private snackBar: MdSnackBar) {
 
+    userService.getCurrent().subscribe(
+        s => {this.linkService.goToHomePage();},
+        e => {});
+
   }
 
 

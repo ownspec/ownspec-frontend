@@ -114,14 +114,37 @@ const appRoutes: Routes = [
         data: {componentTypes: ["COMPONENT"]}
       },
       {
+        path: 'components/:id/edit',
+        component: ComponentEditComponent,
+        data: {componentType: "COMPONENT"}
+      },
+      {
+        path: 'components/:id/write',
+        component: ComponentWriteComponent
+      },
+      {
         path: 'templates',
         component: ComponentsListComponent,
         data: {componentTypes: ["TEMPLATE"]}
       },
       {
+        path: 'templates/:id/edit',
+        component: ComponentEditComponent,
+        data: {componentType: "TEMPLATE"}
+      },
+      {
+        path: 'templates/:id/write',
+        component: ComponentWriteComponent
+      },
+      {
         path: 'resources',
         component: ResourcesListComponent,
         data: {componentTypes: ["RESOURCE"]}
+      },
+      {
+        path: 'resources/:id/edit',
+        component: ComponentEditComponent,
+        data: {componentType: "RESOURCE"}
       },
       {
         path: 'administration',

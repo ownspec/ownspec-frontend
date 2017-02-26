@@ -96,7 +96,7 @@ export class ComponentEditComponent implements OnInit {
   }
 
   public gotoEditComponent(c: ComponentVersion) {
-    this.linkService.gotoEditComponent(c.projectId, c.id, c.type);
+    this.linkService.gotoEditComponent(c);
   }
 
 
