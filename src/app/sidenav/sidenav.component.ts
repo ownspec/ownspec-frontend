@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {SharedService} from "../shared/service/shared.service";
-import {StateService} from "ui-router-ng2";
 import {StateSelector} from "ui-router-visualizer";
 import {User} from "../shared/model/user/user";
 import {UserService} from "../shared/service/user/user.service";
+import {LinkService} from "../shared/service/link.service";
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -41,24 +41,24 @@ export class SideNavComponent implements OnInit {
     {name: "Schedule", icon: "fa-calendar", state: "app.home.project.schedule"}
   ];
 
-  constructor(
-              private sharedService: SharedService,
-              private userService: UserService) {
+  constructor(private sharedService: SharedService,
+              private userService: UserService,
+              private linkService: LinkService) {
 
-    this.menuItems =  this.defaultMenuItems;
+    this.menuItems = this.defaultMenuItems;
 
     /*this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
-      this.stateIsInAProject = stateIsInAProject;
-      this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
-    });*/
+     this.stateIsInAProject = stateIsInAProject;
+     this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
+     });*/
   }
 
   ngOnInit(): void {
     // Set menu items regarding current state
-/*    this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
-      this.stateIsInAProject = stateIsInAProject;
-      this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
-    });*/
+    /*    this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
+     this.stateIsInAProject = stateIsInAProject;
+     this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
+     });*/
 
     // Subscribe to show/hide sidenav Event
     this.sharedService.hideSideNavEvent.subscribe(hide => {
@@ -72,22 +72,23 @@ export class SideNavComponent implements OnInit {
 
   }
 
-  public goDefaultView() {
+  public goToHomePage() {
+    this.linkService.goToHomePage();
     //this.state.go(this.defaultMenuItems[0].state);
   }
 
-  goSettings() {
+  openSettingsDialog() {
 
   }
 
-  goProfile() {
+  openProfileDialog() {
 
   }
 
   logoutUser() {
     this.userService.logout().subscribe(
         success => {
-          //this.state.go("login");
+          this.linkService.goToLoginPage();
         },
         error => {
           console.error("logout failed:" + error);

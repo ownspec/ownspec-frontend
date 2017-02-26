@@ -17,11 +17,12 @@ export class LoginComponent {
 
   }
 
+
   login(username: String, password: String) {
     this.userService.login(username, password)
         .subscribe(
             success => {
-              this.linkService.gotoHomePage();
+              this.linkService.goToHomePage();
             },
             error => {
               this.snackBar.open("LOGIN FAILED", "", {duration: Globals.SNACK_BAR_DURATION});

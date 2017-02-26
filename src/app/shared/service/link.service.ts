@@ -11,7 +11,7 @@ export class LinkService {
   }
 
 
-  gotoHomePage() {
+  goToHomePage() {
     this.router.navigateByUrl("/app/dashboard");
   }
 

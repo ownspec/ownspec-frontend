@@ -11,11 +11,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./confirm-registration.scss']
 })
 export class ConfirmRegistrationComponent implements OnInit {
-
   private verificationToken: string;
-  private password: string;
-  private confirmPassword: string;
-
   constructor(private userService: UserService,
               private linkService: LinkService,
               private snackBar: MdSnackBar,
@@ -25,15 +21,12 @@ export class ConfirmRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.verificationToken = this.route.snapshot.params['verificationToken'];
-    console.log("Input Verification Token : " + this.verificationToken);
-
   }
 
   confirmRegistration(password:string, confirmPassword:string) {
     this.userService.confirmRegistration(this.verificationToken, password)
         .subscribe(
             success => {
-              console.log("Request registration confirmation");
               this.linkService.goToLoginPage();
               this.snackBar.open("Registration successfully completed", "", {duration: Globals.SNACK_BAR_DURATION});
             },

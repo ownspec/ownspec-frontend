@@ -30,10 +30,7 @@ export class UserService {
   }
 
   public confirmRegistration(confirmationToken: string, password: string): Observable<any> {
-    return this.http.post("api/auth/registrationConfirmation/" + confirmationToken,
-        {
-          "password": password
-        });
+    return this.http.post("api/auth/registrationConfirmation/" + confirmationToken, password);
   }
 
   public getCurrent(): Observable<User> {
