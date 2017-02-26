@@ -23,13 +23,13 @@ export class SideNavComponent implements OnInit {
   private activeUser = new User();
 
   public defaultMenuItems: Array<any> = [
-    {name: "Dashboard", icon: "fa-tachometer", state: "/app/dashboard"},
-    {name: "Projects", icon: "fa-folder-open-o", state: "/app/projects"},
-    {name: "Requirements", icon: "fa-tasks", state: "/app/requirements"},
-    {name: "Components", icon: "fa-plug", state: "/app/components"},
-    {name: "Templates", icon: "fa-file-text", state: "/app/templates"},
-    {name: "Resources", icon: "fa-picture-o", state: "/app/resources"},
-    {name: "Administration", icon: "fa-shield", state: "/app/administration"},
+    {name: "Dashboard", icon: "fa-tachometer", state: "/dashboard"},
+    {name: "Projects", icon: "fa-folder-open-o", state: "/projects"},
+    {name: "Requirements", icon: "fa-tasks", state: "/requirements"},
+    {name: "Components", icon: "fa-plug", state: "/components"},
+    {name: "Templates", icon: "fa-file-text", state: "/templates"},
+    {name: "Resources", icon: "fa-picture-o", state: "/resources"},
+    {name: "Administration", icon: "fa-shield", state: "/administration"},
   ];
 
   private projectMenuItems: Array<any> = [

@@ -39,7 +39,8 @@ import {ConfirmRegistrationComponent} from "./confirm-registration/confirm-regis
 import {UpdateWorkflowComponent} from "./shared/workflow/update/workflow-update.component";
 import {HttpInterceptor} from "./shared/http/http-interceptor";
 import {LinkService} from "./shared/service/link.service";
-import { NgUploaderModule } from 'ngx-uploader';
+import {NgUploaderModule} from 'ngx-uploader';
+import {ErrorPageComponent} from "./error-page/error-page.component";
 
 
 /*
@@ -58,7 +59,6 @@ require("expose-loader?$!jquery");
 require("expose-loader?jQuery!jquery");
 
 
-
 // TODO: temporary until https://github.com/angular/material2/issues/1457
 @Injectable()
 export class AppGestureConfig extends HammerGestureConfig {
@@ -72,7 +72,12 @@ const appRoutes: Routes = [
     component: ConfirmRegistrationComponent
   },
   {
-    path: 'app', component: AppComponent,
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: '', component: AppComponent,
     children: [
       {
         path: 'dashboard',
@@ -125,12 +130,7 @@ const appRoutes: Routes = [
     ]
 
   },
-  {
-    path: '',
-    redirectTo: '/login',
-    pathMatch: 'full'
-  },
-  {path: '**', component: LoginComponent}
+  {path: '**', component: ErrorPageComponent}
 ];
 
 
@@ -168,6 +168,7 @@ const appRoutes: Routes = [
     FooComponent,
 
     UpdateWorkflowComponent,
+    ErrorPageComponent,
   ],
 
   entryComponents: [
