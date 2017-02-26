@@ -5,6 +5,8 @@ import {ProjectService} from "../shared/service/project.service";
 import {ComponentService} from "../shared/service/component/component.service";
 import {Component} from "../shared/model/component/component";
 import {Project} from "../shared/model/project";
+import {ComponentVersionService} from "../shared/service/component/component-versions.service";
+import {ComponentVersion} from "../shared/service/component/component-version";
 
 require("chart.js/src/chart.js");
 
@@ -20,10 +22,11 @@ export class DashboardComponent implements OnInit {
   private projectsNumber = 0;
   private documentsNumber = 0;
   private requirementsNumber = 0;
+  private templatesAndComponentsNumber = 0;
 
   private lastVisitedProjects: Project [] = [];
-  private lastVisitedDocuments: Component  [] = [];
-  private lastVisitedRequirements: Component [] = [];
+  private lastVisitedDocuments: ComponentVersion  [] = [];
+  private lastVisitedRequirements: ComponentVersion [] = [];
 
 
   // Requirement Evolution chart
@@ -47,12 +50,13 @@ export class DashboardComponent implements OnInit {
 
   public constructor(private sharedService: SharedService,
                      private projectService: ProjectService,
-                     private componentService: ComponentService) {
+                     private componentVersionService: ComponentVersionService) {
   }
 
   ngOnInit(): void {
-    let documents: Component[];
-    let requirements: Component[];
+    let documents: ComponentVersion[];
+    let requirements: ComponentVersion[];
+    let templatesAndComponents : ComponentVersion[];
 
     this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
       this.stateIsInAProject = stateIsInAProject;
@@ -61,13 +65,15 @@ export class DashboardComponent implements OnInit {
       this.projectsNumber = response.length;
     });
 
-    this.componentService.findAll().subscribe(response => {
-      documents = response.filter((component: Component) => component.type == "DOCUMENT");
-      requirements = response.filter((component: Component) => component.type == "REQUIREMENT");
+    this.componentVersionService.findAll(null, null, ["DOCUMENT", "REQUIREMENT", "TEMPLATE", "COMPONENT"]).subscribe(response => {
+      documents = response.filter((c: ComponentVersion) => c.type == "DOCUMENT");
+      requirements = response.filter((c: ComponentVersion) => c.type == "REQUIREMENT");
+      templatesAndComponents = response.filter((c: ComponentVersion) => c.type == "TEMPLATE" || c.type == "COMPONENT");
 
       // Total
       this.documentsNumber = documents.length;
       this.requirementsNumber = requirements.length;
+      this.templatesAndComponentsNumber = templatesAndComponents.length;
 
       // Charts
       this.setRequirementChartsData(requirements);
@@ -95,11 +101,7 @@ export class DashboardComponent implements OnInit {
     this.projectService.show(projectId);
   }
 
-  showComponent(componentId: number) {
-    this.componentService.edit(componentId);
-  }
-
-  private setRequirementChartsData(requirements: Component []) {
+  private setRequirementChartsData(requirements: ComponentVersion []) {
     // this.requirementEvolutionChartData;
     // this.requirementCoverageChartData
     // this.requirementTypeChartData = [ requirements.filter(req => req.type)];
@@ -127,14 +129,14 @@ export class DashboardComponent implements OnInit {
     });
 
     // Documents
-    this.componentService.getLastVisitedDocuments().subscribe((lastVisitedDocuments: Component[]) => {
-      this.lastVisitedDocuments = lastVisitedDocuments;
-    });
+    // this.componentService.getLastVisitedDocuments().subscribe((lastVisitedDocuments: Component[]) => {
+    //   this.lastVisitedDocuments = lastVisitedDocuments;
+    // });
 
     // Requirements
-    this.componentService.getLastVisitedRequirements().subscribe((lastVisitedRequirements: Component[]) => {
-      this.lastVisitedRequirements = lastVisitedRequirements;
-    });
+    // this.componentService.getLastVisitedRequirements().subscribe((lastVisitedRequirements: Component[]) => {
+    //   this.lastVisitedRequirements = lastVisitedRequirements;
+    // });
   }
 
 }
