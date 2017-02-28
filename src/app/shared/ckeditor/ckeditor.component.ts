@@ -36,10 +36,10 @@ declare var CKEDITOR: any;
   ],
   template: `
 
-<div>
-<textarea #textarea (window:resize)="onResize($event)"></textarea>
-</div>
-`,
+    <div (window:resize)="onResize($event)" #textarea>
+      <textarea></textarea>
+    </div>
+  `,
 
   styleUrls: ['./ckeditor.component.scss']
 })
@@ -111,7 +111,6 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
   };
 
   @Input() set value(v) {
-    console.log("set value");
     if (v !== this._value) {
       this._value = v;
       this.onChange(v);
@@ -138,7 +137,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
       this.debouncedData = _.debounce(function () {
         this.updateData();
       }, this.debounceData);
-    }else{
+    } else {
       this.debouncedData = this.updateData;
     }
 
@@ -146,7 +145,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
       this.debouncedToc = _.debounce(function () {
         this.updateToc();
       }, this.debounceToc);
-    }else{
+    } else {
       this.debouncedToc = this.updateToc;
     }
 
@@ -160,7 +159,8 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
 
 
   updateData() {
-    let data = this.instance.getData()
+
+    let data = this.instance.getData();
     this.zone.run(() => {
       this.value = data;
       this.onChange(data);
@@ -170,10 +170,12 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
   }
 
   updateToc() {
-    let toc = this.generateToc();
-    this.zone.run(() => {
-      this.tocChange.emit(toc.tocItems);
-    });
+    /*
+     let toc = this.generateToc();
+     this.zone.run(() => {
+     this.tocChange.emit(toc.tocItems);
+     });
+     */
   }
 
   ckeditorInit(config) {
@@ -185,11 +187,12 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
     }
 
     // CKEditor replace textarea
-    this.instance = CKEDITOR.replace(this.textarea.nativeElement, config);
+    this.instance = CKEDITOR.replace(jQuery(this.textarea.nativeElement).find("textarea")[0], config);
 
 
     // Set initial value
-    this.instance.setData(this.value);
+    console.log(this.value);
+    //this.instance.setData(this.value);
 
     // listen for instanceReady event
     this.instance.on('instanceReady', (evt) => {
@@ -207,58 +210,95 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
         return;
       }
 
-      this.onTouched();
+      //console.log("change", this.instance.getData());
 
-      this.debouncedToc();
       this.debouncedData();
+      //this.onTouched();
+      //this.debouncedToc();
+
     });
 
 
-    this.instance.on("os-compose-pdf" , () => {
+    this.instance.on("os-compose-pdf", () => {
       console.log("compose");
       this.composePdf.emit();
     });
 
     this.instance.on('refresh-toc', () => {
-      let tocItems = this.generateToc().tocItems;
+      /*   let tocItems = this.generateToc().tocItems;
 
-      let html = "<ul>";
+       let html = "<ul>";
 
-      for (let tocItem of tocItems){
-        html += "<li class='title"+tocItem.level+"'>" + tocItem.title + "</li>";
-      }
-
-
-      html += "</ul>";
-
-      console.log(html);
+       for (let tocItem of tocItems){
+       html += "<li class='title"+tocItem.level+"'>" + tocItem.title + "</li>";
+       }
 
 
-      jQuery(this.instance.container.$).find(".toc div:nth-child(2)").html(html);
+       html += "</ul>";
+
+       console.log(html);
+
+
+       jQuery(this.instance.container.$).find(".toc div:nth-child(2)").html(html);*/
     });
 
-    this.instance.on('fetch-ownspec-cv-content', (event:any) => {
+    this.instance.on('fetch-ownspec-cv-content', (event: any) => {
       console.log("fetch-ownspec-cv-content");
       console.log(event);
       event.data.observable = this.componentVersionService.getContent(event.data.id);
     });
   }
 
+  // Ckeditor setData is asynchronous and do not handle multiple setData call until the first one finished
+  // The below code, try to serialize the angular writeValue calls
+  private pendingCkValue = null;
+  private pendingCkValueState: "pending" | "pending_dirty" | "clear" = "clear";
 
   writeValue(value) {
-    this._value = value;
 
-    this.promise.then(i => {
-      try {
-        this.bypassOnChange = true;
-        i.setData(value);
+    let normalizedValue = value == null ? '' : value;
 
-        this.debouncedToc();
+    console.log("write value " + normalizedValue);
 
-      } finally {
-        this.bypassOnChange = false;
-      }
-    });
+    this._value = normalizedValue;
+
+    if (this.pendingCkValueState != "clear") {
+      this.pendingCkValue = normalizedValue;
+      this.pendingCkValueState = "pending_dirty";
+
+    } else {
+
+      this.pendingCkValueState = "pending";
+
+      let that = this;
+
+      this.promise.then(i => {
+        try {
+          this.bypassOnChange = true;
+
+          i.setData(normalizedValue, {
+            callback: function () {
+              if (that.pendingCkValueState == "pending_dirty") {
+                let curPendingCkValue = that.pendingCkValue;
+                this.pendingCkValueState = "pending";
+                this.pendingCkValue = null;
+                i.setData(curPendingCkValue);
+              } else {
+                this.pendingCkValueState = "clear";
+                this.pendingCkValue = null;
+
+              }
+            }
+          });
+
+
+          //this.debouncedToc();
+
+        } finally {
+          this.bypassOnChange = false;
+        }
+      });
+    }
   }
 
 
@@ -287,11 +327,11 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
   }
 
 
-  private generateToc(){
-    let c = this.instance.container.findOne(".cke_editable");
-    let toc = new TocGenerator();
-    toc.generateFromDom(c.$);
-    return toc;
+  private generateToc() {
+    /*    let c = this.instance.container.findOne(".cke_editable");
+     let toc = new TocGenerator();
+     toc.generateFromDom(c.$);
+     return toc;*/
   }
 
 }

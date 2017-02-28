@@ -3,6 +3,7 @@ import {User} from "./user/user";
 export class Project {
   public id: string;
   public title: string;
+  public key: string;
   public description: string;
   public createdDate: Date;
   public lastModifiedDate: Date;
@@ -19,6 +20,7 @@ export class Project {
     let project: Project = new Project();
     project.id = item.id;
     project.title = item.title;
+    project.key = item.key;
     project.description = item.description;
     project.createdDate = new Date(<string>item.createdDate);
     project.lastModifiedDate = new Date(<string>item.lastModifiedDate);
@@ -32,6 +34,7 @@ export class Project {
   public static toMap(project: Project): any {
     return {
       title: project.title,
+      key: project.key,
       description: project.description,
       manager: User.toMap(project.manager),
       projectUsers: project.projectUsers.map((u: User) => User.toMap(u))

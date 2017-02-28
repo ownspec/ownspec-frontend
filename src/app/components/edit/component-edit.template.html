@@ -61,10 +61,13 @@
             [scrollbarV]="true"
             [scrollbarH]="true">
             <ngx-datatable-column [flexGrow]="3" name="Source" prop="source.title"></ngx-datatable-column>
-            <ngx-datatable-column [flexGrow]="2" name="Type" prop="source.type"></ngx-datatable-column>
-            <ngx-datatable-column [flexGrow]="2" name="Status"
-                                  prop="source.workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
-            <ngx-datatable-column [flexGrow]="1" name="Version" prop="source.version"></ngx-datatable-column>
+
+            <ngx-datatable-column [flexGrow]="1">
+              <template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <i style="font-size: 2rem" class="fa fa-arrow-right" aria-hidden="true"></i>
+              </template>
+            </ngx-datatable-column>
+
             <ngx-datatable-column [flexGrow]="3" name="Target" prop="target.title"></ngx-datatable-column>
             <ngx-datatable-column [flexGrow]="2" name="Type" prop="target.type"></ngx-datatable-column>
             <ngx-datatable-column [flexGrow]="2" name="Status"
@@ -74,21 +77,26 @@
             <ngx-datatable-column [flexGrow]="1" name="Action">
               <template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <div class="table-actions">
-                  <a tooltipPlacement="bottom" md-tooltip="Update to latest version" tooltip-position="above"
-                     (click)="updateLatestVersion(row)"
-                     class="table-actions" role="button">
+
+                  <button [disabled]="!row.source.workflowInstance.currentWorkflowStatus.status.editable"
+                          type="button" class="btn btn-secondary btn-tiny"
+                          md-tooltip="Update to latest version" tooltip-position="above"
+                          (click)="updateLatestVersion(row)">
                     <i class="fa fa-level-up" aria-hidden="true"></i>
-                  </a>
-                  <a tooltipPlacement="bottom" md-tooltip="Edit Reference" tooltip-position="above"
-                     (click)="editReference(row)"
-                     class="table-actions" role="button">
+                  </button>
+
+                  <button *ngIf="row.source.workflowInstance.currentWorkflowStatus.status.editable"
+                          type="button" class="btn btn-secondary btn-tiny"
+                          tooltipPlacement="bottom" md-tooltip="Edit Reference" tooltip-position="above"
+                          (click)="editReference(row)">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
-                  </a>
-                  <a tooltipPlacement="bottom" md-tooltip="Open {{row.target.title}}" tooltip-position="above"
-                     (click)="gotoEditComponent(row.target)"
-                     class="table-actions" role="button">
+                  </button>
+
+                  <button type="button" class="btn btn-secondary btn-tiny"
+                          md-tooltip="Open {{row.target.title}}" tooltip-position="above"
+                          (click)="gotoEditComponent(row.target)">
                     <i class="fa fa-link" aria-hidden="true"></i>
-                  </a>
+                  </button>
 
 
                 </div>
@@ -118,30 +126,40 @@
               <ngx-datatable-column [flexGrow]="2" name="Status"
                                     prop="source.workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
               <ngx-datatable-column [flexGrow]="1" name="Version" prop="source.version"></ngx-datatable-column>
+
+
+              <ngx-datatable-column [flexGrow]="1">
+                <template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <i style="font-size: 2rem" class="fa fa-arrow-right" aria-hidden="true"></i>
+                </template>
+              </ngx-datatable-column>
+
               <ngx-datatable-column [flexGrow]="3" name="Target" prop="target.title"></ngx-datatable-column>
-              <ngx-datatable-column [flexGrow]="2" name="Type" prop="target.type"></ngx-datatable-column>
-              <ngx-datatable-column [flexGrow]="2" name="Status"
-                                    prop="target.workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
-              <ngx-datatable-column [flexGrow]="1" name="Version" prop="target.version"></ngx-datatable-column>
+
 
               <ngx-datatable-column [flexGrow]="1" name="Action">
                 <template let-row="row" let-value="value" ngx-datatable-cell-template>
                   <div class="table-actions">
-                    <a tooltipPlacement="bottom" md-tooltip="Update to latest version" tooltip-position="above"
-                       (click)="updateLatestVersion(row)"
-                       class="table-actions" role="button">
+
+                    <button type="button" class="btn btn-secondary btn-tiny"
+                            *ngIf="row.source.workflowInstance.currentWorkflowStatus.status.editable"
+                            md-tooltip="Update to latest version" tooltip-position="above"
+                            (click)="updateLatestVersion(row)">
                       <i class="fa fa-level-up" aria-hidden="true"></i>
-                    </a>
-                    <a tooltipPlacement="bottom" md-tooltip="Edit Reference" tooltip-position="above"
-                       (click)="editReference(row)"
-                       class="table-actions" role="button">
+                    </button>
+
+                    <button type="button" class="btn btn-secondary btn-tiny"
+                            *ngIf="row.source.workflowInstance.currentWorkflowStatus.status.editable"
+                            md-tooltip="Edit Reference" tooltip-position="above"
+                            (click)="editReference(row)">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </a>
-                    <a tooltipPlacement="bottom" md-tooltip="Open {{row.source.title}}" tooltip-position="above"
-                       (click)="gotoEditComponent(row.source)"
-                       class="table-actions" role="button">
+                    </button>
+
+                    <button type="button" class="btn btn-secondary btn-tiny"
+                            md-tooltip="Open {{row.source.title}}" tooltip-position="above"
+                            (click)="gotoEditComponent(row.source)">
                       <i class="fa fa-link" aria-hidden="true"></i>
-                    </a>
+                    </button>
                   </div>
                 </template>
               </ngx-datatable-column>

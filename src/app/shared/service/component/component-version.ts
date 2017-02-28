@@ -30,13 +30,13 @@ export class ComponentVersion {
 
   public tags: string[] = [];
 
-  public constructor(public id: string, public componentId: string, public title: string, public projectId: string, public type: string) {
+  public constructor(public id: string, public componentId: string, public title: string, public code:string, public projectId: string, public type: string) {
   }
 
 
   public clone(): ComponentVersion {
 
-    let c = new ComponentVersion(this.id, this.componentId, this.title, this.projectId, this.type);
+    let c = new ComponentVersion(this.id, this.componentId, this.title, this.code, this.projectId, this.type);
 
     c.version = this.version;
     c.content = this.content;
@@ -65,7 +65,7 @@ export class ComponentVersion {
 
 
   public static fromMap(item: any): ComponentVersion {
-    let component: ComponentVersion = new ComponentVersion(item.id, item.componentId, item.title, item.projectId, item.type);
+    let component: ComponentVersion = new ComponentVersion(item.id, item.componentId, item.title, item.code, item.projectId, item.type);
 
     component.version = item.version;
 
@@ -112,6 +112,7 @@ export class ComponentVersion {
     return {
       title: component.title,
       type: component.type,
+      code: component.code,
       projectId: component.projectId,
       requirementType: component.requirementType,
       // assignedTo: User.toJson(component.assignedTo),

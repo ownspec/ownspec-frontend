@@ -67,7 +67,7 @@ export class ComponentsComponent implements OnInit {
     var dataTransfer = evt.dataTransfer;
 
     dataTransfer.setData('component', JSON.stringify({
-      id: r.id, type: r.type,
+      id: r.id, type: r.type, code:r.code,
       editable: r.workflowInstance.getCurrentWorkflowStatus().status.editable
     }));
 

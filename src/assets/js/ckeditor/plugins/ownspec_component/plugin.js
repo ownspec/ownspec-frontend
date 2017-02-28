@@ -17,12 +17,12 @@ CKEDITOR.plugins.add('ownspec_component', {
       if (component.type != 'RESOURCE') {
 
         evt.data.dataValue = '<div class="requirements" data-os-cv-id="' + component.id + '">' +
-          '<div  class="requirements-id">' + component.id + '</div>' +
+          '<div  class="requirements-id">' + component.code + '</div>' +
           '<div class="requirements-content" contenteditable="' + component.editable + '"></div>' +
           '</div>';
 
-        var r = editor.fire("fetch-ownspec-cv-content" , {id:component.id});
-        r.observable.subscribe(function(r){
+        var r = editor.fire("fetch-ownspec-cv-content", {id: component.id});
+        r.observable.subscribe(function (r) {
           jQuery(editor.container.$).find(".requirements[data-os-cv-id='" + component.id + "'] .requirements-content").html(r);
         });
 
@@ -55,6 +55,30 @@ CKEDITOR.plugins.add('ownspec_component', {
 
       upcast: function (element) {
         return element.name == 'div' && element.hasClass('requirements');
+      },
+
+      init: function () {
+
+        var that = this;
+
+        //var isSelected =
+
+        editor.on('selectionChange', function () {
+
+          var widgetHoldingFocusedEditable = editor.widgets.widgetHoldingFocusedEditable;
+
+          if (!that.wrapper || !that.wrapper.$){
+            return;
+          }
+
+          if (!!widgetHoldingFocusedEditable && that.id === widgetHoldingFocusedEditable.id) {
+            jQuery(that.wrapper.$).find("> .requirements").addClass("requirements-focused");
+          } else {
+            jQuery(that.wrapper.$).find("> .requirements").removeClass("requirements-focused");
+          }
+
+        });
+
       },
 
       edit: function () {

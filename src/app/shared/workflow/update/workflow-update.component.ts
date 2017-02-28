@@ -62,7 +62,7 @@ export class UpdateWorkflowComponent implements OnInit {
   }
 
   public newStatus() {
-    this.componentService.newStatus(this.componentVersion.id)
+    this.componentVersionService.updateWorkflowStatus(this.componentVersion.id, "new", this.reason)
       .subscribe(c => {
         //this.component = c;
         this.update.emit(ComponentUpdate.newComponentUpdate());

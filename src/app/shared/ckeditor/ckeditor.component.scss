@@ -1,0 +1,13 @@
+.cke_widget_wrapper_requirements:hover > .cke_widget_element {
+  outline: 2px solid red;
+  cursor: default
+}
+
+.cke_widget_wrapper_requirements:hover .cke_widget_editable {
+  outline: 2px solid red
+}
+
+.cke_widget_wrapper_requirements.cke_widget_focused > .cke_widget_element,
+.cke_widget_wrapper_requirements .cke_widget_editable.cke_widget_editable_focused {
+  outline: 2px solid red
+}

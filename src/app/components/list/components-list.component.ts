@@ -12,6 +12,7 @@ import {LinkService} from "../../shared/service/link.service";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {ResourceCreateComponent} from "../../resources/create/resource-create.component";
 import {ComponentEditGeneralComponent} from "../edit/general/component-edit-general.component";
+import {UpdateWorkflowComponent} from "../../shared/workflow/update/workflow-update.component";
 
 
 /*
@@ -74,8 +75,8 @@ export class ComponentsListComponent implements OnInit {
     //this.$state.go(".component-write", {componentId: r.id}, {reload: false});
   }
 
-  public print(c: Component) {
-    this.componentService.print(c);
+  public print(c: ComponentVersion) {
+    this.componentVersionService.print(c);
   }
 
   public startCreateComponent() {
@@ -86,7 +87,7 @@ export class ComponentsListComponent implements OnInit {
       this.fetchComponents();
     });
 
-    d.componentInstance.componentVersion = new ComponentVersion("_new", "","", null, "REQUIREMENT");
+    d.componentInstance.componentVersion = new ComponentVersion("_new", "","", "",null, "REQUIREMENT");
     d.componentInstance.create = true;
     d.componentInstance.update.subscribe(e => {
       d.close();
@@ -105,5 +106,17 @@ export class ComponentsListComponent implements OnInit {
   addVisit(componentId: number) {
     this.componentService.addVisit(componentId);
   }
+
+
+  public openUpdateStatus(c:ComponentVersion){
+    let updateStatusDlg : MdDialogRef<UpdateWorkflowComponent> = this.dialog.open(UpdateWorkflowComponent);
+    updateStatusDlg.componentInstance.componentVersion = c;
+    updateStatusDlg.componentInstance.update.subscribe(c => {
+      updateStatusDlg.close();
+      this.fetchComponents();
+    });
+  }
+
+
 
 }

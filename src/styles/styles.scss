@@ -113,6 +113,7 @@ tooltip-container {
   z-index: 10000000;
 }
 
+/*
 .requirements {
   border-left: 1px solid #e9e9e9;
   padding-bottom: 2px;
@@ -126,7 +127,6 @@ tooltip-container {
   padding: 4px;
   margin-left: 10px;
   background: #ffa9a9;
-  /*border: 1px solid #d48e8e;*/
   border-radius: 2px;
   box-shadow: 0 1px 1px #fff inset, 0 -1px 0px #ccc inset;
 }
@@ -134,6 +134,61 @@ tooltip-container {
 .requirements-content {
   padding-left: 5px;
 }
+*/
+.requirements {
+  border-left: 5px solid gray;
+  padding-bottom: 2px;
+  margin-left: -30px;
+  padding-left: 31px;
+}
+
+.requirements-focused {
+  border-left: 5px solid #ffd323;
+}
+
+.requirements > .requirements-id {
+  position: absolute;
+  left: -85px;
+  font-family: tahoma;
+  font-size: 12px;
+  padding: 4px;
+  margin-left: 10px;
+  background: #fff987;
+  /* border: 1px solid #d48e8e; */
+  border-radius: 2px;
+  box-shadow: 0 1px 1px #fff inset, 0 -1px 0px #ccc inset;
+}
+
+.requirements .requirements > .requirements-id {
+  left: -90px;
+}
+
+.requirements .requirements .requirements > .requirements-id {
+  left: -95px;
+}
+
+
+
+.cke_widget_wrapper_requirements:hover > .cke_widget_element {
+  outline: none!important;
+  cursor: default
+}
+
+.cke_widget_wrapper_requirements:hover .cke_widget_editable {
+  outline: none!important;
+}
+
+.cke_widget_wrapper_requirements.cke_widget_focused > .cke_widget_element,
+.cke_widget_wrapper_requirements .cke_widget_editable.cke_widget_editable_focused {
+  outline: none!important;
+}
+
+
+
+
+
+
+
 
 .simplebox {
   padding: 4px;

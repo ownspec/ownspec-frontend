@@ -135,10 +135,6 @@ export class ComponentService {
       });
   }
 
-  public print(c: Component) {
-    window.location.assign("/api/components/" + c.id + "/compose");
-  }
-
   getLastVisitedRequirements(): Observable<Component[]> {
     let params: URLSearchParams = new URLSearchParams();
     params.append("mode", "LAST_VISITED_ONLY");

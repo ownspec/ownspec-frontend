@@ -1,32 +1,32 @@
-<div style="width: 850px;height: 400px">
+<div style="width: 100%;height: 100%" fxLayout="column">
 
-  <div>Update reference from <b>{{componentReference.source.id}} - {{componentReference.source.title}}</b> to:</div>
-
+  <div fxFlex="50px">Update reference from <b>{{componentReference.source.id}} - {{componentReference.source.title}}</b> to:</div>
+  <div fxFlex="400px">
   <ngx-datatable
-    class="material" style="flex: 1"
+    class="material" style="width: 100%;height: 200px"
     [rows]="targetComponentVersions"
-    [columnMode]="'standard'"
+    [columnMode]="'flex'"
     [headerHeight]="50"
     [footerHeight]="0"
     [rowHeight]="50"
     [scrollbarV]="true"
     [scrollbarH]="true">
-    <ngx-datatable-column name="V." prop="version" [width]="55">
+    <ngx-datatable-column [flexGrow]="1" name="V." prop="version" [width]="55">
 
     </ngx-datatable-column>
-    <ngx-datatable-column name="Title"></ngx-datatable-column>
-    <ngx-datatable-column name="Status" prop="workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
-    <ngx-datatable-column name="Creation">
+    <ngx-datatable-column [flexGrow]="3" name="Title"></ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="2" name="Status" prop="workflowInstance.currentWorkflowStatus.status.name"></ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="2" name="Creation">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.creationDate | amTimeAgo}}
       </template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="Update">
+    <ngx-datatable-column [flexGrow]="2" name="Update">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.workflowInstance.currentWorkflowStatus.createdDate | amTimeAgo}}
       </template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="Action">
+    <ngx-datatable-column [flexGrow]="1" name="Action">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div class="table-actions">
           <a (click)="updateReference(row.id)" md-tooltip="Update to this version" role="button">
@@ -39,8 +39,8 @@
       </template>
     </ngx-datatable-column>
   </ngx-datatable>
-
-  <div *ngIf="selectedTargetComponentVersion">
+  </div>
+  <div *ngIf="selectedTargetComponentVersion" fxFlex="80%">
     <component-content [componentVersion]="selectedTargetComponentVersion"></component-content>
   </div>
 </div>

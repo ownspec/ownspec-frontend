@@ -50,7 +50,7 @@
     <div *ngIf="displayMode=='list'">
       <div class="foo1" *ngFor="let component of components" draggable="true" (dragstart)="dragStart($event, component)">
         <div class="foo2">
-          <h4 class="foo3" style="line-height:0.9rem;font-size: 0.9rem;margin-bottom: 4px">{{component.id}} -
+          <h4 class="foo3" style="line-height:0.9rem;font-size: 0.9rem;margin-bottom: 4px">{{component.code}} -
             {{component.title}}</h4>
         </div>
       </div>

@@ -32,7 +32,7 @@
       <div style="flex: 1" #container>
         <ckeditor #ckeditor
                   [(ngModel)]="content"
-                  [config]="{ extraAllowedContent: '*[id]', uiColor: '#99000', height: '200px', basePath: '/assets/js/ckeditor/' , sharedSpaces:{top:'toolbarId'}}"
+                  [config]="{ extraAllowedContent: '*[id]', height: '200px', basePath: '/assets/js/ckeditor/' , sharedSpaces:{top:'toolbarId'}}"
                   (dataChange)="onChange($event)"
                   (tocChange)="tocChange($event)"
                   (composePdf)="composePdf($event)"

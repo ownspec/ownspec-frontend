@@ -27,7 +27,7 @@
     [rowHeight]="50"
     [scrollbarV]="true"
     [scrollbarH]="true">
-    <ngx-datatable-column [flexGrow]="1" name="Id"></ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="1" name="Code"></ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="1" name="Version"></ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="4" name="Title"></ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="2" name="Status"
@@ -60,6 +60,11 @@
           <button type="button" class="btn btn-secondary btn-tiny" (click)="print(row)" md-tooltip="Print">
             <i class="fa fa-print" aria-hidden="true"></i>
           </button>
+
+          <button type="button" class="btn btn-secondary btn-tiny" (click)="openUpdateStatus(row)" md-tooltip="Update status">
+            <i class="fa fa-history" aria-hidden="true"></i>
+          </button>
+
           <button type="button" class="btn btn-outline-danger btn-tiny" tooltipPlacement="bottom"
                   md-tooltip="Delete component" tooltip-position="above" tooltipClass="foobar">
             <i class="fa fa-trash" aria-hidden="true"></i>

@@ -86,7 +86,7 @@ export class ComponentEditComponent implements OnInit {
   }
 
   public editReference(ref: ComponentReference) {
-    let a: MdDialogRef<ReferenceComponent> = this.dialog.open(ReferenceComponent);
+    let a: MdDialogRef<ReferenceComponent> = this.dialog.open(ReferenceComponent , {width:"70%", height:"80%"});
 
     a.componentInstance.componentReference = ref;
 
