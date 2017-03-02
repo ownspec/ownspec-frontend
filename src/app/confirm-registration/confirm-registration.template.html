@@ -8,7 +8,7 @@
     <form #confirmRegistrationForm="ngForm" (ngSubmit)="confirmRegistration(password.value,confirmPassword.value)">
       <input #password placeholder="Create password" required type="password">
       <input #confirmPassword placeholder="Confirm password" required type="password">
-      <button [disabled]="!confirmRegistrationForm.noValidate" type="submit" (click)="confirmRegistration()">Confirm</button>
+      <button type="submit">Confirm</button>
     </form>
   </div>
 </div>
