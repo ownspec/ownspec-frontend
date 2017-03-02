@@ -24,7 +24,7 @@
     <md-card *ngFor="let component of components" style="margin: 5px">
       <md-card-header>
         <md-card-title>
-          <h6>{{component.title}}</h6>
+          <h6>{{component.code}} - {{component.title}}</h6>
         </md-card-title>
         <md-card-subtitle>
           <h6 style="font-size: 0.7rem;">{{component.workflowInstance.currentWorkflowStatus.status.name}} - Created {{component.createdDate | amTimeAgo }}</h6>
