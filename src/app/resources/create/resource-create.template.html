@@ -1,8 +1,8 @@
-<div style="width: 400px;height: 300px">
+<div style="width: 400px;height: 300px" *ngIf="component">
   <form (submit)="save()">
 
     <div style="width: 100%">
-      <input mdInput style="width: 100%" placeholder="title" [(ngModel)]="title" name="title" required>
+      <input mdInput style="width: 100%" placeholder="title" [(ngModel)]="component.title" name="title" required>
     </div>
     <div style="width: 100%">
       <input mdInput style="width: 100%" placeholder="Filename" *ngIf="uploadFile" [ngModel]="uploadFile.filename" name="filename">

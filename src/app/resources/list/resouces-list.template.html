@@ -27,7 +27,7 @@
           <h6>{{component.title}}</h6>
         </md-card-title>
         <md-card-subtitle>
-          <h6 style="font-size: 0.7rem;">Created {{component.createdDate | amTimeAgo }}</h6>
+          <h6 style="font-size: 0.7rem;">{{component.workflowInstance.currentWorkflowStatus.status.name}} - Created {{component.createdDate | amTimeAgo }}</h6>
         </md-card-subtitle>
       </md-card-header>
       <md-card-content>
@@ -38,6 +38,16 @@
                 md-tooltip="Delete component" tooltip-position="above" tooltipClass="foobar">
           <i class="fa fa-trash" aria-hidden="true"></i>
         </button>
+        <button *ngIf="component.workflowInstance.currentWorkflowStatus.status.editable" (click)="openEdit(component)"
+                type="button" class="btn btn-secondary btn-tiny" md-tooltip="Update component"
+                tooltip-position="above">
+          <i class="fa fa-upload" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="btn btn-secondary btn-tiny" (click)="openUpdateStatus(component)"
+                md-tooltip="Update status">
+          <i class="fa fa-history" aria-hidden="true"></i>
+        </button>
+
 
         <!--
                 <button type="button" class="btn btn-outline-primary btn-tiny" uiSref=".component-edit" [uiParams]="{ componentId: component.id }" md-tooltip="Edit component">

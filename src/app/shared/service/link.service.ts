@@ -1,11 +1,15 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ComponentVersion} from "./component/component-version";
+import {UpdateWorkflowComponent} from "../workflow/update/workflow-update.component";
+import {MdDialog, MdDialogRef} from "@angular/material";
+import {Observable} from "rxjs";
+import {ComponentUpdate} from "../../components/write/component-write.component";
 
 @Injectable()
 export class LinkService {
 
-  public constructor(private router: Router) {
+  public constructor(private router: Router, private dialog: MdDialog) {
 
   }
 
@@ -22,7 +26,7 @@ export class LinkService {
 
   }
 
-  gotoEditComponent(component:ComponentVersion) {
+  gotoEditComponent(component: ComponentVersion) {
     this.router.navigate(this.solveComponentUrlStrategy(component, "edit"));
   }
 
@@ -76,6 +80,17 @@ export class LinkService {
     console.log(params);
     return params;
   }
+
+
+  public openUpdateStatus(c: ComponentVersion): Observable<any> {
+    let updateStatusDlg: MdDialogRef<UpdateWorkflowComponent> = this.dialog.open(UpdateWorkflowComponent);
+    updateStatusDlg.componentInstance.componentVersion = c;
+    return updateStatusDlg.componentInstance.update
+      .map(c => {
+        return {event: c, dlg: updateStatusDlg};
+      });
+  }
+
 }
 
 

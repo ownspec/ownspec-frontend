@@ -10,6 +10,7 @@ import {ResourceCreateComponent} from "../create/resource-create.component";
 import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
 import {ActivatedRoute} from "@angular/router";
 import {ComponentVersion} from "../../shared/service/component/component-version";
+import {LinkService} from "../../shared/service/link.service";
 
 
 @C({
@@ -31,7 +32,9 @@ export class ResourcesListComponent implements OnInit {
   public searchBean = {title: null, query: null};
 
 
-  public constructor(private route: ActivatedRoute, public dialog: MdDialog, public appRef: ApplicationRef, private componentVersionService: ComponentVersionService) {
+  public constructor(private route: ActivatedRoute,
+                     public linkService:LinkService,
+                     public dialog: MdDialog, public appRef: ApplicationRef, private componentVersionService: ComponentVersionService) {
     this.projectId = null;
   }
 
@@ -57,10 +60,22 @@ export class ResourcesListComponent implements OnInit {
   }
 
   public startCreateComponent() {
-    this.dialog.open(ResourceCreateComponent).afterClosed().subscribe(r => {
+
+    let dlgRef = this.dialog.open(ResourceCreateComponent);
+    dlgRef.afterClosed().subscribe(r => {
       this.fetchComponents();
     });
   }
+
+  public openEdit(c:ComponentVersion){
+
+    let dlgRef = this.dialog.open(ResourceCreateComponent);
+    dlgRef.componentInstance.componentId = c.id;
+    dlgRef.afterClosed().subscribe(r => {
+      this.fetchComponents();
+    });
+  }
+
 
   public search() {
     this.fetchComponents();
@@ -69,5 +84,15 @@ export class ResourcesListComponent implements OnInit {
   public getContentUrl(c: ComponentVersion) {
     return this.componentVersionService.getContentUrl(c);
   }
+
+
+  public openUpdateStatus(c:ComponentVersion){
+    this.linkService.openUpdateStatus(c).subscribe(c => {
+      c.dlg.close();
+      this.fetchComponents();
+    });
+  }
+
+
 
 }

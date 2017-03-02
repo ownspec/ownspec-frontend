@@ -22,14 +22,28 @@ export class ResourceCreateComponent implements OnInit {
   };
   sizeLimit = 20000000;
 
-  public title: string = "";
+
+  public componentId: string;
+  public create:boolean;
+
+  public component: ComponentVersion;
 
 
-  public constructor(public dialog: MdDialogRef<ResourceCreateComponent>, private componentService: ComponentVersionService) {
+  public constructor(public dialog: MdDialogRef<ResourceCreateComponent>, private componentVersionService: ComponentVersionService) {
 
   }
 
   ngOnInit(): void {
+
+    if (this.componentId) {
+      this.componentVersionService.findOne(this.componentId, true).subscribe(c => {
+        this.component = c;
+      });
+      this.create = false;
+    }else{
+      this.component = new ComponentVersion(null, null, "", "", null, "RESOURCE");
+      this.create = true;
+    }
   }
 
   cancel() {
@@ -37,14 +51,18 @@ export class ResourceCreateComponent implements OnInit {
   }
 
   save() {
-    let component = new ComponentVersion(null,null, this.title, null, "RESOURCE");
+    this.component.uploadedFileId = this.uploadFile.fileId;
+    this.component.filename = this.uploadFile.filename;
 
-    component.uploadedFileId = this.uploadFile.fileId;
-    component.filename = this.uploadFile.filename;
-
-    this.componentService.create(component).subscribe(c => {
-      this.dialog.close();
-    });
+    if (this.create) {
+      this.componentVersionService.create(this.component).subscribe(c => {
+        this.dialog.close();
+      });
+    }else{
+      this.componentVersionService.update(this.component).subscribe(c => {
+        this.dialog.close();
+      });
+    }
   }
 
   handleUpload(data): void {

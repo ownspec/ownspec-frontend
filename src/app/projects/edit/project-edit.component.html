@@ -28,11 +28,18 @@
             </span>
           </div>
           <div fxFlex="80" fxLayout="column" style="padding: 20px !important;">
-            <md-input-container fxFlex class="panel-content-input-container" style="margin-bottom: 10px">
-              <input mdInput required
-                     [(ngModel)]="project.title"
-                     placeholder="Name" name="title" type="text">
-            </md-input-container>
+            <div fxLayout="row" style="margin-bottom: 10px">
+              <md-input-container fxFlex="20%" class="panel-content-input-container" style="margin-right: 10px">
+                <input mdInput required
+                       [(ngModel)]="project.key"
+                       placeholder="Key" name="key" type="text">
+              </md-input-container>
+              <md-input-container fxFlex="80%" class="panel-content-input-container">
+                <input mdInput required
+                       [(ngModel)]="project.title"
+                       placeholder="Name" name="title" type="text">
+              </md-input-container>
+            </div>
             <md-input-container fxFlex class="panel-content-input-container" style="margin-bottom: 10px">
             <textarea mdInput
                       [(ngModel)]="project.description"
@@ -46,9 +53,9 @@
         </div>
         <div fxLayout="row" style="margin: 20px">
           <md-select
-              placeholder="Sub-project of"
-              fxFlex="70"
-              name="subProject" type="">
+            placeholder="Sub-project of"
+            fxFlex="70"
+            name="subProject" type="">
             <md-option *ngFor="let project of projects" [value]="project">{{project.title}}</md-option>
           </md-select>
         </div>
@@ -86,15 +93,15 @@
         </div>
         <div class="panel-content" style="margin-bottom: 10px;">
           <div fxLayout="row">
-            <ng2-completer-md
-                [dataService]="dataService"
-                [(inputName)]="searchStr"
-                [minSearchLength]="0"
-                [placeholder]="'Add user...'"
-                [clearSelected]=true
-                (selected)="authorizeUser($event)"
-                style="flex:auto;flex-direction: row; width: 100%">
-            </ng2-completer-md>
+            <ng2-completer
+              [dataService]="dataService"
+              [(inputName)]="searchStr"
+              [minSearchLength]="0"
+              [placeholder]="'Add user...'"
+              [clearSelected]=true
+              (selected)="authorizeUser($event)"
+              style="flex:auto;flex-direction: row; width: 100%">
+            </ng2-completer>
           </div>
           <div fxLayout="column" style="max-height: 320px; overflow: auto">
             <md-card *ngFor="let user of project.projectUsers" style="margin-bottom: 5px;">
@@ -102,7 +109,8 @@
                 <img md-card-avatar src="assets/img/avatar_m.png">
                 <md-card-title>{{user.fullName}}</md-card-title>
                 <md-card-subtitle>Project Manager</md-card-subtitle>
-                <button role="button" (click)="removeUserFromProject(user)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                <button role="button" (click)="removeUserFromProject(user)"><i class="fa fa-trash-o"
+                                                                               aria-hidden="true"></i></button>
               </md-card-header>
             </md-card>
           </div>

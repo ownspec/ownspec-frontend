@@ -109,10 +109,8 @@ export class ComponentsListComponent implements OnInit {
 
 
   public openUpdateStatus(c:ComponentVersion){
-    let updateStatusDlg : MdDialogRef<UpdateWorkflowComponent> = this.dialog.open(UpdateWorkflowComponent);
-    updateStatusDlg.componentInstance.componentVersion = c;
-    updateStatusDlg.componentInstance.update.subscribe(c => {
-      updateStatusDlg.close();
+    this.linkService.openUpdateStatus(c).subscribe(c => {
+      c.dlg.close();
       this.fetchComponents();
     });
   }
