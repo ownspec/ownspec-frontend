@@ -1,16 +1,12 @@
 "use strict";
-import {StateService} from "ui-router-ng2";
 import {Component as C, Input, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
 import {ComponentUpdate} from "../write/component-write.component";
-import {Component} from "../../shared/model/component/component";
 import {ComponentService} from "../../shared/service/component/component.service";
-import {WorkflowInstance} from "../../shared/model/component/workflow/workflow-instance";
 import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {ReferenceComponent} from "../../shared/reference/reference.component";
 import {ComponentReference} from "../../shared/model/component/component-reference";
 import {ComponentVersion} from "../../shared/service/component/component-version";
-import {EntityReference, ReferenceService} from "../../shared/service/reference.service";
+import {ReferenceService} from "../../shared/service/reference.service";
 import {LinkService} from "../../shared/service/link.service";
 import {ActivatedRoute} from "@angular/router";
 import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
@@ -80,13 +76,13 @@ export class ComponentEditComponent implements OnInit {
 
   public updateLatestVersion(ref: ComponentReference) {
     this.componentService.updateReference(ref.source.id, ref.id, "latest")
-      .subscribe(r => {
-        this.fetch();
-      });
+        .subscribe(r => {
+          this.fetch();
+        });
   }
 
   public editReference(ref: ComponentReference) {
-    let a: MdDialogRef<ReferenceComponent> = this.dialog.open(ReferenceComponent , {width:"70%", height:"80%"});
+    let a: MdDialogRef<ReferenceComponent> = this.dialog.open(ReferenceComponent, {width: "70%", height: "80%"});
 
     a.componentInstance.componentReference = ref;
 
@@ -97,6 +93,10 @@ export class ComponentEditComponent implements OnInit {
 
   public gotoEditComponent(c: ComponentVersion) {
     this.linkService.gotoEditComponent(c);
+  }
+
+  public gotoWriteComponent(c: ComponentVersion = this.componentVersion) {
+    this.linkService.gotoWriteComponent(c);
   }
 
 

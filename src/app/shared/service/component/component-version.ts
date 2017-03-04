@@ -12,6 +12,7 @@ export class ComponentVersion {
   public creationDate: Date;
   public lastModifiedDate: Date;
   public createdUser: User;
+  public lastModifiedUser: User;
 
   public distributionLevel: string;
   public requirementType: string;
@@ -45,6 +46,7 @@ export class ComponentVersion {
     c.creationDate = this.creationDate;
     c.lastModifiedDate = this.lastModifiedDate;
     c.createdUser = this.createdUser;
+    c.lastModifiedUser= this.lastModifiedUser;
 
     c.workflowInstance = this.workflowInstance.clone();
 
@@ -72,6 +74,7 @@ export class ComponentVersion {
     component.creationDate = new Date(<string>item.createdDate);
     component.lastModifiedDate = new Date(<string>item.lastModifiedDate);
     component.createdUser = User.fromMap(item.createdUser);
+    component.lastModifiedUser = User.fromMap(item.lastModifiedUser);
 
     component.content = item.content;
     component.summary = item.summary;
@@ -115,7 +118,7 @@ export class ComponentVersion {
       code: component.code,
       projectId: component.projectId,
       requirementType: component.requirementType,
-      // assignedTo: User.toJson(component.assignedTo),
+      // assignedTo: User.toMap(component.assignedTo),
       requiredTest: component.requiredTest,
       // estimatedTimes: component.estimatedTimes.map(e => EstimatedTime.toJson(e)).toString(),
       distributionLevel: component.distributionLevel,

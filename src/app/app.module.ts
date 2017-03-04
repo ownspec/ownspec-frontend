@@ -1,6 +1,6 @@
 import {NgModule, ApplicationRef, Injectable} from "@angular/core";
 import {BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {SharedModule} from "./shared/shared.module";
 import {AppComponent} from "./app.component";
@@ -228,7 +228,8 @@ const appRoutes: Routes = [
     NgUploaderModule,
 
     TreeModule,
-    MdCardModule
+    MdCardModule,
+    ReactiveFormsModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
 
