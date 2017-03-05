@@ -8,11 +8,11 @@ import {UserService} from "../../shared/service/user/user.service";
   templateUrl: './user-edit.template.html',
   styleUrls: ['./user-edit.component.scss']
 })
-export class UserEditDialog {
+export class UserEditorDialog {
   public user: User;
   public create = false;
 
-  public constructor(public userEditDialogRef: MdDialogRef<UserEditDialog>,
+  public constructor(public userEditDialogRef: MdDialogRef<UserEditorDialog>,
                      public userService: UserService,
                      public snackBar: MdSnackBar) {
   }

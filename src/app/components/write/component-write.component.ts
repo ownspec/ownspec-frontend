@@ -1,15 +1,9 @@
 "use strict";
 
 
-import {
-  Component as C, Input, OnInit, NgZone, OnDestroy, ViewChild, animate, transition, style,
-  state, trigger
-} from "@angular/core";
+import {Component as C, Input, OnInit, NgZone, OnDestroy, ViewChild} from "@angular/core";
 import {Observable} from "rxjs";
-import {ComponentService} from "../../shared/service/component/component.service";
 import * as _ from "lodash";
-import {AppComponent} from "../../app.component";
-import {Component} from "../../shared/model/component/component";
 import {SharedService} from "../../shared/service/shared.service";
 import {TocGenerator, TocItem} from "../../shared/ckeditor/toc-generator";
 import {CKEditorComponent} from "../../shared/ckeditor/ckeditor.component";
@@ -37,7 +31,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
   public id: string;
 
   @ViewChild("ckeditor")
-  public ckeditor:CKEditorComponent;
+  public ckeditor: CKEditorComponent;
 
   public editorOptions: any;
 
@@ -49,7 +43,7 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 
   menuState: string = 'in';
 
-  public constructor(private zone: NgZone, private route: ActivatedRoute, public linkService:LinkService,
+  public constructor(private zone: NgZone, private route: ActivatedRoute, public linkService: LinkService,
                      private componentVersionService: ComponentVersionService,
                      private sharedService: SharedService) {
   }
@@ -69,9 +63,6 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
     this.componentVersionService.getResolvedContent(this.id).subscribe(r => {
       this.content = r;
     });
-
-
-
 
 
     var that = this;
@@ -103,11 +94,10 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
       //this.component = r;
 
 
-
     });
   }
 
-  public computeToc(){
+  public computeToc() {
     let tocGenerator = new TocGenerator();
     this.toc = tocGenerator.generateFromString(this.content);
     this.tocItems = tocGenerator.tocItems;
@@ -153,10 +143,13 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
     });
   }
 
-  public gotoTocItem(tocItem:TocItem){
+  public gotoTocItem(tocItem: TocItem) {
     this.ckeditor.gotoTocItem(tocItem.id);
   }
 
+  public gotoEditComponent() {
+    this.linkService.gotoEditComponent(this.component);
+  }
 }
 
 
@@ -165,8 +158,8 @@ export class ComponentUpdate {
 
   }
 
-  public static newComponentUpdate():ComponentUpdate{
-    return new ComponentUpdate(false, false, false,false);
+  public static newComponentUpdate(): ComponentUpdate {
+    return new ComponentUpdate(false, false, false, false);
   }
 
 }

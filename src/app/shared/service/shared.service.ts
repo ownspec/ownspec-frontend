@@ -18,7 +18,10 @@ export class SharedService {
     this.expandMainContentEvent.emit(expandAndHide);
   }
 
-  public stateIsInAProject(val: boolean) {
-    this.stateIsInAProjectEvent.emit(val);
+  public stateIsInAProject(val: boolean, projectId: string) {
+    this.stateIsInAProjectEvent.emit({
+      isInAProject: val,
+      projectId: projectId
+    });
   }
 }

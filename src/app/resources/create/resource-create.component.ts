@@ -1,8 +1,6 @@
 "use strict";
 import {Component as C, OnInit} from "@angular/core";
 import {MdDialogRef} from "@angular/material";
-import {Component} from "../../shared/model/component/component";
-import {ComponentService} from "../../shared/service/component/component.service";
 import {ComponentVersion} from "../../shared/service/component/component-version";
 import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
 
@@ -12,7 +10,7 @@ import {ComponentVersionService} from "../../shared/service/component/component-
   templateUrl: 'resource-create.template.html',
   styleUrls: ['resource-create.component.scss']
 })
-export class ResourceCreateComponent implements OnInit {
+export class ResourceCreatorComponent implements OnInit {
 
 
   uploadFile: any;
@@ -29,7 +27,7 @@ export class ResourceCreateComponent implements OnInit {
   public component: ComponentVersion;
 
 
-  public constructor(public dialog: MdDialogRef<ResourceCreateComponent>, private componentVersionService: ComponentVersionService) {
+  public constructor(public dialog: MdDialogRef<ResourceCreatorComponent>, private componentVersionService: ComponentVersionService) {
 
   }
 

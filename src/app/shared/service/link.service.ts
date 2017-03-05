@@ -4,7 +4,6 @@ import {ComponentVersion} from "./component/component-version";
 import {UpdateWorkflowComponent} from "../workflow/update/workflow-update.component";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {Observable} from "rxjs";
-import {ComponentUpdate} from "../../components/write/component-write.component";
 
 @Injectable()
 export class LinkService {
@@ -22,16 +21,16 @@ export class LinkService {
     this.router.navigateByUrl("/login");
   }
 
-  gotoCreateComponent(projectId: string, componentType: string) {
-
-  }
-
   gotoEditComponent(component: ComponentVersion) {
     this.router.navigate(this.solveComponentUrlStrategy(component, "edit"));
   }
 
   gotoWriteComponent(component: ComponentVersion) {
     this.router.navigate(this.solveComponentUrlStrategy(component, "write"));
+  }
+
+  showProject(projectId) {
+    this.router.navigate(["projects", projectId]);
   }
 
   editProject(projectId) {

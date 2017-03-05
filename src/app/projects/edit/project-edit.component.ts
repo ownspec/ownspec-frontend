@@ -1,5 +1,4 @@
 "use strict";
-import {StateService} from "ui-router-ng2";
 import {Input, OnInit, Component} from "@angular/core";
 import {Observable} from "rxjs";
 import {ProjectService} from "../../shared/service/project.service";
@@ -42,7 +41,7 @@ export class ProjectEditComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.route.snapshot.data) {
-      this.id = this.route.snapshot.params['id'];
+      this.id = this.route.snapshot.params['projectId'];
     }
 
     this.project = new Project();

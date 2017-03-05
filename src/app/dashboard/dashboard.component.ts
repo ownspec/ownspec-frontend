@@ -2,8 +2,6 @@
 import {Component as C, OnInit} from "@angular/core";
 import {SharedService} from "../shared/service/shared.service";
 import {ProjectService} from "../shared/service/project.service";
-import {ComponentService} from "../shared/service/component/component.service";
-import {Component} from "../shared/model/component/component";
 import {Project} from "../shared/model/project";
 import {ComponentVersionService} from "../shared/service/component/component-versions.service";
 import {ComponentVersion} from "../shared/service/component/component-version";
@@ -19,6 +17,7 @@ require("chart.js/src/chart.js");
 export class DashboardComponent implements OnInit {
   private project: Project;
   private stateIsInAProject = false;
+  private projectId: string;
   private projectsNumber = 0;
   private documentsNumber = 0;
   private requirementsNumber = 0;
@@ -56,10 +55,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     let documents: ComponentVersion[];
     let requirements: ComponentVersion[];
-    let templatesAndComponents : ComponentVersion[];
+    let templatesAndComponents: ComponentVersion[];
 
-    this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
-      this.stateIsInAProject = stateIsInAProject;
+    this.sharedService.stateIsInAProjectEvent.subscribe(result => {
+      this.stateIsInAProject = result.isInAProject;
+      this.projectId = result.projectId;
     });
     this.projectService.findAll().subscribe(response => {
       this.projectsNumber = response.length;

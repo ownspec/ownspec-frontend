@@ -4,6 +4,7 @@ import {StateSelector} from "ui-router-visualizer";
 import {User} from "../shared/model/user/user";
 import {UserService} from "../shared/service/user/user.service";
 import {LinkService} from "../shared/service/link.service";
+import {ActivatedRoute} from "@angular/router";
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -21,6 +22,7 @@ export class SideNavComponent implements OnInit {
   private hidden;
   private stateIsInAProject = false;
   private activeUser = new User();
+  private projectId: string;
 
   public defaultMenuItems: Array<any> = [
     {name: "Dashboard", icon: "fa-tachometer", state: "/dashboard"},
@@ -33,32 +35,33 @@ export class SideNavComponent implements OnInit {
   ];
 
   private projectMenuItems: Array<any> = [
-    {name: "Dashboard", icon: "fa-tachometer", state: "app.home.project.dashboard"},
-    {name: "Documents", icon: "fa-file-text-o ", state: "app.home.project.documents"},
-    {name: "Requirements", icon: "fa-tasks", state: "app.home.project.requirements"},
-    {name: "Templates", icon: "fa-file-text", state: "app.home.project.templates"},
-    {name: "Resources", icon: "fa-picture-o", state: "app.home.project.resources"},
-    {name: "Schedule", icon: "fa-calendar", state: "app.home.project.schedule"}
+    {name: "Dashboard", icon: "fa-tachometer", state: "/"},
+    {name: "Documents", icon: "fa-file-text-o ", state: "/documents"},
+    {name: "Requirements", icon: "fa-tasks", state: "/requirements"},
+    {name: "Templates", icon: "fa-file-text", state: "/templates"},
+    {name: "Resources", icon: "fa-picture-o", state: "/resources"}
   ];
 
-  constructor(private sharedService: SharedService,
+  constructor(private route: ActivatedRoute,
+              private sharedService: SharedService,
               private userService: UserService,
               private linkService: LinkService) {
 
     this.menuItems = this.defaultMenuItems;
 
-    /*this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
-     this.stateIsInAProject = stateIsInAProject;
-     this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
-     });*/
+    this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
+      this.stateIsInAProject = stateIsInAProject;
+      this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
+    });
   }
 
   ngOnInit(): void {
     // Set menu items regarding current state
-    /*    this.sharedService.stateIsInAProjectEvent.subscribe(stateIsInAProject => {
-     this.stateIsInAProject = stateIsInAProject;
-     this.menuItems = stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
-     });*/
+    this.sharedService.stateIsInAProjectEvent.subscribe(result => {
+      this.stateIsInAProject = result.isInAProject;
+      this.projectId = result.projectId;
+      this.toggleMenu(result.isInAProject);
+    });
 
     // Subscribe to show/hide sidenav Event
     this.sharedService.hideSideNavEvent.subscribe(hide => {
@@ -74,7 +77,6 @@ export class SideNavComponent implements OnInit {
 
   public goToHomePage() {
     this.linkService.goToHomePage();
-    //this.state.go(this.defaultMenuItems[0].state);
   }
 
   openSettingsDialog() {
@@ -83,6 +85,11 @@ export class SideNavComponent implements OnInit {
 
   openProfileDialog() {
 
+  }
+
+  public toggleMenu(stateIsInAProject: boolean = !this.stateIsInAProject) {
+    this.stateIsInAProject = stateIsInAProject;
+    this.menuItems = this.stateIsInAProject ? this.projectMenuItems : this.defaultMenuItems;
   }
 
   logoutUser() {

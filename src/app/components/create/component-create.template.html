@@ -1,0 +1,73 @@
+<div fxLayout="column" style="padding: 5px;">
+  <!-- Title -->
+  <div fxFlex style="margin:15px 5px">
+    <md-input-container style="width: 100%">
+      <input mdInput class="form-control" required [(ngModel)]="componentVersion.title"
+             placeholder="Title"
+             name="Title"
+             type="text">
+    </md-input-container>
+  </div>
+
+  <!-- Component Type-->
+  <div fxFlex style="margin:15px 5px">
+    <md-select name="items" [(ngModel)]="componentVersion.requirementType" placeholder="Type" style="width: 80%">
+      <md-option value="BUSINESS">Business</md-option>
+      <md-option value="FUNCTIONAL">Functional</md-option>
+      <md-option value="DESIGN">Design</md-option>
+      <md-option value="PERFORMANCE">Performance</md-option>
+      <md-option value="OTHER">Other</md-option>
+    </md-select>
+  </div>
+
+
+  <!-- Distribution Level -->
+  <div fxFlex style="margin:15px 5px">
+    <md-select name="distributionLevel" [(ngModel)]="componentVersion.distributionLevel" placeholder="Distribution Level" style="width: 80%">
+      <md-option value="PUBLIC">Public</md-option>
+      <md-option value="INTERNAL">Internal</md-option>
+      <md-option value="RESTRICTED">Restricted</md-option>
+      <md-option value="SECRET">Secret</md-option>
+    </md-select>
+  </div>
+
+  <div fxLayout="row" style="margin:15px 5px">
+
+    <!-- Read only -->
+    <div fxFlex>
+      <md-checkbox [(ngModel)]="componentVersion.readOnly" (change)="readOnly = $event">Read only</md-checkbox>
+    </div>
+
+    <!-- Test required -->
+    <div fxFlex>
+      <md-checkbox [(ngModel)]="componentVersion.requiredTest">Require Test</md-checkbox>
+    </div>
+  </div>
+
+  <!-- Tags -->
+  <div fxLayout="row" style="margin:15px 5px">
+    <div fxFlex>
+      <p>
+        <md-input-container>
+          <input mdInput [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
+                 (keypress)="addNewTag($event)">
+        </md-input-container>
+      </p>
+      <div class="badge badge-default" style="display: inline-block;margin-right: 5px"
+           *ngFor="let tag of componentVersion.tags">{{tag}}&nbsp;</div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 10px">
+    <div fxFlex>
+      <button md-button (click)="save(true)">Save and continue</button>
+    </div>
+    <div fxFlex>
+      <button md-button (click)="save()">Save</button>
+    </div>
+    <div fxFlex>
+      <button md-button (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

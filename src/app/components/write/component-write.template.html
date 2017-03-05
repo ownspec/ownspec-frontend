@@ -8,7 +8,13 @@
       </button>
     </div>
 
-    <button color="warn" md-icon-button routerLink="../../"><i class="fa fa-times" aria-hidden="true"></i></button>
+    <div md-tooltip="Edit {{component.type | lowercase}}">
+      <button md-icon-button (click)="gotoEditComponent()"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+    </div>
+
+    <div md-tooltip="Cancel">
+      <button md-icon-button routerLink="../../"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
   </div>
 </main-header>
 

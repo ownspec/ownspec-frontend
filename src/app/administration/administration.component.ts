@@ -6,13 +6,13 @@ import {UserCategory} from "../shared/model/user/user-category";
 import {UserService} from "../shared/service/user/user.service";
 import {CompanyService} from "../shared/service/company.service";
 import {MdSnackBar, MdDialog, MdDialogRef} from "@angular/material";
-import {UserEditDialog} from "./user-edit/user-edit.component";
+import {UserEditorDialog} from "./user-edit/user-edit.component";
 
 @Component({
   selector: 'administration',
   templateUrl: './administration.template.html',
   styleUrls: ['./administration.component.scss'],
-  entryComponents: [UserEditDialog]
+  entryComponents: [UserEditorDialog]
 })
 export class AdministrationComponent implements OnInit {
 
@@ -57,7 +57,7 @@ export class AdministrationComponent implements OnInit {
   }
 
   edit(user: User, create = false) {
-    let dialogRef: MdDialogRef<UserEditDialog> = this.dialog.open(UserEditDialog);
+    let dialogRef: MdDialogRef<UserEditorDialog> = this.dialog.open(UserEditorDialog);
     dialogRef.componentInstance.user = user;
     dialogRef.componentInstance.create = create;
     dialogRef.afterClosed().subscribe(() => {

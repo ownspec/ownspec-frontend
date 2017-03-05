@@ -4,10 +4,6 @@
     <button (click)="goToHomePage()" role="button"><img src="/assets/img/os-center-logo-170x43_white.png" alt="Ownspec center"></button>
   </div>
 
-  <div *ngIf="stateIsInAProject" style="margin-top: 5px">
-    <!--<button uiSref="app.home.projects" type="button"><i class="fa fa-arrow-left back_button" aria-hidden="true"></i></button>-->
-  </div>
-
   <!--User menu-->
   <div class="sidenav-user-menu">
     <div>
@@ -33,9 +29,13 @@
   </div>
 
   <!--Navigation-->
+  <div *ngIf="stateIsInAProject" style="margin-top: 5px">
+    <button md-icon-button (click)="toggleMenu()"><i style="color: grey" class="fa fa-arrow-left" aria-hidden="true"></i></button>
+  </div>
+
   <div class="sidenav-menu-items">
     <li *ngFor="let item of menuItems" routerLinkActive="active">
-      <a routerLink={{item.state}}>
+      <a [routerLink]="stateIsInAProject?'/projects/'+projectId+'/'+item.state:item.state">
         <div><i class="fa {{item.icon}}" aria-hidden="true"></i>{{item.name}}</div>
       </a>
     </li>

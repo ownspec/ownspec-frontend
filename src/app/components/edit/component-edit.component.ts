@@ -65,7 +65,7 @@ export class ComponentEditComponent implements OnInit {
 
   public save() {
     this.componentService.save(this.componentVersion).subscribe(r => {
-      //this.$state.go("^", null, {reload: true});
+      this.snackBar.open(this.componentVersion.type + " successfully updated", "Close", {duration: 2000});
     });
   }
 

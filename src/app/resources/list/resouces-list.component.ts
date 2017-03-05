@@ -1,12 +1,9 @@
 "use strict";
 
 
-import {ComponentService} from "../../shared/service/component/component.service";
-import {StateService, StateParams} from "ui-router-ng2";
 import {Component as C, OnInit, Input, ApplicationRef} from "@angular/core";
-import {Component} from "../../shared/model/component/component";
 import {MdDialog} from "@angular/material";
-import {ResourceCreateComponent} from "../create/resource-create.component";
+import {ResourceCreatorComponent} from "../create/resource-create.component";
 import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
 import {ActivatedRoute} from "@angular/router";
 import {ComponentVersion} from "../../shared/service/component/component-version";
@@ -61,7 +58,7 @@ export class ResourcesListComponent implements OnInit {
 
   public startCreateComponent() {
 
-    let dlgRef = this.dialog.open(ResourceCreateComponent);
+    let dlgRef = this.dialog.open(ResourceCreatorComponent);
     dlgRef.afterClosed().subscribe(r => {
       this.fetchComponents();
     });
@@ -69,7 +66,7 @@ export class ResourcesListComponent implements OnInit {
 
   public openEdit(c:ComponentVersion){
 
-    let dlgRef = this.dialog.open(ResourceCreateComponent);
+    let dlgRef = this.dialog.open(ResourceCreatorComponent);
     dlgRef.componentInstance.componentId = c.id;
     dlgRef.afterClosed().subscribe(r => {
       this.fetchComponents();

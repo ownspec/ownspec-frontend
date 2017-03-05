@@ -1,10 +1,9 @@
 /*
  * Angular 2 decorators and services
  */
-import {Component, ViewEncapsulation, ViewContainerRef} from '@angular/core';
-
+import {Component, ViewEncapsulation, ViewContainerRef} from "@angular/core";
 import {SharedService} from "./shared/service/shared.service";
-import {UIRouter} from "ui-router-ng2";
+import {Router, NavigationEnd} from "@angular/router";
 
 /*
  * App Component
@@ -22,7 +21,7 @@ export class AppComponent {
 
   mainContentExpanded;
 
-  constructor(
+  constructor(private router: Router,
               private vcRef: ViewContainerRef,
               private sharedService: SharedService) {
 
@@ -35,13 +34,16 @@ export class AppComponent {
     this.sharedService.expandMainContentEvent.subscribe(expand => {
       this.mainContentExpanded = expand;
     });
-/*
-    this.router.transitionService.onFinish({} , (transition) => {
-      this.sharedService.stateIsInAProject(this.router.stateService.$current.name.startsWith("app.home.project."));
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        let matcher = this.router.url.match("\\/projects\\/([0-9]*).*");
+        if (matcher != null && matcher.length > 1) {
+          this.sharedService.stateIsInAProject(true, matcher[1]);
+        } else {
+          this.sharedService.stateIsInAProject(false, null);
+        }
+      }
     });
-    this.sharedService.stateIsInAProject(this.router.globals.$current.name.startsWith("app.home.project."));
-*/
-
   }
 
 }

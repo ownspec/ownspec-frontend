@@ -19,22 +19,22 @@
 
             <!-- Component Type-->
             <div fxFlex fxFlex.xs="100" style="margin:15px 5px">
-              <md-select name="items" [(ngModel)]="componentType" placeholder="Type" style="width: 80%">
-                <md-option ngValue="Business">Business</md-option>
-                <md-option ngValue="Functional">Functional</md-option>
-                <md-option ngValue="Design">Design</md-option>
-                <md-option ngValue="Performance">Performance</md-option>
-                <md-option ngValue="Other">Other</md-option>
+              <md-select name="items" [(ngModel)]="componentVersion.requirementType" placeholder="Type" style="width: 80%">
+                <md-option value="BUSINESS">Business</md-option>
+                <md-option value="FUNCTIONAL">Functional</md-option>
+                <md-option value="DESIGN">Design</md-option>
+                <md-option value="PERFORMANCE">Performance</md-option>
+                <md-option value="OTHER">Other</md-option>
               </md-select>
             </div>
 
             <!-- Distribution Level -->
             <div fxFlex fxFlex.xs="100" style="margin:15px 5px">
-              <md-select name="distributionLevel" [(ngModel)]="distributionLevel" placeholder="Distribution Level" style="width: 80%">
-                <md-option ngValue="Public">Public</md-option>
-                <md-option ngValue="Internal">Internal</md-option>
-                <md-option ngValue="Restricted">Restricted</md-option>
-                <md-option ngValue="Secret">Secret</md-option>
+              <md-select name="distributionLevel" [(ngModel)]="componentVersion.distributionLevel" placeholder="Distribution Level" style="width: 80%">
+                <md-option value="PUBLIC">Public</md-option>
+                <md-option value="INTERNAL">Internal</md-option>
+                <md-option value="RESTRICTED">Restricted</md-option>
+                <md-option value="SECRET">Secret</md-option>
               </md-select>
             </div>
           </div>
@@ -64,7 +64,7 @@
             <md-checkbox [(ngModel)]="componentVersion.requiredTest">Require Test</md-checkbox>
           </div>
           <div fxFlex>
-            <md-checkbox [(ngModel)]="readOnly" (change)="readOnly = $event">Read only</md-checkbox>
+            <md-checkbox [(ngModel)]="componentVersion.readOnly" (change)="readOnly = $event">Read only</md-checkbox>
           </div>
         </md-card-content>
       </md-card>
@@ -115,9 +115,19 @@
     <!-- Estimated Time-->
     <div fxFlex="30" fxFlex.sm="100" style="padding: 5px; ">
       <md-card fxLayout="column">
-        <md-card-title style="font-size: 15px; margin-bottom: 5px">Estimated time</md-card-title>
-        <md-card-subtitle>Per user category</md-card-subtitle>
-
+        <div fxLayout="row">
+          <div fxFlex>
+            <md-card-title style="font-size: 15px; margin-bottom: 5px">Estimated time</md-card-title>
+            <md-card-subtitle>Per user category</md-card-subtitle>
+          </div>
+          <div fxLayoutAlign="end start">
+            <button md-icon-button
+                    md-tooltip="Add estimation"
+                    (click)="addEstimatedTime()">
+              <i style="font-size: x-small; color: grey" class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
         <md-card-content>
           <div fxLayout="row" style="margin-bottom: 10px" fxLayoutAlign="space-between center"
                *ngFor="let estimatedTime of componentVersion.estimatedTimes; let i = index" [attr.data-index]="i">

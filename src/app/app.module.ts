@@ -21,7 +21,7 @@ import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_a
 import {SideNavComponent} from "./sidenav/sidenav.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {Ng2CompleterModule} from "ng2-completer";
-import {ResourceCreateComponent} from "./resources/create/resource-create.component";
+import {ResourceCreatorComponent} from "./resources/create/resource-create.component";
 import {ResourcesListComponent} from "./resources/list/resouces-list.component";
 import {ResourcesSelectionComponent} from "./resources/selection/resources-selection.component";
 import {FlexLayoutModule} from "@angular/flex-layout";
@@ -31,7 +31,7 @@ import {CompleterCmpMd} from "./shared/completer-cmp-md/completer-cmp-md";
 import "../styles/styles.scss";
 import {Globals} from "./shared/globals";
 import {AdministrationComponent} from "./administration/administration.component";
-import {UserEditDialog} from "./administration/user-edit/user-edit.component";
+import {UserEditorDialog} from "./administration/user-edit/user-edit.component";
 import {ComponentEditGeneralComponent} from "./components/edit/general/component-edit-general.component";
 import {RouterModule, Routes} from "@angular/router";
 import {FooComponent} from "./foo.component";
@@ -39,8 +39,9 @@ import {ConfirmRegistrationComponent} from "./confirm-registration/confirm-regis
 import {UpdateWorkflowComponent} from "./shared/workflow/update/workflow-update.component";
 import {HttpInterceptor} from "./shared/http/http-interceptor";
 import {LinkService} from "./shared/service/link.service";
-import {NgUploaderModule} from 'ngx-uploader';
+import {NgUploaderModule} from "ngx-uploader";
 import {ErrorPageComponent} from "./error-page/error-page.component";
+import {ComponentCreatorDialog} from "./components/create/component-create.component";
 
 
 /*
@@ -90,10 +91,87 @@ const appRoutes: Routes = [
         //outlet: "main"
       },
       {
-        path: 'projects/:id/edit',
+        path: 'projects/:projectId',
+        component: DashboardComponent,
+      },
+      {
+        path: 'projects/:projectId/edit',
         component: ProjectEditComponent,
         //outlet: "main"
       },
+      {
+        path: 'projects/:projectId/requirements',
+        component: ComponentsListComponent,
+        data: {componentTypes: ["REQUIREMENT"]}
+      },
+      {
+        path: 'projects/:projectId/requirements/:id/edit',
+        component: ComponentEditComponent,
+        data: {componentType: "REQUIREMENT"}
+      },
+      {
+        path: 'projects/:projectId/requirements/:id/write',
+        component: ComponentWriteComponent
+      },
+
+      {
+        path: 'projects/:projectId/documents',
+        component: ComponentsListComponent,
+        data: {componentTypes: ["DOCUMENT"]}
+      },
+      {
+        path: 'projects/:projectId/documents/:id/edit',
+        component: ComponentEditComponent,
+        data: {componentType: "DOCUMENT"}
+      },
+      {
+        path: 'projects/:projectId/documents/:id/write',
+        component: ComponentWriteComponent
+      },
+
+      {
+        path: 'projects/:projectId/components',
+        component: ComponentsListComponent,
+        data: {componentTypes: ["COMPONENT"]}
+      },
+      {
+        path: 'projects/:projectId/components/:id/edit',
+        component: ComponentEditComponent,
+        data: {componentType: "COMPONENT"}
+      },
+      {
+        path: 'projects/:projectId/components/:id/write',
+        component: ComponentWriteComponent
+      },
+      {
+        path: 'projects/:projectId/templates',
+        component: ComponentsListComponent,
+        data: {componentTypes: ["TEMPLATE"]}
+      },
+      {
+        path: 'projects/:projectId/templates/:id/edit',
+        component: ComponentEditComponent,
+        data: {componentType: "TEMPLATE"}
+      },
+      {
+        path: 'projects/:projectId/templates/:id/write',
+        component: ComponentWriteComponent
+      },
+      {
+        path: 'projects/:projectId/resources',
+        component: ResourcesListComponent,
+        data: {componentTypes: ["RESOURCE"]}
+      },
+      {
+        path: 'projects/:projectId/resources/:id/edit',
+        component: ComponentEditComponent,
+        data: {componentType: "RESOURCE"}
+
+      },
+
+
+
+
       {
         path: 'requirements',
         component: ComponentsListComponent,
@@ -174,7 +252,7 @@ const appRoutes: Routes = [
     DashboardComponent,
     AdministrationComponent,
 
-    ResourceCreateComponent,
+    ResourceCreatorComponent,
     ResourcesListComponent,
     ResourcesSelectionComponent,
 
@@ -185,7 +263,8 @@ const appRoutes: Routes = [
     ConfirmRegistrationComponent,
 
     CompleterCmpMd,
-    UserEditDialog,
+    UserEditorDialog,
+    ComponentCreatorDialog,
 
     // TODO: rename
     FooComponent,
@@ -195,9 +274,9 @@ const appRoutes: Routes = [
   ],
 
   entryComponents: [
-    ResourceCreateComponent,
-    UserEditDialog,
-    ComponentEditGeneralComponent,
+    ResourceCreatorComponent,
+    UserEditorDialog,
+    ComponentCreatorDialog,
     UpdateWorkflowComponent
   ],
 

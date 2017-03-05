@@ -73,16 +73,9 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   public save() {
     let obs: Observable<any>;
-
-    if (this.create) {
-      obs = this.componentVersionService.create(this.componentVersion);
-    } else {
-      obs = this.componentVersionService.update(this.componentVersion);
-    }
-
+    obs = this.componentVersionService.update(this.componentVersion);
     obs.subscribe(r => {
-      let status = this.create ? "created" : "updated";
-      this.snackBar.open("Component successfully " + status, "Close", {duration: 2000});
+      this.snackBar.open(this.componentVersion.type + " successfully updated", "Close", {duration: 2000});
       this.update.emit(ComponentUpdate.newComponentUpdate());
     });
   }
