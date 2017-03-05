@@ -1,7 +1,7 @@
 <div fxLayout="column" style="padding: 5px;">
 
-  <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
-    <div fxFlex="70" fxFlex.sm="100" style="padding: 5px; ">
+  <div fxLayout="row"  fxLayoutWrap fxLayoutAlign="space-between">
+    <div fxFlex="7 0 200px"  style="padding: 5px;">
       <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #189DE1">
         <md-card-content>
 
@@ -57,7 +57,7 @@
     </div>
 
 
-    <div fxFlex="30" fxFlex.sm="100" fxLayout="column" style="padding: 5px; ">
+    <div fxFlex="3 0 150px"  fxLayout="column" style="padding: 5px; ">
       <md-card style="margin-bottom: 10px; border-left: 2px solid #ec4363">
         <md-card-content fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
           <div fxFlex>
@@ -68,22 +68,6 @@
           </div>
         </md-card-content>
       </md-card>
-
-      <!--<md-card style="margin-bottom: 10px; border-left: 2px solid #028090">-->
-      <!--<md-card-content fxFlex>-->
-
-      <!--<md-input-container>-->
-      <!--<input type="text" mdInput placeholder="Assigned to"-->
-      <!--[formControl]="assignedUserCtrl"-->
-      <!--[mdAutocomplete]="assignedUserAutoComplete">-->
-      <!--</md-input-container>-->
-
-      <!--<md-autocomplete #assignedUserAutoComplete="mdAutocomplete"-->
-      <!--activeOption>-->
-      <!--<md-option *ngFor="let user of filteredUsers | async" [value]="user">{{user.fullName}}</md-option>-->
-      <!--</md-autocomplete>-->
-      <!--</md-card-content>-->
-      <!--</md-card>-->
 
       <md-card style="height: 100%; border-left: 2px solid #636262" *ngIf="!create">
         <md-card-content fxFlex>
@@ -103,7 +87,7 @@
 
   <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
     <!-- Risk Assessment-->
-    <div fxFlex="70" fxFlex.sm="100" style="padding: 5px; ">
+    <div fxFlex="7 0 200px" fxFlex.sm="100" style="padding: 5px; ">
       <md-card fxFlex style="height: 100%;">
         <md-card-title style="font-size: 15px; margin-bottom: 5px">Risk Assessment</md-card-title>
         <md-card-content>
@@ -113,7 +97,7 @@
 
     </div>
     <!-- Estimated Time-->
-    <div fxFlex="30" fxFlex.sm="100" style="padding: 5px; ">
+    <div fxFlex="3 0 150px" fxFlex.sm="100" style="padding: 5px; ">
       <md-card fxLayout="column">
         <div fxLayout="row">
           <div fxFlex>

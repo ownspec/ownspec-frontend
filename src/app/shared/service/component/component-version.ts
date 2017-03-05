@@ -31,7 +31,9 @@ export class ComponentVersion {
 
   public tags: string[] = [];
 
-  public constructor(public id: string, public componentId: string, public title: string, public code: string, public projectId: string, public type: string) {
+  public gitReference:string;
+
+  public constructor(public id: string, public componentId: string, public title: string, public code:string, public projectId: string, public type: string) {
   }
 
 
@@ -52,6 +54,7 @@ export class ComponentVersion {
 
     c.tags = this.tags;
 
+    c.gitReference = this.gitReference;
 
     for (let componentReference of this.componentReferences) {
       c.componentReferences.push(componentReference.clone());
@@ -85,6 +88,8 @@ export class ComponentVersion {
     component.workflowInstance = WorkflowInstance.fromMap(item.workflowInstance);
 
     component.tags = item.tags || [];
+
+    component.gitReference = item.gitReference;
 
 
     if (item.componentReferences) {

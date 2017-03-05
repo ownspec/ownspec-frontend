@@ -41,7 +41,9 @@ import {HttpInterceptor} from "./shared/http/http-interceptor";
 import {LinkService} from "./shared/service/link.service";
 import {NgUploaderModule} from "ngx-uploader";
 import {ErrorPageComponent} from "./error-page/error-page.component";
+import {ComponentSideNavComponent} from "./components/write/component/component-sidenav.component";
 import {ComponentCreatorDialog} from "./components/create/component-create.component";
+
 
 
 /*
@@ -241,9 +243,11 @@ const appRoutes: Routes = [
 @NgModule({
   bootstrap: [FooComponent],
   declarations: [
+    // TODO: create modules
     AppComponent,
     SideNavComponent,
     MainHeaderComponent,
+    ComponentSideNavComponent,
     WriteSideNavComponent,
     ComponentsListComponent,
     ComponentEditComponent,

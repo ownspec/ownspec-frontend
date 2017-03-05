@@ -1,7 +1,7 @@
 "use strict";
 
 
-import {Component as C, Input, OnInit, NgZone, OnDestroy, ViewChild} from "@angular/core";
+import {Component as C, Input, OnInit, NgZone, OnDestroy, ViewChild, EventEmitter} from "@angular/core";
 import {Observable} from "rxjs";
 import * as _ from "lodash";
 import {SharedService} from "../../shared/service/shared.service";
@@ -41,7 +41,8 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
   private debounced: any;
   private debouncedToc: any;
 
-  menuState: string = 'in';
+  public editorEventEmitter = new EventEmitter<EditorEvent>();
+
 
   public constructor(private zone: NgZone, private route: ActivatedRoute, public linkService: LinkService,
                      private componentVersionService: ComponentVersionService,
@@ -150,6 +151,10 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
   public gotoEditComponent() {
     this.linkService.gotoEditComponent(this.component);
   }
+
+  public editorEvent(event){
+    this.editorEventEmitter.emit(event);
+  }
 }
 
 
@@ -162,4 +167,14 @@ export class ComponentUpdate {
     return new ComponentUpdate(false, false, false, false);
   }
 
+}
+
+export class EditorEvent {
+  public constructor(public componentVersionId) {
+
+  }
+
+  public static newEditorEvent(id:string):EditorEvent{
+    return new EditorEvent(id);
+  }
 }

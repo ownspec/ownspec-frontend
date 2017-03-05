@@ -53,6 +53,7 @@ export class ComponentEditGeneralComponent implements OnInit {
   ngOnInit(): void {
     if (this.create || this.componentVersion.estimatedTimes.length == 0) {
       this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
+        // TODO: component version should not be used as a model to populate the available category
         userCategories
             .filter(userCategory => userCategory.isBillable)
             .forEach(userCategory => {

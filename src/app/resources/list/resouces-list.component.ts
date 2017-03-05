@@ -52,10 +52,6 @@ export class ResourcesListComponent implements OnInit {
     });
   }
 
-  public edit(r: any) {
-    //this.$state.go(".resource-edit", {componentId: r.id}, {reload: false});
-  }
-
   public startCreateComponent() {
 
     let dlgRef = this.dialog.open(ResourceCreatorComponent);
@@ -91,5 +87,9 @@ export class ResourcesListComponent implements OnInit {
   }
 
 
+  public edit(r: ComponentVersion) {
+
+    this.linkService.gotoEditComponent(r);
+  }
 
 }

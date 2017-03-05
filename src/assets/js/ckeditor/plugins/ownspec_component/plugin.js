@@ -72,10 +72,20 @@ CKEDITOR.plugins.add('ownspec_component', {
           }
 
           if (!!widgetHoldingFocusedEditable && that.id === widgetHoldingFocusedEditable.id) {
-            jQuery(that.wrapper.$).find("> .requirements").addClass("requirements-focused");
+            //jQuery(that.wrapper.$).find("> .requirements").addClass("requirements-focused");
+            that.wrapper.findOne("> .requirements").addClass("requirements-focused");
+
           } else {
-            jQuery(that.wrapper.$).find("> .requirements").removeClass("requirements-focused");
+            //jQuery(that.wrapper.$).find("> .requirements").removeClass("requirements-focused");
+            that.wrapper.findOne("> .requirements").removeClass("requirements-focused");
           }
+
+
+        });
+
+        this.wrapper.findOne("> .requirements > .requirements-id").on("click" , function(){
+          var cvId = that.wrapper.findOne("> .requirements").getAttribute("data-os-cv-id");
+          editor.fire("ownspec-select-cv-id", {id: cvId});
 
         });
 

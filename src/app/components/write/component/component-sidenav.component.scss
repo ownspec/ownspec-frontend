@@ -1,0 +1,40 @@
+
+
+.menu-left {
+  width: 50px;
+  height: 100%;
+  flex-direction: column;
+  background-color: #393838;
+
+  div {
+    text-align: center;
+    color: white;
+
+    a {
+      font-size: 2rem;
+
+
+      &:hover {
+        color: #53a3ff;
+      }
+
+      &.toggle {
+        font-size: 1.2rem;
+      }
+    }
+
+  }
+}
+
+
+
+.selected {
+  background:white;
+  color:black;
+}
+
+.selected a {
+  color:#393838;
+}
+
+

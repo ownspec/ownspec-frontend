@@ -1535,7 +1535,7 @@
 					match: centerWrapperChecker( editor )
 				},
 				img: {
-					attributes: '!src,alt,width,height'
+          attributes: '!src,alt,width,height,data-os-cv-id'
 				},
 				figure: {
 					classes: '!' + editor.config.image2_captionedClass

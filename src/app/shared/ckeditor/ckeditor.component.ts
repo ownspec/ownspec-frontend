@@ -16,6 +16,7 @@ import {TocGenerator, TocItem} from "./toc-generator";
 import * as _ from "lodash";
 import * as jQuery from "jquery";
 import {ComponentVersionService} from "../service/component/component-versions.service";
+import {EditorEvent} from "../../components/write/component-write.component";
 
 declare var CKEDITOR: any;
 
@@ -61,6 +62,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
   @Output() dataChange = new EventEmitter();
   @Output() tocChange = new EventEmitter();
   @Output() composePdf = new EventEmitter();
+  @Output() editorEvent = new EventEmitter();
   @Output() ready = new EventEmitter();
   @ViewChild('textarea') textarea;
 
@@ -170,12 +172,10 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
   }
 
   updateToc() {
-    /*
-     let toc = this.generateToc();
-     this.zone.run(() => {
-     this.tocChange.emit(toc.tocItems);
-     });
-     */
+    let toc = this.generateToc();
+    this.zone.run(() => {
+      this.tocChange.emit(toc.tocItems);
+    });
   }
 
   ckeditorInit(config) {
@@ -210,12 +210,9 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
         return;
       }
 
-      //console.log("change", this.instance.getData());
-
       this.debouncedData();
-      //this.onTouched();
-      //this.debouncedToc();
-
+      this.onTouched();
+      this.debouncedToc();
     });
 
 
@@ -224,22 +221,25 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
       this.composePdf.emit();
     });
 
+
+    this.instance.on("ownspec-select-cv-id", (event:any) => {
+      console.log("select-cv");
+      this.editorEvent.emit(EditorEvent.newEditorEvent(event.data.id));
+    });
+
     this.instance.on('refresh-toc', () => {
-      /*   let tocItems = this.generateToc().tocItems;
+      let tocItems = this.generateToc().tocItems;
 
-       let html = "<ul>";
+      let html = "<ul>";
 
-       for (let tocItem of tocItems){
-       html += "<li class='title"+tocItem.level+"'>" + tocItem.title + "</li>";
-       }
+      for (let tocItem of tocItems) {
+        html += "<li class='title" + tocItem.level + "'>" + tocItem.title + "</li>";
+      }
 
-
-       html += "</ul>";
-
-       console.log(html);
+      html += "</ul>";
 
 
-       jQuery(this.instance.container.$).find(".toc div:nth-child(2)").html(html);*/
+      jQuery(this.instance.container.$).find(".toc div:nth-child(2)").html(html);
     });
 
     this.instance.on('fetch-ownspec-cv-content', (event: any) => {
@@ -292,7 +292,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
           });
 
 
-          //this.debouncedToc();
+          this.debouncedToc();
 
         } finally {
           this.bypassOnChange = false;
@@ -327,11 +327,11 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
   }
 
 
-  private generateToc() {
-    /*    let c = this.instance.container.findOne(".cke_editable");
-     let toc = new TocGenerator();
-     toc.generateFromDom(c.$);
-     return toc;*/
+  private generateToc(): any {
+    let c = this.instance.container.findOne(".cke_editable");
+    let toc = new TocGenerator();
+    toc.generateFromDom(c.$);
+    return toc;
   }
 
 }

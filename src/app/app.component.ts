@@ -3,7 +3,7 @@
  */
 import {Component, ViewEncapsulation, ViewContainerRef} from "@angular/core";
 import {SharedService} from "./shared/service/shared.service";
-import {Router, NavigationEnd} from "@angular/router";
+import {Router, NavigationEnd, Event} from "@angular/router";
 
 /*
  * App Component

@@ -3,7 +3,7 @@ import {
   OnInit
 } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ComponentUpdate, ComponentWriteComponent} from "./component-write.component";
+import {ComponentUpdate, ComponentWriteComponent, EditorEvent} from "./component-write.component";
 import {Component} from "../../shared/model/component/component";
 /*
  * We're loading this component asynchronously
@@ -43,16 +43,21 @@ export class WriteSideNavComponent implements OnInit {
   public component: Component;
 
   @Input()
+  public editorEvent:EventEmitter<EditorEvent>;
+
+  @Input()
   public canUpdateWorkflow: boolean;
 
   @Input()
   public menuPosition: "left" | "right" = "left";
 
   @Input()
-  public menus: string[] = ["toc", "requirements", "components", "resources", "workflow", "comments"];
+  public menus: string[] = ["toc", "requirements", "components", "resources", "workflow", "comments" , "component"];
 
   @Output()
   public update = new EventEmitter<ComponentUpdate>();
+
+
 
 
   menuState: string = 'in';

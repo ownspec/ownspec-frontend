@@ -20,7 +20,7 @@
          (beforeUpload)="beforeUpload($event)">
 
       <label class="upload-button">Browse
-        <input type="file" style="display: none" name="file" #foobar
+        <input type="file" style="display: none" name="file" #foobar required
                ngFileSelect
                [options]="options"
                (onUpload)="handleUpload($event)"

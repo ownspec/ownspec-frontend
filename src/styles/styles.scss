@@ -148,9 +148,10 @@ tooltip-container {
 
 .requirements > .requirements-id {
   position: absolute;
-  left: -85px;
-  font-family: tahoma;
-  font-size: 12px;
+  left: -90px;
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 0.7rem;
   padding: 4px;
   margin-left: 10px;
   background: #fff987;
@@ -160,11 +161,11 @@ tooltip-container {
 }
 
 .requirements .requirements > .requirements-id {
-  left: -90px;
+  left: -95px;
 }
 
 .requirements .requirements .requirements > .requirements-id {
-  left: -95px;
+  left: -100px;
 }
 
 

@@ -1,7 +1,7 @@
 <main-header *ngIf="componentVersion">
   <div class="main-header-title">
-      <h6 style="font-size: 15px; margin-bottom: 3px">{{componentVersion.title}}</h6>
-      <h6 style="font-size: 13px; font-weight: 300; margin: 0">Version {{componentVersion.version}}</h6>
+    <h6 style="font-size: 15px; margin-bottom: 3px">{{componentVersion.code}} - {{componentVersion.title}}</h6>
+    <h6 style="font-size: 13px; font-weight: 300; margin: 0">Version {{componentVersion.version}}</h6>
   </div>
   <div class="main-header-content" style="display: flex">
 
@@ -22,7 +22,8 @@
 
     <md-tab-group md-stretch-tabs>
       <md-tab label="General">
-        <component-edit-general [componentVersion]="componentVersion" (update)="onUpdate($event)"></component-edit-general>
+        <component-edit-general [componentVersion]="componentVersion"
+                                (update)="onUpdate($event)"></component-edit-general>
       </md-tab>
       <md-tab label="Workflow">
         <div class="panel">
@@ -35,14 +36,14 @@
 
         <div class="panel-content">
           <ngx-datatable
-              class="material" style="flex: 1;min-height:300px"
-              [rows]="componentVersion.componentReferences"
-              [columnMode]="'flex'"
-              [headerHeight]="50"
-              [footerHeight]="0"
-              [rowHeight]="50"
-              [scrollbarV]="true"
-              [scrollbarH]="true">
+            class="material" style="flex: 1;min-height:300px"
+            [rows]="componentVersion.componentReferences"
+            [columnMode]="'flex'"
+            [headerHeight]="50"
+            [footerHeight]="0"
+            [rowHeight]="50"
+            [scrollbarV]="true"
+            [scrollbarH]="true">
             <ngx-datatable-column [flexGrow]="3" name="Source" prop="source.title"></ngx-datatable-column>
 
             <ngx-datatable-column [flexGrow]="1">
@@ -96,14 +97,14 @@
           </div>
           <div class="panel-content">
             <ngx-datatable
-                class="material" style="flex: 1;min-height:300px"
-                [rows]="componentVersion.componentUsePoints"
-                [columnMode]="'flex'"
-                [headerHeight]="50"
-                [footerHeight]="0"
-                [rowHeight]="50"
-                [scrollbarV]="true"
-                [scrollbarH]="true">
+              class="material" style="flex: 1;min-height:300px"
+              [rows]="componentVersion.componentUsePoints"
+              [columnMode]="'flex'"
+              [headerHeight]="50"
+              [footerHeight]="0"
+              [rowHeight]="50"
+              [scrollbarV]="true"
+              [scrollbarH]="true">
               <ngx-datatable-column [flexGrow]="3" name="Source" prop="source.title"></ngx-datatable-column>
               <ngx-datatable-column [flexGrow]="2" name="Type" prop="source.type"></ngx-datatable-column>
               <ngx-datatable-column [flexGrow]="2" name="Status"

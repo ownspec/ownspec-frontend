@@ -22,6 +22,8 @@
 
       <toc *ngIf="activeTab == 'toc'" [tocItems]="parent.tocItems" (gotoTocItem)="parent.gotoTocItem($event)"></toc>
 
+      <component-sidenav *ngIf="activeTab == 'component'" [editorEvent]="editorEvent"></component-sidenav>
+
     </div>
   </template>
   <template #menu>
@@ -57,6 +59,12 @@
            [tooltip-position]="tooltipPosition()">
         <a role="button"><i class="fa fa-comments" aria-hidden="true" (click)="activeTab = 'comments'"></i></a>
       </div>
+
+      <div [ngClass]="{'selected':activeTab ==  'component'}" *ngIf="isVisible('component')" md-tooltip="Component"
+           [tooltip-position]="tooltipPosition()">
+        <a role="button"><i class="fa fa-pencil" aria-hidden="true" (click)="activeTab = 'component'"></i></a>
+      </div>
+
     </div>
   </template>
 

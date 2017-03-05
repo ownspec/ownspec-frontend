@@ -1,0 +1,6 @@
+<div fxLayout="column" *ngIf="componentVersion">
+  <h6 style="font-size: 15px; margin-bottom: 3px">{{componentVersion.code}} - {{componentVersion.title}}</h6>
+  <h6 style="font-size: 13px; font-weight: 300; margin: 0">Version {{componentVersion.version}}</h6>
+
+  <component-edit-general [componentVersion]="componentVersion"></component-edit-general>
+</div>

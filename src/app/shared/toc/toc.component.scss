@@ -12,8 +12,12 @@
   background: white;
   margin: 2px 2px 1px 1px;
   padding-left: 4px;
-  font-family: Roboto-Regular;
+  font-family: Roboto;
   font-size: 0.9rem;
+}
+
+h5 {
+
 }
 
 
@@ -24,22 +28,24 @@ ul {
 
 
 .title0 {
-  font-size: 1.0rem;
-  //font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 500;
   padding-top: 15px;
 }
 
 .title1 {
-  margin-left: 10px;
+  margin-left: 20px;
   font-size: 1.0rem;
 }
 
 .title2 {
-  margin-left: 20px;
+  margin-left: 46px;
   font-size: 0.9rem;
+  font-style: italic;
 }
 
 .title3 {
-  margin-left: 30px;
-  font-size: 0.8rem;
+  margin-left: 70px;
+  font-size: 0.9rem;
+  font-style: italic;
 }

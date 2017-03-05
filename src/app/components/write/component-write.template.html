@@ -1,5 +1,5 @@
 <main-header *ngIf="component">
-  <div class="main-header-title">Write {{component.title}}</div>
+  <div class="main-header-title">Write {{component.code}} - {{component.title}}</div>
   <div class="main-header-content" style="display: flex">
     <div style="max-width: 280px; font-size: 1rem;padding-right: 5px" *ngIf="saved != null">
       {{saved ? 'All changes saved' : 'Save pending...'}}
@@ -9,7 +9,7 @@
     </div>
 
     <div md-tooltip="Edit {{component.type | lowercase}}">
-      <button md-icon-button (click)="gotoEditComponent()"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+      <button md-icon-button (click)="gotoEditComponent()"><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
 
     <div md-tooltip="Cancel">
@@ -28,7 +28,8 @@
 
     <write-sidenav menuPosition="left"
                    [menus]="['requirements', 'components', 'resources', 'templates', 'workflow', 'comments']"
-                   [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"></write-sidenav>
+                   [component]="component" (update)="onUpdate($event)" [canUpdateWorkflow]="saved"
+                   [editorEvent]="editorEventEmitter"></write-sidenav>
 
   </div>
   <div style="flex: 1">
@@ -44,6 +45,7 @@
                   (composePdf)="composePdf($event)"
                   [readonly]="!component.workflowInstance.currentWorkflowStatus.status.editable"
                   [container]="container"
+                  (editorEvent)="editorEvent($event)"
                   (ready)="onReady($event)">
         </ckeditor>
       </div>
@@ -51,8 +53,9 @@
   </div>
 
   <div style="display:flex;flex-direction:row;height: 100%">
-    <write-sidenav menuPosition="right" [menus]="['toc']" [component]="component" (update)="onUpdate($event)"
-                   [canUpdateWorkflow]="saved"></write-sidenav>
+    <write-sidenav menuPosition="right" [menus]="['toc' , 'component']" [component]="component"
+                   (update)="onUpdate($event)"
+                   [canUpdateWorkflow]="saved" [editorEvent]="editorEventEmitter"></write-sidenav>
   </div>
 
 </div>

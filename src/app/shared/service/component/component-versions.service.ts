@@ -21,10 +21,10 @@ export class ComponentVersionService {
     params.append("references", references.toString());
 
     return this.$http.get("/api/component-versions/" + id, {search: params})
-        .map(r => r.json())
-        .map((item: any) => {
-          return ComponentVersion.fromMap(item);
-        });
+      .map(r => r.json())
+      .map((item: any) => {
+        return ComponentVersion.fromMap(item);
+      });
   }
 
   public findAll(projectId: string = null, title: string = null, types: Array<string> = [], query: string = null,
@@ -49,66 +49,70 @@ export class ComponentVersionService {
     }
 
     return this.$http.get("/api/component-versions", {search: params})
-        .flatMap(r => r.json())
-        .map((item: any) => ComponentVersion.fromMap(item))
-        .filter(item => {
-          let result = true;
-          if (title && item.title.indexOf(title) == -1) {
-            result = false;
-          }
-          if (types.length > 0 && types.indexOf(item.type) == -1) {
-            result = false;
-          }
-          return result;
-        }).toArray();
+      .flatMap(r => r.json())
+      .map((item: any) => ComponentVersion.fromMap(item))
+      .filter(item => {
+        let result = true;
+        if (title && item.title.indexOf(title) == -1) {
+          result = false;
+        }
+        if (types.length > 0 && types.indexOf(item.type) == -1) {
+          result = false;
+        }
+        return result;
+      }).toArray();
   }
 
 
   public updateContent(id: string, content: string): Observable<ComponentVersion> {
     return this.$http.post("/api/component-versions/" + id + "/content", content)
-        .map(r => ComponentVersion.fromMap(r.json()));
+      .map(r => ComponentVersion.fromMap(r.json()));
   }
 
 
   public getContent(id: string): Observable<string> {
     return this.$http.get("/api/component-versions/" + id + "/content")
-        .map(r => r.text());
+      .map(r => r.text());
   }
 
   public getResolvedContent(id: string): Observable<string> {
     return this.$http.get("/api/component-versions/" + id + "/resolved-content")
-        .map(r => r.text());
+      .map(r => r.text());
   }
 
 
   public updateWorkflowStatus(id: string, nextStatus: string, reason: string): Observable<WorkflowStatus> {
-    return this.$http.post("/api/component-versions/" + id + "/workflow-statuses", {nextStatus: nextStatus, reason: reason})
-        .map(r => WorkflowStatus.fromMap(r.json()));
+    return this.$http.post("/api/component-versions/" + id + "/workflow-statuses", {
+      nextStatus: nextStatus,
+      reason: reason
+    })
+      .map(r => WorkflowStatus.fromMap(r.json()));
   }
 
   public update(toSave: ComponentVersion): Observable<ComponentVersion> {
+    // TODO: filtering should be done by the caller
     toSave.estimatedTimes = toSave.estimatedTimes.filter(e => e.time > 0);
 
     return this.$http.patch("/api/component-versions/" + toSave.id, ComponentVersion.toMap(toSave))
-        .map(r => r.json())
-        .map((item: any) => {
-          return ComponentVersion.fromMap(item);
-        });
+      .map(r => r.json())
+      .map((item: any) => {
+        return ComponentVersion.fromMap(item);
+      });
   }
 
   public create(toSave: ComponentVersion): Observable<ComponentVersion> {
     return this.$http.post("/api/component-versions", ComponentVersion.toMap(toSave))
-        .map(r => r.json())
-        .map((item: any) => {
-          return ComponentVersion.fromMap(item);
-        });
+      .map(r => r.json())
+      .map((item: any) => {
+        return ComponentVersion.fromMap(item);
+      });
 
   }
 
 
   // TODO: temporary
   getContentUrl(c: ComponentVersion) {
-    return "/api/component-versions/" + c.id + "/content";
+    return "/api/component-versions/" + c.id + "/content?ref=" + c.gitReference;
   }
 
   getComponentVersionUrl(c: ComponentVersion) {
