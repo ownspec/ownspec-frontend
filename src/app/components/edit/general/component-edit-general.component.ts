@@ -1,6 +1,6 @@
 "use strict";
 import {Component as C, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {MdSnackBar, MdAutocompleteTrigger} from "@angular/material";
+import {MdSnackBar} from "@angular/material";
 import {ComponentVersion} from "../../../shared/service/component/component-version";
 import {Observable} from "rxjs";
 import {ComponentVersionService} from "../../../shared/service/component/component-versions.service";
@@ -8,7 +8,10 @@ import {ComponentUpdate} from "../../write/component-write.component";
 import {UserService} from "../../../shared/service/user/user.service";
 import {User} from "../../../shared/model/user/user";
 import {FormControl} from "@angular/forms";
-import 'rxjs/add/operator/startWith';
+import "rxjs/add/operator/startWith";
+import {UserCategory} from "../../../shared/model/user/user-category";
+import {UserCategoryService} from "../../../shared/service/user/user-category.service";
+import {EstimatedTime} from "../../../shared/model/component/estimated-time";
 
 @C({
   selector: 'component-edit-general',
@@ -42,11 +45,22 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   public constructor(public snackBar: MdSnackBar,
                      private componentVersionService: ComponentVersionService,
-                     private userService: UserService) {
+                     private userService: UserService,
+                     private userCategoryService: UserCategoryService) {
   }
 
 
   ngOnInit(): void {
+    if (this.create || this.componentVersion.estimatedTimes.length == 0) {
+      this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
+        userCategories
+            .filter(userCategory => userCategory.isBillable)
+            .forEach(userCategory => {
+              this.componentVersion.estimatedTimes.push(new EstimatedTime(userCategory, null, null))
+            })
+      });
+    }
+
     this.userService.findAll().subscribe((result: User []) => {
       this.users = result
     }, e => {
@@ -81,7 +95,7 @@ export class ComponentEditGeneralComponent implements OnInit {
     this.tagToAdd = "";
   }
 
-  private filterUsers(val: string) : User[] {
+  private filterUsers(val: string): User[] {
     return this.users.filter((user: User) => new RegExp(val, 'gi').test(user.fullName));
   }
 }

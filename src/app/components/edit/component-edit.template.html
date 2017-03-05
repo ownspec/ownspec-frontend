@@ -20,27 +20,9 @@
 
   <div fxLayout="column" style="overflow: auto;width: 100%">
 
-    <md-tab-group>
+    <md-tab-group md-stretch-tabs>
       <md-tab label="General">
         <component-edit-general [componentVersion]="componentVersion" (update)="onUpdate($event)"></component-edit-general>
-      </md-tab>
-      <md-tab label="Estimated time">
-        <div class="panel" fxFlex>
-          <div class="panel-heading">
-            <h6>Estimated time</h6>
-          </div>
-          <div fxLayout="row" class="panel-content">
-            <div fxFlex *ngFor="let userCategory of userCategories">
-              <md-input-container>
-                <input mdInput placeholder="{{userCategory.name}}" required name="time" type="number">
-              </md-input-container>
-              <md-select name="unit" [(ngModel)]="unit" placeholder="Unit">
-                <md-option ngValue="Hours">Hours</md-option>
-                <md-option ngValue="Days">Days</md-option>
-              </md-select>
-            </div>
-          </div>
-        </div>
       </md-tab>
       <md-tab label="Workflow">
         <div class="panel">

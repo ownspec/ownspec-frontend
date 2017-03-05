@@ -10,7 +10,7 @@ export class EstimatedTime {
     return new EstimatedTime(UserCategory.fromMap(item.userCategory), item.time, item.timeUnit);
   }
 
-  public static toJson(estimatedTime: EstimatedTime): any {
+  public static toMap(estimatedTime: EstimatedTime): any {
     return {
       userCategory: estimatedTime.userCategory,
       time: estimatedTime.time,

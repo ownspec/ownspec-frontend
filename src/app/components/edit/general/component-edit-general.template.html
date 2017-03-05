@@ -70,22 +70,22 @@
       </md-card>
 
       <!--<md-card style="margin-bottom: 10px; border-left: 2px solid #028090">-->
-        <!--<md-card-content fxFlex>-->
+      <!--<md-card-content fxFlex>-->
 
-          <!--<md-input-container>-->
-            <!--<input type="text" mdInput placeholder="Assigned to"-->
-                   <!--[formControl]="assignedUserCtrl"-->
-                   <!--[mdAutocomplete]="assignedUserAutoComplete">-->
-          <!--</md-input-container>-->
+      <!--<md-input-container>-->
+      <!--<input type="text" mdInput placeholder="Assigned to"-->
+      <!--[formControl]="assignedUserCtrl"-->
+      <!--[mdAutocomplete]="assignedUserAutoComplete">-->
+      <!--</md-input-container>-->
 
-          <!--<md-autocomplete #assignedUserAutoComplete="mdAutocomplete"-->
-                           <!--activeOption>-->
-            <!--<md-option *ngFor="let user of filteredUsers | async" [value]="user">{{user.fullName}}</md-option>-->
-          <!--</md-autocomplete>-->
-        <!--</md-card-content>-->
+      <!--<md-autocomplete #assignedUserAutoComplete="mdAutocomplete"-->
+      <!--activeOption>-->
+      <!--<md-option *ngFor="let user of filteredUsers | async" [value]="user">{{user.fullName}}</md-option>-->
+      <!--</md-autocomplete>-->
+      <!--</md-card-content>-->
       <!--</md-card>-->
 
-      <md-card style="border-left: 2px solid #636262" *ngIf="!create">
+      <md-card style="height: 100%; border-left: 2px solid #636262" *ngIf="!create">
         <md-card-content fxFlex>
           <md-card-title style="margin-bottom:5px; font-size: 15px">Created</md-card-title>
           <md-card-subtitle>{{componentVersion.creationDate | amTimeAgo }} by
@@ -96,6 +96,45 @@
           <md-card-subtitle>{{componentVersion.lastModifiedDate | amTimeAgo }} by
             <a role="button"><span style="font-weight: bold">{{componentVersion.lastModifiedUser.fullName}}</span></a>
           </md-card-subtitle>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
+    <!-- Risk Assessment-->
+    <div fxFlex="70" fxFlex.sm="100" style="padding: 5px; ">
+      <md-card fxFlex style="height: 100%;">
+        <md-card-title style="font-size: 15px; margin-bottom: 5px">Risk Assessment</md-card-title>
+        <md-card-content>
+
+        </md-card-content>
+      </md-card>
+
+    </div>
+    <!-- Estimated Time-->
+    <div fxFlex="30" fxFlex.sm="100" style="padding: 5px; ">
+      <md-card fxLayout="column">
+        <md-card-title style="font-size: 15px; margin-bottom: 5px">Estimated time</md-card-title>
+        <md-card-subtitle>Per user category</md-card-subtitle>
+
+        <md-card-content>
+          <div fxLayout="row" style="margin-bottom: 10px" fxLayoutAlign="space-between center"
+               *ngFor="let estimatedTime of componentVersion.estimatedTimes; let i = index" [attr.data-index]="i">
+            <div fxFlex="80">
+              <md-input-container>
+                <input mdInput
+                       placeholder="{{estimatedTime.userCategory.name}}" name="time" type="number"
+                       [(ngModel)]="componentVersion.estimatedTimes[i].time">
+              </md-input-container>
+            </div>
+            <div fxFlex>
+              <md-select name="unit" [(ngModel)]="componentVersion.estimatedTimes[i].timeUnit" placeholder="Unit">
+                <md-option value="HOURS">Hours</md-option>
+                <md-option value="DAYS">Days</md-option>
+              </md-select>
+            </div>
+          </div>
         </md-card-content>
       </md-card>
     </div>

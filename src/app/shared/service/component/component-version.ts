@@ -31,7 +31,7 @@ export class ComponentVersion {
 
   public tags: string[] = [];
 
-  public constructor(public id: string, public componentId: string, public title: string, public code:string, public projectId: string, public type: string) {
+  public constructor(public id: string, public componentId: string, public title: string, public code: string, public projectId: string, public type: string) {
   }
 
 
@@ -46,7 +46,7 @@ export class ComponentVersion {
     c.creationDate = this.creationDate;
     c.lastModifiedDate = this.lastModifiedDate;
     c.createdUser = this.createdUser;
-    c.lastModifiedUser= this.lastModifiedUser;
+    c.lastModifiedUser = this.lastModifiedUser;
 
     c.workflowInstance = this.workflowInstance.clone();
 
@@ -120,7 +120,7 @@ export class ComponentVersion {
       requirementType: component.requirementType,
       // assignedTo: User.toMap(component.assignedTo),
       requiredTest: component.requiredTest,
-      // estimatedTimes: component.estimatedTimes.map(e => EstimatedTime.toJson(e)).toString(),
+      estimatedTimes: component.estimatedTimes.map(e => EstimatedTime.toMap(e)),
       distributionLevel: component.distributionLevel,
       coverageStatus: component.coverageStatus,
 

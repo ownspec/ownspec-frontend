@@ -1,7 +1,8 @@
 export class UserCategory {
   public id: string;
   public name: string;
-  public hourlyPrice: number = 0;
+  public hourlyPrice: number;
+  public isBillable;
 
   public constructor() {
   }
@@ -11,6 +12,7 @@ export class UserCategory {
     userCategory.id = json.id;
     userCategory.name = json.name;
     userCategory.hourlyPrice = json.hourlyPrice;
+    userCategory.isBillable = json.hourlyPrice != null || json.hourlyPrice > 0;
     return userCategory;
 
 
