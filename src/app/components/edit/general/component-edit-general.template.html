@@ -114,16 +114,16 @@
         </div>
         <md-card-content>
           <div fxLayout="row" style="margin-bottom: 10px" fxLayoutAlign="space-between center"
-               *ngFor="let estimatedTime of componentVersion.estimatedTimes; let i = index" [attr.data-index]="i">
+               *ngFor="let estimatedTime of estimatedTimes; let i = index" [attr.data-index]="i">
             <div fxFlex="80">
               <md-input-container>
                 <input mdInput
                        placeholder="{{estimatedTime.userCategory.name}}" name="time" type="number"
-                       [(ngModel)]="componentVersion.estimatedTimes[i].time">
+                       [(ngModel)]="estimatedTimes[i].time">
               </md-input-container>
             </div>
             <div fxFlex>
-              <md-select name="unit" [(ngModel)]="componentVersion.estimatedTimes[i].timeUnit" placeholder="Unit">
+              <md-select name="unit" [(ngModel)]="estimatedTimes[i].timeUnit" placeholder="Unit">
                 <md-option value="HOURS">Hours</md-option>
                 <md-option value="DAYS">Days</md-option>
               </md-select>

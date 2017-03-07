@@ -43,6 +43,8 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   private filteredUsers: Observable<User[]>;
 
+  private estimatedTimes: EstimatedTime[] = [];
+
   public constructor(public snackBar: MdSnackBar,
                      private componentVersionService: ComponentVersionService,
                      private userService: UserService,
@@ -53,13 +55,14 @@ export class ComponentEditGeneralComponent implements OnInit {
   ngOnInit(): void {
     if (this.create || this.componentVersion.estimatedTimes.length == 0) {
       this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
-        // TODO: component version should not be used as a model to populate the available category
         userCategories
             .filter(userCategory => userCategory.isBillable)
             .forEach(userCategory => {
-              this.componentVersion.estimatedTimes.push(new EstimatedTime(userCategory, null, null))
+              this.estimatedTimes.push(new EstimatedTime(userCategory, null, null));
             })
       });
+    } else {
+      this.estimatedTimes = this.componentVersion.estimatedTimes;
     }
 
     this.userService.findAll().subscribe((result: User []) => {
@@ -73,6 +76,8 @@ export class ComponentEditGeneralComponent implements OnInit {
   }
 
   public save() {
+    this.componentVersion.estimatedTimes = this.estimatedTimes.filter(e => e.time > 0);
+
     let obs: Observable<any>;
     obs = this.componentVersionService.update(this.componentVersion);
     obs.subscribe(r => {

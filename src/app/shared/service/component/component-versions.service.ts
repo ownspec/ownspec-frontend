@@ -90,9 +90,6 @@ export class ComponentVersionService {
   }
 
   public update(toSave: ComponentVersion): Observable<ComponentVersion> {
-    // TODO: filtering should be done by the caller
-    toSave.estimatedTimes = toSave.estimatedTimes.filter(e => e.time > 0);
-
     return this.$http.patch("/api/component-versions/" + toSave.id, ComponentVersion.toMap(toSave))
       .map(r => r.json())
       .map((item: any) => {
