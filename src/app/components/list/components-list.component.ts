@@ -9,6 +9,7 @@ import {ActivatedRoute} from "@angular/router";
 import {LinkService} from "../../shared/service/link.service";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {ComponentCreatorDialog} from "../create/component-create.component";
+import {Observable} from "rxjs";
 
 
 /*
@@ -36,7 +37,7 @@ export class ComponentsListComponent implements OnInit {
   public componentTypes: string[] = [];
 
   @Input("projectId")
-  public projectId: string ;
+  public projectId: string;
 
   public searchBean = {title: null, query: null};
 
@@ -52,12 +53,12 @@ export class ComponentsListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (this.route.snapshot.data) {
-      this.componentTypes = this.route.snapshot.data['componentTypes'];
-      this.projectId = this.route.snapshot.data['projectId'];
-    }
-
-    this.fetchComponents();
+    Observable.combineLatest(this.route.params, this.route.data, (params, data) => ({ params, data }))
+      .subscribe( ap => {
+      this.projectId = ap.params['projectId'];
+      this.componentTypes = ap.data['componentTypes'];
+      this.fetchComponents();
+    });
   }
 
   private fetchComponents() {
@@ -81,8 +82,11 @@ export class ComponentsListComponent implements OnInit {
 
   public startCreateComponent() {
     let componentCreatorDialogRef: MdDialogRef<ComponentCreatorDialog> = this.dialog.open(ComponentCreatorDialog);
-    componentCreatorDialogRef.componentInstance.componentVersion = new ComponentVersion("_new", "", "", "", null, this.componentTypes[0]);
+    componentCreatorDialogRef.componentInstance.componentType = this.componentTypes[0];
     componentCreatorDialogRef.componentInstance.projectId = this.projectId;
+    componentCreatorDialogRef.componentInstance.update.subscribe(c => {
+      this.fetchComponents();
+    });
   }
 
   public search() {

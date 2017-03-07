@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
   }
 
   showProject(projectId: number) {
-    this.projectService.show(projectId);
+    //this.projectService.show(projectId);
   }
 
   private setRequirementChartsData(requirements: ComponentVersion []) {
