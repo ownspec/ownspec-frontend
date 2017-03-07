@@ -1,5 +1,5 @@
 <main-header>
-  <div class="main-header-title">Components</div>
+  <div class="main-header-title">{{componentTypes[0] | capitalize}}s</div>
   <div class="main-header-content" style="display: flex">
     <div class="main-search-container" style="width:280px">
       <form class="main-search" (submit)="search()">
@@ -10,7 +10,7 @@
         </div>
       </form>
     </div>
-    <div md-tooltip="Create">
+    <div md-tooltip="Create" fxLayout="row" fxLayoutAlign="end center">
       <button md-icon-button (click)="startCreateComponent()"><i class="fa fa-plus" aria-hidden="true"></i></button>
     </div>
   </div>
@@ -19,14 +19,14 @@
 
 <div class="main-content-content">
   <ngx-datatable
-    class="material" style="flex: 1"
-    [rows]="components"
-    [columnMode]="'flex'"
-    [headerHeight]="50"
-    [footerHeight]="0"
-    [rowHeight]="50"
-    [scrollbarV]="true"
-    [scrollbarH]="true">
+      class="material" style="flex: 1"
+      [rows]="components"
+      [columnMode]="'flex'"
+      [headerHeight]="50"
+      [footerHeight]="0"
+      [rowHeight]="50"
+      [scrollbarV]="true"
+      [scrollbarH]="true">
     <ngx-datatable-column [flexGrow]="1" name="Code"></ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="1" name="Version"></ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="4" name="Title"></ngx-datatable-column>

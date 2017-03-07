@@ -5,14 +5,13 @@
       <form class="main-search" (submit)="search()">
         <div class="main-search-input-wrapper">
           <md-input-container>
-            <input mdInput placeholder="Search components..." [(ngModel)]="searchBean.query" name="query">
+            <input mdInput placeholder="Search..." [(ngModel)]="searchBean.query" name="query">
           </md-input-container>
         </div>
       </form>
     </div>
-
-    <div>
-      <button md-mini-fab (click)="startCreateComponent()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    <div md-tooltip="Create" fxLayout="row" fxLayoutAlign="end center">
+      <button md-icon-button (click)="startCreateComponent()"><i class="fa fa-plus" aria-hidden="true"></i></button>
     </div>
   </div>
 </main-header>

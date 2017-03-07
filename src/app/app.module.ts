@@ -43,7 +43,7 @@ import {NgUploaderModule} from "ngx-uploader";
 import {ErrorPageComponent} from "./error-page/error-page.component";
 import {ComponentSideNavComponent} from "./components/write/component/component-sidenav.component";
 import {ComponentCreatorDialog} from "./components/create/component-create.component";
-
+import {CapitalizePipe} from "./shared/pipe/capitalize.pipe";
 
 
 /*
@@ -269,6 +269,9 @@ const appRoutes: Routes = [
     CompleterCmpMd,
     UserEditorDialog,
     ComponentCreatorDialog,
+
+
+    CapitalizePipe,
 
     // TODO: rename
     FooComponent,
