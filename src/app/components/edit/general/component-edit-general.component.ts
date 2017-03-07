@@ -26,9 +26,6 @@ export class ComponentEditGeneralComponent implements OnInit {
   @Input("componentType")
   public componentType: string;
 
-  @Input("create")
-  public create: boolean;
-
   @Input("projectId")
   public projectId: string;
 
@@ -45,6 +42,8 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   private estimatedTimes: EstimatedTime[] = [];
 
+  private unEstimatedUserCategories: UserCategory [] = [];
+
   public constructor(public snackBar: MdSnackBar,
                      private componentVersionService: ComponentVersionService,
                      private userService: UserService,
@@ -53,7 +52,8 @@ export class ComponentEditGeneralComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (this.create || this.componentVersion.estimatedTimes.length == 0) {
+    // todo: TEMPORARY TO BE FIXED
+    if (this.componentVersion.estimatedTimes.length == 0) {
       this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
         userCategories
             .filter(userCategory => userCategory.isBillable)

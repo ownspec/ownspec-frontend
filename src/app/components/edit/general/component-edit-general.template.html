@@ -1,7 +1,7 @@
 <div fxLayout="column" style="padding: 5px;">
 
-  <div fxLayout="row"  fxLayoutWrap fxLayoutAlign="space-between">
-    <div fxFlex="7 0 200px"  style="padding: 5px;">
+  <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
+    <div fxFlex="7 0 200px" style="padding: 5px;">
       <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #189DE1">
         <md-card-content>
 
@@ -57,7 +57,7 @@
     </div>
 
 
-    <div fxFlex="3 0 150px"  fxLayout="column" style="padding: 5px; ">
+    <div fxFlex="3 0 150px" fxLayout="column" style="padding: 5px; ">
       <md-card style="margin-bottom: 10px; border-left: 2px solid #ec4363">
         <md-card-content fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
           <div fxFlex>
@@ -69,7 +69,7 @@
         </md-card-content>
       </md-card>
 
-      <md-card style="height: 100%; border-left: 2px solid #636262" *ngIf="!create">
+      <md-card style="height: 100%; border-left: 2px solid #636262">
         <md-card-content fxFlex>
           <md-card-title style="margin-bottom:5px; font-size: 15px">Created</md-card-title>
           <md-card-subtitle>{{componentVersion.creationDate | amTimeAgo }} by
@@ -105,11 +105,18 @@
             <md-card-subtitle>Per user category</md-card-subtitle>
           </div>
           <div fxLayoutAlign="end start">
-            <button md-icon-button
+            <button *ngIf="unEstimatedUserCategories.length != 0"
+                    md-icon-button
                     md-tooltip="Add estimation"
-                    (click)="addEstimatedTime()">
+                    [mdMenuTriggerFor]="userCategoriesDropdown"
+                    (click)="fetchUnEstimatedUserCategories()">
               <i style="font-size: x-small; color: grey" class="fa fa-plus" aria-hidden="true"></i>
             </button>
+            <md-menu #userCategoriesDropdown="mdMenu">
+              <button *ngFor="let unEstimatedUserCategory of unEstimatedUserCategories" md-menu-item (click)="pushUserCategoryForEstimation(userCategory)">
+                {{unEstimatedUserCategory}}
+              </button>
+            </md-menu>
           </div>
         </div>
         <md-card-content>
