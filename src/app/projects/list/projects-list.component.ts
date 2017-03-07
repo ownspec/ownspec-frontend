@@ -1,7 +1,6 @@
 "use strict";
 
 
-import {StateService} from "ui-router-ng2";
 import {Component as C, OnInit} from "@angular/core";
 import {ProjectService} from "../../shared/service/project.service";
 import {Project} from "../../shared/model/project";
@@ -33,19 +32,19 @@ export class ProjectsListComponent implements OnInit {
     });
   }
 
-  public show(projectId){
-   this.projectService.show(projectId);
+  public show(projectId) {
+    this.linkService.gotoProjectDashboard(projectId);
   }
 
   public edit(project: Project) {
-    this.linkService.editProject(project.id);
+    this.linkService.gotoProjectEditor(project.id);
   }
 
-  public addVisit(projectId:number){
+  public addVisit(projectId: number) {
     this.projectService.addVisit(projectId);
   }
 
-  toggleFavorite(project:Project){
+  toggleFavorite(project: Project) {
 
   }
 

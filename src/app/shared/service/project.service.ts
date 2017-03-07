@@ -1,7 +1,6 @@
 import {Observable} from "rxjs";
 import {Http, URLSearchParams} from "@angular/http";
 import {Injectable} from "@angular/core";
-import {StateService} from "ui-router-ng2";
 import {Project} from "../model/project";
 import {User} from "../model/user/user";
 
@@ -57,11 +56,6 @@ export class ProjectService {
       //todo handle exception
     });
   }
-
-  show(projectId: number) {
-    //this.stateService.go("app.home.project.dashboard", {projectId: projectId}, {reload: false})
-  }
-
   removeUserFromProject(project: Project, user: User): Observable<any> {
     return this.$http.delete("/api/projects/" + project.id + "/" + user.username, {});
   }

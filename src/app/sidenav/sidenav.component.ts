@@ -4,7 +4,6 @@ import {StateSelector} from "ui-router-visualizer";
 import {User} from "../shared/model/user/user";
 import {UserService} from "../shared/service/user/user.service";
 import {LinkService} from "../shared/service/link.service";
-import {ActivatedRoute} from "@angular/router";
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -42,8 +41,7 @@ export class SideNavComponent implements OnInit {
     {name: "Resources", icon: "fa-picture-o", state: "/resources"}
   ];
 
-  constructor(private route: ActivatedRoute,
-              private sharedService: SharedService,
+  constructor(private sharedService: SharedService,
               private userService: UserService,
               private linkService: LinkService) {
 

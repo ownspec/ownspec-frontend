@@ -29,11 +29,11 @@ export class LinkService {
     this.router.navigate(this.solveComponentUrlStrategy(component, "write"));
   }
 
-  showProject(projectId) {
+  gotoProjectDashboard(projectId) {
     this.router.navigate(["projects", projectId]);
   }
 
-  editProject(projectId) {
+  gotoProjectEditor(projectId) {
     this.router.navigate(["projects", projectId, "edit"]);
   }
 
