@@ -1,7 +1,6 @@
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams} from "@angular/http";
-import {User} from "../../model/user/user";
 import {UserCategory} from "../../model/user/user-category";
 
 @Injectable()
@@ -11,7 +10,7 @@ export class UserCategoryService {
 
   }
 
-  public findAll(query): Observable<UserCategory[]> {
+  public findAll(query = null): Observable<UserCategory[]> {
     let params: URLSearchParams = new URLSearchParams();
     if (!!query) {
       params.append("q", query);
@@ -32,12 +31,12 @@ export class UserCategoryService {
         .map(r => r.status == 200);
   }
 
-  public create(userCategory:UserCategory): Observable<UserCategory> {
+  public create(userCategory: UserCategory): Observable<UserCategory> {
     return this.http.post("/api/user-categories", userCategory)
         .map(r => UserCategory.fromMap(r.json()));
   }
 
-  public update(userCategory:UserCategory): Observable<UserCategory> {
+  public update(userCategory: UserCategory): Observable<UserCategory> {
     return this.http.patch("/api/user-categories", userCategory)
         .map(r => UserCategory.fromMap(r.json()));
   }
