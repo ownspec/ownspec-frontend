@@ -5,9 +5,6 @@ import {ComponentVersion} from "../../../shared/service/component/component-vers
 import {Observable} from "rxjs";
 import {ComponentVersionService} from "../../../shared/service/component/component-versions.service";
 import {ComponentUpdate} from "../../write/component-write.component";
-import {UserService} from "../../../shared/service/user/user.service";
-import {User} from "../../../shared/model/user/user";
-import {FormControl} from "@angular/forms";
 import "rxjs/add/operator/startWith";
 import {UserCategory} from "../../../shared/model/user/user-category";
 import {UserCategoryService} from "../../../shared/service/user/user-category.service";
@@ -34,45 +31,29 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   private tagToAdd: string;
 
-  private users: User[] = [];
-
-  private assignedUserCtrl = new FormControl();
-
-  private filteredUsers: Observable<User[]>;
-
   private estimatedTimes: EstimatedTime[] = [];
 
   private unEstimatedUserCategories: UserCategory [] = [];
 
   public constructor(public snackBar: MdSnackBar,
                      private componentVersionService: ComponentVersionService,
-                     private userService: UserService,
                      private userCategoryService: UserCategoryService) {
   }
 
 
   ngOnInit(): void {
-    // todo: TEMPORARY TO BE FIXED
-    if (this.componentVersion.estimatedTimes.length == 0) {
-      this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
-        userCategories
-            .filter(userCategory => userCategory.isBillable)
-            .forEach(userCategory => {
-              this.estimatedTimes.push(new EstimatedTime(userCategory, null, null));
-            })
-      });
-    } else {
-      this.estimatedTimes = this.componentVersion.estimatedTimes;
-    }
-
-    this.userService.findAll().subscribe((result: User []) => {
-      this.users = result
-    }, e => {
-      this.snackBar.open("Failed to retrieve all users", "x");
-
+    // Init estimated times and un-estimated user categories
+    this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
+      let billableUserCategories = userCategories.filter(userCategory => userCategory.isBillable);
+      if (this.componentVersion.estimatedTimes.length == 0) {
+        billableUserCategories.forEach(userCategory => {
+          this.pushUserCategoryForEstimation(userCategory);
+        });
+      } else {
+        this.estimatedTimes = this.componentVersion.estimatedTimes;
+        this.resolveUnEstimatedCategoriesWith(billableUserCategories);
+      }
     });
-
-    this.filteredUsers = this.assignedUserCtrl.valueChanges.startWith(null).map(val => this.filterUsers(val));
   }
 
   public save() {
@@ -94,7 +75,21 @@ export class ComponentEditGeneralComponent implements OnInit {
     this.tagToAdd = "";
   }
 
-  private filterUsers(val: string): User[] {
-    return this.users.filter((user: User) => new RegExp(val, 'gi').test(user.fullName));
+
+  public fetchUnEstimatedUserCategories() {
+    this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
+      this.resolveUnEstimatedCategoriesWith(userCategories.filter(userCategory => userCategory.isBillable));
+    });
   }
+
+  public pushUserCategoryForEstimation(userCategory: UserCategory) {
+    this.estimatedTimes.push(new EstimatedTime(userCategory, null, null));
+  }
+
+  private resolveUnEstimatedCategoriesWith(billableUserCategories: UserCategory[]) {
+    this.unEstimatedUserCategories = billableUserCategories
+        .filter(uc => this.estimatedTimes.filter(e => uc.name == e.userCategory.name).length == 0);
+  }
+
+
 }

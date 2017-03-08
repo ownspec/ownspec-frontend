@@ -113,8 +113,10 @@
               <i style="font-size: x-small; color: grey" class="fa fa-plus" aria-hidden="true"></i>
             </button>
             <md-menu #userCategoriesDropdown="mdMenu">
-              <button *ngFor="let unEstimatedUserCategory of unEstimatedUserCategories" md-menu-item (click)="pushUserCategoryForEstimation(userCategory)">
-                {{unEstimatedUserCategory}}
+              <button *ngFor="let unEstimatedUserCategory of unEstimatedUserCategories"
+                      md-menu-item
+                      (click)="pushUserCategoryForEstimation(unEstimatedUserCategory)">
+                {{unEstimatedUserCategory.name}}
               </button>
             </md-menu>
           </div>
