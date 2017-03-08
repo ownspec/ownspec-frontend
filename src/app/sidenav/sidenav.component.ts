@@ -34,11 +34,12 @@ export class SideNavComponent implements OnInit {
   ];
 
   private projectMenuItems: Array<any> = [
-    {name: "Dashboard", icon: "fa-tachometer", state: "/"},
+    {name: "Dashboard", icon: "fa-tachometer", state: "/dashboard"},
     {name: "Documents", icon: "fa-file-text-o ", state: "/documents"},
     {name: "Requirements", icon: "fa-tasks", state: "/requirements"},
     {name: "Templates", icon: "fa-file-text", state: "/templates"},
-    {name: "Resources", icon: "fa-picture-o", state: "/resources"}
+    {name: "Resources", icon: "fa-picture-o", state: "/resources"},
+    {name: "Settings", icon: "fa-cogs", state: "/edit"}
   ];
 
   constructor(private sharedService: SharedService,

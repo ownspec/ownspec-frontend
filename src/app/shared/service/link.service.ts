@@ -30,7 +30,7 @@ export class LinkService {
   }
 
   gotoProjectDashboard(projectId) {
-    this.router.navigate(["projects", projectId , "dashboard"]);
+    this.router.navigate(["projects", projectId, "dashboard"]);
   }
 
   gotoProjectEditor(projectId) {
