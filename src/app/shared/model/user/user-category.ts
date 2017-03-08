@@ -14,12 +14,11 @@ export class UserCategory {
     userCategory.hourlyPrice = json.hourlyPrice;
     userCategory.isBillable = userCategory.hourlyPrice > 0;
     return userCategory;
-
-
   }
 
   public static toMap(userCategory: UserCategory): any {
     return {
+      id: userCategory.id,
       category: userCategory.name,
       hourlyPrice: userCategory.hourlyPrice,
     };
