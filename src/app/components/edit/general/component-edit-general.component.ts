@@ -62,9 +62,12 @@ export class ComponentEditGeneralComponent implements OnInit {
     let obs: Observable<any>;
     obs = this.componentVersionService.update(this.componentVersion);
     obs.subscribe(r => {
-      this.snackBar.open(this.componentVersion.type + " successfully updated", "Close", {duration: 2000});
-      this.update.emit(ComponentUpdate.newComponentUpdate());
-    });
+          this.snackBar.open(this.componentVersion.type + " successfully updated", "Close", {duration: 2000});
+          this.update.emit(ComponentUpdate.newComponentUpdate());
+        },
+        error => {
+          this.snackBar.open("Failed to update " + this.componentVersion.type, "Close", {duration: 2000});
+        });
   }
 
   public addNewTag($event) {
@@ -83,7 +86,7 @@ export class ComponentEditGeneralComponent implements OnInit {
   }
 
   public pushUserCategoryForEstimation(userCategory: UserCategory) {
-    this.estimatedTimes.push(new EstimatedTime(userCategory, null, null));
+    this.estimatedTimes.push(new EstimatedTime(userCategory, null, "DAYS"));
   }
 
   private resolveUnEstimatedCategoriesWith(billableUserCategories: UserCategory[]) {
