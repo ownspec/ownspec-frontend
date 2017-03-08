@@ -44,6 +44,7 @@ import {ErrorPageComponent} from "./error-page/error-page.component";
 import {ComponentSideNavComponent} from "./components/write/component/component-sidenav.component";
 import {ComponentCreatorDialog} from "./components/create/component-create.component";
 import {CapitalizePipe} from "./shared/pipe/capitalize.pipe";
+import {AdministrationModule} from "./administration/administration.module";
 
 
 /*
@@ -67,7 +68,7 @@ require("expose-loader?jQuery!jquery");
 export class AppGestureConfig extends HammerGestureConfig {
 }
 
-
+// TODO: split into modules
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {
@@ -90,22 +91,28 @@ const appRoutes: Routes = [
       {
         path: 'projects',
         component: ProjectsListComponent,
-        //outlet: "main"
       },
       {
         path: 'projects/:projectId',
-        component: DashboardComponent,
+        children: [
+          {
+            path: 'dashboard',
+            component: DashboardComponent,
+            children: []
+          },
+          {
+            path: 'requirements',
+            component: ComponentsListComponent,
+            data: {componentTypes: ["REQUIREMENT"]}
+          },
+        ]
       },
       {
         path: 'projects/:projectId/edit',
         component: ProjectEditComponent,
         //outlet: "main"
       },
-      {
-        path: 'projects/:projectId/requirements',
-        component: ComponentsListComponent,
-        data: {componentTypes: ["REQUIREMENT"]}
-      },
+
       {
         path: 'projects/:projectId/requirements/:id/edit',
         component: ComponentEditComponent,
@@ -170,8 +177,6 @@ const appRoutes: Routes = [
         data: {componentType: "RESOURCE"}
 
       },
-
-
 
 
       {
@@ -246,7 +251,6 @@ const appRoutes: Routes = [
     // TODO: create modules
     AppComponent,
     SideNavComponent,
-    MainHeaderComponent,
     ComponentSideNavComponent,
     WriteSideNavComponent,
     ComponentsListComponent,
@@ -254,7 +258,7 @@ const appRoutes: Routes = [
     ComponentEditGeneralComponent,
     ComponentWriteComponent,
     DashboardComponent,
-    AdministrationComponent,
+
 
     ResourceCreatorComponent,
     ResourcesListComponent,
@@ -289,6 +293,8 @@ const appRoutes: Routes = [
 
   imports: [ // import Angular's modules
     SharedModule,
+    AdministrationModule,
+
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -298,13 +304,6 @@ const appRoutes: Routes = [
     NgxDatatableModule,
     CKEditorModule,
     MomentModule,
-    /*
-     UIRouterModule.forRoot({
-     states: MAIN_STATES,
-     otherwise: {state: 'app', params: {}},
-     useHash: true
-     }),
-     */
 
     RouterModule.forRoot(appRoutes),
 

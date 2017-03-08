@@ -27,6 +27,8 @@ import {ProfileService} from "./service/user/profil.service";
 import {CompanyService} from "./service/company.service";
 import {ComponentVersionService} from "./service/component/component-versions.service";
 import {UserCategoryService} from "./service/user/user-category.service";
+import {MainHeaderComponent} from "../header/main-header.component";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -36,9 +38,9 @@ import {UserCategoryService} from "./service/user/user-category.service";
     HttpModule,
     Ng2BootstrapModule,
     MomentModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     NgxDatatableModule,
-
+    FlexLayoutModule,
     TreeModule,
   ],
 
@@ -54,7 +56,8 @@ import {UserCategoryService} from "./service/user/user-category.service";
     EmptyContent,
     TocComponent,
     ComponentContentComponent,
-    HighlightDirective
+    HighlightDirective,
+    MainHeaderComponent
   ],
   declarations: [
     WorkflowComponent,
@@ -65,7 +68,8 @@ import {UserCategoryService} from "./service/user/user-category.service";
     EmptyContent,
     TocComponent,
     ComponentContentComponent,
-    HighlightDirective
+    HighlightDirective,
+    MainHeaderComponent
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ComponentService,

@@ -27,7 +27,7 @@ export class ComponentVersionService {
       });
   }
 
-  public findAll(projectId: string = null, title: string = null, types: Array<string> = [], query: string = null,
+  public findAll(projectId: string = null, generic:Boolean = false, title: string = null, types: Array<string> = [], query: string = null,
                  workflow = false, content = false, comments = false, references = false): Observable<ComponentVersion[]> {
     let params: URLSearchParams = new URLSearchParams();
 
@@ -43,6 +43,10 @@ export class ComponentVersionService {
     params.append("statuses", workflow.toString());
     params.append("comments", comments.toString());
     params.append("references", references.toString());
+
+    if (!!generic) {
+      params.append("generic", generic.toString());
+    }
 
     if (!!query) {
       params.append("q", query);

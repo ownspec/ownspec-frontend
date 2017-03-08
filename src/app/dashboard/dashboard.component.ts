@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
       this.projectsNumber = response.length;
     });
 
-    this.componentVersionService.findAll(null, null, ["DOCUMENT", "REQUIREMENT", "TEMPLATE", "COMPONENT"]).subscribe(response => {
+    this.componentVersionService.findAll(null, null, null, ["DOCUMENT", "REQUIREMENT", "TEMPLATE", "COMPONENT"]).subscribe(response => {
       documents = response.filter((c: ComponentVersion) => c.type == "DOCUMENT");
       requirements = response.filter((c: ComponentVersion) => c.type == "REQUIREMENT");
       templatesAndComponents = response.filter((c: ComponentVersion) => c.type == "TEMPLATE" || c.type == "COMPONENT");

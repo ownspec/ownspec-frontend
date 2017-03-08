@@ -22,7 +22,7 @@
 
       <toc *ngIf="activeTab == 'toc'" [tocItems]="parent.tocItems" (gotoTocItem)="parent.gotoTocItem($event)"></toc>
 
-      <component-sidenav *ngIf="activeTab == 'component'" [editorEvent]="editorEvent"></component-sidenav>
+      <component-edit-sidenav *ngIf="activeTab == 'component'" [editorEvent]="editorEvent"></component-edit-sidenav>
 
     </div>
   </template>

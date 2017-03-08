@@ -62,7 +62,7 @@ export class ComponentsListComponent implements OnInit {
   }
 
   private fetchComponents() {
-    this.componentVersionService.findAll(this.projectId, this.searchBean.title, this.componentTypes, this.searchBean.query).subscribe(o => {
+    this.componentVersionService.findAll(this.projectId, !this.projectId, this.searchBean.title, this.componentTypes, this.searchBean.query).subscribe(o => {
       this.components = o;
     });
   }

@@ -1,0 +1,61 @@
+<div fxLayout="column">
+
+  <div fxFlex="100" style="padding-bottom: 10px ;padding-top:10px">
+    <div fxLayout="row" class="admin-search-panel">
+      <div fxFlex="90" fxLayout="row" fxLayoutAlign="start center">
+        <form fxFlex fxLayout="row" fxLayoutAlign="start center" class="main-search" (submit)="fetch()">
+          <md-input-container fxFlex="50" style="margin-right: 20px">
+            <input mdInput class="form-control" [(ngModel)]="searchInput"
+                   placeholder="Search..."
+                   name="Quick search"
+                   type="text">
+          </md-input-container>
+        </form>
+
+
+      </div>
+      <div fxFlex fxLayoutAlign="end center">
+        <button md-icon-button (click)="create()"><i class="fa fa-user-plus" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+
+
+  <div fxLayout="row" fxLayoutWrap>
+    <div *ngFor="let userCategory of userCategories" fxFlex="33.3" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100"
+         style="padding: 5px;">
+      <md-card fxLayout="row">
+        <md-card-header fxFlex>
+          <!-- TODO: style fix until https://github.com/angular/material2/issues/3131 is released -->
+          <i md-card-avatar class="fa fa-user" aria-hidden="true"></i>
+          <md-card-title style="height: 20px;overflow: hidden; word-break: break-all;">
+            <a (click)="edit(userCategory)" role="button">
+              <h5 style="overflow: hidden; text-overflow: ellipsis;">{{userCategory.name}}</h5>
+            </a>
+          </md-card-title>
+          <md-card-subtitle>
+            <h6 style="font-size: 0.9rem;">Hourly Price: {{userCategory.hourlyPrice}}</h6>
+
+          </md-card-subtitle>
+        </md-card-header>
+        <div fxFlex="10%" fxLayout="row" style="height: 35px" class="table-actions">
+
+          <button type="button" class="btn btn-secondary btn-tiny" tooltipPlacement="bottom" style="margin-right: 5px"
+                  md-tooltip="Edit" tooltip-position="above" tooltipClass="foobar"
+                  (click)="edit(userCategory)">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+
+          <button type="button" class="btn btn-outline-danger btn-tiny" tooltipPlacement="bottom"
+                  style="margin-right: 5px"
+                  md-tooltip="Delete" tooltip-position="above" tooltipClass="foobar"
+                  (click)="deleteOne(userCategory)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+
+        </div>
+      </md-card>
+    </div>
+  </div>
+
+</div>

@@ -14,7 +14,7 @@ import {ComponentVersionService} from "../../../shared/service/component/compone
 
 
 @C({
-  selector: 'component-sidenav',
+  selector: 'component-edit-sidenav',
   templateUrl: 'component-sidenav.component.html',
   styleUrls: ['./component-sidenav.component.scss'],
 })

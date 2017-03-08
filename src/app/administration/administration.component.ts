@@ -57,6 +57,7 @@ export class AdministrationComponent implements OnInit {
   }
 
   edit(user: User, create = false) {
+    // TODO: the user may have changed, it has to be loaded by the UserEditorDialog
     let dialogRef: MdDialogRef<UserEditorDialog> = this.dialog.open(UserEditorDialog);
     dialogRef.componentInstance.user = user;
     dialogRef.componentInstance.create = create;
