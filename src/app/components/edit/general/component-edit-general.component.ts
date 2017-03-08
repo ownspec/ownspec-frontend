@@ -57,7 +57,8 @@ export class ComponentEditGeneralComponent implements OnInit {
   }
 
   public save() {
-    this.componentVersion.estimatedTimes = this.estimatedTimes.filter(e => e.time > 0);
+    this.estimatedTimes = this.estimatedTimes.filter(e => e.time > 0);
+    this.componentVersion.estimatedTimes = this.estimatedTimes;
 
     let obs: Observable<any>;
     obs = this.componentVersionService.update(this.componentVersion);
