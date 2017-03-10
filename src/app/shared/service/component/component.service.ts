@@ -2,8 +2,6 @@ import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams} from "@angular/http";
 import {Component} from "../../model/component/component";
-import {StateService} from "ui-router-ng2";
-import {WorkflowInstance} from "../../model/component/workflow/workflow-instance";
 import {ComponentVersion} from "./component-version";
 import {ComponentReference} from "../../model/component/component-reference";
 import {Comment} from "../../model/component/comment";
@@ -128,11 +126,12 @@ export class ComponentService {
       .map(r => r.text());
   }
 
-  create(toSave: Component): Observable<Component> {
-    return this.$http.post("/api/components/create", Component.toJson(toSave))
-      .map(r => {
-        return Component.fromMap(r.json());
-      });
+  public create(toSave: ComponentVersion): Observable<ComponentVersion> {
+    return this.$http.post("/api/components", ComponentVersion.toMap(toSave))
+        .map(r => r.json())
+        .map((item: any) => {
+          return ComponentVersion.fromMap(item);
+        });
   }
 
   getLastVisitedRequirements(): Observable<Component[]> {

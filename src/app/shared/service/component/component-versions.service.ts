@@ -101,16 +101,6 @@ export class ComponentVersionService {
       });
   }
 
-  public create(toSave: ComponentVersion): Observable<ComponentVersion> {
-    return this.$http.post("/api/component-versions", ComponentVersion.toMap(toSave))
-      .map(r => r.json())
-      .map((item: any) => {
-        return ComponentVersion.fromMap(item);
-      });
-
-  }
-
-
   // TODO: temporary
   getContentUrl(c: ComponentVersion) {
     return "/api/component-versions/" + c.id + "/content?ref=" + c.gitReference;

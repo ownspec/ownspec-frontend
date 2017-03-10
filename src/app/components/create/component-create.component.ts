@@ -2,10 +2,10 @@
 import {Component as C, Output, EventEmitter, OnInit} from "@angular/core";
 import {ComponentVersion} from "../../shared/service/component/component-version";
 import {MdSnackBar, MdDialogRef} from "@angular/material";
-import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
 import {Observable} from "rxjs";
 import {LinkService} from "../../shared/service/link.service";
 import {ComponentUpdate} from "../write/component-write.component";
+import {ComponentService} from "../../shared/service/component/component.service";
 
 @C({
   selector: 'component-create',
@@ -24,7 +24,7 @@ export class ComponentCreatorDialog implements OnInit {
 
   public constructor(public componentCreatorDialogRef: MdDialogRef<ComponentCreatorDialog>,
                      public snackBar: MdSnackBar,
-                     private componentVersionService: ComponentVersionService,
+                     private componentService: ComponentService,
                      private linkService: LinkService) {
   }
 
@@ -34,7 +34,7 @@ export class ComponentCreatorDialog implements OnInit {
   }
 
   public save(andContinue = false) {
-    let obs: Observable<ComponentVersion> = this.componentVersionService.create(this.componentVersion);
+    let obs: Observable<ComponentVersion> = this.componentService.create(this.componentVersion);
     obs.subscribe(createdComponentVersion => {
       if (andContinue) {
         this.resetForm();
