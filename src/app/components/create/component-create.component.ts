@@ -40,7 +40,7 @@ export class ComponentCreatorDialog implements OnInit {
         this.resetForm();
       } else {
         this.componentCreatorDialogRef.close();
-        this.linkService.gotoWriteComponent(createdComponentVersion);
+        this.linkService.gotoEditComponent(createdComponentVersion);
       }
       this.snackBar.open(this.componentVersion.type + " successfully created", "Close", {duration: 2000});
       this.update.emit(ComponentUpdate.newComponentUpdate());

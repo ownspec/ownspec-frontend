@@ -1,6 +1,6 @@
 "use strict";
 import {Component as C, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {MdSnackBar} from "@angular/material";
+import {MdSnackBar, MdDialogRef, MdDialog} from "@angular/material";
 import {ComponentVersion} from "../../../shared/service/component/component-version";
 import {Observable} from "rxjs";
 import {ComponentVersionService} from "../../../shared/service/component/component-versions.service";
@@ -9,6 +9,7 @@ import "rxjs/add/operator/startWith";
 import {UserCategory} from "../../../shared/model/user/user-category";
 import {UserCategoryService} from "../../../shared/service/user/user-category.service";
 import {EstimatedTime} from "../../../shared/model/component/estimated-time";
+import {UserCategoryEditDialog} from "../../../administration/user-category-edit/edit/user-category-edit.component";
 
 @C({
   selector: 'component-edit-general',
@@ -31,27 +32,29 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   private tagToAdd: string;
 
+  // Estimated Times
   private estimatedTimes: EstimatedTime[] = [];
-
   private unEstimatedUserCategories: UserCategory [] = [];
+  private billableUserCategories: UserCategory [] = [];
 
   public constructor(public snackBar: MdSnackBar,
                      private componentVersionService: ComponentVersionService,
-                     private userCategoryService: UserCategoryService) {
+                     private userCategoryService: UserCategoryService,
+                     private dialog: MdDialog) {
   }
 
 
   ngOnInit(): void {
     // Init estimated times and un-estimated user categories
     this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
-      let billableUserCategories = userCategories.filter(userCategory => userCategory.isBillable);
+      this.billableUserCategories = userCategories.filter(userCategory => userCategory.isBillable);
       if (this.componentVersion.estimatedTimes.length == 0) {
-        billableUserCategories.forEach(userCategory => {
+        this.billableUserCategories.forEach(userCategory => {
           this.pushUserCategoryForEstimation(userCategory);
         });
       } else {
         this.estimatedTimes = this.componentVersion.estimatedTimes;
-        this.resolveUnEstimatedCategoriesWith(billableUserCategories);
+        this.resolveUnEstimatedCategories();
       }
     });
   }
@@ -82,7 +85,8 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   public fetchUnEstimatedUserCategories() {
     this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
-      this.resolveUnEstimatedCategoriesWith(userCategories.filter(userCategory => userCategory.isBillable));
+      this.billableUserCategories = userCategories.filter(userCategory => userCategory.isBillable);
+      this.resolveUnEstimatedCategories();
     });
   }
 
@@ -90,10 +94,22 @@ export class ComponentEditGeneralComponent implements OnInit {
     this.estimatedTimes.push(new EstimatedTime(userCategory, null, "DAYS"));
   }
 
-  private resolveUnEstimatedCategoriesWith(billableUserCategories: UserCategory[]) {
-    this.unEstimatedUserCategories = billableUserCategories
+  private resolveUnEstimatedCategories() {
+    this.unEstimatedUserCategories = this.billableUserCategories
         .filter(uc => this.estimatedTimes.filter(e => uc.name == e.userCategory.name).length == 0);
   }
 
+  public createUserCategory(){
+    let dialogRef: MdDialogRef<UserCategoryEditDialog> = this.dialog.open(UserCategoryEditDialog);
+    dialogRef.componentInstance.create = true;
+    dialogRef.componentInstance.update.subscribe(() => {
+      this.fetchUnEstimatedUserCategories();
+      this.billableUserCategories.forEach(u => this.pushUserCategoryForEstimation(u))
+    })
+  }
+
+  public autoEstimateFromReferences(){
+    // todo
+  }
 
 }

@@ -85,26 +85,76 @@
     </div>
   </div>
 
-  <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
+  <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between stretch">
     <!-- Risk Assessment-->
     <div fxFlex="7 0 200px" fxFlex.sm="100" style="padding: 5px; ">
       <md-card fxFlex style="height: 100%;">
-        <md-card-title style="font-size: 15px; margin-bottom: 5px">Risk Assessment</md-card-title>
+        <md-card-header>
+          <md-card-title style="font-size: 15px; margin-bottom: 5px">Risk Assessment</md-card-title>
+        </md-card-header>
         <md-card-content>
+          <div fxLayout="row">
+            <!-- Frequency of use-->
+            <div fxFlex fxFlex.xs="100" style="margin:15px 5px">
+              <md-select name="frequencyOfUse"
+                         placeholder="Frequency of Use"
+                         style="width: 80%"
+                         [(ngModel)]="componentVersion.riskAssessment.frequencyOfUse">
+                <md-option value="RARELY">Rarely</md-option>
+                <md-option value="NORMAL">Normal</md-option>
+                <md-option value="VERY_OFTEN">Very Often</md-option>
+              </md-select>
+            </div>
+
+            <!-- Failure Impact Level -->
+            <div fxFlex fxFlex.xs="100" style="margin:15px 5px">
+              <md-select name="failureImpactLevel"
+                         placeholder="Failure Impact Level"
+                         style="width: 80%"
+                         [(ngModel)]="componentVersion.riskAssessment.failureImpactLevel">
+                <md-option value="LOW">Low</md-option>
+                <md-option value="MEDIUM">Medium</md-option>
+                <md-option value="EXTREME">Extreme</md-option>
+              </md-select>
+            </div>
+          </div>
+
+          <div fxLayout="row">
+            <div fxFlex style="margin:15px 5px">
+              <md-input-container style="width: 100%">
+                <input mdInput class="form-control"
+                       placeholder="Acceptable Defect Rate (%)"
+                       name="acceptableDefectRate"
+                       type="number"
+                       [(ngModel)]="componentVersion.riskAssessment.acceptableDefectRate">
+              </md-input-container>
+            </div>
+            <div fxFlex style="margin:15px 5px; font-size: 13px; color: grey">
+              <md-checkbox>Make it default{{componentVersion.projectId? ' through this project':''}}</md-checkbox>
+            </div>
+          </div>
 
         </md-card-content>
       </md-card>
 
     </div>
+
     <!-- Estimated Time-->
     <div fxFlex="3 0 150px" fxFlex.sm="100" style="padding: 5px; ">
-      <md-card fxLayout="column">
+      <md-card fxLayout="column" style="height: 100%;">
         <div fxLayout="row">
           <div fxFlex>
             <md-card-title style="font-size: 15px; margin-bottom: 5px">Estimated time</md-card-title>
             <md-card-subtitle>Per user category</md-card-subtitle>
           </div>
           <div fxLayoutAlign="end start">
+            <button *ngIf="componentVersion.componentReferences.length != 0"
+                    md-icon-button
+                    md-tooltip="Auto estimate from children {{componentVersion.type | capitalize}}s"
+                    (click)="autoEstimateFromReferences()">
+              <i style="font-size: x-small; color: grey" class="fa fa-calculator" aria-hidden="true"></i>
+            </button>
+
             <button *ngIf="unEstimatedUserCategories.length != 0"
                     md-icon-button
                     md-tooltip="Add estimation"
@@ -121,24 +171,29 @@
             </md-menu>
           </div>
         </div>
-        <md-card-content style="padding-top: 10px;max-height: 230px;overflow: auto;">
-          <div fxLayout="row" style="margin-bottom: 10px" fxLayoutAlign="space-between center"
-               *ngFor="let estimatedTime of estimatedTimes; let i = index" [attr.data-index]="i">
-            <div fxFlex="80">
-              <md-input-container>
-                <input mdInput
-                       placeholder="{{estimatedTime.userCategory.name}}" name="time" type="number"
-                       [(ngModel)]="estimatedTimes[i].time">
-              </md-input-container>
-            </div>
-            <div fxFlex>
-              <md-select name="unit" [(ngModel)]="estimatedTimes[i].timeUnit" placeholder="Unit">
-                <md-option value="HOURS">Hours</md-option>
-                <md-option value="DAYS">Days</md-option>
-              </md-select>
-            </div>
+        <div fxLayout="column" style="padding-top: 10px;height: 100%; max-height: 230px;overflow: auto;">
+          <div fxFlex *ngIf="billableUserCategories.length == 0" fxLayoutAlign="center center">
+            <button md-button (click)="createUserCategory()">Create a new user category</button>
           </div>
-        </md-card-content>
+          <md-card-content fxFlex>
+            <div fxLayout="row" style="margin-bottom: 10px" fxLayoutAlign="space-between center"
+                 *ngFor="let estimatedTime of estimatedTimes; let i = index" [attr.data-index]="i">
+              <div fxFlex="80">
+                <md-input-container>
+                  <input mdInput
+                         placeholder="{{estimatedTime.userCategory.name}}" name="time" type="number"
+                         [(ngModel)]="estimatedTimes[i].time">
+                </md-input-container>
+              </div>
+              <div fxFlex>
+                <md-select name="unit" [(ngModel)]="estimatedTimes[i].timeUnit" placeholder="Unit">
+                  <md-option value="HOURS">Hours</md-option>
+                  <md-option value="DAYS">Days</md-option>
+                </md-select>
+              </div>
+            </div>
+          </md-card-content>
+        </div>
       </md-card>
     </div>
   </div>

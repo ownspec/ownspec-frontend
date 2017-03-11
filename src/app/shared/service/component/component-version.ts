@@ -2,6 +2,7 @@ import {WorkflowInstance} from "../../model/component/workflow/workflow-instance
 import {ComponentReference} from "../../model/component/component-reference";
 import {EstimatedTime} from "../../model/component/estimated-time";
 import {User} from "../../model/user/user";
+import {RiskAssessment} from "../../model/component/risk-assessment";
 
 export class ComponentVersion {
   public content: string;
@@ -31,9 +32,11 @@ export class ComponentVersion {
 
   public tags: string[] = [];
 
-  public gitReference:string;
+  public gitReference: string;
 
-  public constructor(public id: string, public componentId: string, public title: string, public code:string, public projectId: string, public type: string) {
+  private riskAssessment= new RiskAssessment();
+
+  public constructor(public id: string, public componentId: string, public title: string, public code: string, public projectId: string, public type: string) {
   }
 
 
@@ -113,6 +116,10 @@ export class ComponentVersion {
       }
     }
 
+    if (item.riskAssessment) {
+      component.riskAssessment = RiskAssessment.fromMap(item.riskAssessment);
+    }
+
     return component;
   }
 
@@ -132,7 +139,9 @@ export class ComponentVersion {
       uploadedFileId: component.uploadedFileId,
       filename: component.filename,
 
-      tags: component.tags
+      tags: component.tags,
+
+      riskAssessment: RiskAssessment.toMap(component.riskAssessment)
     };
   }
 

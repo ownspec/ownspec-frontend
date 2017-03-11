@@ -3,6 +3,7 @@ import {Component as C, OnInit} from "@angular/core";
 import {MdDialogRef} from "@angular/material";
 import {ComponentVersion} from "../../shared/service/component/component-version";
 import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
+import {ComponentService} from "../../shared/service/component/component.service";
 
 
 @C({
@@ -27,7 +28,9 @@ export class ResourceCreatorComponent implements OnInit {
   public component: ComponentVersion;
 
 
-  public constructor(public dialog: MdDialogRef<ResourceCreatorComponent>, private componentVersionService: ComponentVersionService) {
+  public constructor(public dialog: MdDialogRef<ResourceCreatorComponent>,
+                     private componentVersionService: ComponentVersionService,
+                     private componentService: ComponentService) {
 
   }
 
@@ -53,7 +56,7 @@ export class ResourceCreatorComponent implements OnInit {
     this.component.filename = this.uploadFile.filename;
 
     if (this.create) {
-      this.componentVersionService.create(this.component).subscribe(c => {
+      this.componentService.create(this.component).subscribe(c => {
         this.dialog.close();
       });
     }else{
