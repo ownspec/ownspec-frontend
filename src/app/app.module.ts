@@ -14,7 +14,6 @@ import {ComponentEditComponent} from "./components/edit/component-edit.component
 import {ComponentsListComponent} from "./components/list/components-list.component";
 import {LoginComponent} from "./login/login.component";
 import {MaterialModule, MdCardModule} from "@angular/material";
-import {MainHeaderComponent} from "./header/main-header.component";
 import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
 import {ChartsModule} from "ng2-charts";
 import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
@@ -105,78 +104,80 @@ const appRoutes: Routes = [
             component: ComponentsListComponent,
             data: {componentTypes: ["REQUIREMENT"]}
           },
+
+          {
+            path: 'edit',
+            component: ProjectEditComponent,
+            //outlet: "main"
+          },
+
+          {
+            path: 'requirements/:id/edit',
+            component: ComponentEditComponent,
+            data: {componentType: "REQUIREMENT"}
+          },
+          {
+            path: 'requirements/:id/write',
+            component: ComponentWriteComponent
+          },
+
+          {
+            path: 'documents',
+            component: ComponentsListComponent,
+            data: {componentTypes: ["DOCUMENT"]}
+          },
+          {
+            path: 'documents/:id/edit',
+            component: ComponentEditComponent,
+            data: {componentType: "DOCUMENT"}
+          },
+          {
+            path: 'documents/:id/write',
+            component: ComponentWriteComponent
+          },
+
+          {
+            path: 'components',
+            component: ComponentsListComponent,
+            data: {componentTypes: ["COMPONENT"]}
+          },
+          {
+            path: 'components/:id/edit',
+            component: ComponentEditComponent,
+            data: {componentType: "COMPONENT"}
+          },
+          {
+            path: 'components/:id/write',
+            component: ComponentWriteComponent
+          },
+          {
+            path: 'templates',
+            component: ComponentsListComponent,
+            data: {componentTypes: ["TEMPLATE"]}
+          },
+          {
+            path: 'templates/:id/edit',
+            component: ComponentEditComponent,
+            data: {componentType: "TEMPLATE"}
+          },
+          {
+            path: 'templates/:id/write',
+            component: ComponentWriteComponent
+          },
+          {
+            path: 'resources',
+            component: ResourcesListComponent,
+            data: {componentTypes: ["RESOURCE"]}
+          },
+          {
+            path: 'resources/:id/edit',
+            component: ComponentEditComponent,
+            data: {componentType: "RESOURCE"}
+
+          }
         ]
       },
-      {
-        path: 'projects/:projectId/edit',
-        component: ProjectEditComponent,
-        //outlet: "main"
-      },
 
-      {
-        path: 'projects/:projectId/requirements/:id/edit',
-        component: ComponentEditComponent,
-        data: {componentType: "REQUIREMENT"}
-      },
-      {
-        path: 'projects/:projectId/requirements/:id/write',
-        component: ComponentWriteComponent
-      },
-
-      {
-        path: 'projects/:projectId/documents',
-        component: ComponentsListComponent,
-        data: {componentTypes: ["DOCUMENT"]}
-      },
-      {
-        path: 'projects/:projectId/documents/:id/edit',
-        component: ComponentEditComponent,
-        data: {componentType: "DOCUMENT"}
-      },
-      {
-        path: 'projects/:projectId/documents/:id/write',
-        component: ComponentWriteComponent
-      },
-
-      {
-        path: 'projects/:projectId/components',
-        component: ComponentsListComponent,
-        data: {componentTypes: ["COMPONENT"]}
-      },
-      {
-        path: 'projects/:projectId/components/:id/edit',
-        component: ComponentEditComponent,
-        data: {componentType: "COMPONENT"}
-      },
-      {
-        path: 'projects/:projectId/components/:id/write',
-        component: ComponentWriteComponent
-      },
-      {
-        path: 'projects/:projectId/templates',
-        component: ComponentsListComponent,
-        data: {componentTypes: ["TEMPLATE"]}
-      },
-      {
-        path: 'projects/:projectId/templates/:id/edit',
-        component: ComponentEditComponent,
-        data: {componentType: "TEMPLATE"}
-      },
-      {
-        path: 'projects/:projectId/templates/:id/write',
-        component: ComponentWriteComponent
-      },
-      {
-        path: 'projects/:projectId/resources',
-        component: ResourcesListComponent,
-        data: {componentTypes: ["RESOURCE"]}
-      },
-      {
-        path: 'projects/:projectId/resources/:id/edit',
-        component: ComponentEditComponent,
-        data: {componentType: "RESOURCE"}
-
-      },
 
 
       {

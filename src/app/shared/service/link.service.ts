@@ -47,7 +47,7 @@ export class LinkService {
     let componentType: string = component.type;
 
     if (component.projectId) {
-      params.push("project");
+      params.push("projects");
       params.push(component.projectId);
     }
 
