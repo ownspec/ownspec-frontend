@@ -52,6 +52,10 @@ export class LinkService {
     }
 
     switch (componentType) {
+      case "DOCUMENT": {
+        params.push("documents");
+        break;
+      }
       case "REQUIREMENT": {
         params.push("requirements");
         break;

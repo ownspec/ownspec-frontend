@@ -29,16 +29,26 @@
             <h6 style="font-size: 0.9rem;">Created {{project.createdDate | amTimeAgo }}</h6>
           </md-card-subtitle>
         </md-card-header>
-        <md-card-content fxFlex style="padding-top: 10px; ">
-          <p>{{project.description}}</p>
+        <md-card-content fxFlex>
+          <p style="padding-top: 15px; ">{{project.description}}</p>
         </md-card-content>
-        <md-card-actions fxLayout="row" fxLayoutAlign="start end">
-          <button md-button (click)="edit(project)">
-            <i class="fa fa-pencil" aria-hidden="true"></i> EDIT
+        <md-card-actions fxLayout="row" fxLayoutAlign="end end" style="color:dimgrey">
+          <button md-icon-button
+                  md-tooltip="Edit"
+                  (click)="edit(project)">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
-          <button md-button (click)="toggleFavorite(project)">
-            <i [ngClass]="{'fa fa-star favorite': project.isFavorite, 'fa fa-star-o': !project.isFavorite}"
-               aria-hidden="true"></i> FAVORITE
+
+          <button md-icon-button
+                  md-tooltip="Make it favorite"
+                  (click)="toggleFavorite(project)">
+            <i [ngClass]="{'fa fa-star favorite': project.isFavorite, 'fa fa-star-o': !project.isFavorite}" aria-hidden="true"></i>
+          </button>
+
+          <button md-icon-button
+                  md-tooltip="Delete"
+                  (click)="delete(project)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
           </button>
         </md-card-actions>
       </md-card>
