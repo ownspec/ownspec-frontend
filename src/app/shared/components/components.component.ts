@@ -56,13 +56,13 @@ export class ComponentsComponent implements OnInit {
 
   ngOnInit(): void {
     Observable.combineLatest(this.route.params, this.route.data, (params, data) => ({params, data}))
-      .subscribe(ap => {
-        console.log("projectid " , ap.params);
+        .subscribe(ap => {
+          console.log("projectid ", ap.params);
 
-        this.projectId = ap.params['projectId'];
-        console.log("projectid " , ap.params , this.projectId);
-        this.search();
-      });
+          this.projectId = ap.params['projectId'];
+          console.log("projectid ", ap.params, this.projectId);
+          this.search();
+        });
 
 
   }
@@ -88,8 +88,8 @@ export class ComponentsComponent implements OnInit {
 
   public search() {
     // TODO: temporary fetch content with the list of component, to refactor because response size will be too large
-    this.componentVersionService.findAll(this.projectId, !this.projectId, null, this.types, this.searchQuery, true, false, false).subscribe(components => {
-      this.components = components;
+    this.componentVersionService.findAll(this.projectId, !this.projectId, null, this.types, this.searchQuery, true, false, false).subscribe((components: ComponentVersion []) => {
+      this.components = components.filter(c => c.id != this.component.id);
 
       let tree = [];
       let tags = {};
