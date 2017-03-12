@@ -119,19 +119,26 @@
             </div>
           </div>
 
-          <div fxLayout="row">
-            <div fxFlex style="margin:15px 5px">
-              <md-input-container style="width: 100%">
-                <input mdInput class="form-control"
-                       placeholder="Acceptable Defect Rate (%)"
-                       name="acceptableDefectRate"
-                       type="number"
-                       [(ngModel)]="componentVersion.riskAssessment.acceptableDefectRate">
-              </md-input-container>
-            </div>
-            <div fxFlex style="margin:15px 5px; font-size: 13px; color: grey">
-              <md-checkbox>Make it default{{componentVersion.projectId? ' through this project':''}}</md-checkbox>
-            </div>
+          <!-- Acceptable Failure Rate-->
+          <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutWrap style="margin:15px 5px">
+            <md-input-container fxFlex fxFlex.xs="100" style="margin-right: 15px">
+              <input mdInput
+                     class="form-control"
+                     placeholder="Acceptable Failure Rate (%)"
+                     name="acceptableFailureRate"
+                     type="number"
+                     [(ngModel)]="componentVersion.riskAssessment.acceptableFailureRate">
+            </md-input-container>
+            <md-slider fxFlex fxFlex.xs="100"
+                       min=0 max=100
+                       step=10
+                       thumb-label="true"
+                       tick-interval="auto"
+                       [(ngModel)]="componentVersion.riskAssessment.acceptableFailureRate">
+            </md-slider>
+          </div>
+          <div fxLayout="row" style="margin:15px 5px; font-size: 13px; color: grey">
+            <md-checkbox>Make it default{{componentVersion.projectId? ' through this project':''}}</md-checkbox>
           </div>
 
         </md-card-content>

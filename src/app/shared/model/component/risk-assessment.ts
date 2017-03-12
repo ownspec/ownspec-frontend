@@ -3,7 +3,7 @@ export class RiskAssessment {
   private id: string;
   private frequencyOfUse: string;
   private failureImpactLevel: string;
-  private acceptableDefectRate: number;
+  private acceptableFailureRate: number;
 
   public constructor() {
 
@@ -14,7 +14,7 @@ export class RiskAssessment {
     ra.id = item.id;
     ra.frequencyOfUse = item.frequencyOfUse;
     ra.failureImpactLevel = item.failureImpactLevel;
-    ra.acceptableDefectRate = item.acceptableDefectRate;
+    ra.acceptableFailureRate = item.acceptableFailureRate;
     return ra;
   }
 
@@ -23,7 +23,7 @@ export class RiskAssessment {
       id: ra.id,
       frequencyOfUse: ra.frequencyOfUse,
       failureImpactLevel: ra.failureImpactLevel,
-      acceptableDefectRate: ra.acceptableDefectRate,
+      acceptableFailureRate: ra.acceptableFailureRate,
     };
   }
 }
