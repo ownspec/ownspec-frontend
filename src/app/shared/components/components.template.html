@@ -48,12 +48,27 @@
     </Tree>
 
     <div *ngIf="displayMode=='list'">
-      <div class="foo1" *ngFor="let component of components" draggable="true" (dragstart)="dragStart($event, component)">
-        <div class="foo2">
-          <h4 class="foo3" style="line-height:0.9rem;font-size: 0.9rem;margin-bottom: 4px">{{component.code}} -
-            {{component.title}}</h4>
+
+      <div *ngFor="let component of components" draggable="true" (dragstart)="dragStart($event, component)"
+           class="component-card">
+        <h6>
+          <span style="color: dimgrey;font-size: 0.9rem;font-family: Roboto-Condensed">{{component.code}} -</span>
+          {{component.title}}
+        </h6>
+        <div fxLayout="row">
+          <div fxFlex="80" style="font-size: 0.85rem">
+            <label style="color:gray;">Version:</label> {{component.version}} -
+            <label style="color:gray;">Status:</label> {{component.workflowInstance.currentWorkflowStatus.status.name}}
+          </div>
+          <div fxFlex="20" fxLayoutAlign="end">
+            <button type="button" class="btn btn-secondary btn-xs-tiny" (click)="openUpdateStatus(component)"
+                    md-tooltip="Edit">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 

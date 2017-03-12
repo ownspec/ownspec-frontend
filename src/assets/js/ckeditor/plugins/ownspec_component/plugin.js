@@ -4,6 +4,36 @@ CKEDITOR.plugins.add('ownspec_component', {
   icons: 'ownspec_component',
 
   init: function (editor) {
+    var osWidgetRepo = {};
+
+    function releaseWidgetLock(cvId, widgetId) {
+
+      var isDestroyedWidgetOwnsEditableToken = false;
+
+      if (osWidgetRepo[cvId]) {
+        if (osWidgetRepo[cvId][widgetId]) {
+          var curWidget = editor.widgets.instances[widgetId];
+          isDestroyedWidgetOwnsEditableToken = curWidget.wrapper.findOne("> .requirements > .requirements-content").getAttribute("contenteditable") == "true";
+          delete osWidgetRepo[cvId][widgetId];
+        }
+
+        // Editable token has to be reassigned
+        if (isDestroyedWidgetOwnsEditableToken) {
+          _.forEach(osWidgetRepo[cvId], function (value, curWidgetId) {
+            var curWidget = editor.widgets.instances[curWidgetId];
+            if (!!curWidget) {
+              curWidget.wrapper.findOne("> .requirements > .requirements-content").setAttribute("contenteditable", true);
+              curWidget.wrapper.findOne("> .requirements > .requirements-content").setAttribute("data-os-editable", true);
+              osWidgetRepo[cvId][curWidgetId].editable = true;
+              return false;
+            }
+          });
+        }
+
+      }
+
+
+    }
 
 
     editor.on('paste', function (evt) {
@@ -16,15 +46,15 @@ CKEDITOR.plugins.add('ownspec_component', {
 
       if (component.type != 'RESOURCE') {
 
-        evt.data.dataValue = '<div class="requirements" data-os-cv-id="' + component.id + '">' +
+        evt.data.dataValue = '<div class="requirements" data-os-cv-id="' + component.id + '" data-os-cv-loaded="false">' +
           '<div  class="requirements-id">' + component.code + '</div>' +
-          '<div class="requirements-content" contenteditable="' + component.editable + '"></div>' +
+          '<div class="requirements-content" contenteditable="' + component.editable + '" data-os-editable="' + component.editable + '"></div>' +
           '</div>';
 
-        var r = editor.fire("fetch-ownspec-cv-content", {id: component.id});
-        r.observable.subscribe(function (r) {
-          jQuery(editor.container.$).find(".requirements[data-os-cv-id='" + component.id + "'] .requirements-content").html(r);
-        });
+        /*var r = editor.fire("fetch-ownspec-cv-content", {id: component.id});
+         r.observable.subscribe(function (r) {
+         jQuery(editor.container.$).find(".requirements[data-os-cv-id='" + component.id + "'] .requirements-content").html(r);
+         });*/
 
       } else {
         evt.data.dataValue = '<img src="' + component.url + '" data-os-cv-id="' + component.id + '">';
@@ -33,8 +63,49 @@ CKEDITOR.plugins.add('ownspec_component', {
 
     });
 
+    /**
+     * Synchronize change made on editable component version to non editable component version
+     */
+    function synchronizeChange() {
+      editor.widgets.checkWidgets();
 
-    editor.widgets.add('ownspec_component', {
+      _.forEach(osWidgetRepo, function (osWidgets, cvId) {
+        // Find the editable widget
+        var activeWidgetEntry = _.find(osWidgets, function (v, k) {
+          return v.editable;
+        });
+        // Get its content
+        var activeWidget = editor.widgets.instances[activeWidgetEntry.widgetId];
+        var html = activeWidget.wrapper.findOne("> .requirements > .requirements-content").getHtml();
+        // Paste its content to non editable widget
+        _.forEach(osWidgets, function (v, k) {
+          if (!v.editable) {
+            var curWidget = editor.widgets.instances[v.widgetId];
+
+            curWidget.wrapper.findOne("> .requirements > .requirements-content").setHtml(html);
+
+            var nodeList = curWidget.wrapper.findOne("> .requirements > .requirements-content").find(".requirements-content");
+            for (var ite = 0 ; ite < nodeList.count() ; ite ++){
+              // Revert editable to false
+              nodeList.getItem(ite).setAttribute("contenteditable" , "false");
+              nodeList.getItem(ite).setAttribute("data-os-editable" , "false");
+            }
+
+          }
+        });
+      });
+
+    }
+
+    var synchronizeChangeDebounced = _.debounce(synchronizeChange, 2500, {'maxWait': 10000});
+
+    // CKEditor change event
+    editor.on('change', function () {
+      synchronizeChangeDebounced();
+    });
+
+
+    var w = editor.widgets.add('ownspec_component', {
       // Widget code.
       //button: 'Create a component',
       icons: 'ownspec_component', // %REMOVE_LINE_CORE%
@@ -49,9 +120,14 @@ CKEDITOR.plugins.add('ownspec_component', {
           allowedContent: 'span img h1 h2 h3 h4 h5 div p br ul ol li strong em table tr td tbody[*](*){*}'
         }
       },
-      allowedContent: 'div(!requirements)[!data-os-cv-id,contenteditable]; div(!requirements-id);div(!requirements-content)[contenteditable]',
+      allowedContent: 'div(!requirements)[!data-os-cv-id,contenteditable,data-os-editable,data-os-cv-loaded]; div(!requirements-id);div(!requirements-content)[contenteditable,data-os-editable]',
 
       //requiredContent: 'div(!requirements)[!data-requirement-id,!data-workflow-instance-id]; div(!requirements-id);div(!requirements-content)',
+
+      /*      downcast:function(){
+       return this.wrapper.nestedEditable.getData();
+       //return this.wrapper.getHtml();
+       },*/
 
       upcast: function (element) {
         return element.name == 'div' && element.hasClass('requirements');
@@ -61,33 +137,68 @@ CKEDITOR.plugins.add('ownspec_component', {
 
         var that = this;
 
-        //var isSelected =
-
+        // Handle vertical bar highlighting
         editor.on('selectionChange', function () {
-
+          // Get current focused widget
           var widgetHoldingFocusedEditable = editor.widgets.widgetHoldingFocusedEditable;
 
-          if (!that.wrapper || !that.wrapper.$){
+          if (!that.wrapper || !that.wrapper.$) {
             return;
           }
 
           if (!!widgetHoldingFocusedEditable && that.id === widgetHoldingFocusedEditable.id) {
-            //jQuery(that.wrapper.$).find("> .requirements").addClass("requirements-focused");
             that.wrapper.findOne("> .requirements").addClass("requirements-focused");
-
           } else {
-            //jQuery(that.wrapper.$).find("> .requirements").removeClass("requirements-focused");
             that.wrapper.findOne("> .requirements").removeClass("requirements-focused");
           }
 
-
         });
 
-        this.wrapper.findOne("> .requirements > .requirements-id").on("click" , function(){
+        this.wrapper.findOne("> .requirements > .requirements-id").on("click", function () {
           var cvId = that.wrapper.findOne("> .requirements").getAttribute("data-os-cv-id");
           editor.fire("ownspec-select-cv-id", {id: cvId});
 
         });
+
+
+        var osCvId = that.wrapper.findOne("> .requirements").getAttribute("data-os-cv-id");
+        var isCvLoaded = that.wrapper.findOne("> .requirements").getAttribute("data-os-cv-loaded") != "false";
+
+        if (!osWidgetRepo[osCvId]) {
+          osWidgetRepo[osCvId] = {};
+        }
+
+        if (_.size(osWidgetRepo[osCvId]) > 0) {
+          // A widget for the same CV is already instanciated
+          that.wrapper.findOne("> .requirements > .requirements-content").setAttribute("contenteditable", false);
+          that.wrapper.findOne("> .requirements > .requirements-content").setAttribute("data-os-editable", false);
+        } else {
+          that.wrapper.findOne("> .requirements > .requirements-content").setAttribute("data-os-editable", true);
+        }
+
+        osWidgetRepo[osCvId][this.id] = {
+          osCvId: osCvId,
+          widgetId: this.id,
+          editable: _.size(osWidgetRepo[osCvId]) == 0
+        };
+
+
+        this.on("destroy", function (e) {
+          console.log("destroy ", this);
+          releaseWidgetLock(osCvId, that.id);
+        });
+
+
+        /*var r = editor.fire("fetch-ownspec-cv-content", {id: component.id});
+         r.observable.subscribe(function (r) {
+         jQuery(editor.container.$).find(".requirements[data-os-cv-id='" + component.id + "'] .requirements-content").html(r);
+         });*/
+        if (!isCvLoaded) {
+          editor.ownspec.componentVersionService.getResolvedContent(osCvId).subscribe(function (r) {
+            that.wrapper.findOne("> .requirements > .requirements-content").setHtml(r);
+          });
+        }
+
 
       },
 
@@ -110,13 +221,15 @@ CKEDITOR.plugins.add('ownspec_component', {
 
       }
 
+
     });
+
 
     editor.ui.addButton('ownspec_component', {
       label: 'Create a component',
       command: 'ownspec_component',
       toolbar: 'ownspec'
-    })
+    });
 
 
   }

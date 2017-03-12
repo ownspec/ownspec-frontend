@@ -188,7 +188,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
 
     // CKEditor replace textarea
     this.instance = CKEDITOR.replace(jQuery(this.textarea.nativeElement).find("textarea")[0], config);
-
+    this.instance.ownspec = {componentVersionService: this.componentVersionService};
 
     // Set initial value
     console.log(this.value);
@@ -222,7 +222,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
     });
 
 
-    this.instance.on("ownspec-select-cv-id", (event:any) => {
+    this.instance.on("ownspec-select-cv-id", (event: any) => {
       console.log("select-cv");
       this.editorEvent.emit(EditorEvent.newEditorEvent(event.data.id));
     });

@@ -18,6 +18,13 @@
 
 <div class="main-content-content">
 
+  <div *ngIf="components.length == 0"
+       fxLayout="column"
+       fxLayoutAlign="center center">
+    <h5>Sorry... No results found</h5>
+    <img src="assets/img/sad-face.png">
+  </div>
+
   <div style="display: inline-flex;flex-wrap: wrap">
 
     <md-card *ngFor="let component of components" style="margin: 5px">
