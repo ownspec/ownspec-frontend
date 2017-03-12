@@ -1,5 +1,8 @@
 <main-header *ngIf="component">
-  <div class="main-header-title">Write {{component.code}} - {{component.title}}</div>
+  <div class="main-header-title">
+    <h6 style="font-size: 15px; margin-bottom: 3px">{{component.code}} - {{component.title}}</h6>
+    <h6 style="font-size: 13px; font-weight: 300; margin: 0">Version {{component.version}}</h6>
+  </div>
   <div class="main-header-content" style="display: flex">
     <div *ngIf="saved != null" fxLayoutAlign="end center" style="max-width: 280px; font-size: 13px;padding-right: 15px">
       {{saved ? 'All changes saved' : 'Save pending...'}}
