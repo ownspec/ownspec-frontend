@@ -19,13 +19,12 @@ export class ProjectEditComponent implements OnInit {
 
   @Input("projectId") public id: string;
 
-  public project: Project;
-  public projects: Project[];
+  public project = new Project();
+  public projects: Project[] = [];
   public create = false;
-  private descriptionMaxLength = 200;
   private searchStr = "";
   private dataService: CompleterData;
-  private availableUsers: User[] = [];
+  private users: Observable<User[]>;
 
   public constructor(private route: ActivatedRoute,
                      private linkService: LinkService,
@@ -36,7 +35,6 @@ export class ProjectEditComponent implements OnInit {
                      public snackBar: MdSnackBar) {
 
 
-
   }
 
   ngOnInit(): void {
@@ -44,18 +42,19 @@ export class ProjectEditComponent implements OnInit {
       this.id = this.route.snapshot.params['projectId'];
     }
 
-    this.project = new Project();
-
-    this.projectService.findAll().subscribe(r => this.projects = r);
-
-    let foundUsers: Observable<User[]> = this.userService.findAll();
-    foundUsers.subscribe(r => this.availableUsers = r);
-    this.dataService = this.completerService.local(foundUsers, 'username,fullName', 'fullName').descriptionField('username');
-
+    // Project
     this.create = this.id == '_new';
     if (!this.create) {
       this.projectService.findOne(this.id).subscribe(r => this.project = r);
     }
+
+    // Projects
+    this.projectService.findAll().subscribe(r => this.projects = r);
+
+    // Users
+    this.users = this.userService.findAll();
+    this.dataService = this.completerService.local(this.users, 'username,fullName', 'fullName').descriptionField('username');
+
   }
 
   public save() {

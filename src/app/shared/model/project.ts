@@ -9,7 +9,7 @@ export class Project {
   public lastModifiedDate: Date;
   public createdUser = new User();
   public lastModifiedUser = new User();
-  public manager: User;
+  public manager= new User();
   public projectUsers: User[] = [];
 
   public constructor() {

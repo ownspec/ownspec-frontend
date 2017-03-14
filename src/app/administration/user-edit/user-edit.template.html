@@ -1,58 +1,66 @@
-<div fxLayout="column" style="width: 100%">
-  <div fxLayout="row" style="height: 100%;">
-    <div fxFlex="15"><a role="button"><img md-card-avatar src="assets/img/avatar_m.png"></a></div>
-    <div fxFlex="85">
-      <div fxLayout="column" style="width: 100%">
-        <md-input-container fxFlex>
-          <input mdInput placeholder="Username" [disabled]="!create" type="text" [(ngModel)]="user.username">
-        </md-input-container>
+<form #userEditForm="ngForm" (ngSubmit)="save()">
+  <div fxLayout="column" style="width: 100%">
+    <div fxLayout="row" style="height: 100%;">
+      <div fxFlex="15"><a role="button"><img md-card-avatar src="assets/img/avatar_m.png"></a></div>
+      <div fxFlex="85">
+        <div fxLayout="column" style="width: 100%">
+          <md-input-container fxFlex>
+            <input mdInput
+                   placeholder="Username" [disabled]="!create" type="text" [(ngModel)]="user.username" required
+                   [ngModelOptions]="{standalone: true}">
+          </md-input-container>
 
-        <md-input-container fxFlex>
-          <input mdInput placeholder="First Name" type="text" [(ngModel)]="user.firstName">
-        </md-input-container>
+          <md-input-container fxFlex>
+            <input mdInput placeholder="First Name" type="text" [(ngModel)]="user.firstName"
+                   [ngModelOptions]="{standalone: true}">
+          </md-input-container>
 
-        <md-input-container fxFlex>
-          <input mdInput placeholder="Last Name" type="text" [(ngModel)]="user.lastName">
-        </md-input-container>
+          <md-input-container fxFlex>
+            <input mdInput placeholder="Last Name" type="text" [(ngModel)]="user.lastName"
+                   [ngModelOptions]="{standalone: true}">
+          </md-input-container>
 
-        <md-input-container fxFlex>
-          <input mdInput placeholder="Email" type="email" [(ngModel)]="user.email">
+          <md-input-container fxFlex>
+            <input mdInput placeholder="Email" type="email" [(ngModel)]="user.email" required
+                   [ngModelOptions]="{standalone: true}">
+          </md-input-container>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex="50" style="padding: 5px">
+        <md-input-container>
+          <input mdInput placeholder="Phone" type="tel" [(ngModel)]="user.phone" [ngModelOptions]="{standalone: true}">
+        </md-input-container>
+      </div>
+      <div fxFlex="50" style="padding: 5px">
+        <md-input-container>
+          <input mdInput placeholder="Mobile" type="tel" [(ngModel)]="user.mobile" [ngModelOptions]="{standalone: true}">
         </md-input-container>
       </div>
     </div>
-  </div>
-  <div fxLayout="row">
-    <div fxFlex="50" style="padding: 5px">
-      <md-input-container>
-        <input mdInput placeholder="Phone" type="tel" [(ngModel)]="user.phone">
-      </md-input-container>
-    </div>
-    <div fxFlex="50" style="padding: 5px">
-      <md-input-container>
-        <input mdInput placeholder="Mobile" type="tel" [(ngModel)]="user.mobile">
-      </md-input-container>
-    </div>
-  </div>
 
-  <div fxLayout="row">
-    <md-select fxFlex="50" style="padding: 5px" placeholder="Role" type="" [(ngModel)]="user.role">
-      <md-option value="ADMIN">ADMIN</md-option>
-      <md-option value="USER">USER</md-option>
-    </md-select>
+    <div fxLayout="row" style="margin: 10px">
+      <md-select fxFlex="50" style="padding: 5px" placeholder="Role" required [(ngModel)]="user.role" [ngModelOptions]="{standalone: true}">
+        <md-option value="ADMIN">ADMIN</md-option>
+        <md-option value="USER">USER</md-option>
+      </md-select>
 
-    <md-select fxFlex="50" style="padding: 5px" placeholder="Category" type="">
-      <md-option>Category 1</md-option>
-      <md-option>Category 2</md-option>
-    </md-select>
-  </div>
+      <md-select fxFlex="50" style="padding: 5px" placeholder="Category" required
+                 [(ngModel)]="user.category"
+                 [ngModelOptions]="{standalone: true}">
+        <md-option *ngFor="let category of categories | async" [value]="category">{{category.name}}</md-option>
+      </md-select>
+    </div>
 
 
-  <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 10px">
-    <div fxFlex>
-      <button md-button (click)="save()">SAVE</button>
-    </div>
-    <div fxFlex>
-      <button md-button (click)="cancel()">CANCEL</button>
+    <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 10px">
+      <div fxFlex>
+        <button [disabled]="!userEditForm.valid" md-button type="submit">SAVE</button>
+      </div>
+      <div fxFlex>
+        <button md-button (click)="cancel()">CANCEL</button>
+      </div>
     </div>
   </div>
-</div>
+</form>

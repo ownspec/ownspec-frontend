@@ -1,7 +1,6 @@
 import {NgModule} from "@angular/core";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {MaterialModule} from "@angular/material";
-import {ReferenceComponent} from "../shared/reference/reference.component";
 import {UserCategoriesListComponent} from "./user-category-edit/list/user-categories-list.component";
 import {AdministrationComponent} from "./administration.component";
 import {TreeModule} from "angular2-tree-component";
@@ -21,7 +20,6 @@ import {UserService} from "../shared/service/user/user.service";
 import {ProjectService} from "../shared/service/project.service";
 import {CompanyService} from "../shared/service/company.service";
 import {UserCategoryService} from "../shared/service/user/user-category.service";
-import {MainHeaderComponent} from "../header/main-header.component";
 import {SharedModule} from "../shared/shared.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {UserCategoryEditDialog} from "./user-category-edit/edit/user-category-edit.component";

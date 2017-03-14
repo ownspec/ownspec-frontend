@@ -51,7 +51,7 @@
               </md-card-title>
               <md-card-subtitle>
                 <h6 style="font-size: 0.9rem;">{{user.email}}</h6>
-                <h6 *ngIf="user.category" style="font-size: 0.8rem;">{{user.category.name}} ({{user.role}})</h6>
+                <h6 style="font-size: 0.8rem;">{{user.category.name}} ({{user.role}})</h6>
               </md-card-subtitle>
             </md-card-header>
             <div fxFlex="10%">
@@ -60,9 +60,10 @@
               </button>
               <md-menu #userCardMenu="mdMenu">
                 <button md-menu-item (click)="edit(user)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                <button md-menu-item (click)="resetPassword(user)"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Reset password</button>
-                <button md-menu-item (click)="disable(user)"><i class="fa fa-ban" aria-hidden="true"></i> Disable</button>
-                <button md-menu-item (click)="remove(user)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                <button [disabled]="!user.enabled" md-menu-item (click)="sendChangePasswordEmail(user)"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Reset password</button>
+                <button *ngIf="user.enabled" md-menu-item (click)="disable(user)"><i class="fa fa-ban" aria-hidden="true"></i> Disable</button>
+                <button *ngIf="!user.enabled" md-menu-item (click)="enable(user)"><i class="fa fa-ban" aria-hidden="true"></i> Enable</button>
+                <button *ngIf="!user.enabled && !user.lastConnection" md-menu-item (click)="resendRegistrationConfirmationEmail(user)"><i class="fa fa-refresh" aria-hidden="true"></i> Resend registration email</button>
               </md-menu>
             </div>
           </md-card>

@@ -69,7 +69,7 @@
                        fxFlex="70"
                        placeholder="Manager"
                        name="manager" type="">
-              <md-option *ngFor="let user of availableUsers" [value]="user">{{user.username}}</md-option>
+              <md-option *ngFor="let user of users | async" change="" [value]="user">{{user.username}}</md-option>
             </md-select>
           </div>
         </md-card-content>

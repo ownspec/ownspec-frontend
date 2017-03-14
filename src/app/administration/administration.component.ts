@@ -1,12 +1,11 @@
 "use strict";
 import {Component, OnInit} from "@angular/core";
 import {User} from "../shared/model/user/user";
-import {Company} from "../shared/model/company";
-import {UserCategory} from "../shared/model/user/user-category";
 import {UserService} from "../shared/service/user/user.service";
 import {CompanyService} from "../shared/service/company.service";
 import {MdSnackBar, MdDialog, MdDialogRef} from "@angular/material";
 import {UserEditorDialog} from "./user-edit/user-edit.component";
+import {Globals} from "../shared/globals";
 
 @Component({
   selector: 'administration',
@@ -17,8 +16,6 @@ import {UserEditorDialog} from "./user-edit/user-edit.component";
 export class AdministrationComponent implements OnInit {
 
   private users: User[] = [];
-  private userCategories: UserCategory[] = [];
-  private company: Company = new Company();
   private searchInput = "";
 
   public constructor(private userService: UserService,
@@ -29,18 +26,6 @@ export class AdministrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUsers();
-
-    // this.userService.findAllUserCategories().subscribe(r => {
-    //   this.userCategories = r;
-    // }, e => {
-    //   this.snackBar.open("Failed to retrieve all user categories");
-    // });
-
-    // this.companyService.getCurrent().subscribe(r => {
-    //   this.company = r;
-    // }, e => {
-    //   this.snackBar.open("Failed to get current company settings", "Signal", {duration: Globals.SNACK_BAR_DURATION});
-    // })
   }
 
   fetchUsers() {
@@ -66,22 +51,29 @@ export class AdministrationComponent implements OnInit {
     })
   }
 
-  resetPassword(user: User) {
+  sendChangePasswordEmail(user: User) {
+    this.userService.sendChangePasswordEmail(user).subscribe(r => {
+      this.snackBar.open("Change password request successfully register", "x", {duration: Globals.SNACK_BAR_DURATION});
+    }, e => {
+      this.snackBar.open("Failed to register a password change request", "x", {duration: Globals.SNACK_BAR_DURATION});
+    });
+  }
 
+  enable(user: User) {
+    user.enabled = true;
+    this.userService.update(user).subscribe(r => {
+      this.snackBar.open("User successfully enabled", "x", {duration: Globals.SNACK_BAR_DURATION});
+      this.fetchUsers();
+    }, e => {
+      this.snackBar.open("Failed to enable user", "x", {duration: Globals.SNACK_BAR_DURATION});
+    });
   }
 
   disable(user: User) {
-
+    this.userService.disable(user).subscribe();
   }
 
-  remove(user: User) {
-    this.userService.delete(user).subscribe(
-        s => {
-          this.snackBar.open(user.fullName + " successfully deleted");
-        },
-        e => {
-          this.snackBar.open("Failed to delete " + user.fullName, "x");
-        }
-    )
+  resendRegistrationConfirmationEmail(user: User) {
+    this.userService.resendRegistrationConfirmationEmail(user).subscribe();
   }
 }

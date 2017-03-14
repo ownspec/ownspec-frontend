@@ -19,7 +19,7 @@ export class UserCategory {
   public static toMap(userCategory: UserCategory): any {
     return {
       id: userCategory.id,
-      category: userCategory.name,
+      name: userCategory.name,
       hourlyPrice: userCategory.hourlyPrice,
     };
   }

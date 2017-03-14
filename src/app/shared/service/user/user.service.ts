@@ -2,12 +2,9 @@ import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {User} from "../../model/user/user";
-import {UserCategory} from "../../model/user/user-category";
 
 @Injectable()
 export class UserService {
-
-
   public constructor(private http: Http) {
 
   }
@@ -29,8 +26,20 @@ export class UserService {
     return this.http.post("/api/users/new", User.toMap(user));
   }
 
-  public confirmRegistration(confirmationToken: string, password: string): Observable<any> {
-    return this.http.post("api/auth/registrationConfirmation/" + confirmationToken, password);
+  public confirmRegistration(token: string, password: string): Observable<any> {
+    return this.http.post("api/auth/registration/confirmation/" + token, password);
+  }
+
+  public resendRegistrationConfirmationEmail(user: User): Observable<any> {
+    return this.http.post("/api/auth/registration/confirmation/resend/" + user.id, {});
+  }
+
+  public changePassword(user: User, password: string) {
+    return this.http.patch("/api/auth/user/" + user.id + "/password", password);
+  }
+
+  public sendChangePasswordEmail(user: User): Observable<any> {
+    return this.http.post("/api/auth/user/" + user.id + "/password", {});
   }
 
   public getCurrent(): Observable<User> {
@@ -50,27 +59,12 @@ export class UserService {
         .toArray();
   }
 
-  public save(user: User): Observable<any> {
-    return this.http.post("/api/users/" + user.id, User.toMap(user));
+  public update(user: User): Observable<any> {
+    return this.http.patch("/api/users/" + user.id, User.toMap(user));
   }
 
-  public delete(user: User): Observable<any> {
+  public disable(user: User): Observable<any> {
     return this.http.delete("/api/users/" + user.id, {});
-  }
-
-  public findAllUserCategories(): Observable<UserCategory[]> {
-    return this.http.get("/api/users/categories")
-        .flatMap(r => r.json())
-        .map(item => UserCategory.fromMap(item))
-        .toArray();
-  }
-
-  public saveUserCategory(uc: UserCategory): Observable<any> {
-    return this.http.post("/api/users/categories/" + uc.id, UserCategory.toMap(uc));
-  }
-
-  public removeUserCategory(uc: UserCategory): Observable<any> {
-    return this.http.delete("/api/users/categories/" + uc.id);
   }
 }
 
