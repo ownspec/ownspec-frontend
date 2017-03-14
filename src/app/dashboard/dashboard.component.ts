@@ -53,9 +53,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let documents: ComponentVersion[];
-    let requirements: ComponentVersion[];
-    let templatesAndComponents: ComponentVersion[];
+    let documents: ComponentVersion[]= [];
+    let requirements: ComponentVersion[] =[];
+    let templatesAndComponents: ComponentVersion[]= [];
 
     this.sharedService.stateIsInAProjectEvent.subscribe(result => {
       this.stateIsInAProject = result.isInAProject;
@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
       this.projectsNumber = response.length;
     });
 
-    this.componentVersionService.findAll(null, null, null, ["DOCUMENT", "REQUIREMENT", "TEMPLATE", "COMPONENT"]).subscribe(response => {
+    this.componentVersionService.findAll(null, true, null, ["DOCUMENT", "REQUIREMENT", "TEMPLATE", "COMPONENT"]).subscribe(response => {
       documents = response.filter((c: ComponentVersion) => c.type == "DOCUMENT");
       requirements = response.filter((c: ComponentVersion) => c.type == "REQUIREMENT");
       templatesAndComponents = response.filter((c: ComponentVersion) => c.type == "TEMPLATE" || c.type == "COMPONENT");
