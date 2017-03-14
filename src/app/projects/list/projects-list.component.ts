@@ -5,6 +5,7 @@ import {Component as C, OnInit} from "@angular/core";
 import {ProjectService} from "../../shared/service/project.service";
 import {Project} from "../../shared/model/project";
 import {LinkService} from "../../shared/service/link.service";
+import {Observable} from "rxjs";
 
 
 @C({
@@ -14,7 +15,7 @@ import {LinkService} from "../../shared/service/link.service";
 })
 export class ProjectsListComponent implements OnInit {
 
-  public projects: Project[] = [];
+  public projects: Observable<Project[]>;
 
 
   public constructor(private linkService: LinkService,
@@ -27,9 +28,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   private fetchProjects() {
-    this.projectService.findAll().subscribe(o => {
-      this.projects = o;
-    });
+    this.projects = this.projectService.findAll();
   }
 
   public show(projectId) {
