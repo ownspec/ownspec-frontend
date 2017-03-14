@@ -21,9 +21,9 @@
 </main-header>
 
 <div fxLayout="column" style="overflow: auto;width: 100%; padding: 5px">
-  <div fxLayout="row" fxLayoutWrap>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap>
     <!-- General Info -->
-    <div fxFlex="70" fxFlex.sm="100" style="padding: 5px">
+    <div fxFlex="7 0 250px" style="padding: 5px">
       <md-card>
         <md-card-content fxLayout="column">
           <div fxLayout="row" fxLayoutWrap>
@@ -76,7 +76,7 @@
       </md-card>
     </div>
 
-    <div fxFlex fxLayout="column">
+    <div fxFlex="3 0 150px" fxLayout="column">
 
       <!-- History -->
       <div style="padding: 5px ;">
@@ -116,7 +116,7 @@
                   <img md-card-avatar src="assets/img/avatar_m.png">
                   <md-card-title>{{user.fullName}}</md-card-title>
                   <md-card-subtitle>Project Manager</md-card-subtitle>
-                  <button role="button" (click)="removeUserFromProject(user)"><i class="fa fa-trash-o"
+                  <button role="button" (click)="deleteUserFromProject(user)"><i class="fa fa-trash-o"
                                                                                  aria-hidden="true"></i></button>
                 </md-card-header>
               </md-card>

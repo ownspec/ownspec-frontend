@@ -8,11 +8,11 @@ import {User} from "../model/user/user";
 @Injectable()
 export class ProjectService {
 
-  public constructor(private $http: Http) {
+  public constructor(private http: Http) {
   }
 
   public findOne(id: string): Observable<Project> {
-    return this.$http.get("/api/projects/" + id).map(r => Project.fromMap(r.json()));
+    return this.http.get("/api/projects/" + id).map(r => Project.fromMap(r.json()));
   }
 
   public findAll(): Observable<Project[]> {
@@ -23,7 +23,7 @@ export class ProjectService {
     let params: URLSearchParams = new URLSearchParams();
     params.append("mode", mode);
 
-    return this.$http.get("/api/projects", {search: params})
+    return this.http.get("/api/projects", {search: params})
         .flatMap(r => r.json())
         .map((item: any) => {
           return Project.fromMap(item);
@@ -32,31 +32,35 @@ export class ProjectService {
 
 
   public save(toSave: Project): Observable<boolean> {
-    return this.$http.patch("/api/projects/" + toSave.id + "/update", Project.toMap(toSave))
+    return this.http.patch("/api/projects/" + toSave.id + "/update", Project.toMap(toSave))
         .map(r => r.status == 200);
   }
 
-  create(toSave: Project) {
-    return this.$http.post("/api/projects", Project.toMap(toSave))
+  public create(toSave: Project) {
+    return this.http.post("/api/projects", Project.toMap(toSave))
         .map(r => r.status == 200);
   }
 
-  getLastVisited(): Observable<Project[]> {
+  public getLastVisited(): Observable<Project[]> {
     return this.fetchAll("LAST_VISITED_ONLY").toArray();
   }
 
-  getFavorites(): Observable<Project[]> {
+  public getFavorites(): Observable<Project[]> {
     return this.fetchAll("FAVORITES_ONLY").toArray();
   }
 
-  addVisit(projectId: number) {
-    this.$http.post("/api/projects/" + projectId + "/addVisit", {}).subscribe(r => {
-
+  public addVisit(projectId: number) {
+    this.http.post("/api/projects/" + projectId + "/addVisit", {}).subscribe(r => {
     }, e => {
       //todo handle exception
     });
   }
-  removeUserFromProject(project: Project, user: User): Observable<any> {
-    return this.$http.delete("/api/projects/" + project.id + "/" + user.username, {});
+
+  public deleteUserFromProject(user: User, project: Project): Observable<any> {
+    return this.http.delete("/api/projects/" + project.id + "/" + user.username, {});
+  }
+
+  public delete(project: Project): Observable<any> {
+    return this.http.delete("/api/projects/" + project.id);
   }
 }

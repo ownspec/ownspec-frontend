@@ -85,9 +85,9 @@ export class ProjectEditComponent implements OnInit {
     }
   }
 
-  public removeUserFromProject(user: User) {
+  public deleteUserFromProject(user: User) {
     if (!this.create) {
-      this.projectService.removeUserFromProject(this.project, user).subscribe(() => {
+      this.projectService.deleteUserFromProject(user, this.project).subscribe(() => {
         this.snackBar.open("User successfully removed from project", "Undo", {duration: Globals.SNACK_BAR_DURATION});
       }, () => {
         this.snackBar.open("Failed to remove user from project", "", {duration: Globals.SNACK_BAR_DURATION});

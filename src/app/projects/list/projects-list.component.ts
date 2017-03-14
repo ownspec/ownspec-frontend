@@ -6,6 +6,8 @@ import {ProjectService} from "../../shared/service/project.service";
 import {Project} from "../../shared/model/project";
 import {LinkService} from "../../shared/service/link.service";
 import {Observable} from "rxjs";
+import {MdSnackBar} from "@angular/material";
+import {Globals} from "../../shared/globals";
 
 
 @C({
@@ -19,7 +21,8 @@ export class ProjectsListComponent implements OnInit {
 
 
   public constructor(private linkService: LinkService,
-                     private projectService: ProjectService) {
+                     private projectService: ProjectService,
+                     private snackBar: MdSnackBar) {
   }
 
 
@@ -37,6 +40,15 @@ export class ProjectsListComponent implements OnInit {
 
   public edit(project: Project) {
     this.linkService.gotoProjectEditor(project.id);
+  }
+
+  public delete(project: Project) {
+    this.projectService.delete(project).subscribe(r => {
+      this.fetchProjects();
+      this.snackBar.open(r, "undo",{duration: Globals.SNACK_BAR_DURATION})
+    }, e => {
+      this.snackBar.open(e, "x", {duration: Globals.SNACK_BAR_DURATION});
+    });
   }
 
   public addVisit(projectId: number) {
