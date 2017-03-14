@@ -138,19 +138,18 @@
       </div>
 
       <!-- Pie and Doughnut chart-->
-      <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
+      <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" fxLayout="row" fxLayoutWrap>
 
-        <div fxLayout="row" fxLayoutWrap>
           <!-- Requirement Coverage -->
           <div fxFlex="50" fxFlex.xs="100" style="padding: 5px;">
-            <md-card fxLayout="column">
+            <md-card fxLayout="column" style="height: 100%">
               <div fxLayout="row" fxLayoutAlign="center">
                 <md-card-header fxFlex>
                   <md-card-title><h6>Requirement Coverage</h6></md-card-title>
                   <md-card-subtitle>Testing</md-card-subtitle>
                 </md-card-header>
               </div>
-              <md-card-content fxFlex>
+              <md-card-content fxFlex style="height: 100%; width: 100%">
                 <div class="canvas-container">
                   <canvas baseChart
                           [chartType]="requirementCoverageChartType"
@@ -166,7 +165,7 @@
 
           <!-- Requirement Type -->
           <div fxFlex="50" fxFlex.xs="100" style="padding: 5px;">
-            <md-card fxLayout="column" fxLayoutAlign="space-between stretch">
+            <md-card fxLayout="column" style="height: 100%">
               <div fxLayout="row">
                 <md-card-header fxFlex>
                   <md-card-title><h6>Requirement Type</h6></md-card-title>
@@ -185,7 +184,6 @@
                 </div>
               </md-card-content>
             </md-card>
-          </div>
         </div>
       </div>
     </div>
