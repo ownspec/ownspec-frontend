@@ -2,11 +2,8 @@
 
 
 import {Component as C, Input, OnInit} from "@angular/core";
-import {ComponentService} from "../../service/component/component.service";
-import {ProfilService} from "../../service/users/profil.service";
-import {TagService} from "../../service/component/tag.service";
-import {ComponentVersion} from "../../service/component/component-version";
-import {ProfileService} from "../../service/user/profil.service";
+import {ComponentVersion} from "../../shared/model/component/component-version";
+import {ComponentService} from "../../shared/service/components/component.service";
 
 
 @C({
@@ -21,7 +18,7 @@ export class ComponentContentComponent implements OnInit {
 
   private content: string;
 
-  public constructor(private componentService: ComponentService, private profileService: ProfileService, private tagService: TagService) {
+  public constructor(private componentService: ComponentService) {
   }
 
   ngOnInit(): void {

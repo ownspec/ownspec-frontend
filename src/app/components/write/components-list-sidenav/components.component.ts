@@ -1,17 +1,20 @@
 "use strict";
 
 
-import {Component as C, Input, OnInit, Output, EventEmitter} from "@angular/core";
-import {ComponentService} from "../service/component/component.service";
+import {Component as C, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {ComponentService} from "../../../shared/service/components/component.service";
 import {ProfilService} from "../service/users/profil.service";
-import {Component} from "../model/component/component";
-import {TagService} from "../service/component/tag.service";
+import {Component} from "../../../shared/model/component/component";
+import {TagService} from "../../../shared/service/tag.service";
 import * as _ from "lodash";
-import {ProfileService} from "../service/user/profil.service";
-import {ComponentVersion} from "../service/component/component-version";
-import {ComponentVersionService} from "../service/component/component-versions.service";
+import {ProfileService} from "../../../shared/service/user/profil.service";
+import {ComponentVersion} from "../../../shared/model/component/component-version";
+import {ComponentVersionService} from "../../../shared/service/components/component-versions.service";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {LinkService} from "../../../link/link.service";
+import {ComponentHelperService} from "../../helper/helper";
+import {EditorEvent} from "../component-write.component";
 
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
@@ -35,6 +38,9 @@ export class ComponentsComponent implements OnInit {
   public projectId: string;
 
   @Input()
+  public editorEvent: EventEmitter<EditorEvent>;
+
+  @Input()
   public types: string[] = [];
 
   @Output()
@@ -48,21 +54,18 @@ export class ComponentsComponent implements OnInit {
   public displayMode: "tree" | "list" = "list";
 
 
-  public constructor(private route: ActivatedRoute, private componentService: ComponentService,
+  public constructor(private route: ActivatedRoute,
                      private componentVersionService: ComponentVersionService,
-                     private profileService: ProfileService, private tagService: TagService) {
+                     private componentHelperService: ComponentHelperService) {
   }
 
 
   ngOnInit(): void {
     Observable.combineLatest(this.route.params, this.route.data, (params, data) => ({params, data}))
-        .subscribe(ap => {
-          console.log("projectid ", ap.params);
-
-          this.projectId = ap.params['projectId'];
-          console.log("projectid ", ap.params, this.projectId);
-          this.search();
-        });
+      .subscribe(ap => {
+        this.projectId = ap.params['projectId'];
+        this.search();
+      });
 
 
   }
@@ -108,5 +111,18 @@ export class ComponentsComponent implements OnInit {
       console.log(tree);
     });
   }
+
+  public startCreateComponent() {
+    this.componentHelperService.startCreateComponent(this.types[0], this.projectId).componentInstance.update.subscribe(c => {
+      this.search();
+    });
+  }
+
+  public edit(cv: ComponentVersion) {
+    if (this.editorEvent) {
+      this.editorEvent.emit(new EditorEvent(cv.id));
+    }
+  }
+
 
 }

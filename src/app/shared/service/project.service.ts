@@ -32,7 +32,7 @@ export class ProjectService {
 
 
   public save(toSave: Project): Observable<boolean> {
-    return this.http.patch("/api/projects/" + toSave.id + "/update", Project.toMap(toSave))
+    return this.http.patch("/api/projects/" + toSave.id, Project.toMap(toSave))
         .map(r => r.status == 200);
   }
 

@@ -3,8 +3,8 @@ import {Component as C, OnInit} from "@angular/core";
 import {SharedService} from "../shared/service/shared.service";
 import {ProjectService} from "../shared/service/project.service";
 import {Project} from "../shared/model/project";
-import {ComponentVersionService} from "../shared/service/component/component-versions.service";
-import {ComponentVersion} from "../shared/service/component/component-version";
+import {ComponentVersionService} from "../shared/service/components/component-versions.service";
+import {ComponentVersion} from "../shared/model/component/component-version";
 
 require("chart.js/src/chart.js");
 

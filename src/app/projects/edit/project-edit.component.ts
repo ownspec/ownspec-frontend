@@ -9,7 +9,7 @@ import {Project} from "../../shared/model/project";
 import {User} from "../../shared/model/user/user";
 import {Globals} from "../../shared/globals";
 import {ActivatedRoute} from "@angular/router";
-import {LinkService} from "../../shared/service/link.service";
+import {LinkService} from "../../link/link.service";
 
 @Component({
   selector: 'project-edit',
@@ -70,7 +70,6 @@ export class ProjectEditComponent implements OnInit {
     obs.subscribe(r => {
       let status = this.create ? "created" : "updated";
       this.snackBar.open("Project successfully " + status, "Close");
-      this.linkService.gotoParent(this.route);
     }, e => {
       this.snackBar.open("Error when trying to create/update project", "Close");
     });

@@ -4,7 +4,7 @@
 import {Component as C, OnInit} from "@angular/core";
 import {ProjectService} from "../../shared/service/project.service";
 import {Project} from "../../shared/model/project";
-import {LinkService} from "../../shared/service/link.service";
+import {LinkService} from "../../link/link.service";
 import {Observable} from "rxjs";
 import {MdSnackBar} from "@angular/material";
 import {Globals} from "../../shared/globals";

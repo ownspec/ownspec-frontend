@@ -15,7 +15,7 @@ import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_a
 import {TocGenerator, TocItem} from "./toc-generator";
 import * as _ from "lodash";
 import * as jQuery from "jquery";
-import {ComponentVersionService} from "../service/component/component-versions.service";
+import {ComponentVersionService} from "../service/components/component-versions.service";
 import {EditorEvent} from "../../components/write/component-write.component";
 
 declare var CKEDITOR: any;
@@ -47,8 +47,8 @@ declare var CKEDITOR: any;
 export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
 
   @Input() config;
-  @Input() debounceData: number = 0;
-  @Input() debounceToc: number = 0;
+  @Input() debounceData: number = 500;
+  @Input() debounceToc: number = 500;
 
   private debouncedData: any;
   private debouncedToc: any;
@@ -211,7 +211,7 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
       }
 
       this.debouncedData();
-      this.onTouched();
+      //this.onTouched();
       this.debouncedToc();
     });
 

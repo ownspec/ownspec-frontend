@@ -2,8 +2,8 @@ import {ElementRef, Directive, Input} from "@angular/core";
 
 import * as jQuery from "jquery";
 
-@Directive({selector: '[myHighlight]'})
-export class HighlightDirective {
+@Directive({selector: '[resizable]'})
+export class ResizableDirective {
 
   @Input()
   rDirections;

@@ -69,6 +69,13 @@ export class WriteSideNavComponent implements OnInit {
   ngOnInit(): void {
     this.activeTab = this.menus[0];
 
+    this.editorEvent.subscribe(e => {
+      if (this.menus.indexOf("component") != -1){
+        this.activeTab = "component";
+        this.menuState = "in";
+      }
+    });
+
   }
 
   public onUpdate(event: ComponentUpdate) {

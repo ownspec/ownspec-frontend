@@ -1,14 +1,16 @@
-import {WorkflowInstance} from "../../model/component/workflow/workflow-instance";
-import {ComponentReference} from "../../model/component/component-reference";
-import {EstimatedTime} from "../../model/component/estimated-time";
-import {User} from "../../model/user/user";
-import {RiskAssessment} from "../../model/component/risk-assessment";
+import {WorkflowInstance} from "./workflow/workflow-instance";
+import {ComponentReference} from "./component-reference";
+import {EstimatedTime} from "./estimated-time";
+import {User} from "../user/user";
+import {RiskAssessment} from "./risk-assessment";
 
 export class ComponentVersion {
   public content: string;
   public summary: string;
 
   public version: string;
+
+  public codeNumber: number;
 
   public creationDate: Date;
   public lastModifiedDate: Date;
@@ -44,6 +46,7 @@ export class ComponentVersion {
 
     let c = new ComponentVersion(this.id, this.componentId, this.title, this.code, this.projectId, this.type);
 
+    c.codeNumber = this.codeNumber;
     c.version = this.version;
     c.content = this.content;
     c.summary = this.summary;
@@ -75,6 +78,7 @@ export class ComponentVersion {
   public static fromMap(item: any): ComponentVersion {
     let component: ComponentVersion = new ComponentVersion(item.id, item.componentId, item.title, item.code, item.projectId, item.type);
 
+    component.codeNumber = item.codeNumber;
     component.version = item.version;
 
     component.creationDate = new Date(<string>item.createdDate);

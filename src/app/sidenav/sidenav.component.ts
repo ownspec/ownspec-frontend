@@ -1,9 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {SharedService} from "../shared/service/shared.service";
-import {StateSelector} from "ui-router-visualizer";
 import {User} from "../shared/model/user/user";
+import {SharedService} from "../shared/service/shared.service";
 import {UserService} from "../shared/service/user/user.service";
-import {LinkService} from "../shared/service/link.service";
+import {LinkService} from "../link/link.service";
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise

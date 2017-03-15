@@ -2,12 +2,12 @@
 
 
 import {Component as C, OnInit, Output, EventEmitter} from "@angular/core";
-import {ComponentService} from "../service/component/component.service";
-import {ComponentUpdate} from "../../components/write/component-write.component";
 import {MdDialogRef} from "@angular/material";
-import {ComponentVersion} from "../service/component/component-version";
-import {ComponentVersionService} from "../service/component/component-versions.service";
-import {ComponentReference} from "../model/component/component-reference";
+import {ComponentReference} from "../shared/model/component/component-reference";
+import {ComponentVersion} from "../shared/model/component/component-version";
+import {ComponentUpdate} from "../components/write/component-write.component";
+import {ComponentService} from "../shared/service/components/component.service";
+import {ComponentVersionService} from "../shared/service/components/component-versions.service";
 
 @C({
   selector: 'reference',

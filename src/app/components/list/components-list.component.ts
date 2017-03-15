@@ -1,15 +1,16 @@
 "use strict";
 
 
-import {ComponentService} from "../../shared/service/component/component.service";
+import {ComponentService} from "../../shared/service/components/component.service";
 import {Component as C, OnInit, Input, ApplicationRef} from "@angular/core";
-import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
-import {ComponentVersion} from "../../shared/service/component/component-version";
+import {ComponentVersionService} from "../../shared/service/components/component-versions.service";
+import {ComponentVersion} from "../../shared/model/component/component-version";
 import {ActivatedRoute} from "@angular/router";
-import {LinkService} from "../../shared/service/link.service";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {ComponentCreatorDialog} from "../create/component-create.component";
 import {Observable} from "rxjs";
+import {LinkService} from "../../link/link.service";
+import {ComponentHelperService} from "../helper/helper";
 
 
 /*
@@ -46,6 +47,7 @@ export class ComponentsListComponent implements OnInit {
                      public dialog: MdDialog,
                      private route: ActivatedRoute,
                      public linkService: LinkService,
+                     public componentHelperService:ComponentHelperService,
                      private componentService: ComponentService,
                      private componentVersionService: ComponentVersionService) {
     this.projectId = null;
@@ -81,10 +83,7 @@ export class ComponentsListComponent implements OnInit {
   }
 
   public startCreateComponent() {
-    let componentCreatorDialogRef: MdDialogRef<ComponentCreatorDialog> = this.dialog.open(ComponentCreatorDialog);
-    componentCreatorDialogRef.componentInstance.componentType = this.componentTypes[0];
-    componentCreatorDialogRef.componentInstance.projectId = this.projectId;
-    componentCreatorDialogRef.componentInstance.update.subscribe(c => {
+    this.componentHelperService.startCreateComponent(this.componentTypes[0], this.projectId).componentInstance.update.subscribe(c => {
       this.fetchComponents();
     });
   }
@@ -99,7 +98,7 @@ export class ComponentsListComponent implements OnInit {
 
 
   public openUpdateStatus(c: ComponentVersion) {
-    this.linkService.openUpdateStatus(c).subscribe(c => {
+    this.componentHelperService.openUpdateStatus(c).subscribe(c => {
       c.dlg.close();
       this.fetchComponents();
     });

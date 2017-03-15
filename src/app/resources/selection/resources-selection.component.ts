@@ -3,10 +3,10 @@
 
 import {Component as C, Input, OnInit, Output, EventEmitter} from "@angular/core";
 import {Component} from "../../shared/model/component/component";
-import {ComponentService} from "../../shared/service/component/component.service";
+import {ComponentService} from "../../shared/service/components/component.service";
 import {ProfileService} from "../../shared/service/user/profil.service";
-import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
-import {ComponentVersion} from "../../shared/service/component/component-version";
+import {ComponentVersionService} from "../../shared/service/components/component-versions.service";
+import {ComponentVersion} from "../../shared/model/component/component-version";
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from

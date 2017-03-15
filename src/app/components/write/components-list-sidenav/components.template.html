@@ -16,6 +16,9 @@
             <button md-button class="tools" (click)="displayMode='tree'"><i class="fa fa-level-down"
                                                                             aria-hidden="true"></i></button>
           </md-menu>
+
+          <button md-button class="tools" (click)="startCreateComponent()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
         </div>
         <input mdInput name="componentTitle" placeholder="Search..." [(ngModel)]="searchQuery" name="search">
 
@@ -61,7 +64,7 @@
             <label style="color:gray;">Status:</label> {{component.workflowInstance.currentWorkflowStatus.status.name}}
           </div>
           <div fxFlex="20" fxLayoutAlign="end">
-            <button type="button" class="btn btn-secondary btn-xs-tiny" (click)="openUpdateStatus(component)"
+            <button type="button" class="btn btn-secondary btn-xs-tiny" (click)="edit(component)"
                     md-tooltip="Edit">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>

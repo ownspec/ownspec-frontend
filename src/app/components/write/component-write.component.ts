@@ -7,10 +7,10 @@ import * as _ from "lodash";
 import {SharedService} from "../../shared/service/shared.service";
 import {TocGenerator, TocItem} from "../../shared/ckeditor/toc-generator";
 import {CKEditorComponent} from "../../shared/ckeditor/ckeditor.component";
-import {ComponentVersion} from "../../shared/service/component/component-version";
-import {LinkService} from "../../shared/service/link.service";
+import {ComponentVersion} from "../../shared/model/component/component-version";
 import {ActivatedRoute} from "@angular/router";
-import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
+import {ComponentVersionService} from "../../shared/service/components/component-versions.service";
+import {LinkService} from "../../link/link.service";
 
 
 @C({

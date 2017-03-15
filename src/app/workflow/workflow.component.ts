@@ -1,17 +1,16 @@
 "use strict";
 
 
-import {Component as C, Input, OnInit, Output, EventEmitter, NgZone} from "@angular/core";
-import {ComponentService} from "../service/component/component.service";
-import {ProfilService} from "../service/users/profil.service";
+import {Component as C, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Component} from "../model/component/component";
-import {Change} from "../model/component/change";
-import {ProfileService} from "../service/user/profil.service";
-import {ComponentVersion} from "../service/component/component-version";
-import {ComponentVersionService} from "../service/component/component-versions.service";
-import {ComponentUpdate} from "../../components/write/component-write.component";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {UpdateWorkflowComponent} from "./update/workflow-update.component";
+import {ComponentVersion} from "../shared/model/component/component-version";
+import {ComponentUpdate} from "../components/write/component-write.component";
+import {ComponentService} from "../shared/service/components/component.service";
+import {ComponentVersionService} from "../shared/service/components/component-versions.service";
+import {Change} from "../shared/model/component/change";
+import {ProfileService} from "../shared/service/user/profil.service";
 
 
 @C({

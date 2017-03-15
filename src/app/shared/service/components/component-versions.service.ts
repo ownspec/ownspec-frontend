@@ -1,7 +1,7 @@
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams} from "@angular/http";
-import {ComponentVersion} from "./component-version";
+import {ComponentVersion} from "../../model/component/component-version";
 import {WorkflowStatus} from "../../model/component/workflow/workflow-status";
 
 @Injectable()

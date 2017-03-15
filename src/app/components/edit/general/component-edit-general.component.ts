@@ -1,9 +1,9 @@
 "use strict";
 import {Component as C, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {MdSnackBar, MdDialogRef, MdDialog} from "@angular/material";
-import {ComponentVersion} from "../../../shared/service/component/component-version";
+import {ComponentVersion} from "../../../shared/model/component/component-version";
 import {Observable} from "rxjs";
-import {ComponentVersionService} from "../../../shared/service/component/component-versions.service";
+import {ComponentVersionService} from "../../../shared/service/components/component-versions.service";
 import {ComponentUpdate} from "../../write/component-write.component";
 import "rxjs/add/operator/startWith";
 import {UserCategory} from "../../../shared/model/user/user-category";

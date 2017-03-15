@@ -2,13 +2,11 @@
 
 
 import {Component as C, Input, OnInit, Output, EventEmitter, NgZone, ViewChild} from "@angular/core";
-import {ComponentService} from "../../service/component/component.service";
-import {Component} from "../../model/component/component";
-import {Change} from "../../model/component/change";
-import {ComponentVersion} from "../../service/component/component-version";
-import {ProfileService} from "../../service/user/profil.service";
-import {ComponentVersionService} from "../../service/component/component-versions.service";
-import {ComponentUpdate} from "../../../components/write/component-write.component";
+import {ComponentVersion} from "../../shared/model/component/component-version";
+import {ComponentUpdate} from "../../components/write/component-write.component";
+import {ComponentService} from "../../shared/service/components/component.service";
+import {ComponentVersionService} from "../../shared/service/components/component-versions.service";
+import {ProfileService} from "../../shared/service/user/profil.service";
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
 //import {_} from
@@ -39,7 +37,8 @@ export class UpdateWorkflowComponent implements OnInit {
   public visibleStatuses = {};
 
 
-  public constructor(private zone: NgZone, private componentService: ComponentService, private componentVersionService: ComponentVersionService, private profileService: ProfileService) {
+  public constructor(private zone: NgZone, private componentService: ComponentService,
+                     private componentVersionService: ComponentVersionService, private profileService: ProfileService) {
   }
 
   ngOnInit(): void {

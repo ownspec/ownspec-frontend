@@ -2,14 +2,14 @@
 <div style="flex:1;display: flex;flex-direction: row;height: 100%;background: white">
 
   <template #content>
-    <div myHighlight [rDirections]="menuPosition == 'left' ? ['right'] : ['left']" [@slideInOut]="menuState"
+    <div resizable [rDirections]="menuPosition == 'left' ? ['right'] : ['left']" [@slideInOut]="menuState"
          style="width:200px;flex: 1;height: 100%;padding-left: 2px;overflow-x: hidden">
 
 
       <components-selection *ngIf="activeTab == 'requirements'" [component]="component"
-                            [types]="['REQUIREMENT']"></components-selection>
+                            [types]="['REQUIREMENT']"  [editorEvent]="editorEvent"></components-selection>
       <components-selection *ngIf="activeTab == 'components'" [component]="component"
-                            [types]="['COMPONENT']"></components-selection>
+                            [types]="['COMPONENT']" [editorEvent]="editorEvent"></components-selection>
       <resources-selection *ngIf="activeTab == 'resources'" [component]="component"
                             [types]="['RESOURCE']"></resources-selection>
       <components-selection *ngIf="activeTab == 'templates'" [component]="component"
@@ -22,7 +22,8 @@
 
       <toc *ngIf="activeTab == 'toc'" [tocItems]="parent.tocItems" (gotoTocItem)="parent.gotoTocItem($event)"></toc>
 
-      <component-edit-sidenav *ngIf="activeTab == 'component'" [editorEvent]="editorEvent"></component-edit-sidenav>
+
+      <component-edit-sidenav [hidden]="activeTab != 'component'" [editorEvent]="editorEvent"></component-edit-sidenav>
 
     </div>
   </template>

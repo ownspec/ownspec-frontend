@@ -2,12 +2,13 @@
 
 
 import {Component as C, OnInit, Input, ApplicationRef} from "@angular/core";
-import {MdDialog} from "@angular/material";
-import {ResourceCreatorComponent} from "../create/resource-create.component";
-import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
 import {ActivatedRoute} from "@angular/router";
-import {ComponentVersion} from "../../shared/service/component/component-version";
-import {LinkService} from "../../shared/service/link.service";
+import {LinkService} from "../../link/link.service";
+import {MdDialog} from "@angular/material";
+import {ComponentVersionService} from "../../shared/service/components/component-versions.service";
+import {ComponentVersion} from "../../shared/model/component/component-version";
+import {ResourceCreatorComponent} from "../create/resource-create.component";
+import {ComponentHelperService} from "../../components/helper/helper";
 
 
 @C({
@@ -30,7 +31,8 @@ export class ResourcesListComponent implements OnInit {
 
 
   public constructor(private route: ActivatedRoute,
-                     public linkService:LinkService,
+                     public linkService: LinkService,
+                     private componentHelperService: ComponentHelperService,
                      public dialog: MdDialog, public appRef: ApplicationRef, private componentVersionService: ComponentVersionService) {
     this.projectId = null;
   }
@@ -60,7 +62,7 @@ export class ResourcesListComponent implements OnInit {
     });
   }
 
-  public openEdit(c:ComponentVersion){
+  public openEdit(c: ComponentVersion) {
 
     let dlgRef = this.dialog.open(ResourceCreatorComponent);
     dlgRef.componentInstance.componentId = c.id;
@@ -79,8 +81,8 @@ export class ResourcesListComponent implements OnInit {
   }
 
 
-  public openUpdateStatus(c:ComponentVersion){
-    this.linkService.openUpdateStatus(c).subscribe(c => {
+  public openUpdateStatus(c: ComponentVersion) {
+    this.componentHelperService.openUpdateStatus(c).subscribe(c => {
       c.dlg.close();
       this.fetchComponents();
     });

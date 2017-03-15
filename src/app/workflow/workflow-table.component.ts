@@ -2,12 +2,12 @@
 
 
 import {Component as C, Input, OnInit, Output, EventEmitter, NgZone, ViewChild} from "@angular/core";
-import {ComponentService} from "../service/component/component.service";
-import {Component} from "../model/component/component";
-import {Change} from "../model/component/change";
-import {ComponentVersion} from "../service/component/component-version";
-import {ProfileService} from "../service/user/profil.service";
+import {ComponentVersion} from "../shared/model/component/component-version";
+import {Component} from "../shared/model/component/component";
 import {MdDialog, MdDialogRef} from "@angular/material";
+import {ComponentService} from "../shared/service/components/component.service";
+import {ProfileService} from "../shared/service/user/profil.service";
+import {Change} from "../shared/model/component/change";
 import {UpdateWorkflowComponent} from "./update/workflow-update.component";
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");

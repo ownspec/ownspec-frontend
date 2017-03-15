@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {UserService} from "../shared/service/user/user.service";
-import {LinkService} from "../shared/service/link.service";
 import {MdSnackBar} from "@angular/material";
 import {Globals} from "../shared/globals";
 import {ActivatedRoute} from "@angular/router";
+import {LinkService} from "../link/link.service";
 
 @Component({
   selector: "confirm-registration",

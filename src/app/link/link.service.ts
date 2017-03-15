@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ComponentVersion} from "./component/component-version";
-import {UpdateWorkflowComponent} from "../workflow/update/workflow-update.component";
-import {MdDialog, MdDialogRef} from "@angular/material";
 import {Observable} from "rxjs";
+import {MdDialog, MdDialogRef} from "@angular/material";
+import {ComponentVersion} from "../shared/model/component/component-version";
+import {UpdateWorkflowComponent} from "../workflow/update/workflow-update.component";
+import {ComponentCreatorDialog} from "../components/create/component-create.component";
 
 @Injectable()
 export class LinkService {
@@ -85,14 +86,6 @@ export class LinkService {
   }
 
 
-  public openUpdateStatus(c: ComponentVersion): Observable<any> {
-    let updateStatusDlg: MdDialogRef<UpdateWorkflowComponent> = this.dialog.open(UpdateWorkflowComponent);
-    updateStatusDlg.componentInstance.componentVersion = c;
-    return updateStatusDlg.componentInstance.update
-      .map(c => {
-        return {event: c, dlg: updateStatusDlg};
-      });
-  }
 
 }
 

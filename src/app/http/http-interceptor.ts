@@ -1,8 +1,6 @@
-
-import {Request, RequestOptions, ConnectionBackend, Http, RequestOptionsArgs, Response} from "@angular/http";
+import {ConnectionBackend, Http, Request, RequestOptions, RequestOptionsArgs, Response} from "@angular/http";
 import {Observable} from "rxjs";
-import {StateService} from "ui-router-ng2";
-import {LinkService} from "../service/link.service";
+import {LinkService} from "../link/link.service";
 
 export class HttpInterceptor extends Http {
 

@@ -1,9 +1,9 @@
 "use strict";
 import {Component as C, OnInit} from "@angular/core";
 import {MdDialogRef} from "@angular/material";
-import {ComponentVersion} from "../../shared/service/component/component-version";
-import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
-import {ComponentService} from "../../shared/service/component/component.service";
+import {ComponentVersion} from "../../shared/model/component/component-version";
+import {ComponentVersionService} from "../../shared/service/components/component-versions.service";
+import {ComponentService} from "../../shared/service/components/component.service";
 
 
 @C({

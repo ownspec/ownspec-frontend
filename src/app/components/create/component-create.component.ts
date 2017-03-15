@@ -1,16 +1,16 @@
 "use strict";
-import {Component as C, Output, EventEmitter, OnInit} from "@angular/core";
-import {ComponentVersion} from "../../shared/service/component/component-version";
-import {MdSnackBar, MdDialogRef} from "@angular/material";
+import {Component as C, EventEmitter, forwardRef, OnInit, Output} from "@angular/core";
+import {ComponentVersion} from "../../shared/model/component/component-version";
+import {MdDialogRef, MdSnackBar} from "@angular/material";
 import {Observable} from "rxjs";
-import {LinkService} from "../../shared/service/link.service";
 import {ComponentUpdate} from "../write/component-write.component";
-import {ComponentService} from "../../shared/service/component/component.service";
+import {ComponentService} from "../../shared/service/components/component.service";
+import {ComponentSnackService} from "../../service/component-snack.service";
 
 @C({
   selector: 'component-create',
   templateUrl: 'component-create.template.html',
-  styleUrls: ['component-create.component.scss']
+  styleUrls: ['component-create.component.scss'],
 })
 export class ComponentCreatorDialog implements OnInit {
   public componentVersion: ComponentVersion;
@@ -21,29 +21,33 @@ export class ComponentCreatorDialog implements OnInit {
   @Output()
   public update = new EventEmitter<ComponentUpdate>();
 
+  public
+
 
   public constructor(public componentCreatorDialogRef: MdDialogRef<ComponentCreatorDialog>,
-                     public snackBar: MdSnackBar,
                      private componentService: ComponentService,
-                     private linkService: LinkService) {
+                     private componentSnackService: ComponentSnackService) {
   }
 
 
-  public ngOnInit(){
+  public ngOnInit() {
     this.resetForm();
   }
 
   public save(andContinue = false) {
-    let obs: Observable<ComponentVersion> = this.componentService.create(this.componentVersion);
-    obs.subscribe(createdComponentVersion => {
+    this.componentService.create(this.componentVersion).subscribe(createdComponentVersion => {
+
+      this.update.emit(ComponentUpdate.newComponentUpdate());
+
       if (andContinue) {
         this.resetForm();
       } else {
         this.componentCreatorDialogRef.close();
-        this.linkService.gotoEditComponent(createdComponentVersion);
       }
-      this.snackBar.open(this.componentVersion.type + " successfully created", "Close", {duration: 2000});
-      this.update.emit(ComponentUpdate.newComponentUpdate());
+
+      this.componentSnackService.notify(createdComponentVersion).onAction().subscribe(e => {
+        this.componentCreatorDialogRef.close();
+      });
     });
   }
 

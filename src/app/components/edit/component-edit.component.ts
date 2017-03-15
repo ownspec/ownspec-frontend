@@ -1,17 +1,17 @@
 "use strict";
 import {Component as C, Input, OnInit} from "@angular/core";
 import {ComponentUpdate} from "../write/component-write.component";
-import {ComponentService} from "../../shared/service/component/component.service";
+import {ComponentService} from "../../shared/service/components/component.service";
 import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
-import {ReferenceComponent} from "../../shared/reference/reference.component";
+import {ReferenceComponent} from "../../reference/reference.component";
 import {ComponentReference} from "../../shared/model/component/component-reference";
-import {ComponentVersion} from "../../shared/service/component/component-version";
+import {ComponentVersion} from "../../shared/model/component/component-version";
 import {ReferenceService} from "../../shared/service/reference.service";
-import {LinkService} from "../../shared/service/link.service";
 import {ActivatedRoute} from "@angular/router";
-import {ComponentVersionService} from "../../shared/service/component/component-versions.service";
+import {ComponentVersionService} from "../../shared/service/components/component-versions.service";
 import {UserCategoryService} from "../../shared/service/user/user-category.service";
 import {UserCategory} from "../../shared/model/user/user-category";
+import {LinkService} from "../../link/link.service";
 
 
 @C({

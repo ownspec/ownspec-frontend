@@ -2,7 +2,7 @@ import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams} from "@angular/http";
 import {Component} from "../../model/component/component";
-import {ComponentVersion} from "./component-version";
+import {ComponentVersion} from "../../model/component/component-version";
 import {ComponentReference} from "../../model/component/component-reference";
 import {Comment} from "../../model/component/comment";
 

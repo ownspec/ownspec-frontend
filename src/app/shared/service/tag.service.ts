@@ -1,9 +1,9 @@
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams} from "@angular/http";
-import {Component} from "../../model/component/component";
+import {Component} from "../model/component/component";
 import {StateService} from "ui-router-ng2";
-import {Tag} from "../../model/component/tag";
+import {Tag} from "../model/component/tag";
 
 @Injectable()
 export class TagService {

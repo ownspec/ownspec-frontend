@@ -1,11 +1,11 @@
-import {NgModule, ApplicationRef, Injectable} from "@angular/core";
-import {BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
+import {ApplicationRef, Injectable, NgModule} from "@angular/core";
+import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {SharedModule} from "./shared/shared.module";
 import {AppComponent} from "./app.component";
 import {MomentModule} from "angular2-moment";
-import {Ng2BootstrapModule, DropdownModule} from "ng2-bootstrap";
+import {DropdownModule, Ng2BootstrapModule} from "ng2-bootstrap";
 import {CKEditorModule} from "./shared/ckeditor/ckeditor.component";
 import {ProjectsListComponent} from "./projects/list/projects-list.component";
 import {ProjectEditComponent} from "./projects/edit/project-edit.component";
@@ -35,15 +35,27 @@ import {ComponentEditGeneralComponent} from "./components/edit/general/component
 import {RouterModule, Routes} from "@angular/router";
 import {FooComponent} from "./foo.component";
 import {ConfirmRegistrationComponent} from "./confirm-registration/confirm-registration.component";
-import {UpdateWorkflowComponent} from "./shared/workflow/update/workflow-update.component";
-import {HttpInterceptor} from "./shared/http/http-interceptor";
-import {LinkService} from "./shared/service/link.service";
+import {UpdateWorkflowComponent} from "./workflow/update/workflow-update.component";
+import {LinkService} from "./link/link.service";
+import {HttpInterceptor} from "./http/http-interceptor";
 import {NgUploaderModule} from "ngx-uploader";
 import {ErrorPageComponent} from "./error-page/error-page.component";
-import {ComponentSideNavComponent} from "./components/write/component/component-sidenav.component";
 import {ComponentCreatorDialog} from "./components/create/component-create.component";
 import {CapitalizePipe} from "./shared/pipe/capitalize.pipe";
-import {AdministrationModule} from "./administration/administration.module";
+import {WorkflowComponent} from "./workflow/workflow.component";
+import {CommentsComponent} from "./comment/comments.component";
+import {WorkflowTableComponent} from "./workflow/workflow-table.component";
+import {MainHeaderComponent} from "./header/main-header.component";
+import {ComponentContentComponent} from "./components/display/component-content.component";
+import {TocComponent} from "./components/write/toc/toc.component";
+import {ReferenceComponent} from "./reference/reference.component";
+
+import {UserCategoriesListComponent} from "./administration/user-category-edit/list/user-categories-list.component";
+import {UserCategoryEditDialog} from "./administration/user-category-edit/edit/user-category-edit.component";
+import {ComponentSnackService} from "./service/component-snack.service";
+import {ComponentHelperService} from "./components/helper/helper";
+import {ComponentSideNavComponent} from "./components/write/component-edit-sidenav/component-sidenav.component";
+import {ComponentsComponent} from "./components/write/components-list-sidenav/components.component";
 
 
 /*
@@ -277,18 +289,36 @@ const appRoutes: Routes = [
 
     UpdateWorkflowComponent,
     ErrorPageComponent,
+    WorkflowComponent,
+
+    CommentsComponent,
+    ComponentsComponent,
+    WorkflowTableComponent,
+    ReferenceComponent,
+
+    TocComponent,
+    ComponentContentComponent,
+
+    MainHeaderComponent,
+
+    AdministrationComponent,
+    UserCategoriesListComponent,
+    UserCategoryEditDialog,
+
   ],
 
   entryComponents: [
     ResourceCreatorComponent,
     UserEditorDialog,
     ComponentCreatorDialog,
-    UpdateWorkflowComponent
+    UpdateWorkflowComponent,
+    ReferenceComponent,
+    UserCategoryEditDialog,
   ],
 
   imports: [ // import Angular's modules
     SharedModule,
-    AdministrationModule,
+
 
     BrowserModule,
     FormsModule,
@@ -313,6 +343,9 @@ const appRoutes: Routes = [
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
 
+    LinkService,
+    ComponentHelperService,
+    ComponentSnackService,
     BrowserDomAdapter,
     Globals,
 

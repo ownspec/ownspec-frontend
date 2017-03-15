@@ -2,12 +2,10 @@
 
 
 import {Component as C, Input, OnInit, Output, EventEmitter} from "@angular/core";
-import {ComponentService} from "../service/component/component.service";
-import {ComponentUpdate} from "../../components/write/component-write.component";
-import {Component} from "../model/component/component";
-import {ProfileService} from "../service/user/profil.service";
-import {ComponentVersion} from "../service/component/component-version";
-import {Comment} from "../model/component/comment";
+import {ComponentVersion} from "../shared/model/component/component-version";
+import {ComponentUpdate} from "../components/write/component-write.component";
+import {ComponentService} from "../shared/service/components/component.service";
+import {Comment} from "../shared/model/component/comment";
 
 @C({
   selector: 'comments',
@@ -27,7 +25,7 @@ export class CommentsComponent implements OnInit {
   public comments: Comment[];
 
 
-  public constructor(private componentService: ComponentService, private profileService: ProfileService) {
+  public constructor(private componentService: ComponentService) {
   }
 
   ngOnInit(): void {
