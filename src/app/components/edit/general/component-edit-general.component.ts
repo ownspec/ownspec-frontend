@@ -10,6 +10,9 @@ import {UserCategory} from "../../../shared/model/user/user-category";
 import {UserCategoryService} from "../../../shared/service/user/user-category.service";
 import {EstimatedTime} from "../../../shared/model/component/estimated-time";
 import {UserCategoryEditDialog} from "../../../administration/user-category-edit/edit/user-category-edit.component";
+import {User} from "../../../shared/model/user/user";
+import {CompleterData, CompleterService} from "ng2-completer";
+import {UserService} from "../../../shared/service/user/user.service";
 
 @C({
   selector: 'component-edit-general',
@@ -37,9 +40,12 @@ export class ComponentEditGeneralComponent implements OnInit {
   private unEstimatedUserCategories: UserCategory [] = [];
   private billableUserCategories: UserCategory [] = [];
 
+  private users: Observable<User[]>;
+
   public constructor(public snackBar: MdSnackBar,
                      private componentVersionService: ComponentVersionService,
                      private userCategoryService: UserCategoryService,
+                     private userService: UserService,
                      private dialog: MdDialog) {
   }
 
@@ -57,6 +63,17 @@ export class ComponentEditGeneralComponent implements OnInit {
         this.resolveUnEstimatedCategories();
       }
     });
+
+    // Users
+    this.users = this.userService.findAll().share();
+
+    // TODO: fix
+    if (!!this.componentVersion.assignedTo) {
+      this.users
+        .flatMap(u => u)
+        .filter(u => u.id == this.componentVersion.assignedTo.id)
+        .subscribe(u => this.componentVersion.assignedTo = u);
+    }
   }
 
   public save() {

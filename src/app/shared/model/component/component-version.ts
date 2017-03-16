@@ -36,7 +36,7 @@ export class ComponentVersion {
 
   public gitReference: string;
 
-  private riskAssessment= new RiskAssessment();
+  private riskAssessment = new RiskAssessment();
 
   public constructor(public id: string, public componentId: string, public title: string, public code: string, public projectId: string, public type: string) {
   }
@@ -128,13 +128,13 @@ export class ComponentVersion {
   }
 
   public static toMap(component: ComponentVersion): any {
-    return {
+    let res: any = {
       title: component.title,
       type: component.type,
       code: component.code,
       projectId: component.projectId,
       requirementType: component.requirementType,
-      // assignedTo: User.toMap(component.assignedTo),
+      // assignedTo: ,
       requiredTest: component.requiredTest,
       estimatedTimes: component.estimatedTimes.map(e => EstimatedTime.toMap(e)),
       distributionLevel: component.distributionLevel,
@@ -147,6 +147,13 @@ export class ComponentVersion {
 
       riskAssessment: RiskAssessment.toMap(component.riskAssessment)
     };
+
+    if (!!component.assignedTo) {
+      res.assignedTo = User.toMap(component.assignedTo);
+    }
+
+
+    return res;
   }
 
 }

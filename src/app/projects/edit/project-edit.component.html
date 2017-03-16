@@ -68,8 +68,8 @@
             <md-select [(ngModel)]="project.manager"
                        fxFlex="70"
                        placeholder="Manager"
-                       name="manager" type="">
-              <md-option *ngFor="let user of users | async" change="" [value]="user">{{user.username}}</md-option>
+                       name="manager">
+              <md-option *ngFor="let user of users | async" [value]="user">{{user.username}}</md-option>
             </md-select>
           </div>
         </md-card-content>

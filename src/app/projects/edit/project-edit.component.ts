@@ -42,18 +42,25 @@ export class ProjectEditComponent implements OnInit {
       this.id = this.route.snapshot.params['projectId'];
     }
 
+    // Users
+    this.users = this.userService.findAll().share();
+    this.dataService = this.completerService.local(this.users, 'username,fullName', 'fullName').descriptionField('username');
+
+
     // Project
     this.create = this.id == '_new';
     if (!this.create) {
-      this.projectService.findOne(this.id).subscribe(r => this.project = r);
+      let obsProject = this.projectService.findOne(this.id);
+      Observable.zip(this.users, obsProject, (users, project) => ({users, project}))
+        .subscribe(m => {
+          this.project = m.project;
+          this.project.manager = m.users.find(u => u.id == this.project.manager.id);
+        });
     }
 
     // Projects
     this.projectService.findAll().subscribe(r => this.projects = r);
 
-    // Users
-    this.users = this.userService.findAll();
-    this.dataService = this.completerService.local(this.users, 'username,fullName', 'fullName').descriptionField('username');
 
   }
 
@@ -117,12 +124,14 @@ export class ProjectEditComponent implements OnInit {
       <button
         md-raised-button
         color="primary"
-        md-dialog-close>Save</button>
-        
-        <button
+        md-dialog-close>Save
+      </button>
+
+      <button
         md-raised-button
         color="primary"
-        md-dialog-close>Close</button>
+        md-dialog-close>Close
+      </button>
     </md-dialog-actions>
   `
 })

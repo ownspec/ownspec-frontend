@@ -33,7 +33,10 @@ export class User {
     user.mobile = item.mobile;
     user.fullName = user.firstName + " " + user.lastName;
     user.role = item.role;
-    user.category = UserCategory.fromMap(item.category);
+
+    if (item.category) {
+      user.category = UserCategory.fromMap(item.category);
+    }
 
     user.lastConnection = item.lastConnection;
     user.enabled = item.enabled;

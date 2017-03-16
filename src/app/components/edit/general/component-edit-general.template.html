@@ -19,7 +19,8 @@
 
             <!-- Component Type-->
             <div fxFlex fxFlex.xs="100" style="margin:15px 5px">
-              <md-select name="items" [(ngModel)]="componentVersion.requirementType" placeholder="Type" style="width: 80%">
+              <md-select name="items" [(ngModel)]="componentVersion.requirementType" placeholder="Type"
+                         style="width: 80%">
                 <md-option value="BUSINESS">Business</md-option>
                 <md-option value="FUNCTIONAL">Functional</md-option>
                 <md-option value="DESIGN">Design</md-option>
@@ -30,7 +31,8 @@
 
             <!-- Distribution Level -->
             <div fxFlex fxFlex.xs="100" style="margin:15px 5px">
-              <md-select name="distributionLevel" [(ngModel)]="componentVersion.distributionLevel" placeholder="Distribution Level" style="width: 80%">
+              <md-select name="distributionLevel" [(ngModel)]="componentVersion.distributionLevel"
+                         placeholder="Distribution Level" style="width: 80%">
                 <md-option value="PUBLIC">Public</md-option>
                 <md-option value="INTERNAL">Internal</md-option>
                 <md-option value="RESTRICTED">Restricted</md-option>
@@ -49,7 +51,8 @@
                 </md-input-container>
               </p>
               <div class="badge badge-default" style="display: inline-block;margin-right: 5px"
-                   *ngFor="let tag of componentVersion.tags">{{tag}}&nbsp;</div>
+                   *ngFor="let tag of componentVersion.tags">{{tag}}&nbsp;
+              </div>
             </div>
           </div>
         </md-card-content>
@@ -80,6 +83,19 @@
           <md-card-subtitle>{{componentVersion.lastModifiedDate | amTimeAgo }} by
             <a role="button"><span style="font-weight: bold">{{componentVersion.lastModifiedUser.fullName}}</span></a>
           </md-card-subtitle>
+
+          <md-card-subtitle>
+            <md-select [(ngModel)]="componentVersion.assignedTo"
+                       fxFlex="70"
+                       placeholder="Assigned"
+                       name="assigned">
+              <md-option *ngFor="let user of users | async" [value]="user">{{user.username}}</md-option>
+            </md-select>
+          </md-card-subtitle>
+
+
+
+
         </md-card-content>
       </md-card>
     </div>
