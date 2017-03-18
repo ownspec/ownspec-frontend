@@ -1,16 +1,15 @@
 import {Component, OnInit} from "@angular/core";
-import {MdDialogRef, MdSnackBar} from "@angular/material";
-import {User} from "../../shared/model/user/user";
-import {UserService} from "../../shared/service/user/user.service";
-import {UserCategory} from "../../shared/model/user/user-category";
-import {UserCategoryService} from "../../shared/service/user/user-category.service";
+import {User} from "../../../shared/model/user/user";
 import {Observable} from "rxjs";
-import {Globals} from "../../shared/globals";
+import {UserCategory} from "../../../shared/model/user/user-category";
+import {MdDialogRef, MdSnackBar} from "@angular/material";
+import {UserService} from "../../../shared/service/user/user.service";
+import {UserCategoryService} from "../../../shared/service/user/user-category.service";
+import {Globals} from "../../../shared/globals";
 
 @Component({
   selector: 'user-edit-dialog',
-  templateUrl: './user-edit.template.html',
-  styleUrls: ['./user-edit.component.scss']
+  templateUrl: 'user-edit.template.html',
 })
 export class UserEditorDialog implements OnInit {
   public user: User;

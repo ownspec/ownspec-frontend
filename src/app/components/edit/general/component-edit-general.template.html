@@ -2,7 +2,7 @@
 
   <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
     <div fxFlex="7 0 300px" style="padding: 5px;">
-      <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #189DE1">
+      <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #636262">
         <md-card-content>
 
           <!-- Title -->
@@ -92,10 +92,6 @@
               <md-option *ngFor="let user of users | async" [value]="user">{{user.username}}</md-option>
             </md-select>
           </md-card-subtitle>
-
-
-
-
         </md-card-content>
       </md-card>
     </div>
@@ -105,16 +101,26 @@
     <!-- Risk Assessment-->
     <div fxFlex="7 0 300px" fxFlex.sm="100" style="padding: 5px; ">
       <md-card fxFlex style="height: 100%;">
-        <md-card-header>
-          <md-card-title style="font-size: 15px; margin-bottom: 5px">Risk Assessment</md-card-title>
-        </md-card-header>
+        <md-card-title style="font-size: 15px; margin-bottom: 5px">Risk Assessment</md-card-title>
+        <md-card-subtitle>Failure impacts</md-card-subtitle>
+
         <md-card-content>
+          <!-- Risk description-->
+          <md-input-container style="width: 100%;">
+              <textarea mdInput
+                        [maxlength]="textAreaMaxLength"
+                        placeholder="Risk description ({{textAreaMaxLength}} max)"
+                        type="text"
+                        [(ngModel)]="componentVersion.riskAssessment.riskDescription"
+                        #riskDescription></textarea>
+            <md-hint align="end">{{riskDescription.value.length}} / {{textAreaMaxLength}}</md-hint>
+          </md-input-container>
           <div fxLayout="row">
             <!-- Frequency of use-->
-            <div fxFlex fxFlex.xs="100" style="margin:15px 5px">
+            <div fxFlex fxFlex.xs="100" style="margin-top: 30px">
               <md-select name="frequencyOfUse"
                          placeholder="Frequency of Use"
-                         style="width: 80%"
+                         style="width: 90%"
                          [(ngModel)]="componentVersion.riskAssessment.frequencyOfUse">
                 <md-option value="RARELY">Rarely</md-option>
                 <md-option value="NORMAL">Normal</md-option>
@@ -122,37 +128,60 @@
               </md-select>
             </div>
 
-            <!-- Failure Impact Level -->
-            <div fxFlex fxFlex.xs="100" style="margin:15px 5px">
-              <md-select name="failureImpactLevel"
-                         placeholder="Failure Impact Level"
-                         style="width: 80%"
-                         [(ngModel)]="componentVersion.riskAssessment.failureImpactLevel">
+            <!-- Failure Probability-->
+            <div fxFlex fxFlex.xs="100" style="margin-top: 30px">
+              <md-select name="failureProbality"
+                         placeholder="Failure Probability"
+                         style="width: 90%"
+                         [(ngModel)]="componentVersion.riskAssessment.failureProbability">
                 <md-option value="LOW">Low</md-option>
                 <md-option value="MEDIUM">Medium</md-option>
-                <md-option value="EXTREME">Extreme</md-option>
+                <md-option value="HIGH">High</md-option>
+                <md-option value="VERY_HIGH">Very High</md-option>
               </md-select>
             </div>
           </div>
 
-          <!-- Acceptable Failure Rate-->
-          <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutWrap style="margin:15px 5px">
-            <md-input-container fxFlex fxFlex.xs="100" style="margin-right: 15px">
-              <input mdInput
-                     class="form-control"
-                     placeholder="Acceptable Failure Rate (%)"
-                     name="acceptableFailureRate"
-                     type="number"
-                     [(ngModel)]="componentVersion.riskAssessment.acceptableFailureRate">
-            </md-input-container>
-            <md-slider fxFlex fxFlex.xs="100"
-                       min=0 max=100
-                       step=10
-                       thumb-label="true"
-                       tick-interval="auto"
-                       [(ngModel)]="componentVersion.riskAssessment.acceptableFailureRate">
-            </md-slider>
+          <div fxLayout="row">
+            <!-- Failure Impact Level -->
+            <div fxFlex fxFlex.xs="100" style="margin-top: 30px">
+              <md-select name="failureImpactLevel"
+                         placeholder="Failure Impact Level"
+                         style="width: 90%"
+                         [(ngModel)]="componentVersion.riskAssessment.failureImpactLevel">
+                <md-option value="LOW">Low</md-option>
+                <md-option value="MEDIUM">Medium</md-option>
+                <md-option value="HIGH">High</md-option>
+                <md-option value="VERY_HIGH">Very High</md-option>
+              </md-select>
+            </div>
+            <!-- Failure Impact Type -->
+            <div fxFlex fxFlex.xs="100" style="margin-top: 30px">
+              <md-select name="failureImpactType"
+                         placeholder="Failure Impact Type"
+                         style="width: 90%"
+                         [(ngModel)]="componentVersion.riskAssessment.failureImpactType">
+                <md-option value="COST">Cost</md-option>
+                <md-option value="SCHEDULE">Schedule</md-option>
+                <md-option value="PERFORMANCE">Performance</md-option>
+                <md-option value="ENVIRONMENT">Environment</md-option>
+                <md-option value="HUMAN_HEALTH">Human Health</md-option>
+              </md-select>
+            </div>
+
           </div>
+
+          <!-- Failure Procedure -->
+          <md-input-container style="width: 100%; margin-top: 20px">
+              <textarea mdInput
+                        [maxlength]="textAreaMaxLength"
+                        placeholder="Failure Procedure ({{textAreaMaxLength}} max)"
+                        type="text"
+                        [(ngModel)]="componentVersion.riskAssessment.failureProcedure"
+                        #failureProcedure></textarea>
+            <md-hint align="end">{{failureProcedure.value.length}} / {{textAreaMaxLength}}</md-hint>
+          </md-input-container>
+
           <div fxLayout="row" style="margin:15px 5px; font-size: 13px; color: grey">
             <md-checkbox>Make it default{{componentVersion.projectId? ' through this project':''}}</md-checkbox>
           </div>

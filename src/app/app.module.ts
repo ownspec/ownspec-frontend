@@ -30,7 +30,6 @@ import {CompleterCmpMd} from "./shared/completer-cmp-md/completer-cmp-md";
 import "../styles/styles.scss";
 import {Globals} from "./shared/globals";
 import {AdministrationComponent} from "./administration/administration.component";
-import {UserEditorDialog} from "./administration/user-edit/user-edit.component";
 import {ComponentEditGeneralComponent} from "./components/edit/general/component-edit-general.component";
 import {RouterModule, Routes} from "@angular/router";
 import {FooComponent} from "./foo.component";
@@ -49,13 +48,15 @@ import {MainHeaderComponent} from "./header/main-header.component";
 import {ComponentContentComponent} from "./components/display/component-content.component";
 import {TocComponent} from "./components/write/toc/toc.component";
 import {ReferenceComponent} from "./reference/reference.component";
-
-import {UserCategoriesListComponent} from "./administration/user-category-edit/list/user-categories-list.component";
-import {UserCategoryEditDialog} from "./administration/user-category-edit/edit/user-category-edit.component";
 import {ComponentSnackService} from "./service/component-snack.service";
 import {ComponentHelperService} from "./components/helper/helper";
 import {ComponentSideNavComponent} from "./components/write/component-edit-sidenav/component-sidenav.component";
 import {ComponentsComponent} from "./components/write/components-list-sidenav/components.component";
+import {UsersListComponent} from "./administration/user/list/users-list.component";
+import {UserEditorDialog} from "./administration/user/edit/user-edit.component";
+import {UserCategoriesListComponent} from "./administration/user-category/list/user-categories-list.component";
+import {UserCategoryEditDialog} from "./administration/user-category/edit/user-category-edit.component";
+import {CompanyEditComponent} from "./administration/company/edit/company-edit.component";
 
 
 /*
@@ -185,7 +186,6 @@ const appRoutes: Routes = [
       },
 
 
-
       {
         path: 'requirements',
         component: ComponentsListComponent,
@@ -278,7 +278,6 @@ const appRoutes: Routes = [
     ConfirmRegistrationComponent,
 
     CompleterCmpMd,
-    UserEditorDialog,
     ComponentCreatorDialog,
 
 
@@ -302,8 +301,11 @@ const appRoutes: Routes = [
     MainHeaderComponent,
 
     AdministrationComponent,
+    UsersListComponent,
+    UserEditorDialog,
     UserCategoriesListComponent,
     UserCategoryEditDialog,
+    CompanyEditComponent
 
   ],
 

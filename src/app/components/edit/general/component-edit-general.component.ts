@@ -9,10 +9,9 @@ import "rxjs/add/operator/startWith";
 import {UserCategory} from "../../../shared/model/user/user-category";
 import {UserCategoryService} from "../../../shared/service/user/user-category.service";
 import {EstimatedTime} from "../../../shared/model/component/estimated-time";
-import {UserCategoryEditDialog} from "../../../administration/user-category-edit/edit/user-category-edit.component";
 import {User} from "../../../shared/model/user/user";
-import {CompleterData, CompleterService} from "ng2-completer";
 import {UserService} from "../../../shared/service/user/user.service";
+import {UserCategoryEditDialog} from "../../../administration/user-category/edit/user-category-edit.component";
 
 @C({
   selector: 'component-edit-general',
@@ -34,6 +33,7 @@ export class ComponentEditGeneralComponent implements OnInit {
   public update = new EventEmitter<ComponentUpdate>();
 
   private tagToAdd: string;
+  private textAreaMaxLength = 256;
 
   // Estimated Times
   private estimatedTimes: EstimatedTime[] = [];
@@ -70,9 +70,9 @@ export class ComponentEditGeneralComponent implements OnInit {
     // TODO: fix
     if (!!this.componentVersion.assignedTo) {
       this.users
-        .flatMap(u => u)
-        .filter(u => u.id == this.componentVersion.assignedTo.id)
-        .subscribe(u => this.componentVersion.assignedTo = u);
+          .flatMap(u => u)
+          .filter(u => u.id == this.componentVersion.assignedTo.id)
+          .subscribe(u => this.componentVersion.assignedTo = u);
     }
   }
 
@@ -116,7 +116,7 @@ export class ComponentEditGeneralComponent implements OnInit {
         .filter(uc => this.estimatedTimes.filter(e => uc.name == e.userCategory.name).length == 0);
   }
 
-  public createUserCategory(){
+  public createUserCategory() {
     let dialogRef: MdDialogRef<UserCategoryEditDialog> = this.dialog.open(UserCategoryEditDialog);
     dialogRef.componentInstance.create = true;
     dialogRef.componentInstance.update.subscribe(() => {
@@ -125,7 +125,7 @@ export class ComponentEditGeneralComponent implements OnInit {
     })
   }
 
-  public autoEstimateFromReferences(){
+  public autoEstimateFromReferences() {
     // todo
   }
 

@@ -675,3 +675,10 @@ Datatable
   // line-height: ensure proper height of button next to small input
   @include button-size(0.0rem, 0.15rem, 0.85rem, $btn-border-radius-sm);
 }
+
+
+.search-panel{
+  background-color: white;
+  padding-right: 10px;
+  padding-left: 10px;
+}

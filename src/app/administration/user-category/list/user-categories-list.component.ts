@@ -8,8 +8,7 @@ import {UserCategoryEditDialog} from "../edit/user-category-edit.component";
 
 @Component({
   selector: 'user-categories',
-  templateUrl: './user-categories-list.template.html',
-  styleUrls: ['./user-categories-list.component.scss']
+  templateUrl: 'user-categories-list.template.html',
 })
 export class UserCategoriesListComponent implements OnInit {
 

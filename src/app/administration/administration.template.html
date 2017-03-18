@@ -16,60 +16,7 @@
           <h6>Users</h6>
         </div>
       </template>
-      <div fxLayout="row" fxLayoutWrap>
-        <div fxFlex="100" style="padding-bottom: 10px ;padding-top:10px">
-          <div fxLayout="row" class="admin-search-panel">
-            <div fxFlex="90" fxLayout="row" fxLayoutAlign="start center">
-
-                <md-input-container fxFlex="50" style="margin-right: 20px">
-                  <input mdInput class="form-control" [(ngModel)]="searchInput"
-                         placeholder="Search..."
-                         name="Quick search"
-                         type="text">
-                </md-input-container>
-
-                <md-select fxFlex="15" placeholder="Role" type="">
-                  <md-option>ADMIN</md-option>
-                  <md-option>USER</md-option>
-                </md-select>
-            </div>
-            <div fxFlex fxLayoutAlign="end center">
-              <button md-icon-button (click)="create()"><i class="fa fa-user-plus" aria-hidden="true"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div *ngFor="let user of users" fxFlex="33" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
-          <md-card fxLayout="row">
-            <md-card-header fxFlex>
-              <!-- TODO: style fix until https://github.com/angular/material2/issues/3131 is released -->
-              <img md-card-avatar src="assets/img/avatar_m.png" style="width: 40px; height: 40px">
-              <md-card-title style="height: 20px;overflow: hidden; word-break: break-all;">
-                <a (click)="edit(user)" role="button">
-                  <h5 style="overflow: hidden; text-overflow: ellipsis;">{{user.fullName}}</h5>
-                </a>
-              </md-card-title>
-              <md-card-subtitle>
-                <h6 style="font-size: 0.9rem;">{{user.email}}</h6>
-                <h6 style="font-size: 0.8rem;">{{user.category.name}} ({{user.role}})</h6>
-              </md-card-subtitle>
-            </md-card-header>
-            <div fxFlex="10%">
-              <button md-icon-button [mdMenuTriggerFor]="userCardMenu">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-              </button>
-              <md-menu #userCardMenu="mdMenu">
-                <button md-menu-item (click)="edit(user)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                <button [disabled]="!user.enabled" md-menu-item (click)="sendChangePasswordEmail(user)"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Reset password</button>
-                <button *ngIf="user.enabled" md-menu-item (click)="disable(user)"><i class="fa fa-ban" aria-hidden="true"></i> Disable</button>
-                <button *ngIf="!user.enabled" md-menu-item (click)="enable(user)"><i class="fa fa-ban" aria-hidden="true"></i> Enable</button>
-                <button *ngIf="!user.enabled && !user.lastConnection" md-menu-item (click)="resendRegistrationConfirmationEmail(user)"><i class="fa fa-refresh" aria-hidden="true"></i> Resend registration email</button>
-              </md-menu>
-            </div>
-          </md-card>
-        </div>
-
-      </div>
+      <users-list></users-list>
     </md-tab>
 
     <!-- USER GROUPS & CATEGORIES -->
@@ -83,11 +30,23 @@
       <user-categories></user-categories>
     </md-tab>
 
+    <!-- COMPANY -->
     <md-tab>
       <template md-tab-label>
         <div fxLayout="column" fxLayoutAlign="center center" class="admin-tab-label">
           <i class="fa fa-building-o" aria-hidden="true"></i>
           <h6>Company</h6>
+        </div>
+      </template>
+      <company-edit></company-edit>
+    </md-tab>
+
+    <!-- CLIENTS -->
+    <md-tab>
+      <template md-tab-label>
+        <div fxLayout="column" fxLayoutAlign="center center" class="admin-tab-label">
+          <i class="fa fa-building-o" aria-hidden="true"></i>
+          <h6>Clients</h6>
         </div>
       </template>
     </md-tab>

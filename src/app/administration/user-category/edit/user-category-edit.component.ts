@@ -5,8 +5,7 @@ import {MdDialogRef, MdSnackBar} from "@angular/material";
 
 @Component({
   selector: 'user-category-edit-dialog',
-  templateUrl: './user-category-edit.template.html',
-  styleUrls: ['./user-category-edit.component.scss']
+  templateUrl: 'user-category-edit.template.html',
 })
 export class UserCategoryEditDialog implements OnInit {
 
