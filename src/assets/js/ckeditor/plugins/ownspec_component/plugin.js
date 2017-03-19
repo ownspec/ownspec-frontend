@@ -29,10 +29,14 @@ CKEDITOR.plugins.add('ownspec_component', {
             }
           });
         }
-
       }
+    }
 
-
+    function generateComponentTags(id, code, loaded, editable) {
+      return '<div class="requirements" data-os-cv-id="' + id + '" data-os-cv-loaded="' + loaded + '">' +
+        '<div  class="requirements-id">' + code + '</div>' +
+        '<div class="requirements-content" contenteditable="' + editable + '" data-os-editable="' + editable + '"></div>' +
+        '</div>';
     }
 
 
@@ -46,10 +50,7 @@ CKEDITOR.plugins.add('ownspec_component', {
 
       if (component.type != 'RESOURCE') {
 
-        evt.data.dataValue = '<div class="requirements" data-os-cv-id="' + component.id + '" data-os-cv-loaded="false">' +
-          '<div  class="requirements-id">' + component.code + '</div>' +
-          '<div class="requirements-content" contenteditable="' + component.editable + '" data-os-editable="' + component.editable + '"></div>' +
-          '</div>';
+        evt.data.dataValue = generateComponentTags(component.id, component.code, false, component.editable);
 
         /*var r = editor.fire("fetch-ownspec-cv-content", {id: component.id});
          r.observable.subscribe(function (r) {
@@ -74,6 +75,12 @@ CKEDITOR.plugins.add('ownspec_component', {
         var activeWidgetEntry = _.find(osWidgets, function (v, k) {
           return v.editable;
         });
+
+        if (!activeWidgetEntry) {
+          // It may happens when the active widget is deleted, but the releaseWidgetLock has not yet been called
+          return;
+        }
+
         // Get its content
         var activeWidget = editor.widgets.instances[activeWidgetEntry.widgetId];
         var html = activeWidget.wrapper.findOne("> .requirements > .requirements-content").getHtml();
@@ -85,10 +92,10 @@ CKEDITOR.plugins.add('ownspec_component', {
             curWidget.wrapper.findOne("> .requirements > .requirements-content").setHtml(html);
 
             var nodeList = curWidget.wrapper.findOne("> .requirements > .requirements-content").find(".requirements-content");
-            for (var ite = 0 ; ite < nodeList.count() ; ite ++){
+            for (var ite = 0; ite < nodeList.count(); ite++) {
               // Revert editable to false
-              nodeList.getItem(ite).setAttribute("contenteditable" , "false");
-              nodeList.getItem(ite).setAttribute("data-os-editable" , "false");
+              nodeList.getItem(ite).setAttribute("contenteditable", "false");
+              nodeList.getItem(ite).setAttribute("data-os-editable", "false");
             }
 
           }
@@ -204,24 +211,33 @@ CKEDITOR.plugins.add('ownspec_component', {
 
       edit: function () {
 
-
-        var startContainer = this.editor.getSelection().getRanges()[0].startContainer;
+        // TODO: improve the selection handling: cross boundary...
+        var that = this;
+        var startContainer = that.editor.getSelection().getRanges()[0].startContainer;
+        //var startContainer = that.editor.getSelection().getRanges()[0].getCommonAncestor();
 
         if (CKEDITOR.NODE_ELEMENT != startContainer.type || startContainer.getName() != "p") {
           startContainer = startContainer.getAscendant("p");
         }
         if (startContainer == null) {
-          return;
+          return false;
         }
 
-        var content = this.element.findOne(".requirements-content");
-        content.setHtml("");
-        startContainer.clone(true).appendTo(this.element.findOne(".requirements-content"));
-        startContainer.remove(false);
 
+        this.editor.ownspec.host.startCreateComponent().componentInstance.update.subscribe(function (event) {
+          var cv = event.componentVersion;
+          var cvHtml = generateComponentTags(cv.id, cv.code, true, true);
+
+          var cvElement = CKEDITOR.dom.element.createFromHtml(cvHtml);
+          startContainer.clone(true).appendTo(cvElement.findOne(".requirements-content"));
+          cvElement.replace(startContainer);
+
+          that.editor.checkDirty();
+
+        });
+
+        return false;
       }
-
-
     });
 
 

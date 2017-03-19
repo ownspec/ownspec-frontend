@@ -94,6 +94,7 @@ export class ComponentVersionService {
   }
 
   public update(toSave: ComponentVersion): Observable<ComponentVersion> {
+    console.log(toSave);
     return this.$http.patch("/api/component-versions/" + toSave.id, ComponentVersion.toMap(toSave))
       .map(r => r.json())
       .map((item: any) => {

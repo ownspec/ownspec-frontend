@@ -48,7 +48,7 @@ export class User {
   }
 
   public static toMap(user: User): any {
-    return {
+    let map = {
       username: user.username,
       email: user.email,
       firstName: user.firstName,
@@ -58,7 +58,13 @@ export class User {
       role: user.role,
       category: UserCategory.toMap(user.category),
       enabled: user.enabled
-  };
+    };
+    /*
+     if (user.category){
+     map.category = UserCategory.toMap(user.category)
+     }
+     */
+    return map;
 
   }
 }

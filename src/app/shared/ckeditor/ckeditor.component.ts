@@ -7,7 +7,7 @@ import {
   EventEmitter,
   NgZone,
   forwardRef,
-  NgModule, AfterViewInit, OnDestroy,
+  NgModule, AfterViewInit, OnDestroy, OnInit,
 } from '@angular/core';
 
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
@@ -17,6 +17,11 @@ import * as _ from "lodash";
 import * as jQuery from "jquery";
 import {ComponentVersionService} from "../service/components/component-versions.service";
 import {EditorEvent} from "../../components/write/component-write.component";
+import {ComponentVersion} from "../model/component/component-version";
+import {ComponentService} from "../service/components/component.service";
+import {ComponentHelperService} from "../../components/helper/helper";
+import {Observable} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 declare var CKEDITOR: any;
 
@@ -44,11 +49,19 @@ declare var CKEDITOR: any;
 
   styleUrls: ['./ckeditor.component.scss']
 })
-export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
+export class CKEditorComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
 
-  @Input() config;
-  @Input() debounceData: number = 500;
-  @Input() debounceToc: number = 500;
+  @Input()
+  config;
+  @Input()
+  debounceData: number = 500;
+  @Input()
+  debounceToc: number = 500;
+
+
+  @Input("projectId")
+  public projectId: string;
+
 
   private debouncedData: any;
   private debouncedToc: any;
@@ -84,7 +97,12 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
   /**
    * Constructor
    */
-  constructor(private zone: NgZone, private domAdapter: BrowserDomAdapter, private componentVersionService: ComponentVersionService) {
+  constructor(private zone: NgZone,
+              private domAdapter: BrowserDomAdapter,
+              private route: ActivatedRoute,
+              private componentHelperService: ComponentHelperService,
+              private componentVersionService: ComponentVersionService,
+              private componentService: ComponentService) {
     this.promise = new Promise(function (resolve, reject) {
       this.resolve = resolve;
       this.reject = reject;
@@ -119,6 +137,13 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
     }
   }
 
+
+  ngOnInit(): void {
+    Observable.combineLatest(this.route.params, this.route.data, (params, data) => ({params, data}))
+      .subscribe(ap => {
+        this.projectId = ap.params['projectId'];
+      });
+  }
 
   ngOnDestroy() {
     if (this.instance) {
@@ -188,7 +213,11 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
 
     // CKEditor replace textarea
     this.instance = CKEDITOR.replace(jQuery(this.textarea.nativeElement).find("textarea")[0], config);
-    this.instance.ownspec = {componentVersionService: this.componentVersionService};
+    this.instance.ownspec = {
+      componentVersionService: this.componentVersionService,
+      componentService: this.componentService,
+      host:this
+    };
 
     // Set initial value
     console.log(this.value);
@@ -313,6 +342,13 @@ export class CKEditorComponent implements ControlValueAccessor, AfterViewInit, O
 
   registerOnTouched(fn) {
     this.onTouched = fn;
+  }
+
+
+  public startCreateComponent() {
+    return this.zone.run(() => {
+      return this.componentHelperService.startCreateComponent("REQUIREMENT", this.projectId);
+    });
   }
 
 

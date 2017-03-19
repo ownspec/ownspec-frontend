@@ -43,11 +43,10 @@ export class ComponentsListComponent implements OnInit {
   public searchBean = {title: null, query: null};
 
 
-  public constructor(public appRef: ApplicationRef,
-                     public dialog: MdDialog,
+  public constructor(public dialog: MdDialog,
                      private route: ActivatedRoute,
                      public linkService: LinkService,
-                     public componentHelperService:ComponentHelperService,
+                     private componentHelperService:ComponentHelperService,
                      private componentService: ComponentService,
                      private componentVersionService: ComponentVersionService) {
     this.projectId = null;

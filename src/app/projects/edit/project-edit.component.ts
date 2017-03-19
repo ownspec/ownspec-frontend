@@ -43,7 +43,7 @@ export class ProjectEditComponent implements OnInit {
     }
 
     // Users
-    this.users = this.userService.findAll().share();
+    this.users = this.userService.findAll().publishReplay(1).refCount();
     this.dataService = this.completerService.local(this.users, 'username,fullName', 'fullName').descriptionField('username');
 
 

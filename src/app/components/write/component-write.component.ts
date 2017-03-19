@@ -158,6 +158,17 @@ export class ComponentWriteComponent implements OnInit, OnDestroy {
 }
 
 
+export class ComponentCreationEvent {
+  public constructor(public componentVersion:ComponentVersion) {
+
+  }
+
+  public static newComponentCreation(componentVersion:ComponentVersion): ComponentCreationEvent {
+    return new ComponentCreationEvent(componentVersion);
+  }
+
+}
+
 export class ComponentUpdate {
   public constructor(public properties, public content, public workflow, public comments) {
 

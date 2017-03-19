@@ -1,6 +1,6 @@
 "use strict";
 import {Component as C, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {MdSnackBar, MdDialogRef, MdDialog} from "@angular/material";
+import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {ComponentVersion} from "../../../shared/model/component/component-version";
 import {Observable} from "rxjs";
 import {ComponentVersionService} from "../../../shared/service/components/component-versions.service";
@@ -20,8 +20,8 @@ import {UserCategoryEditDialog} from "../../../administration/user-category/edit
 })
 export class ComponentEditGeneralComponent implements OnInit {
 
-  @Input("componentVersion")
-  public componentVersion: ComponentVersion;
+
+  private _componentVersion: ComponentVersion;
 
   @Input("componentType")
   public componentType: string;
@@ -54,48 +54,42 @@ export class ComponentEditGeneralComponent implements OnInit {
     // Init estimated times and un-estimated user categories
     this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
       this.billableUserCategories = userCategories.filter(userCategory => userCategory.isBillable);
-      if (this.componentVersion.estimatedTimes.length == 0) {
+      if (this._componentVersion.estimatedTimes.length == 0) {
         this.billableUserCategories.forEach(userCategory => {
           this.pushUserCategoryForEstimation(userCategory);
         });
       } else {
-        this.estimatedTimes = this.componentVersion.estimatedTimes;
+        this.estimatedTimes = this._componentVersion.estimatedTimes;
         this.resolveUnEstimatedCategories();
       }
     });
 
     // Users
-    this.users = this.userService.findAll().share();
+    this.users = this.userService.findAll().publishReplay(1).refCount();
 
-    // TODO: fix
-    if (!!this.componentVersion.assignedTo) {
-      this.users
-          .flatMap(u => u)
-          .filter(u => u.id == this.componentVersion.assignedTo.id)
-          .subscribe(u => this.componentVersion.assignedTo = u);
-    }
+    this.reassign();
   }
 
   public save() {
     this.estimatedTimes = this.estimatedTimes.filter(e => e.time > 0);
-    this.componentVersion.estimatedTimes = this.estimatedTimes;
+    this._componentVersion.estimatedTimes = this.estimatedTimes;
 
     let obs: Observable<any>;
-    obs = this.componentVersionService.update(this.componentVersion);
+    obs = this.componentVersionService.update(this._componentVersion);
     obs.subscribe(r => {
-          this.snackBar.open(this.componentVersion.type + " successfully updated", "Close", {duration: 2000});
-          this.update.emit(ComponentUpdate.newComponentUpdate());
-        },
-        error => {
-          this.snackBar.open("Failed to update " + this.componentVersion.type, "Close", {duration: 2000});
-        });
+        this.snackBar.open(this._componentVersion.type + " successfully updated", "Close", {duration: 2000});
+        this.update.emit(ComponentUpdate.newComponentUpdate());
+      },
+      error => {
+        this.snackBar.open("Failed to update " + this._componentVersion.type, "Close", {duration: 2000});
+      });
   }
 
   public addNewTag($event) {
     if ($event.keyCode != 13 || !this.tagToAdd || this.tagToAdd.trim().length <= 0) {
       return;
     }
-    this.componentVersion.tags.push(this.tagToAdd);
+    this._componentVersion.tags.push(this.tagToAdd);
     this.tagToAdd = "";
   }
 
@@ -113,7 +107,7 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   private resolveUnEstimatedCategories() {
     this.unEstimatedUserCategories = this.billableUserCategories
-        .filter(uc => this.estimatedTimes.filter(e => uc.name == e.userCategory.name).length == 0);
+      .filter(uc => this.estimatedTimes.filter(e => uc.name == e.userCategory.name).length == 0);
   }
 
   public createUserCategory() {
@@ -127,6 +121,29 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   public autoEstimateFromReferences() {
     // todo
+  }
+
+
+  get componentVersion(): ComponentVersion {
+    return this._componentVersion;
+  }
+
+  @Input("componentVersion")
+  set componentVersion(value: ComponentVersion) {
+    this._componentVersion = value;
+    this.reassign();
+  }
+
+  private reassign() {
+    if (!this._componentVersion || !this.users) {
+      return;
+    }
+    if (!!this._componentVersion.assignedTo) {
+      this.users
+        .flatMap(u => u)
+        .filter(u => u.id == this._componentVersion.assignedTo.id)
+        .subscribe(u => this._componentVersion.assignedTo = u);
+    }
   }
 
 }

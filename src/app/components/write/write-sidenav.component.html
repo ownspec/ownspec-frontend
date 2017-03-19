@@ -3,7 +3,7 @@
 
   <template #content>
     <div resizable [rDirections]="menuPosition == 'left' ? ['right'] : ['left']" [@slideInOut]="menuState"
-         style="width:200px;flex: 1;height: 100%;padding-left: 2px;overflow-x: hidden">
+         style="width:350px;flex: 1;height: 100%;padding-left: 2px;overflow-x: hidden">
 
 
       <components-selection *ngIf="activeTab == 'requirements'" [component]="component"
