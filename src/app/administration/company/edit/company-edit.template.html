@@ -1,0 +1,117 @@
+<div fxLayout="column" fxLayoutWrap>
+  <div fxFlex style="padding: 8px; background-color: white; margin-bottom: 10px">
+    <div fxLayoutAlign="end center">
+      <button md-icon-button (click)="save()"><i class="fa fa-save" aria-hidden="true" style="color: #424242"></i></button>
+    </div>
+  </div>
+
+
+  <div fxFlex style="padding: 5px">
+    <md-card>
+      <md-card-content fxLayout="row">
+        <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+          <!-- Logo container -->
+          <div fxFlex>
+            <span mdTooltip="Update your company Logo">
+              <button md-button (click)="updateLogo()">
+                <img *ngIf="company.logoUrl" style="max-width: 115px;" [src]="company.logoUrl">
+                <img *ngIf="!company.logoUrl" style="max-width: 115px;" src="assets/img/no-picture-icon.png">
+              </button>
+            </span>
+          </div>
+
+          <!-- Social -->
+          <div fxFlex>
+            <button md-icon-button (click)="github"><i class="fa fa-github" aria-hidden="true"></i></button>
+            <button md-icon-button (click)="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></button>
+            <button md-icon-button (click)="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></button>
+            <button md-icon-button (click)="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></button>
+            <button md-icon-button (click)="google"><i class="fa fa-google" aria-hidden="true"></i></button>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div fxFlex="80" fxLayout="column" *ngIf="!company.details">
+          <md-input-container>
+            <input mdInput
+                   type="text"
+                   placeholder="Name"
+                   [(ngModel)]="details.name">
+          </md-input-container>
+
+          <div fxLayout="row" fxLayoutWrap>
+            <div fxFlex="70">
+              <md-input-container style="width: 100%">
+                <textarea mdInput
+                          [(ngModel)]="details.address"
+                          [maxlength]="addressMaxLength"
+                          placeholder="Address ({{addressMaxLength}} max)" name="Address" type="text"
+                          style="min-height: 60px"
+                          #address></textarea>
+                <md-hint align="end">{{address.value.length}} / {{addressMaxLength}}</md-hint>
+              </md-input-container>
+            </div>
+            <div fxFlex fxLayout="column">
+              <md-input-container fxFlex>
+                <input mdInput
+                       type="text"
+                       placeholder="Zip Code"
+                       [(ngModel)]="details.zipCode">
+              </md-input-container>
+
+              <md-input-container fxFlex>
+                <input mdInput
+                       type="text"
+                       placeholder="Country"
+                       [(ngModel)]="details.country">
+              </md-input-container>
+            </div>
+          </div>
+
+          <div fxLayout="row">
+            <md-input-container fxFlex>
+              <input mdInput
+                     type="text"
+                     placeholder="Phone"
+                     [(ngModel)]="details.phone">
+            </md-input-container>
+
+            <md-input-container fxFlex>
+              <input mdInput
+                     type="text"
+                     placeholder="Fax"
+                     [(ngModel)]="details.fax">
+            </md-input-container>
+          </div>
+          <md-input-container>
+            <input mdInput
+                   type="text"
+                   placeholder="Email"
+                   [(ngModel)]="details.email">
+          </md-input-container>
+
+          <md-input-container>
+            <input mdInput
+                   type="text"
+                   placeholder="Website"
+                   [(ngModel)]="details.website">
+          </md-input-container>
+
+
+          <!-- Setting -->
+          <div fxFlex>
+            <md-select
+                placeholder="Billing Currency"
+                [(ngModel)]="details.billingCurrency">
+              <md-option *ngFor="let currency of currencies " [value]="currency">{{currency}}</md-option>
+            </md-select>
+          </div>
+          <div fxFlex>
+            <md-checkbox [(ngModel)]="details.isDefault" (change)="readOnly = $event">Default</md-checkbox>
+          </div>
+        </div>
+
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

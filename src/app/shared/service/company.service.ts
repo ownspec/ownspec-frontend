@@ -11,14 +11,8 @@ export class CompanyService {
 
   }
 
-  public getHost(): Observable<Company> {
-    return this.http.get("/api/companies/host")
-        .flatMap(r => r.json())
-        .map(item => Company.fromJson(item));
-  }
-
   public save(company: Company): Observable<any> {
-    return this.http.post("/api/companies/" + company.id, Company.toJson(company));
+    return this.http.post("/api/companies/" + company.id, Company.toMap(company));
   }
 
 }

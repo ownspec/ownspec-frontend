@@ -5,7 +5,6 @@ import {Component as C, OnInit} from "@angular/core";
 import {ProjectService} from "../../shared/service/project.service";
 import {Project} from "../../shared/model/project";
 import {LinkService} from "../../link/link.service";
-import {Observable} from "rxjs";
 import {MdSnackBar} from "@angular/material";
 import {Globals} from "../../shared/globals";
 
@@ -17,7 +16,7 @@ import {Globals} from "../../shared/globals";
 })
 export class ProjectsListComponent implements OnInit {
 
-  public projects: Observable<Project[]>;
+  public projects: Project[]= [];
 
 
   public constructor(private linkService: LinkService,
@@ -31,7 +30,9 @@ export class ProjectsListComponent implements OnInit {
   }
 
   private fetchProjects() {
-    this.projects = this.projectService.findAll();
+    this.projectService.findAll().subscribe((projects: Project[]) => {
+      this.projects = projects;
+    });
   }
 
   public show(projectId) {
@@ -45,7 +46,7 @@ export class ProjectsListComponent implements OnInit {
   public delete(project: Project) {
     this.projectService.delete(project).subscribe(r => {
       this.fetchProjects();
-      this.snackBar.open(r, "undo",{duration: Globals.SNACK_BAR_DURATION})
+      this.snackBar.open(r, "undo", {duration: Globals.SNACK_BAR_DURATION})
     }, e => {
       this.snackBar.open(e, "x", {duration: Globals.SNACK_BAR_DURATION});
     });

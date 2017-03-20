@@ -15,7 +15,7 @@
     <img src="assets/img/sad-face.png">
   </div>
   <div fxLayout="row" fxLayoutWrap style="overflow: auto;width: 100%;">
-    <div *ngFor="let project of projects | async " fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
+    <div *ngFor="let project of projects" fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
       <md-card fxLayout="column" style="height: 100%;">
         <md-card-header>
           <!-- TODO: style fix until https://github.com/angular/material2/issues/3131 is released -->
