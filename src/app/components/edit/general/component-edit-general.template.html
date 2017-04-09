@@ -2,11 +2,11 @@
 
   <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
     <div fxFlex="7 0 300px" style="padding: 5px;">
-      <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #636262">
+      <md-card style="height: 100%; border-left: 2px solid #636262">
         <md-card-content>
 
           <!-- Title -->
-          <div fxFlex style="margin:15px 5px">
+          <div style="margin:15px 5px">
             <md-input-container style="width: 100%">
               <input mdInput class="form-control" required [(ngModel)]="componentVersion.title"
                      placeholder="Title"
@@ -41,8 +41,17 @@
             </div>
           </div>
 
+          <!-- Assignee -->
+          <div fxLayout="row" style="margin:15px 5px">
+            <md-select [(ngModel)]="componentVersion.assignedTo"
+                       fxFlex="70"
+                       placeholder="Assigned"
+                       name="assigned">
+              <md-option *ngFor="let user of users | async" [value]="user">{{user.username}}</md-option>
+            </md-select>
+          </div>
           <!-- Tags -->
-          <div fxLayout="row">
+          <div fxLayout="row" style="margin:15px 5px">
             <div fxFlex>
               <p>
                 <md-input-container>
@@ -82,15 +91,6 @@
           <md-card-title style="margin-bottom:5px; font-size: 15px">Updated</md-card-title>
           <md-card-subtitle>{{componentVersion.lastModifiedDate | amTimeAgo }} by
             <a role="button"><span style="font-weight: bold">{{componentVersion.lastModifiedUser.fullName}}</span></a>
-          </md-card-subtitle>
-
-          <md-card-subtitle>
-            <md-select [(ngModel)]="componentVersion.assignedTo"
-                       fxFlex="70"
-                       placeholder="Assigned"
-                       name="assigned">
-              <md-option *ngFor="let user of users | async" [value]="user">{{user.username}}</md-option>
-            </md-select>
           </md-card-subtitle>
         </md-card-content>
       </md-card>
