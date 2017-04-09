@@ -38,11 +38,11 @@
       </div>
       <div [ngClass]="{'selected':activeTab ==  'requirements'}" *ngIf="isVisible('requirements')"
            md-tooltip="Requirements" [tooltip-position]="tooltipPosition()">
-        <a role="button"><i class="fa fa-file" aria-hidden="true" (click)="activeTab = 'requirements'"></i></a>
+        <a role="button"><i class="fa fa-tasks" aria-hidden="true" (click)="activeTab = 'requirements'"></i></a>
       </div>
       <div [ngClass]="{'selected':activeTab ==  'components'}" *ngIf="isVisible('components')" md-tooltip="Components"
            [tooltip-position]="tooltipPosition()">
-        <a role="button"><i class="fa fa-file-o" aria-hidden="true" (click)="activeTab = 'components'"></i></a>
+        <a role="button"><i class="fa fa-plug" aria-hidden="true" (click)="activeTab = 'components'"></i></a>
       </div>
       <div [ngClass]="{'selected':activeTab ==  'resources'}" *ngIf="isVisible('resources')" md-tooltip="Resources"
            [tooltip-position]="tooltipPosition()">
@@ -50,7 +50,7 @@
       </div>
       <div [ngClass]="{'selected':activeTab ==  'templates'}" *ngIf="isVisible('templates')" md-tooltip="Templates"
            [tooltip-position]="tooltipPosition()">
-        <a role="button"><i class="fa fa-file-text-o" aria-hidden="true" (click)="activeTab = 'templates'"></i></a>
+        <a role="button"><i class="fa fa-file-text" aria-hidden="true" (click)="activeTab = 'templates'"></i></a>
       </div>
       <div [ngClass]="{'selected':activeTab ==  'workflow'}" *ngIf="isVisible('workflow')" md-tooltip="Workflow"
            [tooltip-position]="tooltipPosition()">
