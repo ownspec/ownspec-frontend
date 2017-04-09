@@ -1,8 +1,8 @@
 "use strict";
-import {Input, OnInit, Component} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
 import {ProjectService} from "../../shared/service/project.service";
-import {CompleterData, CompleterService, CompleterItem} from "ng2-completer";
+import {CompleterData, CompleterItem, CompleterService} from "ng2-completer";
 import {UserService} from "../../shared/service/user/user.service";
 import {MdDialog, MdSnackBar} from "@angular/material";
 import {Project} from "../../shared/model/project";
@@ -25,6 +25,7 @@ export class ProjectEditComponent implements OnInit {
   private searchStr = "";
   private dataService: CompleterData;
   private users: Observable<User[]>;
+  private descriptionMaxLength = 200;
 
   public constructor(private route: ActivatedRoute,
                      private linkService: LinkService,
