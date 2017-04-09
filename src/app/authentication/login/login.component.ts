@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
-import {UserService} from "../shared/service/user/user.service";
 import {MdSnackBar} from "@angular/material";
-import {Globals} from "../shared/globals";
-import {LinkService} from "../link/link.service";
+import {UserService} from "../../shared/service/user/user.service";
+import {LinkService} from "../../link/link.service";
+import {Globals} from "../../shared/globals";
 
 @Component({
   selector: "login",

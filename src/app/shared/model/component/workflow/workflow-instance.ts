@@ -6,7 +6,7 @@ export class WorkflowInstance {
   }
 
   public getCurrentWorkflowStatus(): WorkflowStatus {
-    return this.workflowStatuses[this.workflowStatuses.length - 1];
+    return this.currentWorkflowStatus;
   }
 
 

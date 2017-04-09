@@ -1,13 +1,33 @@
 <main-header>
   <div class="main-header-title">{{componentTypes[0] | capitalize}}s</div>
-  <div class="main-header-content" style="display: flex">
-    <div class="main-search-container" style="width:280px">
+  <div class="main-header-content" fxFlex="50" fxLayout="row" fxLayoutAlign="end">
+    <div class="main-search-container">
       <form class="main-search" (submit)="search()">
-        <div class="main-search-input-wrapper">
-          <md-input-container>
+        <div class="main-search-input-wrapper" style="display: inline">
+          <md-input-container style="padding-right: 5px">
             <input mdInput placeholder="Search..." [(ngModel)]="searchBean.query" name="query">
           </md-input-container>
+
+          <md-select name="items" [(ngModel)]="searchBean.assignee" placeholder="Assignee" style="padding-right: 5px"
+                     (change)="fetchComponents()">
+            <md-option [value]="null">All</md-option>
+            <md-option *ngFor="let assignee of assignees"
+                       [value]="assignee">{{assignee.username}}
+            </md-option>
+          </md-select>
+
+
+          <md-select name="items" [(ngModel)]="searchBean.status" placeholder="Status" style="padding-right: 5px"
+                     (change)="fetchComponents()">
+            <md-option [value]="null">All</md-option>
+            <md-option *ngFor="let status of statuses"
+                       [value]="status">{{status.name}}
+            </md-option>
+          </md-select>
         </div>
+        <button md-icon-button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        <button md-icon-button (click)="reset()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+
       </form>
     </div>
     <div md-tooltip="Create" fxLayout="row" fxLayoutAlign="end center">
@@ -18,15 +38,35 @@
 
 
 <div class="main-content-content">
+
+  <div *ngIf="advancedSearch" style="margin-bottom: 10px">
+    <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #636262">
+      <md-card-content>
+
+        <!-- Title -->
+        <div fxFlex style="margin:15px 5px">
+          <md-input-container style="width: 100%">
+            <input mdInput class="form-control" required [(ngModel)]="foo"
+                   placeholder="Title"
+                   name="Title"
+                   type="text">
+          </md-input-container>
+        </div>
+      </md-card-content>
+    </md-card>
+
+
+  </div>
+
   <ngx-datatable
-      class="material" style="flex: 1"
-      [rows]="components"
-      [columnMode]="'flex'"
-      [headerHeight]="50"
-      [footerHeight]="0"
-      [rowHeight]="50"
-      [scrollbarV]="true"
-      [scrollbarH]="true">
+    class="material" style="flex: 1"
+    [rows]="components"
+    [columnMode]="'flex'"
+    [headerHeight]="50"
+    [footerHeight]="0"
+    [rowHeight]="50"
+    [scrollbarV]="true"
+    [scrollbarH]="true">
     <ngx-datatable-column [flexGrow]="1" name="Code"></ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="1" name="Version"></ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="4" name="Title"></ngx-datatable-column>

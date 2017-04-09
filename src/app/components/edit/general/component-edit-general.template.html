@@ -200,18 +200,21 @@
             <md-card-subtitle>Per user category</md-card-subtitle>
           </div>
           <div fxLayoutAlign="end start">
-            <button *ngIf="componentVersion.componentReferences.length != 0"
+            <button
                     md-icon-button
                     md-tooltip="Auto estimate from children {{componentVersion.type | capitalize}}s"
                     (click)="autoEstimateFromReferences()">
               <i style="font-size: x-small; color: grey" class="fa fa-calculator" aria-hidden="true"></i>
             </button>
 
+            <button md-icon-button (click)="createUserCategory()" md-tooltip="Create a new user category">
+              <i style="font-size: x-small; color: grey" class="fa fa-file-o" aria-hidden="true"></i>
+            </button>
+
             <button *ngIf="unEstimatedUserCategories.length != 0"
                     md-icon-button
                     md-tooltip="Add estimation"
-                    [mdMenuTriggerFor]="userCategoriesDropdown"
-                    (click)="fetchUnEstimatedUserCategories()">
+                    [mdMenuTriggerFor]="userCategoriesDropdown">
               <i style="font-size: x-small; color: grey" class="fa fa-plus" aria-hidden="true"></i>
             </button>
             <md-menu #userCategoriesDropdown="mdMenu">
@@ -224,25 +227,27 @@
           </div>
         </div>
         <div fxLayout="column" style="padding-top: 10px;height: 100%; max-height: 230px;overflow: auto;">
-          <div fxFlex *ngIf="billableUserCategories.length == 0" fxLayoutAlign="center center">
-            <button md-button (click)="createUserCategory()">Create a new user category</button>
-          </div>
+
           <md-card-content fxFlex>
+
+
+
             <div fxLayout="row" style="margin-bottom: 10px" fxLayoutAlign="space-between center"
                  *ngFor="let estimatedTime of estimatedTimes; let i = index" [attr.data-index]="i">
               <div fxFlex="80">
                 <md-input-container>
                   <input mdInput
-                         placeholder="{{estimatedTime.userCategory.name}}" name="time" type="number"
-                         [(ngModel)]="estimatedTimes[i].time">
+                         placeholder="{{estimatedTime.userCategory.name}}" name="time"
+                         [(ngModel)]="estimatedTimes[i].duration">
                 </md-input-container>
               </div>
               <div fxFlex>
-                <md-select name="unit" [(ngModel)]="estimatedTimes[i].timeUnit" placeholder="Unit">
-                  <md-option value="HOURS">Hours</md-option>
-                  <md-option value="DAYS">Days</md-option>
-                </md-select>
+
+                <button md-icon-button (click)="deleteEstimatedUserCategory(i)" md-tooltip="Remove this estimation">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
               </div>
+
             </div>
           </md-card-content>
         </div>

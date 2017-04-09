@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit} from "@angular/core";
 import {UserCategory} from "../../../shared/model/user/user-category";
 import {UserCategoryService} from "../../../shared/service/user/user-category.service";
 import {MdDialogRef, MdSnackBar} from "@angular/material";
+import {Globals} from "../../../shared/globals";
 
 @Component({
   selector: 'user-category-edit-dialog',
@@ -38,7 +39,7 @@ export class UserCategoryEditDialog implements OnInit {
   save() {
     if (this.create) {
       this.userCategoryService.create(this.userCategory).subscribe(uc => {
-        this.snackBar.open("User category successfully created");
+        this.snackBar.open("User category successfully created", "x" , {duration: Globals.SNACK_BAR_DURATION});
         this.update.emit();
         if (this.createAndContinue){
           this.reset();
@@ -48,7 +49,7 @@ export class UserCategoryEditDialog implements OnInit {
       });
     } else {
       this.userCategoryService.update(this.userCategory).subscribe(uc => {
-        this.snackBar.open("User category successfully created");
+        this.snackBar.open("User category successfully updated", "x" , {duration: Globals.SNACK_BAR_DURATION});
         this.update.emit();
         this.dialogRef.close();
       });

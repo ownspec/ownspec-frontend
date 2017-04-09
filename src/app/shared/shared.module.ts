@@ -12,7 +12,7 @@ import {EmptyContent} from "./empty-content/empty-content";
 import {SharedService} from "./service/shared.service";
 import {ResizableDirective} from "./resizable/resizable.directive";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
-import {TreeModule} from "angular2-tree-component";
+import {TreeModule} from "angular-tree-component";
 import {TagService} from "./service/tag.service";
 import {UserService} from "./service/user/user.service";
 import {ProfileService} from "./service/user/profil.service";
@@ -20,6 +20,7 @@ import {CompanyService} from "./service/company.service";
 import {ComponentVersionService} from "./service/components/component-versions.service";
 import {UserCategoryService} from "./service/user/user-category.service";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {AssigneeService} from "./service/user/assignee.service";
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     SharedService,
     TagService,
     CompanyService,
-    UserCategoryService
+    UserCategoryService,
+    AssigneeService
 
   ]
 })

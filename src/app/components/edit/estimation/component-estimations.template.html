@@ -1,0 +1,27 @@
+<div *ngIf="nodes">
+
+  <div fxLayout="row">
+    <div fxFlex="100%"><h6>Title</h6></div>
+    <div fxFlex="400px" fxLayoutAlign="end">
+      <div fxFlex="33%"><h6>Own</h6></div>
+      <div fxFlex="33%"><h6>Children</h6></div>
+      <div fxFlex="33%"><h6>Total</h6></div>
+    </div>
+  </div>
+
+
+
+  <tree-root [nodes]="nodes" style="width: 100%;height: 100%">
+    <template #treeNodeTemplate let-node="node" let-index="index">
+      <div fxLayout="row">
+        <div fxFlex="100%">{{ node.data.componentVersion.code }}-{{ node.data.componentVersion.title }}</div>
+        <div fxFlex="400px" fxLayoutAlign="end">
+          <div fxFlex="33%">{{ node.data.estimatedTime }}</div>
+          <div fxFlex="33%">{{ node.data.childrenEstimatedTime }} </div>
+          <div fxFlex="33%">{{ node.data.totalEstimatedTime }} </div>
+        </div>
+      </div>
+    </template>
+  </tree-root>
+
+</div>

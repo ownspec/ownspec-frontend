@@ -12,6 +12,8 @@ import {EstimatedTime} from "../../../shared/model/component/estimated-time";
 import {User} from "../../../shared/model/user/user";
 import {UserService} from "../../../shared/service/user/user.service";
 import {UserCategoryEditDialog} from "../../../administration/user-category/edit/user-category-edit.component";
+import construct = Reflect.construct;
+import {ComponentEstimationsComponent} from "../estimation/component-estimations.component";
 
 @C({
   selector: 'component-edit-general',
@@ -35,12 +37,14 @@ export class ComponentEditGeneralComponent implements OnInit {
   private tagToAdd: string;
   private textAreaMaxLength = 256;
 
+
   // Estimated Times
   private estimatedTimes: EstimatedTime[] = [];
   private unEstimatedUserCategories: UserCategory [] = [];
   private billableUserCategories: UserCategory [] = [];
 
   private users: Observable<User[]>;
+
 
   public constructor(public snackBar: MdSnackBar,
                      private componentVersionService: ComponentVersionService,
@@ -51,27 +55,20 @@ export class ComponentEditGeneralComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // Init estimated times and un-estimated user categories
-    this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
-      this.billableUserCategories = userCategories.filter(userCategory => userCategory.isBillable);
-      if (this._componentVersion.estimatedTimes.length == 0) {
-        this.billableUserCategories.forEach(userCategory => {
-          this.pushUserCategoryForEstimation(userCategory);
-        });
-      } else {
-        this.estimatedTimes = this._componentVersion.estimatedTimes;
-        this.resolveUnEstimatedCategories();
-      }
+    this.fetchUserCategories().subscribe(u => {
+      this.estimatedTimes = this._componentVersion.estimatedTimes;
     });
 
     // Users
     this.users = this.userService.findAll().publishReplay(1).refCount();
 
     this.reassign();
+
   }
 
+
   public save() {
-    this.estimatedTimes = this.estimatedTimes.filter(e => e.time > 0);
+    this.estimatedTimes = this.estimatedTimes.filter(e => !!e.duration);
     this._componentVersion.estimatedTimes = this.estimatedTimes;
 
     let obs: Observable<any>;
@@ -94,15 +91,18 @@ export class ComponentEditGeneralComponent implements OnInit {
   }
 
 
-  public fetchUnEstimatedUserCategories() {
-    this.userCategoryService.findAll().subscribe((userCategories: UserCategory[]) => {
+  public pushUserCategoryForEstimation(userCategory: UserCategory) {
+    this.estimatedTimes.push(new EstimatedTime(userCategory, null, 0));
+    this.resolveUnEstimatedCategories();
+  }
+
+  private fetchUserCategories() {
+    let obs = this.userCategoryService.findAll();
+    obs.subscribe((userCategories: UserCategory[]) => {
       this.billableUserCategories = userCategories.filter(userCategory => userCategory.isBillable);
       this.resolveUnEstimatedCategories();
     });
-  }
-
-  public pushUserCategoryForEstimation(userCategory: UserCategory) {
-    this.estimatedTimes.push(new EstimatedTime(userCategory, null, "DAYS"));
+    return obs;
   }
 
   private resolveUnEstimatedCategories() {
@@ -114,13 +114,17 @@ export class ComponentEditGeneralComponent implements OnInit {
     let dialogRef: MdDialogRef<UserCategoryEditDialog> = this.dialog.open(UserCategoryEditDialog);
     dialogRef.componentInstance.create = true;
     dialogRef.componentInstance.update.subscribe(() => {
-      this.fetchUnEstimatedUserCategories();
-      this.billableUserCategories.forEach(u => this.pushUserCategoryForEstimation(u))
+      this.fetchUserCategories();
     })
   }
 
+  public deleteEstimatedUserCategory(index) {
+    this.estimatedTimes.splice(index);
+  }
+
   public autoEstimateFromReferences() {
-    // todo
+    let dialogRef: MdDialogRef<ComponentEstimationsComponent> = this.dialog.open(ComponentEstimationsComponent, {width: "70%", height: "80%"});
+    dialogRef.componentInstance.componentVersionId = this._componentVersion.id;
   }
 
 

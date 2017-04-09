@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 import {Http, URLSearchParams} from "@angular/http";
 import {ComponentVersion} from "../../model/component/component-version";
 import {WorkflowStatus} from "../../model/component/workflow/workflow-status";
+import {ComponentVersionSearchBean} from "./component-versions-search";
 
 @Injectable()
 export class ComponentVersionService {
@@ -26,6 +27,14 @@ export class ComponentVersionService {
         return ComponentVersion.fromMap(item);
       });
   }
+
+  public findAllBySearchBean(cvs : ComponentVersionSearchBean): Observable<ComponentVersion[]> {
+    return this.$http.post("/api/search/component-versions", cvs.toMap())
+      .flatMap(r => r.json())
+      .map((item: any) => ComponentVersion.fromMap(item))
+      .toArray();
+  }
+
 
   public findAll(projectId: string = null, generic:Boolean = false, title: string = null, types: Array<string> = [], query: string = null,
                  workflow = false, content = false, comments = false, references = false): Observable<ComponentVersion[]> {
@@ -55,16 +64,7 @@ export class ComponentVersionService {
     return this.$http.get("/api/component-versions", {search: params})
       .flatMap(r => r.json())
       .map((item: any) => ComponentVersion.fromMap(item))
-      .filter(item => {
-        let result = true;
-        if (title && item.title.indexOf(title) == -1) {
-          result = false;
-        }
-        if (types.length > 0 && types.indexOf(item.type) == -1) {
-          result = false;
-        }
-        return result;
-      }).toArray();
+      .toArray();
   }
 
 
@@ -113,6 +113,11 @@ export class ComponentVersionService {
 
   public print(c: ComponentVersion) {
     window.location.assign("/api/component-versions/" + c.id + "/compose");
+  }
+
+  public estimatedTimes(cvId):Observable<ComponentVersion> {
+    return this.$http.get("/api/component-versions/" + cvId + "/estimated-times")
+      .map(r => ComponentVersion.fromMap(r.json()));
   }
 
 

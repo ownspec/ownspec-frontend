@@ -3,12 +3,12 @@ import {UserCategory} from "../user/user-category";
 export class EstimatedTime {
   public id: string;
 
-  public constructor(public userCategory: UserCategory, public time: any, public timeUnit: string) {
+  public constructor(public userCategory: UserCategory, public duration: string, public durationInMs: number) {
 
   }
 
   public static fromMap(item: any): EstimatedTime {
-    let estimatedTime = new EstimatedTime(UserCategory.fromMap(item.userCategory), item.time, item.timeUnit);
+    let estimatedTime = new EstimatedTime(UserCategory.fromMap(item.userCategory), item.duration, item.durationInMs);
     estimatedTime.id = item.id;
     return estimatedTime;
   }
@@ -17,8 +17,7 @@ export class EstimatedTime {
     return {
       id: estimatedTime.id,
       userCategory: estimatedTime.userCategory,
-      time: estimatedTime.time,
-      timeUnit: estimatedTime.timeUnit
+      duration: estimatedTime.duration,
     };
   }
 }

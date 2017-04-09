@@ -11,6 +11,11 @@ import {ComponentCreatorDialog} from "../create/component-create.component";
 import {Observable} from "rxjs";
 import {LinkService} from "../../link/link.service";
 import {ComponentHelperService} from "../helper/helper";
+import {ProfileService} from "../../shared/service/user/profil.service";
+import {Status} from "../../shared/model/component/status";
+import {AssigneeService} from "../../shared/service/user/assignee.service";
+import {User} from "../../shared/model/user/user";
+import {ComponentVersionSearchBean} from "../../shared/service/components/component-versions-search";
 
 
 /*
@@ -40,30 +45,54 @@ export class ComponentsListComponent implements OnInit {
   @Input("projectId")
   public projectId: string;
 
-  public searchBean = {title: null, query: null};
+  public statuses: Status[] = [];
+
+  public assignees: User[] = [];
+
+  public searchBean = new ComponentVersionSearchBean();
+  private advancedSearch: boolean;
 
 
-  public constructor(public dialog: MdDialog,
+  public constructor(private dialog: MdDialog,
                      private route: ActivatedRoute,
-                     public linkService: LinkService,
-                     private componentHelperService:ComponentHelperService,
+                     private linkService: LinkService,
+                     private componentHelperService: ComponentHelperService,
                      private componentService: ComponentService,
-                     private componentVersionService: ComponentVersionService) {
+                     private componentVersionService: ComponentVersionService,
+                     private profileService: ProfileService,
+                     private assigneeService: AssigneeService) {
     this.projectId = null;
   }
 
 
   ngOnInit(): void {
-    Observable.combineLatest(this.route.params, this.route.data, (params, data) => ({ params, data }))
-      .subscribe( ap => {
-      this.projectId = ap.params['projectId'];
-      this.componentTypes = ap.data['componentTypes'];
-      this.fetchComponents();
+    Observable.combineLatest(this.route.params, this.route.data, (params, data) => ({params, data}))
+      .subscribe(ap => {
+        this.projectId = ap.params['projectId'];
+        this.componentTypes = ap.data['componentTypes'];
+        this.searchBean.componentTypes = ap.data['componentTypes'];
+        this.searchBean.projectId = ap.params['projectId'];
+        this.fetchComponents();
+      });
+
+    this.profileService.findCurrentProfile().subscribe(p => {
+      this.statuses = p.properties.statuses;
     });
+
+    this.assigneeService.findAll(this.projectId, !this.projectId).subscribe(u => {
+      this.assignees = u;
+    });
+
+  }
+
+  public reset(){
+    this.searchBean.reset();
+    this.searchBean.componentTypes = this.componentTypes;
+    this.searchBean.projectId = this.projectId;
   }
 
   private fetchComponents() {
-    this.componentVersionService.findAll(this.projectId, !this.projectId, this.searchBean.title, this.componentTypes, this.searchBean.query).subscribe(o => {
+    this.componentVersionService.findAllBySearchBean(this.searchBean).subscribe(o => {
       this.components = o;
     });
   }
@@ -101,6 +130,10 @@ export class ComponentsListComponent implements OnInit {
       c.dlg.close();
       this.fetchComponents();
     });
+  }
+
+  public toggleAdvancedSearch() {
+    this.advancedSearch = !this.advancedSearch;
   }
 
 

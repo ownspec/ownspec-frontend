@@ -1,0 +1,23 @@
+
+
+.tree {
+  width: 300px;
+}
+
+/deep/ .node-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  width: 100%;
+  padding:0px;
+}
+
+.node-content-wrapper {
+  flex-grow: 1;
+  position: relative;
+}
+
+.pull-right {
+  position: absolute;
+  right: 10px;
+}

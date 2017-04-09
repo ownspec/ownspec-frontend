@@ -24,7 +24,7 @@ import {ResourcesListComponent} from "./resources/list/resouces-list.component";
 import {ResourcesSelectionComponent} from "./resources/selection/resources-selection.component";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
-import {TreeModule} from "angular2-tree-component";
+import {TreeModule} from "angular-tree-component";
 import {CompleterCmpMd} from "./shared/completer-cmp-md/completer-cmp-md";
 import "../styles/styles.scss";
 import {Globals} from "./shared/globals";
@@ -56,6 +56,7 @@ import {UserEditorDialog} from "./administration/users/edit/user-edit.component"
 import {UserCategoriesListComponent} from "./administration/user-category/list/user-categories-list.component";
 import {UserCategoryEditDialog} from "./administration/user-category/edit/user-category-edit.component";
 import {CompanyEditComponent} from "./administration/company/edit/company-edit.component";
+import {ComponentEstimationsComponent} from "./components/edit/estimation/component-estimations.component";
 import {BsDropdownModule, Ng2BootstrapModule} from "ng2-bootstrap";
 
 
@@ -263,6 +264,7 @@ const appRoutes: Routes = [
     ComponentsListComponent,
     ComponentEditComponent,
     ComponentEditGeneralComponent,
+    ComponentEstimationsComponent,
     ComponentWriteComponent,
     DashboardComponent,
 
@@ -316,6 +318,7 @@ const appRoutes: Routes = [
     UpdateWorkflowComponent,
     ReferenceComponent,
     UserCategoryEditDialog,
+    ComponentEstimationsComponent,
   ],
 
   imports: [ // import Angular's modules
