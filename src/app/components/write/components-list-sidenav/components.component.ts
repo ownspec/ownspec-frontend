@@ -2,17 +2,13 @@
 
 
 import {Component as C, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {ComponentService} from "../../../shared/service/components/component.service";
 import {ProfilService} from "../service/users/profil.service";
 import {Component} from "../../../shared/model/component/component";
-import {TagService} from "../../../shared/service/tag.service";
 import * as _ from "lodash";
-import {ProfileService} from "../../../shared/service/user/profil.service";
 import {ComponentVersion} from "../../../shared/model/component/component-version";
 import {ComponentVersionService} from "../../../shared/service/components/component-versions.service";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {LinkService} from "../../../link/link.service";
 import {ComponentHelperService} from "../../helper/helper";
 import {EditorEvent} from "../component-write.component";
 
@@ -91,7 +87,7 @@ export class ComponentsComponent implements OnInit {
 
   public search() {
     // TODO: temporary fetch content with the list of component, to refactor because response size will be too large
-    this.componentVersionService.findAll(this.projectId, !this.projectId, null, this.types, this.searchQuery, true, false, false).subscribe((components: ComponentVersion []) => {
+    this.componentVersionService.findAll(this.projectId, true, null, this.types, this.searchQuery, true, false, false).subscribe((components: ComponentVersion []) => {
       this.components = components.filter(c => c.id != this.component.id);
 
       let tree = [];

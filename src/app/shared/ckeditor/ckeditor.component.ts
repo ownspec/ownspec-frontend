@@ -1,23 +1,13 @@
 // Imports
-import {
-  Component,
-  Input,
-  Output,
-  ViewChild,
-  EventEmitter,
-  NgZone,
-  forwardRef,
-  NgModule, AfterViewInit, OnDestroy, OnInit,
-} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, forwardRef, Input, NgModule, NgZone, OnDestroy, OnInit, Output, ViewChild} from "@angular/core";
 
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
-import {TocGenerator, TocItem} from "./toc-generator";
+import {TocGenerator} from "./toc-generator";
 import * as _ from "lodash";
 import * as jQuery from "jquery";
 import {ComponentVersionService} from "../service/components/component-versions.service";
 import {EditorEvent} from "../../components/write/component-write.component";
-import {ComponentVersion} from "../model/component/component-version";
 import {ComponentService} from "../service/components/component.service";
 import {ComponentHelperService} from "../../components/helper/helper";
 import {Observable} from "rxjs";

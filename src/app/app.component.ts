@@ -1,9 +1,9 @@
 /*
  * Angular 2 decorators and services
  */
-import {Component, ViewEncapsulation, ViewContainerRef} from "@angular/core";
+import {Component, ViewContainerRef, ViewEncapsulation} from "@angular/core";
 import {SharedService} from "./shared/service/shared.service";
-import {Router, NavigationEnd, Event} from "@angular/router";
+import {Event, NavigationEnd, Router} from "@angular/router";
 
 /*
  * App Component
@@ -16,9 +16,6 @@ import {Router, NavigationEnd, Event} from "@angular/router";
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  name = 'Angular 2 Webpack Starter';
-  url = 'https://twitter.com/AngularClass';
-
   mainContentExpanded;
 
   constructor(private router: Router,

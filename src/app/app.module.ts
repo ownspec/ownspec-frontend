@@ -5,14 +5,13 @@ import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {SharedModule} from "./shared/shared.module";
 import {AppComponent} from "./app.component";
 import {MomentModule} from "angular2-moment";
-import {DropdownModule, Ng2BootstrapModule} from "ng2-bootstrap";
 import {CKEditorModule} from "./shared/ckeditor/ckeditor.component";
 import {ProjectsListComponent} from "./projects/list/projects-list.component";
 import {ProjectEditComponent} from "./projects/edit/project-edit.component";
 import {ComponentWriteComponent} from "./components/write/component-write.component";
 import {ComponentEditComponent} from "./components/edit/component-edit.component";
 import {ComponentsListComponent} from "./components/list/components-list.component";
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./authentication/login/login.component";
 import {MaterialModule, MdCardModule} from "@angular/material";
 import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
 import {ChartsModule} from "ng2-charts";
@@ -33,7 +32,7 @@ import {AdministrationComponent} from "./administration/administration.component
 import {ComponentEditGeneralComponent} from "./components/edit/general/component-edit-general.component";
 import {RouterModule, Routes} from "@angular/router";
 import {FooComponent} from "./foo.component";
-import {ConfirmRegistrationComponent} from "./confirm-registration/confirm-registration.component";
+import {ConfirmRegistrationComponent} from "./authentication/confirm-registration/confirm-registration.component";
 import {UpdateWorkflowComponent} from "./workflow/update/workflow-update.component";
 import {LinkService} from "./link/link.service";
 import {HttpInterceptor} from "./http/http-interceptor";
@@ -57,6 +56,7 @@ import {UserEditorDialog} from "./administration/users/edit/user-edit.component"
 import {UserCategoriesListComponent} from "./administration/user-category/list/user-categories-list.component";
 import {UserCategoryEditDialog} from "./administration/user-category/edit/user-category-edit.component";
 import {CompanyEditComponent} from "./administration/company/edit/company-edit.component";
+import {BsDropdownModule, Ng2BootstrapModule} from "ng2-bootstrap";
 
 
 /*
@@ -335,7 +335,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
 
     ChartsModule,
-    DropdownModule,
+    BsDropdownModule.forRoot(),
     Ng2CompleterModule,
     NgUploaderModule,
 
