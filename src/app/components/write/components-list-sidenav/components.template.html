@@ -3,25 +3,23 @@
   <form name="userForm" style="padding-top: 6px" (ngSubmit)="search()">
 
     <div>
-      <div style="margin-bottom: 4px" class="toolbar-marker">
-        <div>
-          <button md-button class="tools"><i class="fa fa-search" aria-hidden="true"></i></button>
+      <div fxLayout="row" style="padding: 5px" class="toolbar-marker">
 
-          <button md-button class="tools" [mdMenuTriggerFor]="menu"><i class="fa fa-eye" aria-hidden="true"></i>
-          </button>
-          <md-menu style="max-width: 50px" class="md-menu-panel" #menu="mdMenu" class="tools" overlapTrigger="false"
-                   y-position="below">
-            <button md-button class="tools" (click)="displayMode='list'"><i class="fa fa-list" aria-hidden="true"></i>
-            </button>
-            <button md-button class="tools" (click)="displayMode='tree'"><i class="fa fa-level-down"
-                                                                            aria-hidden="true"></i></button>
-          </md-menu>
+        <md-input-container fxFlex>
+          <input mdInput name="componentTitle" placeholder="Search..." [(ngModel)]="searchQuery" name="search">
+        </md-input-container>
 
-          <button md-button class="tools" (click)="startCreateComponent()"><i class="fa fa-plus" aria-hidden="true"></i></button>
-
+        <div fxFlex fxLayoutAlign="end" style="color: #2e3032;">
+          <button *ngIf="displayMode=='tree'"
+                  md-tooltip="Display list"
+                  md-icon-button
+                  (click)="displayMode='list'"><i class="fa fa-list" aria-hidden="true"></i></button>
+          <button *ngIf="displayMode=='list'"
+                  md-tooltip="Display by tags"
+                  md-icon-button
+                  (click)="displayMode='tree'"><i class="fa fa-level-down" aria-hidden="true"></i></button>
+          <button md-icon-button (click)="startCreateComponent()"><i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
-        <input mdInput name="componentTitle" placeholder="Search..." [(ngModel)]="searchQuery" name="search">
-
 
         <!--      <div class="btn-group" dropdown>
                 <button id="single-button" type="button" class="btn btn-primary btn-sm" dropdownToggle >
