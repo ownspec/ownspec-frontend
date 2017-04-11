@@ -16,7 +16,7 @@ button {
   float: left;
   width: $sidenav-width;
   height: 100%;
-  background: #424242;
+  background: #3b3e40;
   position: fixed;
   z-index: 1;
 }
@@ -28,7 +28,7 @@ button {
   height: 50px;
   //border-right: 2px solid #ec4363;
   line-height: 50px;
-  background: #424242;
+  background: #3b3e40;
 }
 
 .sidenav-logo img {
@@ -42,7 +42,7 @@ button {
   border-bottom: 1px solid rgba(51, 54, 56, 0.29);
   padding-top: 10px;
   border-top: 1px solid rgba(51, 54, 56, 0.29);
-  background: #3b3e40;
+  background: rgb(53, 52, 52);
 }
 
 /* Menu items */

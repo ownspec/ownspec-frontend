@@ -19,39 +19,39 @@ input:focus {
 }
 
 
-.login-logo-container {
+.logo-container {
   padding: 50px 0;
   text-align: center;
   letter-spacing: 2px;
 }
 
-.login-form-container {
+.form-container {
   position: relative;
   background: #ffffff;
   max-width: 350px;
   width: 100%;
-  border-top: 5px solid #ec4363;
+  border-top: 5px solid #ec4363; //ed2146
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
 }
-.login-form-container .form {
+.form-container .form {
   display: block;
   padding: 40px;
 }
 
-.login-form-container h2 {
+.form-container h2 {
   margin: 0 0 20px;
   color: #393838;
   font-size: 18px;
   font-weight: 400;
   line-height: 1;
 }
-.login-form-container input {
+.form-container input {
   display: block;
   width: 100%;
 }
 
-.login-form-container button {
+.form-container button {
   cursor: pointer;
   background: #666565;
   width: 100%;
@@ -61,10 +61,10 @@ input:focus {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.login-form-container button:hover {
+.form-container button:hover {
   background: #393838;
 }
-.login-form-container .login-footer {
+.form-container .footer {
   background: #f2f2f2;
   width: 100%;
   padding: 15px 40px;
@@ -73,7 +73,7 @@ input:focus {
   font-size: 12px;
   text-align: center;
 }
-.login-form-container .login-footer a {
+.form-container .footer a {
   color: #333333;
   text-decoration: none;
 }

@@ -1,9 +1,5 @@
-<div class="login-logo-container">
-  <img src="assets/img/os-center-logo-170x43.png" alt="Ownspec center">
-</div>
-
-<div class="login-form-container">
-  <div class="form">
+<authentication>
+  <div class="form-body">
     <h2>Confirm registration</h2>
     <form #confirmRegistrationForm="ngForm" (ngSubmit)="confirmRegistration(password.value,confirmPassword.value)">
       <input #password placeholder="Create password" required type="password">
@@ -11,4 +7,5 @@
       <button type="submit">Confirm</button>
     </form>
   </div>
-</div>
+</authentication>
+

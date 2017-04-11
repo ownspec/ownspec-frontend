@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {MdSnackBar} from "@angular/material";
-import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../shared/service/user/user.service";
 import {LinkService} from "../../link/link.service";
+import {ActivatedRoute} from "@angular/router";
 import {Globals} from "../../shared/globals";
 
 @Component({

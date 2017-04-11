@@ -58,6 +58,7 @@ import {UserCategoryEditDialog} from "./administration/user-category/edit/user-c
 import {CompanyEditComponent} from "./administration/company/edit/company-edit.component";
 import {ComponentEstimationsComponent} from "./components/edit/estimation/component-estimations.component";
 import {BsDropdownModule, Ng2BootstrapModule} from "ng2-bootstrap";
+import {AuthenticationComponent} from "./authentication/authentication.component";
 
 
 /*
@@ -276,6 +277,7 @@ const appRoutes: Routes = [
     ProjectsListComponent,
     ProjectEditComponent,
 
+    AuthenticationComponent,
     LoginComponent,
     ConfirmRegistrationComponent,
 
@@ -338,7 +340,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
 
     ChartsModule,
-    BsDropdownModule.forRoot(),
+    BsDropdownModule,
     Ng2CompleterModule,
     NgUploaderModule,
 

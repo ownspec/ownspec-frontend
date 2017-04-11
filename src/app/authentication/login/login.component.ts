@@ -1,13 +1,13 @@
 import {Component} from "@angular/core";
 import {MdSnackBar} from "@angular/material";
-import {UserService} from "../../shared/service/user/user.service";
-import {LinkService} from "../../link/link.service";
 import {Globals} from "../../shared/globals";
+import {LinkService} from "../../link/link.service";
+import {UserService} from "../../shared/service/user/user.service";
 
 @Component({
   selector: "login",
   templateUrl: "./login.template.html",
-  styleUrls: ['./login.scss']
+  styleUrls: ['../authentication.scss']
 })
 export class LoginComponent {
 
