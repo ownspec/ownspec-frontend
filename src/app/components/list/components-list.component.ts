@@ -102,8 +102,8 @@ export class ComponentsListComponent implements OnInit {
     this.linkService.gotoEditComponent(r);
   }
 
-  public write(r: any) {
-    //this.$state.go(".component-write", {componentId: r.id}, {reload: false});
+  public write(r: ComponentVersion) {
+    this.linkService.gotoWriteComponent(r);
   }
 
   public print(c: ComponentVersion) {

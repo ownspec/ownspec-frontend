@@ -1,27 +1,57 @@
-<div *ngIf="nodes">
-
-  <div fxLayout="row">
-    <div fxFlex="100%"><h6>Title</h6></div>
-    <div fxFlex="400px" fxLayoutAlign="end">
-      <div fxFlex="33%"><h6>Own</h6></div>
-      <div fxFlex="33%"><h6>Children</h6></div>
-      <div fxFlex="33%"><h6>Total</h6></div>
-    </div>
-  </div>
+<div fxLayout="column" *ngIf="nodes" fxFlex="100%">
 
 
+  <ngx-datatable
+    class="material" style="flex: 1"
+    [rows]="estimations"
+    [columnMode]="'flex'"
+    [headerHeight]="50"
+    [footerHeight]="0"
+    [rowHeight]="50"
+    [scrollbarV]="true"
+    [scrollbarH]="true">
 
-  <tree-root [nodes]="nodes" style="width: 100%;height: 100%">
-    <template #treeNodeTemplate let-node="node" let-index="index">
-      <div fxLayout="row">
-        <div fxFlex="100%">{{ node.data.componentVersion.code }}-{{ node.data.componentVersion.title }}</div>
-        <div fxFlex="400px" fxLayoutAlign="end">
-          <div fxFlex="33%">{{ node.data.estimatedTime }}</div>
-          <div fxFlex="33%">{{ node.data.childrenEstimatedTime }} </div>
-          <div fxFlex="33%">{{ node.data.totalEstimatedTime }} </div>
+    <ngx-datatable-column [flexGrow]="1" name="Code"
+                          prop="componentVersion.code"></ngx-datatable-column>
+
+    <ngx-datatable-column [flexGrow]="4" name="Title">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <span [ngStyle]="{'padding-left': row.level*8 + 'px'}">{{row.name}}</span>
+      </template>
+    </ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="1" name="Estimation (days)">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row.estimatedTime}}
+      </template>
+    </ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="1" name="Total (days)">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row.totalEstimatedTime}}
+      </template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [flexGrow]="1" name="Action">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <div class="table-actions">
+
+
+          <button type="button" class="btn btn-outline-primary btn-tiny" (click)="edit(row.componentVersion)"
+                  md-tooltip="Edit {{row.type | lowercase}}">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+
+          <button type="button" class="btn btn-outline-primary btn-tiny" (click)="write(row.componentVersion)"
+                  md-tooltip="Write {{row.type | lowercase}}">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button>
+
         </div>
-      </div>
-    </template>
-  </tree-root>
+      </template>
+    </ngx-datatable-column>
+  </ngx-datatable>
 
+  <div fxLayout="row" fxLayoutAlign="center center" style="height: 50px">
+    <button md-raised-button color="primary" (click)="export()"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export
+    </button>
+  </div>
 </div>

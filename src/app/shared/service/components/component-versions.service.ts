@@ -28,7 +28,7 @@ export class ComponentVersionService {
       });
   }
 
-  public findAllBySearchBean(cvs : ComponentVersionSearchBean): Observable<ComponentVersion[]> {
+  public findAllBySearchBean(cvs: ComponentVersionSearchBean): Observable<ComponentVersion[]> {
     return this.$http.post("/api/search/component-versions", cvs.toMap())
       .flatMap(r => r.json())
       .map((item: any) => ComponentVersion.fromMap(item))
@@ -36,7 +36,7 @@ export class ComponentVersionService {
   }
 
 
-  public findAll(projectId: string = null, generic:Boolean = false, title: string = null, types: Array<string> = [], query: string = null,
+  public findAll(projectId: string = null, generic: Boolean = false, title: string = null, types: Array<string> = [], query: string = null,
                  workflow = false, content = false, comments = false, references = false): Observable<ComponentVersion[]> {
     let params: URLSearchParams = new URLSearchParams();
 
@@ -115,9 +115,16 @@ export class ComponentVersionService {
     window.location.assign("/api/component-versions/" + c.id + "/compose");
   }
 
-  public estimatedTimes(cvId):Observable<ComponentVersion> {
+  public estimatedTimes(cvId, mode = null): Observable<ComponentVersion> {
+
     return this.$http.get("/api/component-versions/" + cvId + "/estimated-times")
       .map(r => ComponentVersion.fromMap(r.json()));
+  }
+
+  public exportEstimatedTimes(cvId) {
+
+    window.location.assign("/api/component-versions/" + cvId + "/estimated-times?output=excel");
+
   }
 
 
