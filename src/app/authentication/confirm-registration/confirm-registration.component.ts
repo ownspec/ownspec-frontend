@@ -7,8 +7,7 @@ import {Globals} from "../../shared/globals";
 
 @Component({
   selector: "confirm-registration",
-  templateUrl: "./confirm-registration.template.html",
-  styleUrls: ['./confirm-registration.scss']
+  templateUrl: "./confirm-registration.template.html"
 })
 export class ConfirmRegistrationComponent implements OnInit {
   private verificationToken: string;
