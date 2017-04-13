@@ -1,5 +1,5 @@
 "use strict";
-import {Component as C, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Component as C, EventEmitter, Input, OnInit, Output, OnChanges} from "@angular/core";
 import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {ComponentVersion} from "../../../shared/model/component/component-version";
 import {Observable} from "rxjs";
@@ -20,10 +20,10 @@ import {ComponentEstimationsComponent} from "../estimation/component-estimations
   templateUrl: 'component-edit-general.template.html',
   styleUrls: ['component-edit-general.component.scss']
 })
-export class ComponentEditGeneralComponent implements OnInit {
+export class ComponentEditGeneralComponent implements OnInit, OnChanges {
 
-
-  private _componentVersion: ComponentVersion;
+  @Input("componentVersion")
+  public componentVersion: ComponentVersion;
 
   @Input("componentType")
   public componentType: string;
@@ -37,6 +37,7 @@ export class ComponentEditGeneralComponent implements OnInit {
   private tagToAdd: string;
   private textAreaMaxLength = 256;
 
+  private editAssignee = false;
 
   // Estimated Times
   private estimatedTimes: EstimatedTime[] = [];
@@ -55,9 +56,6 @@ export class ComponentEditGeneralComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.fetchUserCategories().subscribe(u => {
-      this.estimatedTimes = this._componentVersion.estimatedTimes;
-    });
 
     // Users
     this.users = this.userService.findAll().publishReplay(1).refCount();
@@ -67,18 +65,26 @@ export class ComponentEditGeneralComponent implements OnInit {
   }
 
 
+  ngOnChanges(){
+    console.log("changes");
+    this.fetchUserCategories().subscribe(u => {
+      this.estimatedTimes = this.componentVersion.estimatedTimes;
+    });
+    this.reassign();
+  }
+
   public save() {
     this.estimatedTimes = this.estimatedTimes.filter(e => !!e.duration);
-    this._componentVersion.estimatedTimes = this.estimatedTimes;
+    this.componentVersion.estimatedTimes = this.estimatedTimes;
 
     let obs: Observable<any>;
-    obs = this.componentVersionService.update(this._componentVersion);
+    obs = this.componentVersionService.update(this.componentVersion);
     obs.subscribe(r => {
-        this.snackBar.open(this._componentVersion.type + " successfully updated", "Close", {duration: 2000});
+        this.snackBar.open(this.componentVersion.type + " successfully updated", "Close", {duration: 2000});
         this.update.emit(ComponentUpdate.newComponentUpdate());
       },
       error => {
-        this.snackBar.open("Failed to update " + this._componentVersion.type, "Close", {duration: 2000});
+        this.snackBar.open("Failed to update " + this.componentVersion.type, "Close", {duration: 2000});
       });
   }
 
@@ -86,7 +92,7 @@ export class ComponentEditGeneralComponent implements OnInit {
     if ($event.keyCode != 13 || !this.tagToAdd || this.tagToAdd.trim().length <= 0) {
       return;
     }
-    this._componentVersion.tags.push(this.tagToAdd);
+    this.componentVersion.tags.push(this.tagToAdd);
     this.tagToAdd = "";
   }
 
@@ -97,7 +103,7 @@ export class ComponentEditGeneralComponent implements OnInit {
   }
 
   private fetchUserCategories() {
-    let obs = this.userCategoryService.findAll();
+    let obs = this.userCategoryService.findAll().publishReplay(1).refCount();
     obs.subscribe((userCategories: UserCategory[]) => {
       this.billableUserCategories = userCategories.filter(userCategory => userCategory.isBillable);
       this.resolveUnEstimatedCategories();
@@ -124,29 +130,19 @@ export class ComponentEditGeneralComponent implements OnInit {
 
   public autoEstimateFromReferences() {
     let dialogRef: MdDialogRef<ComponentEstimationsComponent> = this.dialog.open(ComponentEstimationsComponent, {width: "70%", height: "80%"});
-    dialogRef.componentInstance.componentVersionId = this._componentVersion.id;
+    dialogRef.componentInstance.componentVersionId = this.componentVersion.id;
   }
 
-
-  get componentVersion(): ComponentVersion {
-    return this._componentVersion;
-  }
-
-  @Input("componentVersion")
-  set componentVersion(value: ComponentVersion) {
-    this._componentVersion = value;
-    this.reassign();
-  }
 
   private reassign() {
-    if (!this._componentVersion || !this.users) {
+    if (!this.componentVersion || !this.users) {
       return;
     }
-    if (!!this._componentVersion.assignedTo) {
+    if (!!this.componentVersion.assignedTo) {
       this.users
         .flatMap(u => u)
-        .filter(u => u.id == this._componentVersion.assignedTo.id)
-        .subscribe(u => this._componentVersion.assignedTo = u);
+        .filter(u => u.id == this.componentVersion.assignedTo.id)
+        .subscribe(u => this.componentVersion.assignedTo = u);
     }
   }
 

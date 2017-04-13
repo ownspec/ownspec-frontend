@@ -32,8 +32,6 @@ export class ComponentEditComponent implements OnInit {
 
   public componentVersion: ComponentVersion;
 
-  public userCategories: UserCategory[] = [];
-
 
   public constructor(public snackBar: MdSnackBar,
                      private userCategoryService: UserCategoryService,
@@ -55,10 +53,6 @@ export class ComponentEditComponent implements OnInit {
   private fetch() {
     this.componentVersionService.findOne(this.id, true, false, false, true).subscribe(r => {
       this.componentVersion = r;
-    });
-
-    this.userCategoryService.findAll().subscribe(r => {
-      this.userCategories = r;
     });
   }
 

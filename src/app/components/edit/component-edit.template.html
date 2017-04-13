@@ -44,8 +44,7 @@
             [rowHeight]="50"
             [scrollbarV]="true"
             [scrollbarH]="true">
-            <ngx-datatable-column [flexGrow]="3" name="Key" prop="source.code"></ngx-datatable-column>
-            <ngx-datatable-column [flexGrow]="3" name="Source" prop="source.title"></ngx-datatable-column>
+            <ngx-datatable-column [flexGrow]="1" name="Key" prop="source.code"></ngx-datatable-column>
 
             <ngx-datatable-column [flexGrow]="1">
               <template let-row="row" let-value="value" ngx-datatable-cell-template>
@@ -53,6 +52,7 @@
               </template>
             </ngx-datatable-column>
 
+            <ngx-datatable-column [flexGrow]="1" name="Key" prop="target.code"></ngx-datatable-column>
             <ngx-datatable-column [flexGrow]="3" name="Target" prop="target.title"></ngx-datatable-column>
             <ngx-datatable-column [flexGrow]="2" name="Type" prop="target.type"></ngx-datatable-column>
             <ngx-datatable-column [flexGrow]="2" name="Status"
