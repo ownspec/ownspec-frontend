@@ -146,4 +146,12 @@ export class ComponentEditGeneralComponent implements OnInit, OnChanges {
     }
   }
 
+
+  public removeTag(tag){
+    let index = this.componentVersion.tags.indexOf(tag);
+    if (index >= 0){
+      this.componentVersion.tags.splice(index , 1);
+    }
+  }
+
 }

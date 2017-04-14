@@ -1,5 +1,12 @@
 <div fxLayout="column" style="padding: 5px;">
 
+
+  <div fxLayout="row" fxLayoutAlign="end center" style="height: 50px">
+    <button md-raised-button color="primary" (click)="save()"><i class="fa fa-check" aria-hidden="true"></i> Save
+    </button>
+  </div>
+
+
   <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
     <div fxFlex="7 0 300px" style="padding: 5px;">
       <md-card style="height: 100%; border-left: 2px solid #636262">
@@ -44,15 +51,21 @@
 
           <!-- Tags -->
           <div fxLayout="row" style="margin:15px 5px">
-            <div fxFlex>
-              <p>
+            <div fxFlex fxLayout="row">
+              <div style="padding-right: 5px">
                 <md-input-container>
                   <input mdInput [ngModelOptions]="{standalone: true}" [(ngModel)]="tagToAdd" placeholder="Tags"
                          (keypress)="addNewTag($event)">
                 </md-input-container>
-              </p>
-              <div class="badge badge-default" style="display: inline-block;margin-right: 5px"
-                   *ngFor="let tag of componentVersion.tags">{{tag}}&nbsp;
+              </div>
+              <div fxLayoutAlign="center center">
+                <span class="badge badge-default" fxLayoutAlign="center center"
+                      style="display: inline-block;padding-right: 10px;margin-right: 5px; height: 25px"
+                      *ngFor="let tag of componentVersion.tags">
+                  <button (click)="removeTag(tag)"><i class="fa fa-times" aria-hidden="true"></i></button>{{tag}}
+
+
+                </span>
               </div>
             </div>
           </div>
@@ -87,11 +100,13 @@
 
           <!-- Assignee -->
           <md-card-title style="margin-bottom:5px; font-size: 15px">Assignee
-              <button *ngIf="!componentVersion.assignedTo && !editAssignee" (click)="editAssignee=true"><i class="fa fa-address-book-o" aria-hidden="true"></i></button>
+            <button *ngIf="!componentVersion.assignedTo && !editAssignee" (click)="editAssignee=true"><i
+              class="fa fa-address-book-o" aria-hidden="true"></i></button>
           </md-card-title>
           <md-card-subtitle>
             <div *ngIf="componentVersion.assignedTo && !editAssignee">
-              {{componentVersion.lastModifiedDate | amTimeAgo }} to <a role="button" (click)="editAssignee=true"><span style="font-weight: bold">{{componentVersion.assignedTo.fullName}}</span></a>
+              {{componentVersion.lastModifiedDate | amTimeAgo }} to <a role="button" (click)="editAssignee=true"><span
+              style="font-weight: bold">{{componentVersion.assignedTo.fullName}}</span></a>
             </div>
 
             <md-select [(ngModel)]="componentVersion.assignedTo" *ngIf="editAssignee" (onClose)="editAssignee=false"
@@ -264,11 +279,6 @@
         </div>
       </md-card>
     </div>
-  </div>
-
-  <div fxLayout="row" fxLayoutAlign="center center" style="height: 50px">
-    <button md-raised-button color="primary" (click)="save()"><i class="fa fa-check" aria-hidden="true"></i> Save
-    </button>
   </div>
 
 </div>
