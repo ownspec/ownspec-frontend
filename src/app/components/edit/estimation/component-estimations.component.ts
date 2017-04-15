@@ -1,5 +1,5 @@
 "use strict";
-import {Component as C, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Component as C, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
 import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {ComponentVersion} from "../../../shared/model/component/component-version";
 import {Observable} from "rxjs";
@@ -15,6 +15,8 @@ import {UserCategoryEditDialog} from "../../../administration/user-category/edit
 import construct = Reflect.construct;
 import {LinkService} from "../../../link/link.service";
 
+type SumEstimate = { price: number, estimate: number };
+
 @C({
   selector: 'component-estimations',
   templateUrl: 'component-estimations.template.html',
@@ -22,6 +24,7 @@ import {LinkService} from "../../../link/link.service";
 })
 export class ComponentEstimationsComponent implements OnInit {
 
+  @ViewChild('table') table: any;
 
   public componentVersionId: any;
 
@@ -41,13 +44,10 @@ export class ComponentEstimationsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.componentVersionId);
-    console.log(this.componentVersionId);
-    console.log(this.componentVersionId);
     this.componentVersionService.estimatedTimes(this.componentVersionId).subscribe(e => {
       console.log(e);
       this.estimated = e;
-      this.nodes = [this.constructTree(e,0)];
+      this.nodes = [this.constructTree(e, 0)];
 
       //this.estimations.push(this.constructTree(e,0));
 
@@ -56,31 +56,63 @@ export class ComponentEstimationsComponent implements OnInit {
     });
   }
 
-  private constructTree(cv:ComponentVersion, level:number):any{
+  private constructTree(cv: ComponentVersion, level: number): any {
 
-    let node = {level:level,id:cv.id, name:cv.title,componentVersion:cv, children:[], totalEstimatedTime: this.estimate(cv) , estimatedTime:this.estimate(cv), childrenEstimatedTime:0};
+    let node = {
+      level: level,
+      id: cv.id,
+      name: cv.title,
+      componentVersion: cv,
+      children: [],
+      totalEstimatedTime: this.estimate(cv),
+      estimatedTime: this.estimate(cv),
+      childrenEstimatedTime: {estimate: 0, price: 0}
+    };
     this.estimations.push(node);
 
     cv.componentReferences.forEach(v => {
-      let child = this.constructTree(v.target,level+1);
+      let child = this.constructTree(v.target, level + 1);
       node.children.push(child);
-      node.childrenEstimatedTime += child.estimatedTime;
-      node.totalEstimatedTime += child.estimatedTime;
-
-
-
+      node.childrenEstimatedTime = this.sumEstimate(node.childrenEstimatedTime, child.estimatedTime);
+      node.totalEstimatedTime = this.sumEstimate(node.totalEstimatedTime, child.estimatedTime);
     });
 
     return node;
   }
 
-  private estimate(cv:ComponentVersion): number{
+
+  private sumEstimate(l: SumEstimate, r: SumEstimate): SumEstimate {
+    return {estimate: l.estimate + r.estimate, price: l.price + r.price};
+  }
+
+  private estimate(cv: ComponentVersion): SumEstimate {
     let estim = 0;
-    for (let est of cv.estimatedTimes){
+    let price = 0;
+    for (let est of cv.estimatedTimes) {
       estim += est.durationInMs;
+      if (est.userCategory.isBillable) {
+        price += this.computePriceFromEstimatedTime(est);
+      }
     }
 
-    return Math.trunc((estim / (8*60*60)) * 100) / 100;
+    return {estimate: estim, price: price};
+  }
+
+
+  public computeDurationInDays(durationInMs: number) {
+    return this.roundValue(durationInMs / (1000 * 60 * 60 * 8));
+  }
+
+  public computePriceFromEstimatedTime(est: EstimatedTime) {
+    if (est.userCategory.isBillable) {
+      return (est.durationInMs / (1000 * 60 * 60)) * est.userCategory.hourlyPrice;
+    } else {
+      return 0;
+    }
+  }
+
+  public roundValue(v) {
+    return Math.round(100 * v) / 100;
   }
 
 
@@ -94,9 +126,12 @@ export class ComponentEstimationsComponent implements OnInit {
     this.linkService.gotoWriteComponent(r);
   }
 
-  public export(){
+  public export() {
     this.componentVersionService.exportEstimatedTimes(this.componentVersionId);
   }
 
+  toggleExpandRow(row) {
+    this.table.rowDetail.toggleExpandRow(row);
+  }
 
 }

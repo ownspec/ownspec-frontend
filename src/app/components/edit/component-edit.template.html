@@ -102,6 +102,7 @@
               [rowHeight]="50"
               [scrollbarV]="true"
               [scrollbarH]="true">
+              <ngx-datatable-column [flexGrow]="1" name="Source" prop="source.code"></ngx-datatable-column>
               <ngx-datatable-column [flexGrow]="3" name="Source" prop="source.title"></ngx-datatable-column>
               <ngx-datatable-column [flexGrow]="2" name="Type" prop="source.type"></ngx-datatable-column>
               <ngx-datatable-column [flexGrow]="2" name="Status"
@@ -115,7 +116,7 @@
                 </template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column [flexGrow]="3" name="Target" prop="target.title"></ngx-datatable-column>
+              <ngx-datatable-column [flexGrow]="1" name="Target" prop="target.code"></ngx-datatable-column>
 
 
               <ngx-datatable-column [flexGrow]="1" name="Action">

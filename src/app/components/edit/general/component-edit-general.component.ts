@@ -67,8 +67,8 @@ export class ComponentEditGeneralComponent implements OnInit, OnChanges {
 
   ngOnChanges(){
     console.log("changes");
+    this.estimatedTimes = this.componentVersion.estimatedTimes;
     this.fetchUserCategories().subscribe(u => {
-      this.estimatedTimes = this.componentVersion.estimatedTimes;
     });
     this.reassign();
   }
