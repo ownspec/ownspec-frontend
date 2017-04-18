@@ -92,7 +92,10 @@ export class ComponentEditGeneralComponent implements OnInit, OnChanges {
     if ($event.keyCode != 13 || !this.tagToAdd || this.tagToAdd.trim().length <= 0) {
       return;
     }
-    this.componentVersion.tags.push(this.tagToAdd);
+
+    if (this.componentVersion.tags.indexOf(this.tagToAdd) == -1) {
+      this.componentVersion.tags.push(this.tagToAdd);
+    }
     this.tagToAdd = "";
   }
 
