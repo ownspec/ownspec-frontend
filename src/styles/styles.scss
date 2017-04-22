@@ -4,6 +4,7 @@
 // Should be loaded before the application stylesheets
 //
 @import "../_variable";
+@import "./datable-custom.css";
 //@import "~roboto-fontface/css/roboto/sass/roboto-fontface.scss";
 @import "../../node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-regular";
 @import "../../node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-thin";
@@ -17,7 +18,7 @@
 //@import "~bootstrap/scss/bootstrap-flex.scss";
 @import "~@angular/material/core/theming/prebuilt/deeppurple-amber.scss";
 @import "~@swimlane/ngx-datatable/release/components/datatable.component.css";
-@import "~@swimlane/ngx-datatable/release/themes/material.css";
+//@import "~@swimlane/ngx-datatable/release/themes/material.css";
 
 
 

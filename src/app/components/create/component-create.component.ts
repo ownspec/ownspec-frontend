@@ -1,11 +1,12 @@
 "use strict";
-import {Component as C, EventEmitter, forwardRef, OnInit, Output} from "@angular/core";
+import {Component as C, EventEmitter, OnInit, Output} from "@angular/core";
 import {ComponentVersion} from "../../shared/model/component/component-version";
-import {MdDialogRef, MdSnackBar} from "@angular/material";
-import {Observable} from "rxjs";
-import {ComponentCreationEvent, ComponentUpdate} from "../write/component-write.component";
+import {MdDialogRef} from "@angular/material";
+import {ComponentCreationEvent} from "../write/component-write.component";
 import {ComponentService} from "../../shared/service/components/component.service";
 import {ComponentSnackService} from "../../service/component-snack.service";
+import {ComponentVersionService} from "../../shared/service/components/component-versions.service";
+import {ComponentVersionSearchBean} from "../../shared/service/components/component-versions-search";
 
 @C({
   selector: 'component-create',
@@ -17,21 +18,23 @@ export class ComponentCreatorDialog implements OnInit {
   public projectId: string;
   public componentType: string;
   private tagToAdd: string;
+  private templateToUse: ComponentVersion;
+  private templates: ComponentVersion [] = [];
 
   @Output()
   public update = new EventEmitter<ComponentCreationEvent>();
 
-  public
-
-
   public constructor(public componentCreatorDialogRef: MdDialogRef<ComponentCreatorDialog>,
                      private componentService: ComponentService,
+                     private componentVersionService: ComponentVersionService,
                      private componentSnackService: ComponentSnackService) {
+    this.templateToUse = new ComponentVersion(null, null, "", null, null, null);
   }
 
 
   public ngOnInit() {
     this.resetForm();
+    this.fetchTemplates();
   }
 
   public save(andContinue = false) {
@@ -45,6 +48,14 @@ export class ComponentCreatorDialog implements OnInit {
         this.componentCreatorDialogRef.close();
       }
 
+      // todo : TEMPORARY: To be done in just one request
+      if (this.templateToUse.id) {
+        this.componentVersionService.getContent(this.templateToUse.id).subscribe(r => {
+          this.templateToUse.content = r;
+          this.componentVersionService.updateContent(createdComponentVersion.id, this.templateToUse.content).subscribe(r => {
+          });
+        });
+      }
       this.componentSnackService.notify(createdComponentVersion).onAction().subscribe(e => {
         this.componentCreatorDialogRef.close();
       });
@@ -65,5 +76,12 @@ export class ComponentCreatorDialog implements OnInit {
     }
     this.componentVersion.tags.push(this.tagToAdd);
     this.tagToAdd = "";
+  }
+
+
+  private fetchTemplates() {
+    let searchBean = new ComponentVersionSearchBean();
+    searchBean.componentTypes = ['TEMPLATE'];
+    this.componentVersionService.findAllBySearchBean(searchBean).subscribe(r => this.templates = r);
   }
 }

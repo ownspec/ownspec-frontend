@@ -38,6 +38,7 @@ export class ComponentVersion {
 
   private riskAssessment = new RiskAssessment();
 
+
   public constructor(public id: string, public componentId: string, public title: string, public code: string, public projectId: string, public type: string) {
   }
 

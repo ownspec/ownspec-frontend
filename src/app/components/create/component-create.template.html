@@ -1,4 +1,5 @@
 <div fxLayout="column" style="padding: 5px;">
+
   <!-- Title -->
   <div fxFlex style="margin:15px 5px">
     <md-input-container style="width: 100%">
@@ -8,6 +9,15 @@
              type="text">
     </md-input-container>
   </div>
+
+  <!-- Using template-->
+  <div *ngIf="componentType != 'TEMPLATE' && componentType != 'RESOURCE'"
+       fxFlex style="margin:15px 5px">
+    <md-select [(ngModel)]="templateToUse" placeholder="Using template" style="width: 100%">
+      <md-option *ngFor="let template of templates" [value]="template">{{template.title}}</md-option>
+    </md-select>
+  </div>
+
 
   <!-- Component Type-->
   <div fxFlex style="margin:15px 5px">
@@ -57,6 +67,7 @@
            *ngFor="let tag of componentVersion.tags">{{tag}}&nbsp;</div>
     </div>
   </div>
+
 
   <!-- Actions -->
   <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 10px">

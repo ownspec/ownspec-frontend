@@ -5,6 +5,7 @@ import {ProjectService} from "../shared/service/project.service";
 import {Project} from "../shared/model/project";
 import {ComponentVersionService} from "../shared/service/components/component-versions.service";
 import {ComponentVersion} from "../shared/model/component/component-version";
+import {ComponentVersionSearchBean} from "../shared/service/components/component-versions-search";
 
 require("chart.js/src/chart.js");
 
@@ -21,7 +22,8 @@ export class DashboardComponent implements OnInit {
   private projectsNumber = 0;
   private documentsNumber = 0;
   private requirementsNumber = 0;
-  private templatesAndComponentsNumber = 0;
+  private templatesNumber = 0;
+  private componentsNumber = 0;
 
   private lastVisitedProjects: Project [] = [];
   private lastVisitedDocuments: ComponentVersion  [] = [];
@@ -53,9 +55,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let documents: ComponentVersion[]= [];
-    let requirements: ComponentVersion[] =[];
-    let templatesAndComponents: ComponentVersion[]= [];
+    let documents: ComponentVersion[] = [];
+    let requirements: ComponentVersion[] = [];
+    let templates: ComponentVersion[] = [];
+    let components: ComponentVersion[] = [];
 
     this.sharedService.stateIsInAProjectEvent.subscribe(result => {
       this.stateIsInAProject = result.isInAProject;
@@ -65,15 +68,20 @@ export class DashboardComponent implements OnInit {
       this.projectsNumber = response.length;
     });
 
-    this.componentVersionService.findAll(null, true, null, ["DOCUMENT", "REQUIREMENT", "TEMPLATE", "COMPONENT"]).subscribe(response => {
+    let searchBean = new ComponentVersionSearchBean();
+    searchBean.componentTypes = ["DOCUMENT", "REQUIREMENT", "TEMPLATE", "COMPONENT"];
+
+    this.componentVersionService.findAllBySearchBean(searchBean).subscribe(response => {
       documents = response.filter((c: ComponentVersion) => c.type == "DOCUMENT");
       requirements = response.filter((c: ComponentVersion) => c.type == "REQUIREMENT");
-      templatesAndComponents = response.filter((c: ComponentVersion) => c.type == "TEMPLATE" || c.type == "COMPONENT");
+      templates = response.filter((c: ComponentVersion) => c.type == "TEMPLATE");
+      components = response.filter((c: ComponentVersion) => c.type == "COMPONENT");
 
       // Total
       this.documentsNumber = documents.length;
       this.requirementsNumber = requirements.length;
-      this.templatesAndComponentsNumber = templatesAndComponents.length;
+      this.templatesNumber = templates.length;
+      this.componentsNumber = components.length;
 
       // Charts
       this.setRequirementChartsData(requirements);
@@ -124,9 +132,9 @@ export class DashboardComponent implements OnInit {
 
   private setLastVisited() {
     // Projects
-    this.projectService.getLastVisited().subscribe((lastVisitedProjects: Project[]) => {
-      this.lastVisitedProjects = lastVisitedProjects;
-    });
+    // this.projectService.getLastVisited().subscribe((lastVisitedProjects: Project[]) => {
+    //   this.lastVisitedProjects = lastVisitedProjects;
+    // });
 
     // Documents
     // this.componentService.getLastVisitedDocuments().subscribe((lastVisitedDocuments: Component[]) => {

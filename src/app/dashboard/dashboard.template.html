@@ -4,7 +4,7 @@
   </div>
 </main-header>
 
-<div style="padding: 5px">
+<div class="main-content-content" style="padding: 5px">
   <div *ngIf="!stateIsInAProject" fxLayout="column">
 
     <!-- CARDS -->
@@ -35,31 +35,6 @@
         </md-card>
       </div>
       <div fxFlex="25" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
-        <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #ec4363">
-          <div fxLayout="row" fxLayoutAlign="center">
-            <div fxFlex="10" style="margin-right: 20px;">
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-circle fa-stack-2x" style="color:#ec4363"></i>
-              <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
-          </span>
-            </div>
-            <md-card-header fxFlex>
-              <md-card-subtitle>Documents</md-card-subtitle>
-              <md-card-title>
-                <h5>{{documentsNumber}}</h5>
-              </md-card-title>
-            </md-card-header>
-          </div>
-
-          <md-card-content fxFlex *ngIf="lastVisitedDocuments.length != 0">
-            <p>Last</p>
-            <div *ngFor="let document of lastVisitedDocuments">
-              <a (click)="showProject(document.id)" role="button">{{document.title}}</a>
-            </div>
-          </md-card-content>
-        </md-card>
-      </div>
-      <div fxFlex="25" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
         <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #028090">
           <div fxLayout="row" fxLayoutAlign="center">
             <div fxFlex="10" style="margin-right: 20px;">
@@ -85,28 +60,39 @@
         </md-card>
       </div>
       <div fxFlex="25" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
+        <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #ec4363">
+          <div fxLayout="row" fxLayoutAlign="center">
+            <div fxFlex="10" style="margin-right: 20px;">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x" style="color:#ec4363"></i>
+              <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
+          </span>
+            </div>
+            <md-card-header fxFlex>
+              <md-card-subtitle>Templates</md-card-subtitle>
+              <md-card-title>
+                <h5>{{templatesNumber}}</h5>
+              </md-card-title>
+            </md-card-header>
+          </div>
+        </md-card>
+      </div>
+      <div fxFlex="25" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
         <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #636262">
           <div fxLayout="row" fxLayoutAlign="center">
             <div fxFlex="10" style="margin-right: 20px;">
             <span class="fa-stack fa-lg">
               <i class="fa fa-circle fa-stack-2x" style="color:#636262"></i>
-              <i class="fa fa-pencil-square-o fa-stack-1x fa-inverse"></i>
+              <i class="fa fa-plug fa-stack-1x fa-inverse"></i>
           </span>
             </div>
             <md-card-header fxFlex>
-              <md-card-subtitle>Templates/components</md-card-subtitle>
+              <md-card-subtitle>Components</md-card-subtitle>
               <md-card-title>
-                <h5>{{templatesAndComponentsNumber}}</h5>
+                <h5>{{componentsNumber}}</h5>
               </md-card-title>
             </md-card-header>
           </div>
-
-          <!--<md-card-content fxFlex *ngIf="lastVisitedRequirements.length != 0">-->
-          <!--<p>Last</p>-->
-          <!--<div *ngFor="let requirement of lastVisitedRequirements">-->
-          <!--<a (click)="showProject(requirement.id)" role="button">{{requirement.title}}</a>-->
-          <!--</div>-->
-          <!--</md-card-content>-->
         </md-card>
       </div>
     </div>
@@ -188,4 +174,142 @@
       </div>
     </div>
   </div>
+  <div *ngIf="stateIsInAProject" fxLayout="column">
+
+    <!-- CARDS -->
+    <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between stretch">
+      <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
+        <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #ec4363">
+          <div fxLayout="row" fxLayoutAlign="center">
+            <div fxFlex="10" style="margin-right: 20px;">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x" style="color:#ec4363"></i>
+              <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
+          </span>
+            </div>
+            <md-card-header fxFlex>
+              <md-card-subtitle>Documents</md-card-subtitle>
+              <md-card-title>
+                <h5>{{documentsNumber}}</h5>
+              </md-card-title>
+            </md-card-header>
+          </div>
+        </md-card>
+      </div>
+      <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
+        <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #028090">
+          <div fxLayout="row" fxLayoutAlign="center">
+            <div fxFlex="10" style="margin-right: 20px;">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x" style="color:#028090"></i>
+              <i class="fa fa-tasks fa-stack-1x fa-inverse"></i>
+          </span>
+            </div>
+            <md-card-header fxFlex>
+              <md-card-subtitle>Requirements</md-card-subtitle>
+              <md-card-title>
+                <h5>{{requirementsNumber}}</h5>
+              </md-card-title>
+            </md-card-header>
+          </div>
+        </md-card>
+      </div>
+      <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
+        <md-card fxLayout="column" style="height: 100%; border-left: 2px solid #636262">
+          <div fxLayout="row" fxLayoutAlign="center">
+            <div fxFlex="10" style="margin-right: 20px;">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x" style="color:#636262"></i>
+              <i class="fa fa-pencil-square-o fa-stack-1x fa-inverse"></i>
+          </span>
+            </div>
+            <md-card-header fxFlex>
+              <md-card-subtitle>Resources</md-card-subtitle>
+              <md-card-title>
+                <h5>{{templatesAndComponentsNumber}}</h5>
+              </md-card-title>
+            </md-card-header>
+          </div>
+        </md-card>
+      </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between stretch">
+
+      <!-- Line chart-->
+      <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" style="padding: 5px;">
+        <md-card fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="center">
+            <md-card-header fxFlex>
+              <md-card-title><h6>Requirement Evolution</h6></md-card-title>
+              <md-card-subtitle>In last 6 months</md-card-subtitle>
+            </md-card-header>
+          </div>
+          <md-card-content fxFlex>
+            <div class="canvas-container">
+              <canvas baseChart
+                      [chartType]="requirementEvolutionChartType"
+                      [labels]="requirementEvolutionChartLabels"
+                      [datasets]="requirementEvolutionChartData"
+                      [options]="{responsive: true}"
+                      [legend]="true"
+                      (chartClick)="showStatusFilteredRequirement($event)"></canvas>
+            </div>
+          </md-card-content>
+        </md-card>
+      </div>
+
+      <!-- Pie and Doughnut chart-->
+      <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" fxLayout="row" fxLayoutWrap>
+
+        <!-- Requirement Coverage -->
+        <div fxFlex="50" fxFlex.xs="100" style="padding: 5px;">
+          <md-card fxLayout="column" style="height: 100%">
+            <div fxLayout="row" fxLayoutAlign="center">
+              <md-card-header fxFlex>
+                <md-card-title><h6>Requirement Coverage</h6></md-card-title>
+                <md-card-subtitle>Testing</md-card-subtitle>
+              </md-card-header>
+            </div>
+            <md-card-content fxFlex style="height: 100%; width: 100%">
+              <div class="canvas-container">
+                <canvas baseChart
+                        [chartType]="requirementCoverageChartType"
+                        [labels]="requirementCoverageChartLabels"
+                        [data]="requirementCoverageChartData"
+                        (chartClick)="showCoverageFilteredRequirements($event)"
+                        [options]="{legend: {position:'bottom'}}"
+                ></canvas>
+              </div>
+            </md-card-content>
+          </md-card>
+        </div>
+
+        <!-- Requirement Type -->
+        <div fxFlex="50" fxFlex.xs="100" style="padding: 5px;">
+          <md-card fxLayout="column" style="height: 100%">
+            <div fxLayout="row">
+              <md-card-header fxFlex>
+                <md-card-title><h6>Requirement Type</h6></md-card-title>
+                <md-card-subtitle>Cross projects</md-card-subtitle>
+              </md-card-header>
+            </div>
+            <md-card-content fxFlex>
+              <div class="canvas-container" fxLayout="row">
+                <canvas baseChart
+                        [chartType]="requirementTypeChartType"
+                        [labels]="requirementTypeChartLabels"
+                        [data]="requirementTypeChartData"
+                        (chartClick)="showTypeFilteredRequirements($event)"
+                        [options]="{legend: {position:'bottom'}}"
+                ></canvas>
+              </div>
+            </md-card-content>
+          </md-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

@@ -1,11 +1,8 @@
-import {
-  Component as C, Input, EventEmitter, Output, animate, transition, style, state, trigger,
-  OnInit
-} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {ComponentUpdate, EditorEvent} from "../component-write.component";
+import {Component as C, EventEmitter, Input, OnInit} from "@angular/core";
+import {EditorEvent} from "../component-write.component";
 import {ComponentVersion} from "../../../shared/model/component/component-version";
 import {ComponentVersionService} from "../../../shared/service/components/component-versions.service";
+import {MdSnackBar} from "@angular/material";
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -21,12 +18,13 @@ import {ComponentVersionService} from "../../../shared/service/components/compon
 export class ComponentSideNavComponent implements OnInit {
 
   @Input()
-  public editorEvent:EventEmitter<EditorEvent>;
+  public editorEvent: EventEmitter<EditorEvent>;
 
-  public componentVersion:ComponentVersion;
+  public componentVersion: ComponentVersion;
 
 
-  public constructor(private componentVersionService: ComponentVersionService) {
+  public constructor(private componentVersionService: ComponentVersionService,
+                     private snackBar: MdSnackBar) {
   }
 
   ngOnInit(): void {
@@ -38,5 +36,11 @@ export class ComponentSideNavComponent implements OnInit {
         this.componentVersionService.findOne(e.componentVersionId).subscribe(cv => this.componentVersion = cv);
       });
     }
+  }
+
+  public save() {
+    this.componentVersionService.update(this.componentVersion).subscribe(r => {
+      this.snackBar.open(this.componentVersion.type + " successfully updated", "Close", {duration: 2000});
+    });
   }
 }
