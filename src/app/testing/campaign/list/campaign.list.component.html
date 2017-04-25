@@ -1,0 +1,103 @@
+<div class="main-content-content">
+  <div class="main-search-container" fxLayout="row" style="background: white; padding: 20px;">
+    <form class="main-search" (submit)="search()">
+      <div class="main-search-input-wrapper">
+        <md-input-container style="margin-right: 20px">
+          <input mdInput placeholder="Search..." name="query">
+        </md-input-container>
+
+        <md-select name="items" placeholder="Assignee" style="margin-right: 20px"
+                   (change)="fetchCampaigns()">
+          <md-option [value]="null">All</md-option>
+          <md-option *ngFor="let assignee of assignees"
+                     [value]="assignee">{{assignee.username}}
+          </md-option>
+        </md-select>
+
+
+        <md-select name="items" placeholder="Status" style="margin-right: 20px"
+                   (change)="fetchCampaigns()">
+          <md-option [value]="null">All</md-option>
+          <md-option>PASS</md-option>
+          <md-option>FAILED</md-option>
+          <md-option>NOT_EXECUTED</md-option>
+          <md-option>BLOCKED</md-option>
+        </md-select>
+
+        <button md-icon-button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        <button md-icon-button (click)="reset()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+      </div>
+    </form>
+  </div>
+  <ngx-datatable
+      class="material" style="flex: 1"
+      [rows]="campaigns"
+      [columnMode]="'flex'"
+      [headerHeight]="50"
+      [footerHeight]="0"
+      [rowHeight]="50"
+      [scrollbarV]="true"
+      [scrollbarH]="true">
+    <ngx-datatable-column [flexGrow]="1.5" name="Code"></ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="4" name="Name">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <div md-tooltip="{{value}}" style="text-align: left !important;">{{value}}</div>
+      </template>
+    </ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="2" name="Status">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <div fxLayout="column" fxLayoutAlign="center stretch">
+          <!-- todo: color to be rewieved -->
+          <button md-tooltip="Update status" md-button type="button"
+                  [style.background]="value == 'PASS'? '#5cb85c' :
+                                    value =='BLOCKED'? '#d9a75b' :
+                                    value =='FAILED'? '#d9534f' :
+                                    'dodgerblue'"
+                  (click)="openUpdateStatus(row)">
+            <span style="font-size: 11px !important;">{{value}}</span>
+          </button>
+        </div>
+      </template>
+    </ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="2" name="Starting">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row.startingDate | amTimeAgo}}
+      </template>
+    </ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="2" name="Ending">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{row.endingDate | amTimeAgo}}
+      </template>
+    </ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="3" name="Actions">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <div class="table-actions">
+
+          <button style="color: #5cb85c "
+                  md-icon-button
+                  md-tooltip="Run"
+                  role="button"
+                  (click)="write(row)">
+            <i class="fa fa-play" aria-hidden="true"></i>
+          </button>
+
+          <button style="color: #189DE1"
+                  md-icon-button
+                  md-tooltip="Edit"
+                  role="button"
+                  (click)="edit(row)">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+
+          <button style="color: #ec4363"
+                  md-icon-button
+                  md-tooltip="Delete"
+                  role="button"
+                  (click)="delete(row)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </div>
+      </template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>

@@ -29,6 +29,7 @@ export class SideNavComponent implements OnInit {
     {name: "Components", icon: "fa-plug", state: "/components"},
     {name: "Templates", icon: "fa-file-text", state: "/templates"},
     {name: "Resources", icon: "fa-picture-o", state: "/resources"},
+    {name: "Testing", icon: "fa-flask", state: "/testing"},
     {name: "Administration", icon: "fa-shield", state: "/administration"},
   ];
 
@@ -37,6 +38,7 @@ export class SideNavComponent implements OnInit {
     {name: "Documents", icon: "fa-file-text-o ", state: "/documents"},
     {name: "Requirements", icon: "fa-tasks", state: "/requirements"},
     {name: "Resources", icon: "fa-picture-o", state: "/resources"},
+    {name: "Testing", icon: "fa-flask", state: "/testing"},
     {name: "Settings", icon: "fa-cogs", state: "/edit"}
   ];
 

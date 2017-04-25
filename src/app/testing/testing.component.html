@@ -1,0 +1,16 @@
+<div fxLayout="column">
+  <md-tab-group md-stretch-tabs>
+
+    <!-- CAMPAIGNS -->
+    <md-tab *ngIf="projectId">
+      <template md-tab-label>Campaigns</template>
+      <campaign-list></campaign-list>
+    </md-tab>
+
+    <!-- TEST CASES -->
+    <md-tab>
+      <template md-tab-label>Test Cases</template>
+      <test-case-list></test-case-list>
+    </md-tab>
+  </md-tab-group>
+</div>
