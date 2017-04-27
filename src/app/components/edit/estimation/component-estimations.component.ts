@@ -28,10 +28,6 @@ export class ComponentEstimationsComponent implements OnInit {
 
   public componentVersionId: any;
 
-  nodes = null;
-
-
-  private estimated: ComponentVersion = null;
 
   private estimations = [];
 
@@ -45,57 +41,15 @@ export class ComponentEstimationsComponent implements OnInit {
   ngOnInit(): void {
 
     this.componentVersionService.estimatedTimes(this.componentVersionId).subscribe(e => {
-      console.log(e);
-      this.estimated = e;
-      this.nodes = [this.constructTree(e, 0)];
-
-      //this.estimations.push(this.constructTree(e,0));
-
-      console.log(this.nodes);
-
+      this.estimations = e;
     });
   }
 
-  private constructTree(cv: ComponentVersion, level: number): any {
 
-    let node = {
-      level: level,
-      id: cv.id,
-      name: cv.title,
-      componentVersion: cv,
-      children: [],
-      totalEstimatedTime: this.estimate(cv),
-      estimatedTime: this.estimate(cv),
-      childrenEstimatedTime: {estimate: 0, price: 0}
-    };
-    this.estimations.push(node);
-
-    cv.componentReferences.forEach(v => {
-      let child = this.constructTree(v.target, level + 1);
-      node.children.push(child);
-      node.childrenEstimatedTime = this.sumEstimate(node.childrenEstimatedTime, child.estimatedTime);
-      node.totalEstimatedTime = this.sumEstimate(node.totalEstimatedTime, child.estimatedTime);
-    });
-
-    return node;
-  }
 
 
   private sumEstimate(l: SumEstimate, r: SumEstimate): SumEstimate {
     return {estimate: l.estimate + r.estimate, price: l.price + r.price};
-  }
-
-  private estimate(cv: ComponentVersion): SumEstimate {
-    let estim = 0;
-    let price = 0;
-    for (let est of cv.estimatedTimes) {
-      estim += est.durationInMs;
-      if (est.userCategory.isBillable) {
-        price += this.computePriceFromEstimatedTime(est);
-      }
-    }
-
-    return {estimate: estim, price: price};
   }
 
 
@@ -112,7 +66,7 @@ export class ComponentEstimationsComponent implements OnInit {
   }
 
   public roundValue(v) {
-    return Math.round(100 * v) / 100;
+    return Math.round(1000 * v) / 1000;
   }
 
 

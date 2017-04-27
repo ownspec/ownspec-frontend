@@ -54,7 +54,7 @@
   </div>
 
   <div style="display:flex;flex-direction:row;height: 100%">
-    <write-sidenav menuPosition="right" [menus]="['toc' , 'component']" [component]="component"
+    <write-sidenav menuPosition="right" [menus]="['toc' , 'component']" [component]="component" menuState="out"
                    (update)="onUpdate($event)"
                    [canUpdateWorkflow]="saved" [editorEvent]="editorEventEmitter"></write-sidenav>
   </div>

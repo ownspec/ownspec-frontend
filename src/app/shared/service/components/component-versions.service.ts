@@ -4,6 +4,7 @@ import {Http, URLSearchParams} from "@angular/http";
 import {ComponentVersion} from "../../model/component/component-version";
 import {WorkflowStatus} from "../../model/component/workflow/workflow-status";
 import {ComponentVersionSearchBean} from "./component-versions-search";
+import {EstimatedComponentVersion} from "../../model/component/reports/estimated-component-version";
 
 @Injectable()
 export class ComponentVersionService {
@@ -115,10 +116,12 @@ export class ComponentVersionService {
     window.location.assign("/api/component-versions/" + c.id + "/compose");
   }
 
-  public estimatedTimes(cvId, mode = null): Observable<ComponentVersion> {
+  public estimatedTimes(cvId, mode = null): Observable<Array<EstimatedComponentVersion>> {
 
     return this.$http.get("/api/component-versions/" + cvId + "/estimated-times")
-      .map(r => ComponentVersion.fromMap(r.json()));
+      .flatMap(r => r.json())
+      .map(item => EstimatedComponentVersion.fromMap(item))
+      .toArray();
   }
 
   public exportEstimatedTimes(cvId) {

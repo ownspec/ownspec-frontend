@@ -57,10 +57,8 @@ export class WriteSideNavComponent implements OnInit {
   @Output()
   public update = new EventEmitter<ComponentUpdate>();
 
-
-
-
-  menuState: string = 'in';
+  @Input()
+  public menuState: string = 'in';
 
   constructor(public parent: ComponentWriteComponent, public route: ActivatedRoute) {
   }
