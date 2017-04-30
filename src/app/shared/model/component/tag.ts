@@ -8,4 +8,12 @@ export class Tag {
     return new Tag(item.id, item.label);
   }
 
+  public static toMap(tag: Tag) {
+    let map = {
+      id: tag.id,
+      label: tag.label
+    }
+    return map;
+  }
+
 }

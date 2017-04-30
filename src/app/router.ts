@@ -65,7 +65,6 @@ export const APP_ROUTES: Routes = [
           {
             path: 'edit',
             component: ProjectEditComponent,
-            //outlet: "main"
           },
 
           {

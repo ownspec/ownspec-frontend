@@ -29,75 +29,71 @@
       </div>
     </form>
   </div>
-  <ngx-datatable
-      class="material" style="flex: 1"
-      [rows]="campaigns"
-      [columnMode]="'flex'"
-      [headerHeight]="50"
-      [footerHeight]="0"
-      [rowHeight]="50"
-      [scrollbarV]="true"
-      [scrollbarH]="true">
-    <ngx-datatable-column [flexGrow]="1.5" name="Code"></ngx-datatable-column>
-    <ngx-datatable-column [flexGrow]="4" name="Name">
-      <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        <div md-tooltip="{{value}}" style="text-align: left !important;">{{value}}</div>
-      </template>
-    </ngx-datatable-column>
-    <ngx-datatable-column [flexGrow]="2" name="Status">
-      <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        <div fxLayout="column" fxLayoutAlign="center stretch">
-          <!-- todo: color to be rewieved -->
-          <button md-tooltip="Update status" md-button type="button"
-                  [style.background]="value == 'PASS'? '#5cb85c' :
-                                    value =='BLOCKED'? '#d9a75b' :
-                                    value =='FAILED'? '#d9534f' :
-                                    'dodgerblue'"
-                  (click)="openUpdateStatus(row)">
-            <span style="font-size: 11px !important;">{{value}}</span>
-          </button>
+</div>
+
+
+<div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between stretch" style="overflow: auto;width: 100%;">
+  <div *ngFor="let campaign of campaigns" fxFlex="33" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
+    <md-card>
+      <md-card-header>
+        <md-card-title>
+          <a (click)="show(campaign.data.id)" role="button">
+            <h5>{{campaign.data.name}} <span style="font-weight: 400;font-size: 0.85rem;">(Version {{campaign.data.version}})</span></h5>
+          </a>
+        </md-card-title>
+        <md-card-subtitle>
+          <h6 style="font-size: 0.9rem;" *ngIf="campaign.data.startingDate > today">Should start {{campaign.data.startingDate | amTimeAgo}}</h6>
+          <h6 style="font-size: 0.9rem;" *ngIf="campaign.data.startingDate < today">Started {{campaign.data.startingDate | amTimeAgo }} by {{campaign.data.endingUser.fullName}}</h6>
+        </md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <canvas baseChart
+                  style="display: flex;max-width: 200px; margin: 0 auto"
+                  [chartType]="testCasesStatusChartType"
+                  [labels]="testCasesStatusChartLabels"
+                  [data]="campaign.testCasesStatusChartData"
+                  [colors]="testCasesStatusChartColors"
+                  (chartClick)="showStatusFilteredTestCases($event)"
+                  [options]="options">
+          </canvas>
         </div>
-      </template>
-    </ngx-datatable-column>
-    <ngx-datatable-column [flexGrow]="2" name="Starting">
-      <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        {{row.startingDate | amTimeAgo}}
-      </template>
-    </ngx-datatable-column>
-    <ngx-datatable-column [flexGrow]="2" name="Ending">
-      <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        {{row.endingDate | amTimeAgo}}
-      </template>
-    </ngx-datatable-column>
-    <ngx-datatable-column [flexGrow]="3" name="Actions">
-      <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        <div class="table-actions">
-
-          <button style="color: #5cb85c "
-                  md-icon-button
-                  md-tooltip="Run"
-                  role="button"
-                  (click)="write(row)">
-            <i class="fa fa-play" aria-hidden="true"></i>
-          </button>
-
-          <button style="color: #189DE1"
-                  md-icon-button
-                  md-tooltip="Edit"
-                  role="button"
-                  (click)="edit(row)">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-
-          <button style="color: #ec4363"
-                  md-icon-button
-                  md-tooltip="Delete"
-                  role="button"
-                  (click)="delete(row)">
-            <i class="fa fa-trash" aria-hidden="true"></i>
-          </button>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h6 fxFlex style="color: #1B998B;">{{campaign.data.testCases.length}}</h6>
+            <h6 fxFlex style="color: #2e3032;">SCENARIOS</h6>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h6 fxFlex style="color: #5183b1;">{{campaign.data.testStepsNumber}}</h6>
+            <h6 fxFlex style="color: #2e3032;">STEPS</h6>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h6 fxFlex style="color: #ff8814;">{{campaign.data.executionsNumber}}</h6>
+            <h6 fxFlex style="color: #2e3032;">EXECUTIONS</h6>
+          </div>
         </div>
-      </template>
-    </ngx-datatable-column>
-  </ngx-datatable>
+      </md-card-content>
+      <md-card-actions fxLayout="row" fxLayoutAlign="center center" style="color:dimgrey">
+        <button md-icon-button
+                md-tooltip="Edit"
+                (click)="edit(campaign)">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </button>
+
+        <button md-icon-button
+                md-tooltip="Run"
+                style="color: #44AF69"
+                (click)="run(campaign)">
+          <i class="fa fa-play" aria-hidden="true"></i>
+        </button>
+
+        <button md-icon-button
+                md-tooltip="Archive"
+                (click)="run(campaign)">
+          <i class="fa fa-archive" aria-hidden="true"></i>
+        </button>
+
+      </md-card-actions>
+    </md-card>
+  </div>
 </div>

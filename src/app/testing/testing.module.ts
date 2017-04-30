@@ -12,6 +12,8 @@ import {MaterialModule} from "@angular/material";
 import {BrowserModule} from "@angular/platform-browser";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {MomentModule} from "angular2-moment";
+import {ChartsModule} from "ng2-charts";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import {MomentModule} from "angular2-moment";
     MaterialModule,
     NgxDatatableModule,
     MomentModule,
+    ChartsModule,
+    FlexLayoutModule
 
   ],
   exports: [
