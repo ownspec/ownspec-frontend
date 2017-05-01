@@ -1,6 +1,7 @@
-<div fxLayout="column" *ngIf="nodes" fxFlex="100%" style="width: 100%">
+<div fxLayout="column" *ngIf="estimations" fxFlex="100%" style="width: 100%; height: 100%">
 
-  <div fxLayout="row" fxLayoutAlign="end center" style="height: 50px">
+
+  <div fxLayout="row" fxLayoutAlign="end center" style="height: 50px;height: 50px">
     <button md-raised-button color="primary" (click)="export()"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export
     </button>
   </div>
@@ -8,7 +9,7 @@
 
   <ngx-datatable
     #table
-    class="material" style="flex: 1"
+    class="material" style="flex: 1; height:400px"
     [rows]="estimations"
     [columnMode]="'flex'"
     [headerHeight]="50"
@@ -17,16 +18,52 @@
     [scrollbarV]="true"
     [scrollbarH]="true">
 
-    <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow>
+    <ngx-datatable-row-detail [rowHeight]="200" #myDetailRow>
       <template let-row="row" ngx-datatable-row-detail-template>
-        <div style="padding-left:35px;height: 100%;overflow: auto">
+        <div style="padding-left:35px;height: 100%;overflow: auto" fxLayout="row" fxLayoutWrap>
+
+          <md-card style="margin-bottom: 10px; border-left: 2px solid #ec4363;margin-right: 5px" *ngIf="row.estimatedTimesPerCategory.length > 0">
+            <md-card-subtitle>Owns</md-card-subtitle>
+            <md-card-content fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
           <ul>
-            <li *ngFor="let estimatedTime of row.componentVersion.estimatedTimes">
+                <li *ngFor="let estimatedTime of row.estimatedTimesPerCategory">
               <label style="font-weight: 500">{{estimatedTime.userCategory.name}}</label> -
-              <label style="color: rgba(0, 0, 0, 0.54);">Duration=</label> {{estimatedTime.duration}} /
-              <label style="color: rgba(0, 0, 0, 0.54);">Price=</label> {{roundValue(computePriceFromEstimatedTime(estimatedTime))}}
+                  <label style="color: rgba(0, 0, 0, 0.54);">Duration=</label>
+                  {{computeDurationInDays(estimatedTime.estimateInMs)}} /
+                  <label style="color: rgba(0, 0, 0, 0.54);">Price=</label>
+                  {{estimatedTime.price}}
             </li>
           </ul>
+            </md-card-content>
+          </md-card>
+          <md-card style="margin-bottom: 10px; border-left: 2px solid #ec4363;margin-right: 5px" *ngIf="row.childrenEstimatedTimesPerCategory.length > 0">
+            <md-card-subtitle>Children</md-card-subtitle>
+            <md-card-content fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
+              <ul>
+                <li *ngFor="let estimatedTime of row.childrenEstimatedTimesPerCategory">
+                  <label style="font-weight: 500">{{estimatedTime.userCategory.name}}</label> -
+                  <label style="color: rgba(0, 0, 0, 0.54);">Duration=</label>
+                  {{computeDurationInDays(estimatedTime.estimateInMs)}} /
+                  <label style="color: rgba(0, 0, 0, 0.54);">Price=</label>
+                  {{estimatedTime.price}}
+                </li>
+              </ul>
+            </md-card-content>
+          </md-card>
+          <md-card style="margin-bottom: 10px; border-left: 2px solid #ec4363;margin-right: 5px" *ngIf="row.totalEstimatedTimesPerCategory.length > 0">
+            <md-card-subtitle>Total</md-card-subtitle>
+            <md-card-content fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
+              <ul>
+                <li *ngFor="let estimatedTime of row.totalEstimatedTimesPerCategory">
+                  <label style="font-weight: 500">{{estimatedTime.userCategory.name}}</label> -
+                  <label style="color: rgba(0, 0, 0, 0.54);">Duration=</label>
+                  {{computeDurationInDays(estimatedTime.estimateInMs)}} /
+                  <label style="color: rgba(0, 0, 0, 0.54);">Price=</label>
+                  {{estimatedTime.price}}
+                </li>
+              </ul>
+            </md-card-content>
+          </md-card>
         </div>
       </template>
     </ngx-datatable-row-detail>
@@ -57,20 +94,20 @@
 
     <ngx-datatable-column [flexGrow]="4" name="Title">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        <span [ngStyle]="{'padding-left': row.level*8 + 'px'}">{{row.name}}</span>
+        <span [ngStyle]="{'padding-left': row.level*8 + 'px'}">{{row.componentVersion.title}}</span>
       </template>
     </ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="1" name="Estimation (d)">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        {{computeDurationInDays(row.estimatedTime.estimate)}}
+        {{computeDurationInDays(row.estimatedTime.estimateInMs)}}
       </template>
     </ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="1" name="Total (d)">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        {{computeDurationInDays(row.totalEstimatedTime.estimate)}}
+        {{computeDurationInDays(row.totalEstimatedTime.estimateInMs)}}
       </template>
     </ngx-datatable-column>
-    <ngx-datatable-column [flexGrow]="1" name="Price (€)">
+    <ngx-datatable-column [flexGrow]="1" name="Total Price (€)">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.totalEstimatedTime.price| number : '1.2-2'}}
       </template>

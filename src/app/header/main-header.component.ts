@@ -7,7 +7,7 @@ import {Project} from "../shared/model/project";
 @Component({
   selector: 'main-header',
   templateUrl: 'main-header.template.html',
-  styleUrls: ['./main-header.scss']
+  styleUrls: ['main-header.scss']
 })
 export class MainHeaderComponent implements OnInit {
   private sideNavIsHidden;

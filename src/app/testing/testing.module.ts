@@ -27,7 +27,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 
     TestCaseCreateComponent,
     TestCaseEditComponent,
-    TestCaseListComponent
+    TestCaseListComponent,
 
   ],
   imports: [

@@ -1,19 +1,12 @@
 "use strict";
-import {Component as C, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
-import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
+import {Component as C, OnInit, ViewChild} from "@angular/core";
+import {MdDialogRef, MdSnackBar} from "@angular/material";
 import {ComponentVersion} from "../../../shared/model/component/component-version";
-import {Observable} from "rxjs";
 import {ComponentVersionService} from "../../../shared/service/components/component-versions.service";
-import {ComponentUpdate} from "../../write/component-write.component";
 import "rxjs/add/operator/startWith";
-import {UserCategory} from "../../../shared/model/user/user-category";
-import {UserCategoryService} from "../../../shared/service/user/user-category.service";
 import {EstimatedTime} from "../../../shared/model/component/estimated-time";
-import {User} from "../../../shared/model/user/user";
-import {UserService} from "../../../shared/service/user/user.service";
-import {UserCategoryEditDialog} from "../../../administration/user-category/edit/user-category-edit.component";
-import construct = Reflect.construct;
 import {LinkService} from "../../../link/link.service";
+import construct = Reflect.construct;
 
 type SumEstimate = { price: number, estimate: number };
 
@@ -28,10 +21,6 @@ export class ComponentEstimationsComponent implements OnInit {
 
   public componentVersionId: any;
 
-  nodes = null;
-
-
-  private estimated: ComponentVersion = null;
 
   private estimations = [];
 
@@ -45,57 +34,15 @@ export class ComponentEstimationsComponent implements OnInit {
   ngOnInit(): void {
 
     this.componentVersionService.estimatedTimes(this.componentVersionId).subscribe(e => {
-      console.log(e);
-      this.estimated = e;
-      this.nodes = [this.constructTree(e, 0)];
-
-      //this.estimations.push(this.constructTree(e,0));
-
-      console.log(this.nodes);
-
+      this.estimations = e;
     });
   }
 
-  private constructTree(cv: ComponentVersion, level: number): any {
 
-    let node = {
-      level: level,
-      id: cv.id,
-      name: cv.title,
-      componentVersion: cv,
-      children: [],
-      totalEstimatedTime: this.estimate(cv),
-      estimatedTime: this.estimate(cv),
-      childrenEstimatedTime: {estimate: 0, price: 0}
-    };
-    this.estimations.push(node);
-
-    cv.componentReferences.forEach(v => {
-      let child = this.constructTree(v.target, level + 1);
-      node.children.push(child);
-      node.childrenEstimatedTime = this.sumEstimate(node.childrenEstimatedTime, child.estimatedTime);
-      node.totalEstimatedTime = this.sumEstimate(node.totalEstimatedTime, child.estimatedTime);
-    });
-
-    return node;
-  }
 
 
   private sumEstimate(l: SumEstimate, r: SumEstimate): SumEstimate {
     return {estimate: l.estimate + r.estimate, price: l.price + r.price};
-  }
-
-  private estimate(cv: ComponentVersion): SumEstimate {
-    let estim = 0;
-    let price = 0;
-    for (let est of cv.estimatedTimes) {
-      estim += est.durationInMs;
-      if (est.userCategory.isBillable) {
-        price += this.computePriceFromEstimatedTime(est);
-      }
-    }
-
-    return {estimate: estim, price: price};
   }
 
 
@@ -112,7 +59,7 @@ export class ComponentEstimationsComponent implements OnInit {
   }
 
   public roundValue(v) {
-    return Math.round(100 * v) / 100;
+    return Math.round(1000 * v) / 1000;
   }
 
 

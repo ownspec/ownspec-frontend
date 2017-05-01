@@ -158,10 +158,9 @@
                   <md-card-subtitle>Cross projects</md-card-subtitle>
                 </md-card-header>
               </div>
-              <md-card-content>
-                <div fxLayout="column" fxLayoutAlign="center center">
+              <md-card-content fxFlex>
+                <div class="canvas-container" fxLayout="row">
                   <canvas baseChart
-                          style="display: flex;margin: 0 auto"
                           [chartType]="requirementTypeChartType"
                           [labels]="requirementTypeChartLabels"
                           [data]="requirementTypeChartData"
