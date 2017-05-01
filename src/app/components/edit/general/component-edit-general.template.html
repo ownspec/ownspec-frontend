@@ -68,7 +68,8 @@
       <md-card style="margin-bottom: 10px; border-left: 2px solid #ec4363">
         <md-card-content fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between">
           <div fxFlex>
-            <md-checkbox [(ngModel)]="componentVersion.requiredTest">Require Test</md-checkbox>
+            <md-checkbox [(ngModel)]="componentVersion.requiredTest"
+                         [checked]="componentVersion.requiredTest">Require Test</md-checkbox>
           </div>
           <div fxFlex>
             <md-checkbox [(ngModel)]="componentVersion.readOnly" (change)="readOnly = $event">Read only</md-checkbox>
