@@ -1,8 +1,5 @@
-import {
-  Component as C, Input, EventEmitter, Output, animate, transition, style, state, trigger,
-  OnInit
-} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {animate, Component as C, EventEmitter, Input, OnInit, Output, state, style, transition, trigger} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 import {ComponentUpdate, ComponentWriteComponent, EditorEvent} from "./component-write.component";
 import {Component} from "../../shared/model/component/component";
 /*

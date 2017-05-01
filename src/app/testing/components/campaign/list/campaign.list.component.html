@@ -1,0 +1,99 @@
+<div class="main-content-content">
+  <div class="main-search-container" fxLayout="row" style="background: white; padding: 20px;">
+    <form class="main-search" (submit)="search()">
+      <div class="main-search-input-wrapper">
+        <md-input-container style="margin-right: 20px">
+          <input mdInput placeholder="Search..." name="query">
+        </md-input-container>
+
+        <md-select name="items" placeholder="Assignee" style="margin-right: 20px"
+                   (change)="fetchCampaigns()">
+          <md-option [value]="null">All</md-option>
+          <md-option *ngFor="let assignee of assignees"
+                     [value]="assignee">{{assignee.username}}
+          </md-option>
+        </md-select>
+
+
+        <md-select name="items" placeholder="Status" style="margin-right: 20px"
+                   (change)="fetchCampaigns()">
+          <md-option [value]="null">All</md-option>
+          <md-option>PASS</md-option>
+          <md-option>FAILED</md-option>
+          <md-option>NOT_EXECUTED</md-option>
+          <md-option>BLOCKED</md-option>
+        </md-select>
+
+        <button md-icon-button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        <button md-icon-button (click)="reset()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between stretch" style="overflow: auto;width: 100%;">
+  <div *ngFor="let campaign of campaigns" fxFlex="33" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
+    <md-card>
+      <md-card-header>
+        <md-card-title>
+          <a (click)="edit(campaign.data.id)" role="button">
+            <h5>{{campaign.data.name}} <span style="font-weight: 400;font-size: 0.85rem;">(Version {{campaign.data.version}})</span></h5>
+          </a>
+        </md-card-title>
+        <md-card-subtitle>
+          <h6 style="font-size: 0.9rem;" *ngIf="campaign.data.startingDate > today">Should start {{campaign.data.startingDate | amTimeAgo}}</h6>
+          <h6 style="font-size: 0.9rem;" *ngIf="campaign.data.startingDate < today">Started {{campaign.data.startingDate | amTimeAgo }} by {{campaign.data.endingUser.fullName}}</h6>
+        </md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <canvas baseChart
+                  style="display: flex;max-width: 180px; margin: 0 auto"
+                  [chartType]="testCasesStatusChartType"
+                  [labels]="testCasesStatusChartLabels"
+                  [data]="campaign.testCasesStatusChartData"
+                  [colors]="testCasesStatusChartColors"
+                  (chartClick)="showStatusFilteredTestCases($event)"
+                  [options]="options">
+          </canvas>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h6 fxFlex style="color: #1B998B;">{{campaign.data.testCases.length}}</h6>
+            <h6 fxFlex style="color: #2e3032;">SCENARIOS</h6>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h6 fxFlex style="color: #5183b1;">{{campaign.data.testStepsNumber}}</h6>
+            <h6 fxFlex style="color: #2e3032;">STEPS</h6>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h6 fxFlex style="color: #ff8814;">{{campaign.data.executionsNumber}}</h6>
+            <h6 fxFlex style="color: #2e3032;">EXECUTIONS</h6>
+          </div>
+        </div>
+      </md-card-content>
+      <md-card-actions fxLayout="row" fxLayoutAlign="center center" style="color:dimgrey">
+        <button md-icon-button
+                md-tooltip="Edit"
+                (click)="edit(campaign.data)">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </button>
+
+        <button md-icon-button
+                md-tooltip="Run"
+                style="color: #44AF69"
+                (click)="run(campaign.data)">
+          <i class="fa fa-play" aria-hidden="true"></i>
+        </button>
+
+        <button md-icon-button
+                md-tooltip="Archive"
+                (click)="archive(campaign.data)">
+          <i class="fa fa-archive" aria-hidden="true"></i>
+        </button>
+
+      </md-card-actions>
+    </md-card>
+  </div>
+</div>

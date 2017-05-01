@@ -36,6 +36,8 @@ export class ComponentsListComponent implements OnInit {
 
   public searchBean = new ComponentVersionSearchBean();
 
+  public loading : boolean;
+
   public constructor(private route: ActivatedRoute,
                      private linkService: LinkService,
                      private componentHelperService: ComponentHelperService,
@@ -73,8 +75,10 @@ export class ComponentsListComponent implements OnInit {
   }
 
   private fetchComponents() {
+    this.loading = true;
     this.componentVersionService.findAllBySearchBean(this.searchBean).subscribe(o => {
       this.components = o;
+      this.loading = false;
     });
   }
 

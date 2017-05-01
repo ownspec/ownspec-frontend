@@ -1,19 +1,12 @@
 "use strict";
-import {Component as C, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
-import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
+import {Component as C, OnInit, ViewChild} from "@angular/core";
+import {MdDialogRef, MdSnackBar} from "@angular/material";
 import {ComponentVersion} from "../../../shared/model/component/component-version";
-import {Observable} from "rxjs";
 import {ComponentVersionService} from "../../../shared/service/components/component-versions.service";
-import {ComponentUpdate} from "../../write/component-write.component";
 import "rxjs/add/operator/startWith";
-import {UserCategory} from "../../../shared/model/user/user-category";
-import {UserCategoryService} from "../../../shared/service/user/user-category.service";
 import {EstimatedTime} from "../../../shared/model/component/estimated-time";
-import {User} from "../../../shared/model/user/user";
-import {UserService} from "../../../shared/service/user/user.service";
-import {UserCategoryEditDialog} from "../../../administration/user-category/edit/user-category-edit.component";
-import construct = Reflect.construct;
 import {LinkService} from "../../../link/link.service";
+import construct = Reflect.construct;
 
 type SumEstimate = { price: number, estimate: number };
 

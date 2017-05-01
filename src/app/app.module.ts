@@ -30,7 +30,7 @@ import "../styles/styles.scss";
 import {Globals} from "./shared/globals";
 import {AdministrationComponent} from "./administration/administration.component";
 import {ComponentEditGeneralComponent} from "./components/edit/general/component-edit-general.component";
-import {RouterModule, Routes} from "@angular/router";
+import {RouterModule} from "@angular/router";
 import {FooComponent} from "./foo.component";
 import {ConfirmRegistrationComponent} from "./authentication/confirm-registration/confirm-registration.component";
 import {UpdateWorkflowComponent} from "./workflow/update/workflow-update.component";
@@ -43,7 +43,6 @@ import {CapitalizePipe} from "./shared/pipe/capitalize.pipe";
 import {WorkflowComponent} from "./workflow/workflow.component";
 import {CommentsComponent} from "./comment/comments.component";
 import {WorkflowTableComponent} from "./workflow/workflow-table.component";
-import {MainHeaderComponent} from "./header/main-header.component";
 import {ComponentContentComponent} from "./components/display/component-content.component";
 import {TocComponent} from "./components/write/toc/toc.component";
 import {ReferenceComponent} from "./reference/reference.component";
@@ -59,6 +58,10 @@ import {CompanyEditComponent} from "./administration/company/edit/company-edit.c
 import {ComponentEstimationsComponent} from "./components/edit/estimation/component-estimations.component";
 import {BsDropdownModule, Ng2BootstrapModule} from "ng2-bootstrap";
 import {AuthenticationComponent} from "./authentication/authentication.component";
+import {APP_ROUTES} from "./router";
+import {TestingModule} from "./testing/testing.module";
+import {MainHeaderModule} from "./header/main-header.module";
+import {MainHeaderComponent} from "./header/main-header.component";
 
 
 /*
@@ -81,175 +84,6 @@ require("expose-loader?jQuery!jquery");
 @Injectable()
 export class AppGestureConfig extends HammerGestureConfig {
 }
-
-// TODO: split into modules
-const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {
-    path: 'auth/registration',
-    component: ConfirmRegistrationComponent
-  },
-  {
-    path: 'auth/registration/confirmation/:verificationToken',
-    component: ConfirmRegistrationComponent //todo
-  },
-  {
-    path: 'auth/change-password/user/:userId',
-    component: ConfirmRegistrationComponent //todo
-  },
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
-  {
-    path: '', component: AppComponent,
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-        //outlet: "main"
-      },
-      {
-        path: 'projects',
-        component: ProjectsListComponent,
-      },
-      {
-        path: 'projects/:projectId',
-        children: [
-          {
-            path: 'dashboard',
-            component: DashboardComponent,
-            children: []
-          },
-          {
-            path: 'requirements',
-            component: ComponentsListComponent,
-            data: {componentTypes: ["REQUIREMENT"]}
-          },
-
-          {
-            path: 'edit',
-            component: ProjectEditComponent,
-            //outlet: "main"
-          },
-
-          {
-            path: 'requirements/:id/edit',
-            component: ComponentEditComponent,
-            data: {componentType: "REQUIREMENT"}
-          },
-          {
-            path: 'requirements/:id/write',
-            component: ComponentWriteComponent
-          },
-
-          {
-            path: 'documents',
-            component: ComponentsListComponent,
-            data: {componentTypes: ["DOCUMENT"]}
-          },
-          {
-            path: 'documents/:id/edit',
-            component: ComponentEditComponent,
-            data: {componentType: "DOCUMENT"}
-          },
-          {
-            path: 'documents/:id/write',
-            component: ComponentWriteComponent
-          },
-
-          {
-            path: 'components',
-            component: ComponentsListComponent,
-            data: {componentTypes: ["COMPONENT"]}
-          },
-          {
-            path: 'components/:id/edit',
-            component: ComponentEditComponent,
-            data: {componentType: "COMPONENT"}
-          },
-          {
-            path: 'components/:id/write',
-            component: ComponentWriteComponent
-          },
-          {
-            path: 'resources',
-            component: ResourcesListComponent,
-            data: {componentTypes: ["RESOURCE"]}
-          },
-          {
-            path: 'resources/:id/edit',
-            component: ComponentEditComponent,
-            data: {componentType: "RESOURCE"}
-
-          }
-        ]
-      },
-
-
-      {
-        path: 'requirements',
-        component: ComponentsListComponent,
-        data: {componentTypes: ["REQUIREMENT"]}
-      },
-      {
-        path: 'requirements/:id/edit',
-        component: ComponentEditComponent,
-        data: {componentType: "REQUIREMENT"}
-      },
-      {
-        path: 'requirements/:id/write',
-        component: ComponentWriteComponent
-      },
-      {
-        path: 'components',
-        component: ComponentsListComponent,
-        data: {componentTypes: ["COMPONENT"]}
-      },
-      {
-        path: 'components/:id/edit',
-        component: ComponentEditComponent,
-        data: {componentType: "COMPONENT"}
-      },
-      {
-        path: 'components/:id/write',
-        component: ComponentWriteComponent
-      },
-      {
-        path: 'templates',
-        component: ComponentsListComponent,
-        data: {componentTypes: ["TEMPLATE"]}
-      },
-      {
-        path: 'templates/:id/edit',
-        component: ComponentEditComponent,
-        data: {componentType: "TEMPLATE"}
-      },
-      {
-        path: 'templates/:id/write',
-        component: ComponentWriteComponent
-      },
-      {
-        path: 'resources',
-        component: ResourcesListComponent,
-        data: {componentTypes: ["RESOURCE"]}
-      },
-      {
-        path: 'resources/:id/edit',
-        component: ComponentEditComponent,
-        data: {componentType: "RESOURCE"}
-      },
-      {
-        path: 'administration',
-        component: AdministrationComponent
-      }
-    ]
-
-  },
-  {path: '**', component: ErrorPageComponent}
-];
-
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -326,7 +160,6 @@ const appRoutes: Routes = [
   imports: [ // import Angular's modules
     SharedModule,
 
-
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -337,7 +170,7 @@ const appRoutes: Routes = [
     CKEditorModule,
     MomentModule,
 
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(APP_ROUTES),
 
     ChartsModule,
     BsDropdownModule,
@@ -346,7 +179,9 @@ const appRoutes: Routes = [
 
     TreeModule,
     MdCardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
+    TestingModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
 
