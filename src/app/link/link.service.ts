@@ -1,10 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Observable} from "rxjs";
-import {MdDialog, MdDialogRef} from "@angular/material";
+import {MdDialog} from "@angular/material";
 import {ComponentVersion} from "../shared/model/component/component-version";
-import {UpdateWorkflowComponent} from "../workflow/update/workflow-update.component";
-import {ComponentCreatorDialog} from "../components/create/component-create.component";
 
 @Injectable()
 export class LinkService {
@@ -37,7 +34,6 @@ export class LinkService {
   gotoProjectEditor(projectId) {
     this.router.navigate(["projects", projectId, "edit"]);
   }
-
 
   gotoParent(route: ActivatedRoute) {
     this.router.navigate(["../../"], {relativeTo: route});

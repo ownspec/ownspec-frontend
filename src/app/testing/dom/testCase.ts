@@ -1,7 +1,7 @@
-import {ComponentVersion} from "../component/component-version";
-import {Tag} from "../component/tag";
-import {Attachment} from "../attachment";
-import {User} from "../user/user";
+import {ComponentVersion} from "../../shared/model/component/component-version";
+import {Tag} from "../../shared/model/component/tag";
+import {Attachment} from "../../shared/model/attachment";
+import {User} from "../../shared/model/user/user";
 import {TestStep} from "./testStep";
 import {TestRecord} from "./testRecord";
 

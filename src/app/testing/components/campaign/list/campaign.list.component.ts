@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {User} from "../../../shared/model/user/user";
-import {Campaign} from "../../../shared/model/testing/campaign";
+import {User} from "../../../../shared/model/user/user";
+import {Campaign} from "../../../dom/campaign";
 import {Observable} from "rxjs/Observable";
 import {ActivatedRoute} from "@angular/router";
 
@@ -52,6 +52,18 @@ export class CampaignListComponent implements OnInit {
   }
 
   reset() {
+
+  }
+
+  edit(campaign: Campaign) {
+
+  }
+
+  run(campaign: Campaign) {
+
+  }
+
+  archive(campaign: Campaign) {
 
   }
 

@@ -1,4 +1,4 @@
-import {User} from "../user/user";
+import {User} from "../../shared/model/user/user";
 import {TestStatus} from "./testStatus";
 export class TestRecord {
   public id: string;

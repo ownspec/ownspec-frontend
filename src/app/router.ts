@@ -11,10 +11,10 @@ import {ComponentWriteComponent} from "./components/write/component-write.compon
 import {ResourcesListComponent} from "./resources/list/resouces-list.component";
 import {AdministrationComponent} from "./administration/administration.component";
 import {ErrorPageComponent} from "./error-page/error-page.component";
-import {TestingComponent} from "./testing/testing.component";
-import {CampaignEditComponent} from "./testing/campaign/edit/campaign.edit.component";
-import {CampaignRunComponent} from "./testing/campaign/run/campaign.run.component";
-import {TestCaseEditComponent} from "./testing/test-case/edit/test-case.edit.component";
+import {TestingComponent} from "./testing/components/testing.component";
+import {CampaignEditComponent} from "./testing/components/campaign/edit/campaign.edit.component";
+import {CampaignRunComponent} from "./testing/components/campaign/run/campaign.run.component";
+import {TestCaseEditComponent} from "./testing/components/test-case/edit/test-case.edit.component";
 
 
 export const APP_ROUTES: Routes = [

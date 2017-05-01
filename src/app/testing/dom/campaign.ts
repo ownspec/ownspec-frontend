@@ -1,5 +1,5 @@
 import {TestCase} from "./testCase";
-import {User} from "../user/user";
+import {User} from "../../shared/model/user/user";
 export class Campaign {
 
   public id: string;

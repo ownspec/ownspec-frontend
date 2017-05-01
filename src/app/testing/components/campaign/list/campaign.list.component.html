@@ -37,7 +37,7 @@
     <md-card>
       <md-card-header>
         <md-card-title>
-          <a (click)="show(campaign.data.id)" role="button">
+          <a (click)="edit(campaign.data.id)" role="button">
             <h5>{{campaign.data.name}} <span style="font-weight: 400;font-size: 0.85rem;">(Version {{campaign.data.version}})</span></h5>
           </a>
         </md-card-title>
@@ -49,7 +49,7 @@
       <md-card-content>
         <div fxLayout="column" fxLayoutAlign="center center">
           <canvas baseChart
-                  style="display: flex;max-width: 200px; margin: 0 auto"
+                  style="display: flex;max-width: 180px; margin: 0 auto"
                   [chartType]="testCasesStatusChartType"
                   [labels]="testCasesStatusChartLabels"
                   [data]="campaign.testCasesStatusChartData"
@@ -76,20 +76,20 @@
       <md-card-actions fxLayout="row" fxLayoutAlign="center center" style="color:dimgrey">
         <button md-icon-button
                 md-tooltip="Edit"
-                (click)="edit(campaign)">
+                (click)="edit(campaign.data)">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
 
         <button md-icon-button
                 md-tooltip="Run"
                 style="color: #44AF69"
-                (click)="run(campaign)">
+                (click)="run(campaign.data)">
           <i class="fa fa-play" aria-hidden="true"></i>
         </button>
 
         <button md-icon-button
                 md-tooltip="Archive"
-                (click)="run(campaign)">
+                (click)="archive(campaign.data)">
           <i class="fa fa-archive" aria-hidden="true"></i>
         </button>
 

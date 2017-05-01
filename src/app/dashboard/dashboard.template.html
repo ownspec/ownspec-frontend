@@ -158,14 +158,15 @@
                   <md-card-subtitle>Cross projects</md-card-subtitle>
                 </md-card-header>
               </div>
-              <md-card-content fxFlex>
-                <div class="canvas-container" fxLayout="row">
+              <md-card-content>
+                <div fxLayout="column" fxLayoutAlign="center center">
                   <canvas baseChart
+                          style="display: flex;margin: 0 auto"
                           [chartType]="requirementTypeChartType"
                           [labels]="requirementTypeChartLabels"
                           [data]="requirementTypeChartData"
                           (chartClick)="showTypeFilteredRequirements($event)"
-                          [options]="{legend: {position:'bottom'}}"
+                          [options]="{legend: {position: 'bottom'}}"
                   ></canvas>
                 </div>
               </md-card-content>
