@@ -3,6 +3,8 @@ import {User} from "../shared/model/user/user";
 import {SharedService} from "../shared/service/shared.service";
 import {UserService} from "../shared/service/user/user.service";
 import {LinkService} from "../link/link.service";
+import {ProjectService} from "../shared/service/project.service";
+import {Project} from "../shared/model/project";
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -20,7 +22,8 @@ export class SideNavComponent implements OnInit {
   private hidden;
   private stateIsInAProject = false;
   private activeUser = new User();
-  private projectId: string;
+  private project = new Project();
+  private projects: Project[] = [];
 
   public defaultMenuItems: Array<any> = [
     {name: "Dashboard", icon: "fa-tachometer", state: "/dashboard"},
@@ -29,7 +32,7 @@ export class SideNavComponent implements OnInit {
     {name: "Components", icon: "fa-plug", state: "/components"},
     {name: "Templates", icon: "fa-file-text", state: "/templates"},
     {name: "Resources", icon: "fa-picture-o", state: "/resources"},
-    {name: "Testing", icon: "fa-flask", state: "/testing"},
+    // {name: "Testing", icon: "fa-flask", state: "/testing"},
     {name: "Administration", icon: "fa-shield", state: "/administration"},
   ];
 
@@ -44,7 +47,8 @@ export class SideNavComponent implements OnInit {
 
   constructor(private sharedService: SharedService,
               private userService: UserService,
-              private linkService: LinkService) {
+              private linkService: LinkService,
+              private projectService: ProjectService) {
 
     this.menuItems = this.defaultMenuItems;
 
@@ -58,7 +62,9 @@ export class SideNavComponent implements OnInit {
     // Set menu items regarding current state
     this.sharedService.stateIsInAProjectEvent.subscribe(result => {
       this.stateIsInAProject = result.isInAProject;
-      this.projectId = result.projectId;
+      this.projectService.findOne(result.projectId).subscribe(p => {
+        this.project = p
+      });
       this.toggleMenu(result.isInAProject);
     });
 
@@ -71,7 +77,6 @@ export class SideNavComponent implements OnInit {
     this.userService.getCurrent().subscribe((user: User) => {
       this.activeUser = user
     });
-
   }
 
   public goToHomePage() {
@@ -100,6 +105,15 @@ export class SideNavComponent implements OnInit {
           console.error("logout failed:" + error);
         }
     );
+  }
+
+  fetchProjects() {
+    this.projectService.findAll().subscribe(r => {
+          this.projects = r.filter(p => p.id != this.project.id);
+        },
+        e => {
+
+        })
   }
 
 

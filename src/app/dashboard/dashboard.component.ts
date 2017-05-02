@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   private requirementsNumber = 0;
   private templatesNumber = 0;
   private componentsNumber = 0;
+  private resourcesNumber = 0;
 
   private lastVisitedProjects: Project [] = [];
   private lastVisitedDocuments: ComponentVersion  [] = [];

@@ -13,7 +13,7 @@
       <button fxLayout="row" role="button" [mdMenuTriggerFor]="menu" style="text-align: left">
         <div>
           <h5 style="color:white;font-size: 14px;">{{activeUser.fullName}}</h5>
-          <h6 style="color:darkgrey;font-size: 11px; font-weight: lighter;font-style: italic">{{activeUser.role}}</h6>
+          <h6 style="color:darkgrey;font-size: 10px; font-weight: lighter;font-style: italic">{{activeUser.role}}</h6>
         </div>
         <i class="fa fa-angle-down" aria-hidden="false" style="color:lightgrey;font-size: 13px; margin-left: 5px"></i>
       </button>
@@ -29,13 +29,29 @@
   </div>
 
   <!--Navigation-->
-  <div *ngIf="stateIsInAProject" style="margin-top: 5px">
-    <button md-icon-button (click)="toggleMenu()"><i style="color: grey" class="fa fa-arrow-left" aria-hidden="true"></i></button>
+  <div *ngIf="stateIsInAProject" style="margin: 5px; border-bottom: 1px solid #292b2c">
+    <div style="margin-left: 10px;">
+      <h6 style="color: white; margin: 0 !important;">{{project.title}}</h6>
+      <button role="button"
+              [mdMenuTriggerFor]="projectsMenu"
+              style="color:darkgrey;font-size: 10px; font-weight: lighter; padding: 0 !important;"
+              (click)="fetchProjects()">Switch project
+        <i class="fa fa-angle-down" aria-hidden="false" style="color:lightgrey;font-size: 13px; margin-left: 5px"></i>
+      </button>
+      <md-menu #projectsMenu="mdMenu">
+        <button md-menu-item *ngFor="let project of projects" [routerLink]="'/projects/'+ project.id + '/dashboard'">{{project.title}}</button>
+      </md-menu>
+    </div>
+    <button md-tooltip="Back to generic menu" mdTooltipPosition="after"
+            md-icon-button
+            (click)="toggleMenu()">
+      <i style="color: grey" class="fa fa-arrow-left" aria-hidden="true"></i>
+    </button>
   </div>
 
   <div class="sidenav-menu-items">
     <li *ngFor="let item of menuItems" routerLinkActive="active">
-      <a [routerLink]="stateIsInAProject? '/projects/'+ projectId +'/'+ item.state:item.state">
+      <a [routerLink]="stateIsInAProject? '/projects/'+ project.id +'/'+ item.state:item.state">
         <div><i class="fa {{item.icon}}" aria-hidden="true"></i>{{item.name}}</div>
       </a>
     </li>
