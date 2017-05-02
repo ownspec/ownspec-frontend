@@ -61,7 +61,6 @@ import {AuthenticationComponent} from "./authentication/authentication.component
 import {APP_ROUTES} from "./router";
 import {TestingModule} from "./testing/testing.module";
 import {MainHeaderModule} from "./header/main-header.module";
-import {MainHeaderComponent} from "./header/main-header.component";
 
 
 /*
@@ -136,8 +135,6 @@ export class AppGestureConfig extends HammerGestureConfig {
     TocComponent,
     ComponentContentComponent,
 
-    MainHeaderComponent,
-
     AdministrationComponent,
     UsersListComponent,
     UserEditorDialog,
@@ -181,7 +178,8 @@ export class AppGestureConfig extends HammerGestureConfig {
     MdCardModule,
     ReactiveFormsModule,
 
-    TestingModule
+    TestingModule,
+    MainHeaderModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
 

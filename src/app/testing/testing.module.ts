@@ -7,7 +7,6 @@ import {TestCaseEditComponent} from "./components/test-case/edit/test-case.edit.
 import {TestCaseListComponent} from "./components/test-case/list/test-case.list.component";
 import {TestingComponent} from "./components/testing.component";
 import {CampaignRunComponent} from "./components/campaign/run/campaign.run.component";
-import {MainHeaderModule} from "../header/main-header.module";
 import {MaterialModule} from "@angular/material";
 import {BrowserModule} from "@angular/platform-browser";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
@@ -15,6 +14,7 @@ import {MomentModule} from "angular2-moment";
 import {ChartsModule} from "ng2-charts";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {TestCaseRunComponent} from "./components/test-case/run/test-case.run.component";
+import {MainHeaderModule} from "../header/main-header.module";
 
 
 @NgModule({
@@ -38,7 +38,8 @@ import {TestCaseRunComponent} from "./components/test-case/run/test-case.run.com
     NgxDatatableModule,
     MomentModule,
     ChartsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MainHeaderModule
 
   ],
   exports: [
