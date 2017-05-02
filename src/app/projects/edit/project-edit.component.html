@@ -115,7 +115,7 @@
                 <md-card-header fxFlex fxLayout="row">
                   <img md-card-avatar src="assets/img/avatar_m.png" style="width: 40px; height: 40px">
                   <md-card-title>{{user.fullName}}</md-card-title>
-                  <md-card-subtitle>Project Manager</md-card-subtitle>
+                  <md-card-subtitle>{{user.category.name}}</md-card-subtitle>
                   <div fxFlex fxLayoutAlign="end">
                     <button md-icon-button role="button" (click)="deleteUserFromProject(user)"><i class="fa fa-trash-o"
                                                                                    aria-hidden="true"></i></button>
