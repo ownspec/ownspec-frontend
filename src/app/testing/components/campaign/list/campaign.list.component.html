@@ -34,8 +34,8 @@
 
 <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between stretch" style="overflow: auto;width: 100%;">
   <div *ngFor="let campaign of campaigns" fxFlex="33" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5px; ">
-    <md-card>
-      <md-card-header>
+    <md-card fxFlex>
+      <md-card-header style="display: inline-block !important;">
         <md-card-title>
           <a (click)="edit(campaign.data.id)" role="button">
             <h5>{{campaign.data.name}} <span style="font-weight: 400;font-size: 0.85rem;">(Version {{campaign.data.version}})</span></h5>
@@ -43,10 +43,15 @@
         </md-card-title>
         <md-card-subtitle>
           <h6 style="font-size: 0.9rem;" *ngIf="campaign.data.startingDate > today">Should start {{campaign.data.startingDate | amTimeAgo}}</h6>
-          <h6 style="font-size: 0.9rem;" *ngIf="campaign.data.startingDate < today">Started {{campaign.data.startingDate | amTimeAgo }} by {{campaign.data.endingUser.fullName}}</h6>
+          <h6 style="font-size: 0.9rem;" *ngIf="campaign.data.startingDate < today">Started {{campaign.data.startingDate | amTimeAgo }} by
+            {{campaign.data.endingUser.fullName}}</h6>
         </md-card-subtitle>
       </md-card-header>
       <md-card-content>
+        <div style="margin: 10px">
+          <h6 style="font-size: 10px">Progress: {{campaign.data.progress}}%</h6>
+          <md-progress-bar mode="determinate" color="warn" [value]="campaign.data.progress"></md-progress-bar>
+        </div>
         <div fxLayout="column" fxLayoutAlign="center center">
           <canvas baseChart
                   style="display: flex;max-width: 180px; margin: 0 auto"

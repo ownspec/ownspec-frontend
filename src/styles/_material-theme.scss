@@ -1,6 +1,5 @@
 @import '~@angular/material/core/theming/all-theme';
 
-
 // Include non-theme styles for core.
 @include mat-core();
 
@@ -38,12 +37,11 @@ $ownspec-palette: (
         )
 );
 
-
-
 $primary: mat-palette($ownspec-palette);
-$accent:  mat-palette($mat-pink, A200, A100, A400);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+$green: mat-palette($mat-teal);
 
-$theme: mat-light-theme($primary, $accent);
+$theme: mat-light-theme($primary, $accent, $green);
 
 // Include all theme styles for the components.
 @include angular-material-theme($theme);

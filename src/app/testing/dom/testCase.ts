@@ -8,6 +8,7 @@ import {TestRecord} from "./testRecord";
 
 export class TestCase {
   public id: string;
+  public code:string;
   public name: string;
   public summary: string;
   public relatedRequirement: ComponentVersion;
@@ -37,6 +38,7 @@ export class TestCase {
   public static fromMap(item: any): TestCase {
     let testCase: TestCase = new TestCase();
     testCase.id = item.id;
+    testCase.code = item.code;
     testCase.name = item.name;
     testCase.summary = item.summary;
     testCase.relatedRequirement = ComponentVersion.fromMap(item.relatedRequirement);
@@ -63,7 +65,7 @@ export class TestCase {
   }
 
   public static toMap(testCase: TestCase): any {
-    let map = {
+    return {
       name: testCase.name,
       summary: testCase.summary,
       relatedRequirement: testCase.relatedRequirement,
@@ -76,7 +78,6 @@ export class TestCase {
       testSteps: testCase.testSteps.map(ts => TestStep.toMap(ts)),
       //testRecords: testCase.testRecords,
     };
-    return map;
 
   }
 

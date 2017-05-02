@@ -15,6 +15,7 @@ import {TestingComponent} from "./testing/components/testing.component";
 import {CampaignEditComponent} from "./testing/components/campaign/edit/campaign.edit.component";
 import {CampaignRunComponent} from "./testing/components/campaign/run/campaign.run.component";
 import {TestCaseEditComponent} from "./testing/components/test-case/edit/test-case.edit.component";
+import {TestCaseRunComponent} from "./testing/components/test-case/run/test-case.run.component";
 
 
 export const APP_ROUTES: Routes = [
@@ -54,7 +55,6 @@ export const APP_ROUTES: Routes = [
           {
             path: 'dashboard',
             component: DashboardComponent,
-            children: []
           },
           {
             path: 'requirements',
@@ -132,6 +132,10 @@ export const APP_ROUTES: Routes = [
               {
                 path: 'test-case/:id/edit',
                 component: TestCaseEditComponent,
+              },
+              {
+                path: 'test-case/:id/run',
+                component: TestCaseRunComponent,
               },
 
             ]

@@ -21,7 +21,8 @@ export class CampaignListComponent implements OnInit {
   // Chart
   public testCasesStatusChartType: string = 'doughnut';
   public testCasesStatusChartLabels: string[] = ['Pass', 'Failed', 'Waiting', 'Blocked'];
-  public testCasesStatusChartColors: any[] = [{backgroundColor: ['#88CC9F', '#E57483', '#FDD382', '#E4B37F']}];
+  // public testCasesStatusChartColors: any[] = [{backgroundColor: ['#88CC9F', '#E57483', '#FDD382', '#E4B37F']}];
+  public testCasesStatusChartColors: any[] = [{backgroundColor: ['#03B5AA', '#ED5471', '#FFC857', '#7C9EB2']}];
   public testCasesStatusChartData: number[] = [16, 13, 3, 1];
   public options: any = {
     //title: {
@@ -723,6 +724,7 @@ export class CampaignListComponent implements OnInit {
         endingUser: user,
         testCases: testCases,
         executionsNumber: 1,
+        progress: 30,
       },
       {
         id: 2,
@@ -739,6 +741,7 @@ export class CampaignListComponent implements OnInit {
         endingUser: user,
         testCases: testCases1,
         executionsNumber: 0,
+        progress: 0,
 
       },
       {
@@ -756,6 +759,8 @@ export class CampaignListComponent implements OnInit {
         endingUser: user,
         testCases: testCases2,
         executionsNumber: 4,
+        progress: 100,
+
 
       },
       {
@@ -773,6 +778,7 @@ export class CampaignListComponent implements OnInit {
         endingUser: user,
         testCases: testCases,
         executionsNumber: 12,
+        progress: 66,
       }
 
     ];

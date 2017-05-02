@@ -21,7 +21,6 @@ export class User {
   public constructor() {
   }
 
-
   public static fromMap(item: any): User {
     let user: User = new User();
     user.id = item.id;

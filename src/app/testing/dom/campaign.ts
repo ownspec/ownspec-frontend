@@ -6,6 +6,7 @@ export class Campaign {
   public name: string;
   public version: string;
   public status: string;
+  public progress: number = 0;
 
   public createdDate: Date;
   public lastModifiedDate: Date;
@@ -32,6 +33,7 @@ export class Campaign {
     campaign.name = item.name;
     campaign.version = item.version;
     campaign.status = item.status;
+    campaign.progress = item.progress;
 
     campaign.createdDate = new Date(<string>item.createdDate);
     campaign.lastModifiedDate = new Date(<string>item.lastModifiedDate);

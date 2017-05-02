@@ -14,6 +14,7 @@ import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {MomentModule} from "angular2-moment";
 import {ChartsModule} from "ng2-charts";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {TestCaseRunComponent} from "./components/test-case/run/test-case.run.component";
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     TestCaseCreateComponent,
     TestCaseEditComponent,
     TestCaseListComponent,
+    TestCaseRunComponent,
 
   ],
   imports: [
@@ -45,10 +47,13 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     CampaignCreateComponent,
     CampaignEditComponent,
     CampaignListComponent,
+    CampaignRunComponent,
 
     TestCaseCreateComponent,
     TestCaseEditComponent,
-    TestCaseListComponent
+    TestCaseListComponent,
+    TestCaseRunComponent,
+
   ]
 })
 export class TestingModule {
