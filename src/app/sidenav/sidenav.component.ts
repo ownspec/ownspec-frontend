@@ -62,9 +62,11 @@ export class SideNavComponent implements OnInit {
     // Set menu items regarding current state
     this.sharedService.stateIsInAProjectEvent.subscribe(result => {
       this.stateIsInAProject = result.isInAProject;
-      this.projectService.findOne(result.projectId).subscribe(p => {
-        this.project = p
-      });
+      if (this.stateIsInAProject) {
+        this.projectService.findOne(result.projectId).subscribe(p => {
+          this.project = p
+        });
+      }
       this.toggleMenu(result.isInAProject);
     });
 
