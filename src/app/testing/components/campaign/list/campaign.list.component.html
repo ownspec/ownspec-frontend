@@ -1,33 +1,38 @@
 <div class="main-content-content">
-  <div class="main-search-container" fxLayout="row" style="background: white; padding: 20px;">
-    <form class="main-search" (submit)="search()">
-      <div class="main-search-input-wrapper">
-        <md-input-container style="margin-right: 20px">
-          <input mdInput placeholder="Search..." name="query">
-        </md-input-container>
+  <div class="main-search-container" style="background: white; padding: 10px;">
+    <div fxLayout="row" fxLayoutAlign="start end">
+      <form class="main-search" (submit)="search()">
+        <div class="main-search-input-wrapper">
+          <md-input-container style="margin-right: 20px">
+            <input mdInput placeholder="Search..." name="query">
+          </md-input-container>
 
-        <md-select name="items" placeholder="Assignee" style="margin-right: 20px"
-                   (change)="fetchCampaigns()">
-          <md-option [value]="null">All</md-option>
-          <md-option *ngFor="let assignee of assignees"
-                     [value]="assignee">{{assignee.username}}
-          </md-option>
-        </md-select>
+          <md-select name="items" placeholder="Assignee" style="margin-right: 20px"
+                     (change)="fetchCampaigns()">
+            <md-option [value]="null">All</md-option>
+            <md-option *ngFor="let assignee of assignees"
+                       [value]="assignee">{{assignee.username}}
+            </md-option>
+          </md-select>
 
 
-        <md-select name="items" placeholder="Status" style="margin-right: 20px"
-                   (change)="fetchCampaigns()">
-          <md-option [value]="null">All</md-option>
-          <md-option>PASS</md-option>
-          <md-option>FAILED</md-option>
-          <md-option>NOT_EXECUTED</md-option>
-          <md-option>BLOCKED</md-option>
-        </md-select>
+          <md-select name="items" placeholder="Status" style="margin-right: 20px"
+                     (change)="fetchCampaigns()">
+            <md-option [value]="null">All</md-option>
+            <md-option>PASS</md-option>
+            <md-option>FAILED</md-option>
+            <md-option>NOT_EXECUTED</md-option>
+            <md-option>BLOCKED</md-option>
+          </md-select>
 
-        <button md-icon-button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-        <button md-icon-button (click)="reset()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-      </div>
-    </form>
+          <button md-icon-button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          <button md-icon-button (click)="reset()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+        </div>
+      </form>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end">
+      <button md-button style="color: #03B5AA"><i class="fa fa-plus" aria-hidden="true"></i> New campaign</button>
+    </div>
   </div>
 </div>
 

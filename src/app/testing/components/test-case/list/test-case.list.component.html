@@ -1,45 +1,54 @@
 <div class="main-content-content">
-  <div class="main-search-container" fxLayout="row" style="background: white; padding: 20px;">
-    <form class="main-search" (submit)="search()">
-      <div class="main-search-input-wrapper">
-        <md-input-container style="margin-right: 20px">
-          <input mdInput placeholder="Search by Name, Summary, Tags" name="query">
-        </md-input-container>
-        <md-select name="items" placeholder="Status" style="margin-right: 20px"
-                   (change)="fetchTestCases()">
-          <md-option [value]="null">All</md-option>
-          <md-option *ngFor="let status of statuses"
-                     [value]="status">{{status}}
-          </md-option>
-        </md-select>
+  <div class="main-search-container" style="background: white; padding: 10px; margin-bottom: 10px">
+    <div fxLayout="row" fxLayoutAlign="start end">
+      <form class="main-search" (submit)="search()">
+        <div class="main-search-input-wrapper">
+          <md-input-container style="margin-right: 20px">
+            <input mdInput placeholder="Search by name, summary, tags" name="query">
+          </md-input-container>
 
-        <button md-icon-button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-        <button md-icon-button (click)="reset()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
-      </div>
-    </form>
+          <md-select name="items" placeholder="Status" style="margin-right: 20px"
+                     (change)="fetchTestCases()">
+            <md-option [value]="null">All</md-option>
+            <md-option>PASS</md-option>
+            <md-option>FAILED</md-option>
+            <md-option>NOT_EXECUTED</md-option>
+            <md-option>BLOCKED</md-option>
+          </md-select>
+
+          <button md-icon-button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          <button md-icon-button (click)="reset()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+        </div>
+      </form>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end">
+      <button md-button style="color: #7C9EB2"><i class="fa fa-plus" aria-hidden="true"></i> New test case</button>
+    </div>
   </div>
+
   <ngx-datatable
       class="material" style="flex: 1"
       [rows]="testCases"
       [columnMode]="'flex'"
       [headerHeight]="50"
       [footerHeight]="0"
-      [rowHeight]="50"
+      [rowHeight]="75"
       [scrollbarV]="true"
       [scrollbarH]="true">
-    <ngx-datatable-column [flexGrow]="1.5" name="#" prop="code"></ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="2" name="#" prop="code">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <span title="{{value}}" style="font-size: 11px">{{value}}</span>
+      </template>
+    </ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="4" name="Test case">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        <div>
-          <h6 style="font-weight: bold; padding: 0 !important;">{{row.name}}</h6>
-          <h6 style="text-overflow:'...'">{{row.summary}}</h6>
-          <div fxLayout="row" style="overflow: hidden">
-            <span *ngFor="let tag of row.tags"
-                  class="badge badge-default"
-                  fxLayoutAlign="center center"
-                  style=" display: inline-block;padding-right: 10px;margin-right: 5px; height: 25px"
-            >{{tag.label}}
-            </span>
+        <div style="text-align: left !important;">
+          <h6 title="{{row.name}}" style="font-weight: bold; padding: 0 !important;margin-bottom: 2px">{{row.name}}</h6>
+          <h6 title="{{row.summary}}" style="font-size: 11px; color: #515050; margin-bottom: 2px">{{row.summary}}</h6>
+          <div fxLayout="row">
+            <md-chip-list>
+              <md-chip *ngFor="let tag of row.tags" style="margin-right: 5px; font-size: 11px;">{{tag.label}}</md-chip>
+            </md-chip-list>
           </div>
         </div>
       </template>
@@ -50,22 +59,34 @@
         <div fxLayout="column" fxLayoutAlign="center stretch">
           <button md-tooltip="View {{row.title}}'" md-button type="button"
                   (click)="goToRequirement(row)">
+            <span style="font-size: 12px !important;">{{value}}</span>
+          </button>
+        </div>
+      </template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [flexGrow]="2" name="Status">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <div fxLayout="column" fxLayoutAlign="center stretch">
+          <button md-tooltip="Update status" md-button type="button"
+                  [style.background]="value == 'PASS'? '#03B5AA' :
+                                    value =='IN_PROGRESS'? '#FFC857' :
+                                    value =='FAILED'? '#ED5471' :
+                                    value == 'BLOCKED'? '#7C9EB2':
+                                    'dodgerblue'"
+                  (click)="openUpdateStatus(row)">
             <span style="font-size: 11px !important;">{{value}}</span>
           </button>
         </div>
       </template>
     </ngx-datatable-column>
+
     <ngx-datatable-column [flexGrow]="2" name="Created">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.createdDate | amTimeAgo}}
       </template>
     </ngx-datatable-column>
-    <ngx-datatable-column [flexGrow]="2" name="Updated">
-      <template let-row="row" let-value="value" ngx-datatable-cell-template>
-        {{row.startingDate | amTimeAgo}}
-      </template>
-    </ngx-datatable-column>
-    <ngx-datatable-column [flexGrow]="3" name="Actions">
+    <ngx-datatable-column [flexGrow]="2" name="Actions">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
         <div class="table-actions">
 
@@ -77,20 +98,12 @@
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
 
-          <button style="color: #636262 "
-                  md-icon-button
-                  md-tooltip="Write"
-                  role="button"
-                  (click)="write(row)">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          </button>
-
           <button style="color: #028090 "
                   md-icon-button
-                  md-tooltip="Print"
+                  md-tooltip="Run"
                   role="button"
-                  (click)="print(row)">
-            <i class="fa fa-print" aria-hidden="true"></i>
+                  (click)="run(row)">
+            <i class="fa fa-play" aria-hidden="true"></i>
           </button>
 
           <button style="color: #ec4363"

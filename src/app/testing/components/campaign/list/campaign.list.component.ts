@@ -20,7 +20,7 @@ export class CampaignListComponent implements OnInit {
 
   // Chart
   public testCasesStatusChartType: string = 'doughnut';
-  public testCasesStatusChartLabels: string[] = ['Pass', 'Failed', 'Waiting', 'Blocked'];
+  public testCasesStatusChartLabels: string[] = ['Pass', 'Failed', 'In-Progress', 'Blocked'];
   // public testCasesStatusChartColors: any[] = [{backgroundColor: ['#88CC9F', '#E57483', '#FDD382', '#E4B37F']}];
   public testCasesStatusChartColors: any[] = [{backgroundColor: ['#03B5AA', '#ED5471', '#FFC857', '#7C9EB2']}];
   public testCasesStatusChartData: number[] = [16, 13, 3, 1];
@@ -462,7 +462,7 @@ export class CampaignListComponent implements OnInit {
         environment: "UAT",
         tags: [],
         attachments: [{id: 1, name: "foo.pdf", url: "/foo/bar/foo.pdf"}],
-        status: "NOT_EXECUTED",
+        status: "IN_PROGRESS",
         createdDate: "2017-04-17T13:11:11.313Z",
         lastModifiedDate: "2017-04-17T13:11:11.313Z",
         createdUser: user,
@@ -481,7 +481,7 @@ export class CampaignListComponent implements OnInit {
         environment: "UAT",
         tags: [],
         attachments: [{id: 1, name: "foo.pdf", url: "/foo/bar/foo.pdf"}],
-        status: "NOT_EXECUTED",
+        status: "IN_PROGRESS",
         createdDate: "2017-04-17T13:11:11.313Z",
         lastModifiedDate: "2017-04-17T13:11:11.313Z",
         createdUser: user,
@@ -500,7 +500,7 @@ export class CampaignListComponent implements OnInit {
         environment: "UAT",
         tags: [],
         attachments: [{id: 1, name: "foo.pdf", url: "/foo/bar/foo.pdf"}],
-        status: "NOT_EXECUTED",
+        status: "IN_PROGRESS",
         createdDate: "2017-04-17T13:11:11.313Z",
         lastModifiedDate: "2017-04-17T13:11:11.313Z",
         createdUser: user,
@@ -787,7 +787,7 @@ export class CampaignListComponent implements OnInit {
       testCasesStatusChartData: [
         campaign.testCases.filter(tc => tc.status == "PASS").length,
         campaign.testCases.filter(tc => tc.status == "FAILED").length,
-        campaign.testCases.filter(tc => tc.status == "NOT_EXECUTED").length,
+        campaign.testCases.filter(tc => tc.status == "IN_PROGRESS").length,
         campaign.testCases.filter(tc => tc.status == "BLOCKED").length,
       ],
       data: Campaign.fromMap(campaign)
