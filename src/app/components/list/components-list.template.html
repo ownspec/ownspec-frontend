@@ -1,8 +1,13 @@
 <main-header>
   <div class="main-header-title">{{componentTypes[0] | capitalize}}s</div>
   <div class="main-header-content" fxFlex="50" fxLayout="row" fxLayoutAlign="end">
-    <div md-tooltip="Create" fxLayout="row" fxLayoutAlign="end center">
-      <button md-icon-button (click)="startCreateComponent()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <button md-tooltip="Create" md-icon-button (click)="startCreateComponent()">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+      <button md-tooltip="Import" md-icon-button (click)="startImportComponent()">
+        <i class="fa fa-upload" aria-hidden="true"></i>
+      </button>
     </div>
   </div>
 </main-header>
@@ -10,7 +15,8 @@
 
 
 <div class="main-content-content">
-  <div class="main-search-container" fxLayout="row" style="background: white; padding: 20px;">
+  <div class="main-search-container" fxLayout="row"
+       style="background: rgba(245, 245, 245, 1); padding: 10px 10px 0px 10px;">
     <form class="main-search" (submit)="search()">
       <div class="main-search-input-wrapper">
         <md-input-container style="margin-right: 20px;">
@@ -40,14 +46,21 @@
     </form>
   </div>
   <ngx-datatable
-      class="material" style="flex: 1"
-      [rows]="components"
-      [columnMode]="'flex'"
-      [headerHeight]="50"
-      [footerHeight]="0"
-      [rowHeight]="50"
-      [scrollbarV]="true"
-      [scrollbarH]="true">
+    class="material" style="flex: 1;overflow: auto"
+    [rows]="components.result"
+    [columnMode]="'flex'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="50"
+    [scrollbarH]="true"
+
+    [externalPaging]="true"
+    [count]="page.total"
+    [offset]="page.offset"
+    [limit]="page.size"
+    (page)='setPage($event)'>
+
+
     <ngx-datatable-column [flexGrow]="1.5" name="Code"></ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="4" name="Title">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
@@ -78,6 +91,11 @@
     <ngx-datatable-column [flexGrow]="2" name="Updated">
       <template let-row="row" let-value="value" ngx-datatable-cell-template>
         {{row.workflowInstance.currentWorkflowStatus.createdDate | amTimeAgo}}
+      </template>
+    </ngx-datatable-column>
+    <ngx-datatable-column [flexGrow]="2" name="Assignee">
+      <template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <span *ngIf="row.assignedTo">{{row.assignedTo.username }}</span>
       </template>
     </ngx-datatable-column>
     <ngx-datatable-column [flexGrow]="3" name="Actions">

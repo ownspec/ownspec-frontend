@@ -13,6 +13,7 @@ import {Status} from "../../shared/model/component/status";
 import {AssigneeService} from "../../shared/service/user/assignee.service";
 import {User} from "../../shared/model/user/user";
 import {ComponentVersionSearchBean} from "../../shared/service/components/component-versions-search";
+import {PaginatedResult} from "../../shared/model/paginated-result";
 
 
 @C({
@@ -22,7 +23,8 @@ import {ComponentVersionSearchBean} from "../../shared/service/components/compon
 })
 export class ComponentsListComponent implements OnInit {
 
-  public components: ComponentVersion[] = [];
+  public components: PaginatedResult<ComponentVersion> = new PaginatedResult(0, 0, 0, []);
+  public page = {offset:0, size:10, total:0};
 
   @Input("componentTypes")
   public componentTypes: string[] = [];
@@ -36,7 +38,7 @@ export class ComponentsListComponent implements OnInit {
 
   public searchBean = new ComponentVersionSearchBean();
 
-  public loading : boolean;
+  public loading: boolean;
 
   public constructor(private route: ActivatedRoute,
                      private linkService: LinkService,
@@ -50,13 +52,13 @@ export class ComponentsListComponent implements OnInit {
 
   ngOnInit(): void {
     Observable.combineLatest(this.route.params, this.route.data, (params, data) => ({params, data}))
-        .subscribe(ap => {
-          this.projectId = ap.params['projectId'];
-          this.componentTypes = ap.data['componentTypes'];
-          this.searchBean.componentTypes = ap.data['componentTypes'];
-          this.searchBean.projectId = ap.params['projectId'];
-          this.fetchComponents();
-        });
+      .subscribe(ap => {
+        this.projectId = ap.params['projectId'];
+        this.componentTypes = ap.data['componentTypes'];
+        this.searchBean.componentTypes = ap.data['componentTypes'];
+        this.searchBean.projectId = ap.params['projectId'];
+        this.fetchComponents();
+      });
 
     this.profileService.findCurrentProfile().subscribe(p => {
       this.statuses = p.properties.statuses;
@@ -76,8 +78,11 @@ export class ComponentsListComponent implements OnInit {
 
   private fetchComponents() {
     this.loading = true;
-    this.componentVersionService.findAllBySearchBean(this.searchBean).subscribe(o => {
+    this.componentVersionService.findAllBySearchBean(this.searchBean, this.page.offset , this.page.size).subscribe(o => {
       this.components = o;
+      this.page.offset = o.offset / o.size;
+      this.page.size= o.size;
+      this.page.total = o.total;
       this.loading = false;
     });
   }
@@ -101,6 +106,12 @@ export class ComponentsListComponent implements OnInit {
     });
   }
 
+  public startImportComponent() {
+    this.componentHelperService.startImportComponent(this.componentTypes[0], this.projectId).componentInstance.update.subscribe(c => {
+      this.fetchComponents();
+    });
+  }
+
   public search() {
     this.fetchComponents();
   }
@@ -110,5 +121,12 @@ export class ComponentsListComponent implements OnInit {
       c.dlg.close();
       this.fetchComponents();
     });
+  }
+
+  setPage(pageInfo) {
+    console.log(pageInfo);
+    this.page.offset = pageInfo.offset * pageInfo.pageSize;
+    this.page.size = pageInfo.pageSize;
+    this.fetchComponents();
   }
 }

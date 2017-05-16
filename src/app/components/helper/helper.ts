@@ -5,6 +5,7 @@ import {MdDialog, MdDialogRef} from "@angular/material";
 import {ComponentVersion} from "../../shared/model/component/component-version";
 import {UpdateWorkflowComponent} from "../../workflow/update/workflow-update.component";
 import {ComponentCreatorDialog} from "../create/component-create.component";
+import {ComponentImportDialog} from "../import/component-import.component";
 
 @Injectable()
 export class ComponentHelperService {
@@ -27,6 +28,12 @@ export class ComponentHelperService {
     componentCreatorDialogRef.componentInstance.componentType = componentType;
     componentCreatorDialogRef.componentInstance.projectId = projectId;
     return componentCreatorDialogRef;
+  }
+  public startImportComponent(componentType, projectId):MdDialogRef<ComponentImportDialog> {
+    let componentImportDialogRef: MdDialogRef<ComponentImportDialog> = this.dialog.open(ComponentImportDialog, {width: "70%", height: "80%"});
+    componentImportDialogRef.componentInstance.componentType = componentType;
+    componentImportDialogRef.componentInstance.projectId = projectId;
+    return componentImportDialogRef;
   }
 
 }

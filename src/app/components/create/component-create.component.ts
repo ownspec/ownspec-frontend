@@ -67,7 +67,7 @@ export class ComponentCreatorDialog implements OnInit {
   }
 
   private resetForm() {
-    this.componentVersion = new ComponentVersion("_new", "", "", "", this.projectId, this.componentType);
+    this.componentVersion = new ComponentVersion("_new", "", "", "", this.projectId, "REQUIREMENT");
   }
 
   public addNewTag($event) {
@@ -82,6 +82,6 @@ export class ComponentCreatorDialog implements OnInit {
   private fetchTemplates() {
     let searchBean = new ComponentVersionSearchBean();
     searchBean.componentTypes = ['TEMPLATE'];
-    this.componentVersionService.findAllBySearchBean(searchBean).subscribe(r => this.templates = r);
+    this.componentVersionService.findAllBySearchBean(searchBean).subscribe(r => this.templates = r.result);
   }
 }

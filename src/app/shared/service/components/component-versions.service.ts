@@ -5,6 +5,7 @@ import {ComponentVersion} from "../../model/component/component-version";
 import {WorkflowStatus} from "../../model/component/workflow/workflow-status";
 import {ComponentVersionSearchBean} from "./component-versions-search";
 import {EstimatedComponentVersion} from "../../model/component/reports/estimated-component-version";
+import {PaginatedResult} from "../../model/paginated-result";
 
 @Injectable()
 export class ComponentVersionService {
@@ -29,11 +30,21 @@ export class ComponentVersionService {
       });
   }
 
-  public findAllBySearchBean(cvs: ComponentVersionSearchBean): Observable<ComponentVersion[]> {
-    return this.$http.post("/api/search/component-versions", cvs.toMap())
-      .flatMap(r => r.json())
-      .map((item: any) => ComponentVersion.fromMap(item))
-      .toArray();
+  public findAllBySearchBean(cvs: ComponentVersionSearchBean, offset = 0, size = 100): Observable<PaginatedResult<ComponentVersion>> {
+
+    let params: URLSearchParams = new URLSearchParams();
+    params.append("offset", offset.toString());
+    params.append("size", size.toString());
+
+    return this.$http.post("/api/search/component-versions", cvs.toMap(), {search: params})
+      .map(r => r.json())
+      .map(r => {
+        let result = [];
+        for (let item of r.result) {
+          result.push(ComponentVersion.fromMap(item));
+        }
+        return new PaginatedResult(r.offset, r.size, r.total, result);
+      });
   }
 
 

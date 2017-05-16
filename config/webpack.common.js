@@ -156,11 +156,6 @@ module.exports = function (options) {
           use: ['to-string-loader', 'css-loader'],
           exclude: [helpers.root('src', 'styles')]
         },
-/*        {
-          test: /.css$/,
-          exclude: helpers.root('src', 'app'),
-          loaders:[ExtractTextPlugin.extract('style', 'css-loader'), 'to-string', 'css']
-        },*/
 
         /*
          * to string and sass loader support for *.scss files (from Angular components)
@@ -184,16 +179,20 @@ module.exports = function (options) {
           exclude: [helpers.root('src/index.html')]
         },
 
-        /* File loader for supporting images, for example, in CSS files.
+        /* 
+         * File loader for supporting images, for example, in CSS files.
          */
         {
           test: /\.(jpg|png|gif)$/,
           use: 'file-loader'
         },
 
-        { test: /\.(otf|ttf|woff|woff2)$/, loader: 'url-loader?limit=10000' },
-        { test: /\.(eot|svg)$/, loader: 'file-loader' },
-
+        /* File loader for supporting fonts, for example, in CSS files.
+        */
+        { 
+          test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
+          use: 'file-loader'
+        }
 
       ],
 
@@ -250,7 +249,7 @@ module.exports = function (options) {
        */
       new ContextReplacementPlugin(
         // The (\\|\/) piece accounts for path separators in *nix and Windows
-        /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
+        /angular(\\|\/)core(\\|\/)@angular/,
         helpers.root('src'), // location of your src
         {
           // your Angular Async Route paths relative to this root directory
@@ -357,7 +356,7 @@ module.exports = function (options) {
         disabled: !AOT,
         tsConfig: helpers.root('tsconfig.webpack.json'),
         resourceOverride: helpers.root('config/resource-override.js')
-      }),
+      })
 
     ],
 

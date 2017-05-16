@@ -15,7 +15,7 @@ import {LoginComponent} from "./authentication/login/login.component";
 import {MaterialModule, MdCardModule} from "@angular/material";
 import {WriteSideNavComponent} from "./components/write/write-sidenav.component";
 import {ChartsModule} from "ng2-charts";
-import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
+//import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
 import {SideNavComponent} from "./sidenav/sidenav.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {Ng2CompleterModule} from "ng2-completer";
@@ -23,7 +23,7 @@ import {ResourceCreatorComponent} from "./resources/create/resource-create.compo
 import {ResourcesListComponent} from "./resources/list/resouces-list.component";
 import {ResourcesSelectionComponent} from "./resources/selection/resources-selection.component";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import {NgxDatatableModule} from "@swimlane/ngx-datatable";
+import {DataTablePagerComponent, NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {TreeModule} from "angular-tree-component";
 import {CompleterCmpMd} from "./shared/completer-cmp-md/completer-cmp-md";
 import "../styles/styles.scss";
@@ -56,11 +56,13 @@ import {UserCategoriesListComponent} from "./administration/user-category/list/u
 import {UserCategoryEditDialog} from "./administration/user-category/edit/user-category-edit.component";
 import {CompanyEditComponent} from "./administration/company/edit/company-edit.component";
 import {ComponentEstimationsComponent} from "./components/edit/estimation/component-estimations.component";
-import {BsDropdownModule, Ng2BootstrapModule} from "ng2-bootstrap";
+import {BsDropdownModule, Ng2BootstrapModule} from "ngx-bootstrap";
 import {AuthenticationComponent} from "./authentication/authentication.component";
 import {APP_ROUTES} from "./router";
 import {TestingModule} from "./testing/testing.module";
 import {MainHeaderModule} from "./header/main-header.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ComponentImportDialog} from "./components/import/component-import.component";
 
 
 /*
@@ -116,6 +118,7 @@ export class AppGestureConfig extends HammerGestureConfig {
 
     CompleterCmpMd,
     ComponentCreatorDialog,
+    ComponentImportDialog,
 
 
     CapitalizePipe,
@@ -140,7 +143,7 @@ export class AppGestureConfig extends HammerGestureConfig {
     UserEditorDialog,
     UserCategoriesListComponent,
     UserCategoryEditDialog,
-    CompanyEditComponent
+    CompanyEditComponent,
 
   ],
 
@@ -148,6 +151,7 @@ export class AppGestureConfig extends HammerGestureConfig {
     ResourceCreatorComponent,
     UserEditorDialog,
     ComponentCreatorDialog,
+    ComponentImportDialog,
     UpdateWorkflowComponent,
     ReferenceComponent,
     UserCategoryEditDialog,
@@ -162,8 +166,13 @@ export class AppGestureConfig extends HammerGestureConfig {
     HttpModule,
     Ng2BootstrapModule,
     MaterialModule,
+
+    BrowserAnimationsModule,
+
     FlexLayoutModule,
     NgxDatatableModule,
+
+
     CKEditorModule,
     MomentModule,
 
@@ -186,7 +195,7 @@ export class AppGestureConfig extends HammerGestureConfig {
     LinkService,
     ComponentHelperService,
     ComponentSnackService,
-    BrowserDomAdapter,
+    //BrowserDomAdapter,
     Globals,
 
     {

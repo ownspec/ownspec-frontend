@@ -1,10 +1,12 @@
+/*
 body {
   color: #666666;
   font-size: 14px;
 }
+*/
 
 
-input, select {
+:host /deep/ input, select {
   border-radius: 0 !important;
   margin-bottom: 20px;
   border: 1px solid #d9d9d9;
@@ -13,19 +15,22 @@ input, select {
 
 
 
-input:focus {
+
+
+:host /deep/ input:focus {
   border: 1px solid #ec4363 !important;
   color: #333333 !important;
 }
 
 
-.logo-container {
+
+/deep/ .logo-container {
   padding: 50px 0;
   text-align: center;
   letter-spacing: 2px;
 }
 
-.form-container {
+/deep/ .form-container {
   position: relative;
   background: #ffffff;
   max-width: 350px;
@@ -34,24 +39,24 @@ input:focus {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
 }
-.form-container .form {
+/deep/ .form-container .form {
   display: block;
   padding: 40px;
 }
 
-.form-container h2 {
+/deep/ .form-container h2 {
   margin: 0 0 20px;
   color: #393838;
   font-size: 18px;
   font-weight: 400;
   line-height: 1;
 }
-.form-container input {
+/deep/ .form-container input {
   display: block;
   width: 100%;
 }
 
-.form-container button {
+/deep/ .form-container button {
   cursor: pointer;
   background: #666565;
   width: 100%;
@@ -61,10 +66,10 @@ input:focus {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.form-container button:hover {
+/deep/ .form-container button:hover {
   background: #393838;
 }
-.form-container .footer {
+/deep/ .form-container .footer {
   background: #f2f2f2;
   width: 100%;
   padding: 15px 40px;
@@ -73,7 +78,7 @@ input:focus {
   font-size: 12px;
   text-align: center;
 }
-.form-container .footer a {
+/deep/ .form-container .footer a {
   color: #333333;
   text-decoration: none;
 }

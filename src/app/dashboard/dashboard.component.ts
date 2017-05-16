@@ -73,10 +73,10 @@ export class DashboardComponent implements OnInit {
     searchBean.componentTypes = ["DOCUMENT", "REQUIREMENT", "TEMPLATE", "COMPONENT"];
 
     this.componentVersionService.findAllBySearchBean(searchBean).subscribe(response => {
-      documents = response.filter((c: ComponentVersion) => c.type == "DOCUMENT");
-      requirements = response.filter((c: ComponentVersion) => c.type == "REQUIREMENT");
-      templates = response.filter((c: ComponentVersion) => c.type == "TEMPLATE");
-      components = response.filter((c: ComponentVersion) => c.type == "COMPONENT");
+      documents = response.result.filter((c: ComponentVersion) => c.type == "DOCUMENT");
+      requirements = response.result.filter((c: ComponentVersion) => c.type == "REQUIREMENT");
+      templates = response.result.filter((c: ComponentVersion) => c.type == "TEMPLATE");
+      components = response.result.filter((c: ComponentVersion) => c.type == "COMPONENT");
 
       // Total
       this.documentsNumber = documents.length;

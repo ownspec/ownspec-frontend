@@ -3,7 +3,7 @@ import {ComponentService} from "./service/components/component.service";
 import {ReferenceService} from "./service/reference.service";
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
-import {Ng2BootstrapModule} from "ng2-bootstrap";
+import {Ng2BootstrapModule} from "ngx-bootstrap";
 import {BrowserModule} from "@angular/platform-browser";
 import {MomentModule} from "angular2-moment";
 import {ProjectService} from "./service/project.service";

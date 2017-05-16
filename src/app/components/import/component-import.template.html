@@ -1,0 +1,64 @@
+<div fxLayout="column" style="padding: 5px;">
+
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab label="Select File">
+
+      <div class="drop-container" ngFileDrop (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+           [ngClass]="{ 'is-drop-over': dragOver }">
+        <h1>Drag & Drop</h1>
+      </div>
+
+      <label class="upload-button">
+        <input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
+        or choose file(s)
+      </label>
+
+      <button type="button" class="start-upload-btn" (click)="startUpload()">
+        Start Upload
+      </button>
+
+    </md-tab>
+    <md-tab label="Prepare" [disabled]="state == 'upload'">
+
+      <div fxLayout="row" fxFlexFill>
+
+
+        <div fxLayout="column" fxFlex="20">
+          <md-input-container style="width: 100%">
+            <input mdInput class="form-control" required [(ngModel)]="componentVersion.title"
+                   placeholder="Title"
+                   name="Title"
+                   type="text">
+          </md-input-container>
+
+
+          <button md-button type="button" class="start-upload-btn" (click)="save()">
+            Create
+          </button>
+
+          <tree-root [nodes]="nodes" >
+            <ng-template #treeNodeTemplate let-node let-index="index">
+              <span>{{ node.data.name }}</span>
+
+              <input
+                type="checkbox"
+                [indeterminate]="node.data.indeterminate"
+                [checked]="node.data.checked">REQUIREMENT
+
+              <a (click)="scrollTo(node.data)"><i class="fa fa-eye" aria-hidden="true"></i></a>
+            </ng-template>
+
+          </tree-root>
+        </div>
+
+        <div fxFlex="80" style="overflow: auto" [innerHtml]="safeContent">
+        </div>
+
+      </div>
+
+
+    </md-tab>
+  </md-tab-group>
+
+</div>
