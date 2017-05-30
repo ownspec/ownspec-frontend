@@ -11,6 +11,7 @@ import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {ComponentHelperService} from "../../helper/helper";
 import {EditorEvent} from "../component-write.component";
+import {PaginatedResult} from "../../../shared/model/paginated-result";
 
 
 //var LoDashStatic = require("/home/nithril/ownspec/angular2-webpack-starter-master/node_modules/@types/lodash");
@@ -87,7 +88,10 @@ export class ComponentsComponent implements OnInit {
 
   public search() {
     // TODO: temporary fetch content with the list of component, to refactor because response size will be too large
-    this.componentVersionService.findAll(this.projectId, true, null, this.types, this.searchQuery, true, false, false).subscribe((components: ComponentVersion []) => {
+    this.componentVersionService.findAll(this.projectId, true, null, this.types, this.searchQuery, true, false, false).subscribe((paginatedResult: PaginatedResult<ComponentVersion>) => {
+
+      let components = paginatedResult.result;
+
       this.components = components.filter(c => c.id != this.component.id);
 
       let tree = [];

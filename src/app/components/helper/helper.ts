@@ -30,7 +30,7 @@ export class ComponentHelperService {
     return componentCreatorDialogRef;
   }
   public startImportComponent(componentType, projectId):MdDialogRef<ComponentImportDialog> {
-    let componentImportDialogRef: MdDialogRef<ComponentImportDialog> = this.dialog.open(ComponentImportDialog, {width: "70%", height: "80%"});
+    let componentImportDialogRef: MdDialogRef<ComponentImportDialog> = this.dialog.open(ComponentImportDialog, {width: "80%", height: "80%"});
     componentImportDialogRef.componentInstance.componentType = componentType;
     componentImportDialogRef.componentInstance.projectId = projectId;
     return componentImportDialogRef;

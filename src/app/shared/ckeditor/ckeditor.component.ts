@@ -2,7 +2,6 @@
 import {AfterViewInit, Component, EventEmitter, forwardRef, Input, NgModule, NgZone, OnDestroy, OnInit, Output, ViewChild} from "@angular/core";
 
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-//import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
 import {TocGenerator} from "./toc-generator";
 import * as _ from "lodash";
 import * as jQuery from "jquery";
@@ -88,7 +87,6 @@ export class CKEditorComponent implements ControlValueAccessor, OnInit, AfterVie
    * Constructor
    */
   constructor(private zone: NgZone,
-              //private domAdapter: BrowserDomAdapter,
               private route: ActivatedRoute,
               private componentHelperService: ComponentHelperService,
               private componentVersionService: ComponentVersionService,
@@ -345,9 +343,9 @@ export class CKEditorComponent implements ControlValueAccessor, OnInit, AfterVie
   private resize() {
     this.promise.then(e => {
       if (this.container) {
-        //let height = this.domAdapter.getBoundingClientRect(this.container).height;
-        let height = 600;
-        return this.instance.resize("100%", height - 30);
+        let height = this.container.getBoundingClientRect().height;
+        //let height = 600;
+        return this.instance.resize("100%", height - 80);
       }
     });
 

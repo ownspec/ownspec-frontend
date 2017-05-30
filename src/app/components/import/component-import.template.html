@@ -3,28 +3,127 @@
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab label="Select File">
+      <div fxLayout="column" fxFlexFill>
 
-      <div class="drop-container" ngFileDrop (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
-           [ngClass]="{ 'is-drop-over': dragOver }">
-        <h1>Drag & Drop</h1>
+        <div fxLayout="row">
+
+          <div class="drag-n-drop-container" [ngClass]="{'file-over': dragOver  }" ngFileDrop (uploadOutput)="onUploadOutput($event)"
+               [uploadInput]="uploadInput">
+
+            <label class="upload-button">Browse
+              <input type="file" style="display: none" name="file" #foobar
+                     ngFileSelect
+                     (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+            </label>
+          </div>
+        </div>
+
+
       </div>
-
-      <label class="upload-button">
-        <input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
-        or choose file(s)
-      </label>
-
-      <button type="button" class="start-upload-btn" (click)="startUpload()">
-        Start Upload
-      </button>
-
     </md-tab>
     <md-tab label="Prepare" [disabled]="state == 'upload'">
 
       <div fxLayout="row" fxFlexFill>
 
+        <div fxLayout="column" fxFlex="30">
+          <label>Heading regex</label><i (click)="importConfiguration.headingRegExps.push('')" class="fa fa-plus" aria-hidden="true"></i>
+          <ul>
+            <li *ngFor="let headingRegExp of importConfiguration.headingRegExps; let i = index; trackBy: trackByIndex">
+              <input [(ngModel)]="importConfiguration.headingRegExps[i]">
+            </li>
+          </ul>
 
-        <div fxLayout="column" fxFlex="20">
+
+
+
+
+          <div>Add work item rules<i (click)="newWorkItem()" class="fa fa-plus" aria-hidden="true"></i></div>
+
+
+          <div>
+
+            <md-card fxLayout="column" style="padding: 10px;margin-bottom: 10px;background: rgb(250,250,250);"
+                     *ngFor="let workItem of workItems">
+              <md-card-content>
+                <div>
+                   Apply this rule if
+                  <select [(ngModel)]="workItem.groupConditionEvaluation">
+                    <option>Any</option>
+                    <option>All</option>
+                    <option>None</option>
+                  </select> conditions are met from
+
+                  <i (click)="newGroupCondition(workItem)" class="fa fa-plus" aria-hidden="true"></i>
+
+                  <div *ngFor="let groupCondition of workItem.groupConditions">
+                    <select [(ngModel)]="workItem.groupScope">
+                      <option>Document</option>
+                      <option>Heading equals</option>
+                      <option>Heading contains text</option>
+                      <option>Heading matching regex</option>
+                      <option>Heading contains words</option>
+                      <option>Heading has style</option>
+                      <option>Heading is empty</option>
+                    </select>
+                    <select [(ngModel)]="workItem.foo">
+                      <option>§1</option>
+                      <option></option>
+                    </select>
+                  </div>
+
+
+                </div>
+                <div>
+                  Group paragraphs as
+                  <select [(ngModel)]="workItem.requirementType">
+                    <option value="BUSINESS">Business</option>
+                    <option value="FUNCTIONAL">Functional</option>
+                    <option value="DESIGN">Design</option>
+                    <option value="PERFORMANCE">Performance</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                  if
+                  <select [(ngModel)]="workItem.conditionEvaluation">
+                    <option>Any</option>
+                    <option>All</option>
+                  </select>
+                  of the conditions are met: <i (click)="newWorkItemCondition(workItem)" class="fa fa-plus" aria-hidden="true"></i>
+                </div>
+
+                <ul style="list-style-type: disc; padding-left: 10px;margin-top: 5px;">
+                  <li *ngFor="let condition of workItem.conditions" style="margin-bottom: 5px;">
+                    <button style="color: #028090 " md-icon-button md-tooltip="True condition" role="button" (click)="condition.not=true"
+                            *ngIf="!condition.not">
+                      <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </button>
+                    <button style="color: red " md-icon-button md-tooltip="Not condition" role="button" (click)="condition.not=false"
+                            *ngIf="condition.not">
+                      <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </button>
+                    <select [(ngModel)]="condition.type">
+                      <option>contains text</option>
+                      <option>matching regex</option>
+                      <option>contains words</option>
+                      <option>has style</option>
+                      <option>is empty</option>
+                      <option>is heading</option>
+                      <option>is list item</option>
+                      <option>is table</option>
+                    </select>
+                    <input type="text" [(ngModel)]="condition.value">
+                    <md-checkbox [(ngModel)]="condition.caseSensitive"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></md-checkbox>
+
+                    <i class="fa fa-minus" aria-hidden="true"></i>
+                  </li>
+                </ul>
+              </md-card-content>
+            </md-card>
+
+            <div>
+            </div>
+
+          </div>
+
           <md-input-container style="width: 100%">
             <input mdInput class="form-control" required [(ngModel)]="componentVersion.title"
                    placeholder="Title"
@@ -37,7 +136,7 @@
             Create
           </button>
 
-          <tree-root [nodes]="nodes" >
+          <tree-root [nodes]="nodes">
             <ng-template #treeNodeTemplate let-node let-index="index">
               <span>{{ node.data.name }}</span>
 
@@ -52,7 +151,7 @@
           </tree-root>
         </div>
 
-        <div fxFlex="80" style="overflow: auto" [innerHtml]="safeContent">
+        <div fxFlex="70" style="overflow: auto" class="cke_editable" [innerHtml]="safeContent">
         </div>
 
       </div>

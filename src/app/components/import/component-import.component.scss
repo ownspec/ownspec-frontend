@@ -6,7 +6,48 @@
   height: 100%;
 }
 
-/deep/ .datatable-row-wrapper:nth-child(even) {background: #f8f8f8
-}
-/deep/  .datatable-row-wrapper:nth-child(odd) {background: #FFF}
 
+.drag-n-drop-container {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  border: 3px dashed #B5EAE1;
+  border-radius: 20px;
+}
+
+
+.file-over {
+  background: rgba(181,234,225,0.4)
+}
+
+
+
+.upload-button {
+  width: 200px;
+  display: block;
+  outline: none;
+  border-radius: 10px;
+  background: #08CCCC;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  padding: 10px 50px;
+  border: 1px solid #08CCCC;
+  margin: 40px auto;
+
+  &:hover {
+    box-shadow: 1px 2px 15px rgba(0, 0, 0, 0.5);
+    cursor: pointer
+  }
+
+  input {
+    display: none
+  }
+}

@@ -37,6 +37,10 @@ export class ComponentImportDialog implements OnInit {
   public content: string = "";
   public safeContent: any = "";
 
+  public workItems:Array<WorkItem> = [];
+
+  public importConfiguration = new ImportConfiguration();
+
   public nodes = [
     {
       id: 1,
@@ -94,6 +98,8 @@ export class ComponentImportDialog implements OnInit {
       //   concurrency: 0
       // };
       // this.uploadInput.emit(event);
+      this.startUpload();
+
     } else if (output.type === 'addedToQueue') {
       this.files.push(output.file); // add file to array when added
     } else if (output.type === 'uploading') {
@@ -111,6 +117,10 @@ export class ComponentImportDialog implements OnInit {
       this.dragOver = false;
     } else if (output.type === 'done') { // on drop event
       this.content = output.file.response.content;
+
+      this.importConfiguration.fileId = output.file.response.fileId;
+      this.importConfiguration.fileName = output.file.response.fileName;
+
       this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.content);
       this.selectedIndex = 1;
       this.state = "prepare";
@@ -151,4 +161,61 @@ export class ComponentImportDialog implements OnInit {
 
   scrollTo(entry) {
   }
+
+
+  newWorkItem(){
+    this.workItems.push(new WorkItem());
+  }
+
+  newWorkItemCondition(wi:WorkItem){
+    wi.conditions.push(new WorkItemCondition());
+  }
+
+  newGroupCondition(wi:WorkItem){
+    wi.groupConditions.push(new WorkItemCondition());
+  }
+
+  trackByIndex(index,item):any {
+    return index;
+  }
+
+
 }
+
+
+export class ImportConfiguration {
+
+  public fileName:string;
+  public fileId:string;
+  public content:string;
+
+  public headingRegExps: Array<String> = [];
+
+}
+
+export class WorkItem {
+
+  public groupConditions:Array<WorkItemCondition> = [];
+  public groupConditionEvaluation: "all"|"any"|"none";
+
+  public conditions:Array<WorkItemCondition> = [];
+  public groupScope:string;
+  public requirementType:string;
+  public conditionEvaluation: "all"|"any"|"none";
+
+}
+
+export class WorkItemCondition {
+  public type:string;
+  public value:string;
+  public not:boolean;
+  public caseSensitive:boolean;
+}
+
+
+
+
+
+
+
+

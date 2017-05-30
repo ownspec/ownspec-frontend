@@ -49,7 +49,7 @@ export class ComponentVersionService {
 
 
   public findAll(projectId: string = null, generic: Boolean = false, title: string = null, types: Array<string> = [], query: string = null,
-                 workflow = false, content = false, comments = false, references = false): Observable<ComponentVersion[]> {
+                 workflow = false, content = false, comments = false, references = false): Observable<PaginatedResult<ComponentVersion>> {
     let params: URLSearchParams = new URLSearchParams();
 
 
@@ -74,9 +74,14 @@ export class ComponentVersionService {
     }
 
     return this.$http.get("/api/component-versions", {search: params})
-      .flatMap(r => r.json())
-      .map((item: any) => ComponentVersion.fromMap(item))
-      .toArray();
+      .map(r => r.json())
+      .map(r => {
+        let result = [];
+        for (let item of r.result) {
+          result.push(ComponentVersion.fromMap(item));
+        }
+        return new PaginatedResult(r.offset, r.size, r.total, result);
+      });
   }
 
 

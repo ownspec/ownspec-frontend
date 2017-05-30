@@ -50,7 +50,7 @@ export class ResourcesListComponent implements OnInit {
 
   private fetchComponents() {
     this.componentVersionService.findAll(this.projectId, !this.projectId, this.searchBean.title, this.availableComponentTypes, this.searchBean.query).subscribe(o => {
-      this.components = o;
+      this.components = o.result;
     });
   }
 

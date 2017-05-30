@@ -12,6 +12,7 @@ import {ComponentVersionService} from "../../shared/service/components/component
 import {UserCategoryService} from "../../shared/service/user/user-category.service";
 import {UserCategory} from "../../shared/model/user/user-category";
 import {LinkService} from "../../link/link.service";
+import {Observable} from "rxjs/Observable";
 
 
 @C({
@@ -41,12 +42,14 @@ export class ComponentEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.route.data.subscribe(d => {
-      this.id = this.route.snapshot.params['id'];
-      this.projectId = this.route.snapshot.data['projectId'];
-      this.componentType = this.route.snapshot.data['componentType'];
-      this.fetch();
-    });
+    Observable.combineLatest(this.route.params, this.route.data, (params, data) => ({params, data}))
+      .subscribe(ap => {
+        console.log("change");
+        this.id = ap.params['id'];
+        this.projectId = ap.data['projectId'];
+        this.componentType = ap.data['componentType'];
+        this.fetch();
+      });
   }
 
 
@@ -70,9 +73,9 @@ export class ComponentEditComponent implements OnInit {
 
   public updateLatestVersion(ref: ComponentReference) {
     this.componentService.updateReference(ref.source.id, ref.id, "latest")
-        .subscribe(r => {
-          this.fetch();
-        });
+      .subscribe(r => {
+        this.fetch();
+      });
   }
 
   public editReference(ref: ComponentReference) {
